@@ -172,6 +172,8 @@ public class GamePanel extends JPanel
 	 */
 	protected void setScale(double xscale, double yscale)
 	{
+		//System.out.println("Sets scaling to " + xscale + ", " + yscale);
+		
 		// Remembers the scaling
 		this.xscale = xscale;
 		this.yscale = yscale;

@@ -13,9 +13,17 @@ public class GameSettings
 	/**
 	 * Screenwidth tells the width of the game's window
 	 */
-	public static int screenwidth = 1000;
+	public final static int SCREENWIDTH = 1000;
 	/**
 	 * Screenheight tells the height of the game's window
 	 */
-	public static int screenheight = 576;
+	public final static int SCREENHEIGHT = 576;
+	/**
+	 * Should the fullscreen be set on at the beginning of the game
+	 */
+	public final static boolean FULLSCREENON = true;
+	/**
+	 * The name of the file where the sprites are loaded from
+	 */
+	public final static String SPRITEDATALOCATION = "configure/spriteload.txt";
 }

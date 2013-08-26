@@ -9,6 +9,7 @@ import handlers.MouseListenerHandler;
 import handlers.StepHandler;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -20,6 +21,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import listeners.AdvancedKeyListener;
 import listeners.AdvancedMouseListener;
@@ -48,6 +50,8 @@ public class GameWindow extends JFrame
 	private ActorHandler listeneractorhandler;
 	
 	private ArrayList<GamePanel> panels;
+	private ArrayList<JPanel> paddings;
+	private JPanel gamepanel;
 	
 	
 	// CONSTRUCTOR ---------------------------------------------------------
@@ -63,9 +67,10 @@ public class GameWindow extends JFrame
 	 */
 	public GameWindow(int width, int height, String title, boolean hastoolbar)
 	{
+		// TODO: Readd this
 		// Sets the decorations off if needed
-		if (!hastoolbar)
-			setUndecorated(true);
+		//if (!hastoolbar)
+		//	setUndecorated(true);
 		
 		// Initializes attributes
 		this.width = width;
@@ -73,6 +78,7 @@ public class GameWindow extends JFrame
 		this.xscale = 1;
 		this.yscale = 1;
 		this.panels = new ArrayList<GamePanel>();
+		this.paddings = new ArrayList<JPanel>();
 		
 		this.setTitle(title);
 		
@@ -116,7 +122,10 @@ public class GameWindow extends JFrame
 		this.setSize(this.width, this.height);
 		// Also sets other stats
 		setResizable(false);
-		//setUndecorated(true);
+		this.gamepanel = new JPanel();
+		this.gamepanel.setVisible(true);
+		this.gamepanel.setLayout(new BorderLayout());
+		add(this.gamepanel, BorderLayout.CENTER);
 	}
 	
 	
@@ -134,7 +143,7 @@ public class GameWindow extends JFrame
 		if (newPanel == null || direction == null)
 			return;
 		
-		this.add(newPanel, direction);
+		this.gamepanel.add(newPanel, direction);
 		this.panels.add(newPanel);
 	}
 	
@@ -219,17 +228,52 @@ public class GameWindow extends JFrame
 	 *
 	 * @param width The new width of the window
 	 * @param height The new height of the window
+	 * @param keepaspectratio Should the ratio between x- and yscaling stay 
+	 * the same through the process
+	 * @param allowpadding Should the screen get the given size even if 
+	 * aspect ratio is kept (will cause empty areas to appear on the screen)
 	 */
-	public void scaleToSize(int width, int height)
+	public void scaleToSize(int width, int height, boolean keepaspectratio, 
+			boolean allowpadding)
 	{
 		// Remembers the former dimensions
 		int lastwidth = getWidth();
 		int lastheight = getHeight();
 		// Calculates the needed scaling
-		double xscale = width / lastwidth;
-		double yscale = height / lastheight;
-		// Changes the window's size
-		setSize(width, height);
+		double xscale = width / (double) lastwidth;
+		double yscale = height / (double) lastheight;
+		// Changes the window's size if it doesn't need any more fixing
+		if (!keepaspectratio || allowpadding)
+			setSize(width, height);
+		// The program may need to update the scaling so the ratio stays the same
+		if (keepaspectratio)
+		{
+			xscale = Math.min(xscale, yscale);
+			yscale = Math.min(xscale, yscale);
+			int newwidth = (int) (lastwidth * xscale);
+			int newheight = (int) (lastheight * yscale);
+			// Changes the window's size accordingly
+			if (!allowpadding)
+				setSize(newwidth, newheight);
+			// Or adds padding
+			else
+			{
+				// Removes old padding
+				removePaddings();
+				// If new width is not the same as the intended, adds vertical 
+				// padding
+				if (newwidth < width)
+				{
+					addPadding((width - newwidth)/2, height, BorderLayout.WEST);
+					addPadding((width - newwidth)/2, height, BorderLayout.EAST);
+				}
+				else if (newheight < height)
+				{
+					addPadding(width, (height - newheight)/2, BorderLayout.NORTH);
+					addPadding(width, (height - newheight)/2, BorderLayout.SOUTH);
+				}
+			}
+		}
 		// Scales the panels
 		for (int i = 0; i < this.panels.size(); i++)
 		{
@@ -255,18 +299,50 @@ public class GameWindow extends JFrame
 		// Resets the scale values
 		this.xscale = 1;
 		this.yscale = 1;
+		// Removes the padding
+		removePaddings();
 	}
 	
 	/**
 	 * Makes the window fill the whole screen without borders
+	 * @param keepaspectratio Should the ratio between x- and yscaling stay 
+	 * the same through the process
 	 */
-	public void setFullScreen()
+	public void setFullScreen(boolean keepaspectratio)
 	{
+		// TODO: Set so that the screen ratio remains (if needs to)
+		// -> xscale = yscale (min scale) in the panel(s)
+		// Problem is that even though the panel might be smaller than the 
+		// frame it may want to resize itself (swing "()#(¤)
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double screenwidth = screenSize.getWidth();
 		double screenheight = screenSize.getHeight();
 		
-		scaleToSize((int) screenwidth, (int) screenheight);
+		scaleToSize((int) screenwidth, (int) screenheight, keepaspectratio, true);
+	}
+	
+	private void addPadding(int w, int h, String direction)
+	{
+		//System.out.println("Adds padding");
+		JPanel padding = new JPanel();
+		Dimension size = new Dimension(w, h);
+		padding.setSize(size);
+		padding.setPreferredSize(size);
+		padding.setMaximumSize(size);
+		padding.setMinimumSize(size);
+		// TODO: For some reason, background color doesn't seem to work
+		padding.setBackground(new Color(255, 255, 255));
+		add(padding, direction);
+		this.paddings.add(padding);
+	}
+	
+	private void removePaddings()
+	{
+		for (int i = 0; i < this.paddings.size(); i++)
+		{
+			remove(this.paddings.get(i));
+		}
 	}
 	
 	

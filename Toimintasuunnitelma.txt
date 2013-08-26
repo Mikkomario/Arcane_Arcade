@@ -4,10 +4,17 @@ Toimintasuunnitelma
 Eteneminen:														Status
 	* Alpha
 		- Tarvittava grafiikka									DONE
-		- Grafiikan lataaminen ja lajitteleminen				Testaamatta
+		- Grafiikan lataaminen ja lajitteleminen				DONE
 		- Peliympäristön luominen								...
 			* Tarvittava ikkuna ja paneeli						...
 				- Fullscreen									...
+					* Scaalauksen saamiminen toimimaan			DONE
+						- Hiiren arvojen skaalaus				DONE
+					* Saman ration ylläpitäminen				...
+						- Ongelma paneelien automaattisten 		...
+						kokojen kanssa
+							* Onko ongelma?						True
+							* Fillerpaneelit
 			* Roomin käyttö
 			* Objektien luominen huoneen alkaessa
 			* Pelin aloittaminen
@@ -67,7 +74,7 @@ Eteneminen:														Status
 					* tms.
 			* Optionssit
 				- Asetusten tallentaminen
-				- Asetusten lukeminen
+				- Asetusten lukeminen pelin alussa
 			* Kenttävalikko
 			* Wikipedia
 		- Äänet

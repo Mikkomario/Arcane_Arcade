@@ -1,7 +1,15 @@
 package arcane_arcade_main;
 
+import graphic.OpenSpriteBankHolder;
+import handlers.ActorHandler;
+import handlers.DrawableHandler;
+import handlers.KeyListenerHandler;
+import handlers.MouseListenerHandler;
+import helpAndEnums.DepthConstants;
+
 import java.awt.BorderLayout;
 
+import tests.GamePanelSizeTest;
 import video.GamePanel;
 import video.GameWindow;
 
@@ -15,8 +23,19 @@ public class Main
 {
 	// ATTRIBUTES	----------------------------------------------------
 	
+	/**
+	 * The openspritebankholder that holds all the spritebanks used in the 
+	 * game
+	 */
+	public static OpenSpriteBankHolder spritebanks = 
+			new OpenSpriteBankHolder(GameSettings.SPRITEDATALOCATION);
+	
 	private GameWindow window;
 	private GamePanel mainpanel;
+	private DrawableHandler maindrawer;
+	private KeyListenerHandler mainkeyhandler;
+	private MouseListenerHandler mainmousehandler;
+	private ActorHandler mainactorhandler;
 	
 	
 	// CONSTRUCTOR	----------------------------------------------------
@@ -27,14 +46,68 @@ public class Main
 	public Main()
 	{
 		// Initializes attributes
-		this.mainpanel = new GamePanel(GameSettings.screenwidth, 
-				GameSettings.screenheight);
-		this.window = new GameWindow(GameSettings.screenwidth, 
-				GameSettings.screenheight, "Arcane Arcade", true);
+		this.mainpanel = new GamePanel(GameSettings.SCREENWIDTH, 
+				GameSettings.SCREENHEIGHT);
+		
+		boolean fullscreen = GameSettings.FULLSCREENON;
+		
+		this.window = new GameWindow(GameSettings.SCREENWIDTH, 
+				GameSettings.SCREENHEIGHT, "Arcane Arcade", !fullscreen);
 		// Sets up the window
 		this.window.addGamePanel(this.mainpanel, BorderLayout.CENTER);
+		// Sets the window to the fullscreen if needed
+		if (fullscreen)
+			this.window.setFullScreen(true);
 		
-		//this.window.setFullScreen();
+		this.mainactorhandler = new ActorHandler(false, null);
+		this.window.addActor(this.mainactorhandler);
+		this.maindrawer = new DrawableHandler(false, true, 
+				DepthConstants.NORMAL, null);
+		this.mainpanel.getDrawer().addDrawable(this.maindrawer);
+		this.mainkeyhandler = new KeyListenerHandler(false, null);
+		this.window.addKeyListener(this.mainkeyhandler);
+		this.mainmousehandler = new MouseListenerHandler(false, null, null);
+		this.window.addActor(this.mainmousehandler);
+		this.window.addMouseListener(this.mainmousehandler);
+	}
+	
+	
+	// GETTERS & SETTERS	--------------------------------------------
+	
+	/**
+	 * @return The keylistener that informs all objects about keypresses
+	 * @warning Do not kill this instance since it won't probably be replaced
+	 */
+	public KeyListenerHandler getKeyListenerHandler()
+	{
+		return this.mainkeyhandler;
+	}
+	
+	/**
+	 * @return The mouselistener that informs all objects about mouse events
+	 * @warning Do not kill this instance since it won't probably be replaced
+	 */
+	public MouseListenerHandler getMouseListenerHandler()
+	{
+		return this.mainmousehandler;
+	}
+	
+	/**
+	 * @return The actorhandler that informs all objects about act-events
+	 * @warning Do not kill this instance since it won't probably be replaced
+	 */
+	public ActorHandler getActorHandler()
+	{
+		return this.mainactorhandler;
+	}
+	
+	/**
+	 * @return The drawablehandler that draws all objects
+	 * @warning Do not kill this instance since it won't probably be replaced
+	 */
+	public DrawableHandler getDrawableHandler()
+	{
+		return this.maindrawer;
 	}
 	
 	
@@ -48,6 +121,12 @@ public class Main
 	public static void main(String[] args)
 	{
 		// Starts the game
-		new Main();
+		Main main = 
+				new Main();
+		
+		// Runs some tests
+		new GamePanelSizeTest(main.getDrawableHandler());
+		//main.window.scaleToSize(1000, 400, false, false);
+		//new MouseTest(main.getMouseListenerHandler());
 	}
 }
