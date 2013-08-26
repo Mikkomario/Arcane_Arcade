@@ -1,0 +1,134 @@
+Arcane Arcade
+Toimintasuunnitelma
+
+Eteneminen:														Status
+	* Alpha
+		- Tarvittava grafiikka									DONE
+		- Grafiikan lataaminen ja lajitteleminen				Testaamatta
+		- Peliympäristön luominen
+			* Tarvittava ikkuna ja paneeli
+			* Roomin käyttö
+			* Objektien luominen huoneen alkaessa
+			* Pelin aloittaminen
+		- Maagi
+			* Maagin liikuttaminen
+			* Maagin törmääminen seiniin
+		- Pallo
+			* Pallon liikuttaminen
+			* Pallon törmäys seiniin
+			* "Impact"
+		- Loitsut
+			* Loitsujen rakenne
+			* Loitsun valitseminen
+			* Loitsun loihtiminen
+			* Uusien elementtien lisäämisen mahdollistaminen
+	* Beta
+		- Pallon statusefektit
+		- HUD
+			* Käytössä olevien elementtien piirtäminen
+		- Manamittari
+			* Manan lasku
+			* Manan piirto
+			* Manan kulutus
+			* Manan regenerointi
+		- HP
+			* HP:n lasku
+			* HP:n piirto
+			* HP:n menettäminen
+			* Kuoleminen
+			* Respawn
+				- Pallon uudelleen syöttäminen
+		- Pisteet
+			* Pisteiden lasku
+			* Pisteiden piirto
+			* Pisteiden kasvattaminen
+			* Voiton checkkaus
+		- Ruudun puoli
+			* Ruudun puolen vaikutus loitsuihin
+		- Loitsut
+			* Loitsujen manankulutus
+		- Toinen pelaaja
+		- Uudet loitsut
+			* Tarvittavat graafiset resurssit
+		- Menu
+			* Main-menun ympäristön luominen
+			* Ympäristöjen vaihtaminen
+			* Näppäimet ja valikot
+			* Tausta
+		- Voittovalikko
+			* Tiedon siirtäminen ympäristöjen välillä
+		- Muut tarvittavat valikot
+			* Hahmovalikko
+			* Loitsuvalikko
+				- Myös muut pikavalinnat
+					* Tarvittavat pisteet
+					* Manaregeneraatio
+					* tms.
+			* Optionssit
+				- Asetusten tallentaminen
+				- Asetusten lukeminen
+			* Kenttävalikko
+			* Wikipedia
+		- Äänet
+			* Tarvittavat resurssit
+			* Resurssien järkevä organisointi ja lukeminen
+			* Äänien lisäys
+		- Musiikki
+			* Tarvittavat resurssit
+			* Musiikkien järkevä organisointi ja lukeminen
+		- Pelin pysäyttäminen
+			* Pausen toiminnallisuus
+			* Pausen piirtäminen
+			* Pausen ääni
+		- Tutorial
+			* Tarvittavat valikot
+			* Tarvittavan interaktion luonti
+			* Tarvittavien ympäristöjen luonti
+			* Tarvittavien ympäristöjen välillä siirtyminen
+		- Interaktiivinen hiiri valikoissa
+			* "Favi"
+			* Äänten soittaminen
+			* Resurssien järkevä käyttöönotto
+	* Gold
+		- Erilaiset kentät
+			* Erilaiset haasteet ja objektit
+				- Nopeutus
+				- Hidastus
+				- Salamat
+				- Seinät
+				- Eri koot
+		- Näppäinten remappaaminen optionsseissa
+		- Erilaiset maagit
+			* Vaikutus peliin
+			* Järkevä arkkitehtuuri vaaditaan, jotta maagien 
+			lisäys olisi helppoa
+		- Title screen
+		- Vaihtoehtoiset tavat ohjata maagia
+			* Hiiri
+			* Erilaiset elementtivalinnat
+			* External controller
+		- Yksinpelin mahdollistaminen
+			* Tarvittavien ympäristöjen luominen
+			* Tarvittavien haasteiden luominen
+				- Break Out
+				- Space Invaders
+				- Beat 'em all
+		- Itemit
+			* Itemien saaminen
+			* Itemien tallentaminen
+			* Itemien käyttö
+		- Online multiplayer tai LAN
+			* Mahdollisuuksiin perehtyminen
+			* Informaation välitys
+			* Tarvittava synkronisointi
+			* Vaikutus valikkoihin
+		- Achievementit
+			* Achievementtien tallennus
+			* Achievementtien tarkastelu
+			* Achievementtien hankkiminen
+		- Pelissä eteneminen
+			* Kokemuksen hankkiminen
+			* Uusien ominaisuuksien unlockkaaminen
+		- Visuaaliset erikoisefektit
+		- Mikrotransaktiot
+			* Mahdollisuuksien ja toteutuksen kartoittaminen

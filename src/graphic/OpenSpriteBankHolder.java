@@ -49,7 +49,10 @@ public class OpenSpriteBankHolder extends FileReader
 		// Reads the file
 		readFile(filename);
 		// Adds the last spritebank and releases the memory
-		this.banks.put(this.lastbankname, new OpenSpriteBank(this.lastcommands));
+		if (this.lastcommands.size() > 0)
+			this.banks.put(this.lastbankname, new OpenSpriteBank(this.lastcommands));
+		this.lastcommands.clear();
+		this.lastbankname = null;
 	}
 
 	

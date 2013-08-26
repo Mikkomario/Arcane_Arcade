@@ -198,6 +198,8 @@ public class Room extends Handler
 				b.getSpriteDrawer().activate();
 			}
 		}
+		// Removes dead handleds
+		removeDeadHandleds();
 		// Activates all the objects and sets them visible (if applicable)
 		for (int i = 0; i < getHandledNumber(); i++)
 		{
@@ -229,6 +231,8 @@ public class Room extends Handler
 					b.getSpriteDrawer().inactivate();
 			}
 		}
+		// Removes all dead handleds
+		removeDeadHandleds();
 		// InActivates all the objects and sets them invisible (if applicable)
 		for (int i = 0; i < getHandledNumber(); i++)
 		{

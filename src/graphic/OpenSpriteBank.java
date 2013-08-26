@@ -3,8 +3,6 @@ package graphic;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import common.BankObject;
-
 /**
  * This spritebank, unlike other spritebanks can be put into a bank. Also, 
  * the content of the spritebank can be defined by providing a number of 
@@ -13,7 +11,7 @@ import common.BankObject;
  * @author Mikko Hilpinen.
  *         Created 26.8.2013.
  */
-public class OpenSpriteBank extends SpriteBank implements BankObject
+public class OpenSpriteBank extends SpriteBank
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
@@ -76,18 +74,5 @@ public class OpenSpriteBank extends SpriteBank implements BankObject
 			
 			createSprite(parts[1], imgnumber, originx, originy, parts[0]);
 		}
-	}
-
-	@Override
-	public boolean kill()
-	{
-		uninitialize();
-		return true;
-	}
-
-	@Override
-	public boolean isDead()
-	{
-		return !isInitialized();
 	}
 }
