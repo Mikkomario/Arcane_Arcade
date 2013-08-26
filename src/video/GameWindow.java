@@ -41,6 +41,7 @@ public class GameWindow extends JFrame
 	private int width;
 	private int height;
 	private double xscale, yscale;
+	private int toppaddingheight, leftpaddingwidth;
 	
 	private MainKeyListenerHandler mainkeyhandler;
 	private MainMouseListenerHandler mainmousehandler;
@@ -79,6 +80,8 @@ public class GameWindow extends JFrame
 		this.yscale = 1;
 		this.panels = new ArrayList<GamePanel>();
 		this.paddings = new ArrayList<JPanel>();
+		this.toppaddingheight = 0;
+		this.leftpaddingwidth = 0;
 		
 		this.setTitle(title);
 		
@@ -88,7 +91,7 @@ public class GameWindow extends JFrame
 		this.setVisible(true);
 		
 		// Adds listener(s) to the window
-		addMouseListener(new BasicMouseListener());
+		this.gamepanel.addMouseListener(new BasicMouseListener());
 		addKeyListener(new BasicKeyListener());
 		
 		// Creates and initializes important handlers
@@ -172,8 +175,8 @@ public class GameWindow extends JFrame
 	{
 		Point mousePosition = MouseInfo.getPointerInfo().getLocation();
 		// (scaling affects the mouse coordinates)
-		int mousex = (int) (mousePosition.x / this.xscale);
-		int mousey = (int) (mousePosition.y / this.yscale);
+		int mousex = (int) ((mousePosition.x - this.leftpaddingwidth) / this.xscale);
+		int mousey = (int) ((mousePosition.y - this.toppaddingheight) / this.yscale);
 		this.mainmousehandler.setMousePosition(mousex, mousey);
 	}
 	
@@ -236,6 +239,8 @@ public class GameWindow extends JFrame
 	public void scaleToSize(int width, int height, boolean keepaspectratio, 
 			boolean allowpadding)
 	{
+		// Removes old padding
+		removePaddings();
 		// Remembers the former dimensions
 		int lastwidth = getWidth();
 		int lastheight = getHeight();
@@ -258,19 +263,19 @@ public class GameWindow extends JFrame
 			// Or adds padding
 			else
 			{
-				// Removes old padding
-				removePaddings();
 				// If new width is not the same as the intended, adds vertical 
 				// padding
 				if (newwidth < width)
 				{
-					addPadding((width - newwidth)/2, height, BorderLayout.WEST);
-					addPadding((width - newwidth)/2, height, BorderLayout.EAST);
+					this.leftpaddingwidth = (width - newwidth)/2;
+					addPadding(this.leftpaddingwidth, height, BorderLayout.WEST);
+					addPadding(this.leftpaddingwidth, height, BorderLayout.EAST);
 				}
 				else if (newheight < height)
 				{
-					addPadding(width, (height - newheight)/2, BorderLayout.NORTH);
-					addPadding(width, (height - newheight)/2, BorderLayout.SOUTH);
+					this.toppaddingheight = (height - newheight)/2;
+					addPadding(width, this.toppaddingheight, BorderLayout.NORTH);
+					addPadding(width, this.toppaddingheight, BorderLayout.SOUTH);
 				}
 			}
 		}
@@ -343,6 +348,8 @@ public class GameWindow extends JFrame
 		{
 			remove(this.paddings.get(i));
 		}
+		this.leftpaddingwidth = 0;
+		this.toppaddingheight = 0;
 	}
 	
 	
@@ -377,8 +384,10 @@ public class GameWindow extends JFrame
 		public void mousePressed(MouseEvent e)
 		{
 			// Informs the mouse status (scaling affects the mouse coordinates)
-			int mousex = (int) (e.getX() / GameWindow.this.xscale);
-			int mousey = (int) (e.getX() / GameWindow.this.yscale);
+			int mousex = (int) ((e.getX() - GameWindow.this.leftpaddingwidth) / 
+					GameWindow.this.xscale);
+			int mousey = (int) ((e.getY() - GameWindow.this.toppaddingheight) / 
+					GameWindow.this.yscale);
 			
 			GameWindow.this.mainmousehandler.setMouseStatus(mousex, mousey, 
 					true, e.getButton());
@@ -388,8 +397,10 @@ public class GameWindow extends JFrame
 		public void mouseReleased(MouseEvent e)
 		{
 			// Informs the mouse status (scaling affects the mouse coordinates)
-			int mousex = (int) (e.getX() / GameWindow.this.xscale);
-			int mousey = (int) (e.getX() / GameWindow.this.yscale);
+			int mousex = (int) ((e.getX() - GameWindow.this.leftpaddingwidth) / 
+					GameWindow.this.xscale);
+			int mousey = (int) ((e.getY() - GameWindow.this.toppaddingheight) / 
+					GameWindow.this.yscale);
 			
 			GameWindow.this.mainmousehandler.setMouseStatus(mousex, mousey,
 					false, e.getButton());

@@ -21,7 +21,7 @@ public class GameSettings
 	/**
 	 * Should the fullscreen be set on at the beginning of the game
 	 */
-	public final static boolean FULLSCREENON = true;
+	public final static boolean FULLSCREENON = false;
 	/**
 	 * The name of the file where the sprites are loaded from
 	 */

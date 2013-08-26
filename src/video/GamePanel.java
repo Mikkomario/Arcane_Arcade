@@ -71,7 +71,7 @@ public class GamePanel extends JPanel
 				g2d.scale(this.xscale, this.yscale);
 			
 			// Clears the former drawings
-			g2d.clearRect(0, 0, getWidth(), getHeight());
+			g2d.clearRect(0, 0, this.width, this.height);
 			
 			this.drawer.drawSelf(g2d);
 		}
@@ -85,7 +85,8 @@ public class GamePanel extends JPanel
 		//Let's set the panel's size...
 		this.setSizes(this.width, this.height);
 		//...And color
-		this.setBackground(new Color(0,0,0));
+		//this.setBackground(new Color(0,50,150));
+		//setBackgroundColor(255, 255, 255);
 	}
 	
 	

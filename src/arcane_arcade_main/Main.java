@@ -10,6 +10,7 @@ import helpAndEnums.DepthConstants;
 import java.awt.BorderLayout;
 
 import tests.GamePanelSizeTest;
+import tests.MouseTest;
 import video.GamePanel;
 import video.GameWindow;
 
@@ -126,7 +127,8 @@ public class Main
 		
 		// Runs some tests
 		new GamePanelSizeTest(main.getDrawableHandler());
-		//main.window.scaleToSize(1000, 400, false, false);
-		//new MouseTest(main.getMouseListenerHandler());
+		//main.window.scaleToSize(800, 400, false, false);
+		main.window.scaleToSize(400, 600, true, true);
+		new MouseTest(main.getMouseListenerHandler());
 	}
 }

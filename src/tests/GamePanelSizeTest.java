@@ -45,6 +45,6 @@ public class GamePanelSizeTest extends DrawnObject
 	@Override
 	public void drawSelfBasic(Graphics2D g2d)
 	{
-		g2d.drawRect(5, 5, GameSettings.SCREENWIDTH - 10, GameSettings.SCREENHEIGHT - 10);
+		g2d.drawRect(5, 5, GameSettings.SCREENWIDTH - 30, GameSettings.SCREENHEIGHT - 30);
 	}
 }

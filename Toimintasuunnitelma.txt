@@ -2,7 +2,7 @@ Arcane Arcade
 Toimintasuunnitelma
 
 Eteneminen:														Status
-	* Alpha
+	* Alpha														...
 		- Tarvittava grafiikka									DONE
 		- Grafiikan lataaminen ja lajitteleminen				DONE
 		- Peliympäristön luominen								...
@@ -10,11 +10,15 @@ Eteneminen:														Status
 				- Fullscreen									...
 					* Scaalauksen saamiminen toimimaan			DONE
 						- Hiiren arvojen skaalaus				DONE
+						- Pääpaneelin piirtoalueen skaalaus		DONE
 					* Saman ration ylläpitäminen				...
-						- Ongelma paneelien automaattisten 		...
+						- Ongelma paneelien automaattisten 		DONE
 						kokojen kanssa
 							* Onko ongelma?						True
-							* Fillerpaneelit
+							* Fillerpaneelit					DONE
+								- Hiiren toimiminen 			DONE
+								paddingien kanssa
+						- Ei toimi useita kertoja putkeen
 			* Roomin käyttö
 			* Objektien luominen huoneen alkaessa
 			* Pelin aloittaminen
