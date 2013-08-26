@@ -9,8 +9,10 @@ import handlers.MouseListenerHandler;
 import handlers.StepHandler;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -36,6 +38,7 @@ public class GameWindow extends JFrame
 	
 	private int width;
 	private int height;
+	private double xscale, yscale;
 	
 	private MainKeyListenerHandler mainkeyhandler;
 	private MainMouseListenerHandler mainmousehandler;
@@ -55,12 +58,20 @@ public class GameWindow extends JFrame
 	 * @param width	Window's width (in pixels).
 	 * @param height Window's height (in pixels).
 	 * @param title The title shown in the window's border
+	 * @param hastoolbar Should the window have an toolbar (usually false if 
+	 * fullscreen is used)
 	 */
-	public GameWindow(int width, int height, String title)
+	public GameWindow(int width, int height, String title, boolean hastoolbar)
 	{
+		// Sets the decorations off if needed
+		if (!hastoolbar)
+			setUndecorated(true);
+		
 		// Initializes attributes
 		this.width = width;
 		this.height = height;
+		this.xscale = 1;
+		this.yscale = 1;
 		this.panels = new ArrayList<GamePanel>();
 		
 		this.setTitle(title);
@@ -103,6 +114,9 @@ public class GameWindow extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Let's set our window's size
 		this.setSize(this.width, this.height);
+		// Also sets other stats
+		setResizable(false);
+		//setUndecorated(true);
 	}
 	
 	
@@ -148,7 +162,10 @@ public class GameWindow extends JFrame
 	public void callMousePositionUpdate()
 	{
 		Point mousePosition = MouseInfo.getPointerInfo().getLocation();
-		this.mainmousehandler.setMousePosition(mousePosition.x, mousePosition.y);
+		// (scaling affects the mouse coordinates)
+		int mousex = (int) (mousePosition.x / this.xscale);
+		int mousey = (int) (mousePosition.y / this.yscale);
+		this.mainmousehandler.setMousePosition(mousex, mousey);
 	}
 	
 	/**
@@ -195,6 +212,63 @@ public class GameWindow extends JFrame
 		this.stephandler.addActor(a);
 	}
 	
+	/**
+	 * Scales the window to fill thi given size. Panels should already be 
+	 * added to the window or they won't be scaled. The resolution of the 
+	 * window stays the same.
+	 *
+	 * @param width The new width of the window
+	 * @param height The new height of the window
+	 */
+	public void scaleToSize(int width, int height)
+	{
+		// Remembers the former dimensions
+		int lastwidth = getWidth();
+		int lastheight = getHeight();
+		// Calculates the needed scaling
+		double xscale = width / lastwidth;
+		double yscale = height / lastheight;
+		// Changes the window's size
+		setSize(width, height);
+		// Scales the panels
+		for (int i = 0; i < this.panels.size(); i++)
+		{
+			this.panels.get(i).scale(xscale, yscale);
+		}
+		// Updates scale values
+		this.xscale *= xscale;
+		this.yscale *= yscale;
+	}
+	
+	/**
+	 * Sets the window's scaling back to 1
+	 */
+	public void resetScaling()
+	{
+		// Changes the panels' scaling
+		for (int i = 0; i < this.panels.size(); i++)
+		{
+			this.panels.get(i).setScale(1, 1);
+		}
+		// Changes the window's size
+		setSize(this.width, this.height);
+		// Resets the scale values
+		this.xscale = 1;
+		this.yscale = 1;
+	}
+	
+	/**
+	 * Makes the window fill the whole screen without borders
+	 */
+	public void setFullScreen()
+	{
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double screenwidth = screenSize.getWidth();
+		double screenheight = screenSize.getHeight();
+		
+		scaleToSize((int) screenwidth, (int) screenheight);
+	}
+	
 	
 	// SUBCLASSES	----------------------------------------------------
 	
@@ -226,14 +300,22 @@ public class GameWindow extends JFrame
 		@Override
 		public void mousePressed(MouseEvent e)
 		{
-			GameWindow.this.mainmousehandler.setMouseStatus(e.getX(), e.getY(), 
+			// Informs the mouse status (scaling affects the mouse coordinates)
+			int mousex = (int) (e.getX() / GameWindow.this.xscale);
+			int mousey = (int) (e.getX() / GameWindow.this.yscale);
+			
+			GameWindow.this.mainmousehandler.setMouseStatus(mousex, mousey, 
 					true, e.getButton());
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e)
 		{
-			GameWindow.this.mainmousehandler.setMouseStatus(e.getX(), e.getY(),
+			// Informs the mouse status (scaling affects the mouse coordinates)
+			int mousex = (int) (e.getX() / GameWindow.this.xscale);
+			int mousey = (int) (e.getX() / GameWindow.this.yscale);
+			
+			GameWindow.this.mainmousehandler.setMouseStatus(mousex, mousey,
 					false, e.getButton());
 		}
 	}

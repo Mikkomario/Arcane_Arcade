@@ -25,6 +25,7 @@ public class GamePanel extends JPanel
 	private int height;
 	private boolean needsUpdating;
 	private DrawableHandler drawer;
+	private double xscale, yscale;
 	
 	
 	// CONSTRUCTOR ---------------------------------------------------------
@@ -38,6 +39,8 @@ public class GamePanel extends JPanel
 	public GamePanel(int width, int height)
 	{
 		// Initializes attributes
+		this.xscale = 1;
+		this.yscale = 1;
 		this.width = width;
 		this.height = height;
 		this.needsUpdating = true;
@@ -62,6 +65,10 @@ public class GamePanel extends JPanel
 		{
 			this.needsUpdating = false;
 			Graphics2D g2d = (Graphics2D) g;
+			
+			// Scales the area of drawing
+			if (this.xscale != 1 || this.yscale != 1)
+				g2d.scale(this.xscale, this.yscale);
 			
 			// Clears the former drawings
 			g2d.clearRect(0, 0, getWidth(), getHeight());
@@ -141,5 +148,36 @@ public class GamePanel extends JPanel
 	public DrawableHandler getDrawer()
 	{
 		return this.drawer;
+	}
+	
+	/**
+	 * Scales the panel, keeping the same resolution but changing the size 
+	 * of the area. The scaling is relative to the former scaling of the panel
+	 *
+	 * @param xscale How much the panel is scaled horizontally (1 = no scaling) 
+	 * @param yscale How much the panel is scaled vertically (1 = no scaling)
+	 */
+	protected void scale(double xscale, double yscale)
+	{
+		// The scaling is relative to the former scaling
+		setScale(xscale * this.xscale, yscale * this.yscale);
+	}
+	
+	/**
+	 * Scales the panel, keeping the same resolution but changing the size 
+	 * of the area
+	 *
+	 * @param xscale How much the panel is scaled horizontally (1 = no scaling) 
+	 * @param yscale How much the panel is scaled vertically (1 = no scaling)
+	 */
+	protected void setScale(double xscale, double yscale)
+	{
+		// Remembers the scaling
+		this.xscale = xscale;
+		this.yscale = yscale;
+		
+		// Resizes the panel
+		setSizes((int) (this.width * this.xscale), 
+				(int) (this.height * this.yscale));
 	}
 }

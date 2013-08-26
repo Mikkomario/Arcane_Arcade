@@ -179,7 +179,8 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 			if (!this.keysReleased.contains(key))
 				this.keysReleased.add(key);
 			
-			this.keysDown.remove(this.keysDown.indexOf(key));
+			if (this.keysDown.contains(key))
+				this.keysDown.remove(this.keysDown.indexOf(key));
 		}
 	}
 	

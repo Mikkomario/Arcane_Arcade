@@ -5,8 +5,9 @@ Eteneminen:														Status
 	* Alpha
 		- Tarvittava grafiikka									DONE
 		- Grafiikan lataaminen ja lajitteleminen				Testaamatta
-		- Peliympäristön luominen
-			* Tarvittava ikkuna ja paneeli
+		- Peliympäristön luominen								...
+			* Tarvittava ikkuna ja paneeli						...
+				- Fullscreen									...
 			* Roomin käyttö
 			* Objektien luominen huoneen alkaessa
 			* Pelin aloittaminen

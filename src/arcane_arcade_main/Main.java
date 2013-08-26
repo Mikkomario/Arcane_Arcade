@@ -30,9 +30,11 @@ public class Main
 		this.mainpanel = new GamePanel(GameSettings.screenwidth, 
 				GameSettings.screenheight);
 		this.window = new GameWindow(GameSettings.screenwidth, 
-				GameSettings.screenheight, "Arcane Arcade");
+				GameSettings.screenheight, "Arcane Arcade", true);
 		// Sets up the window
 		this.window.addGamePanel(this.mainpanel, BorderLayout.CENTER);
+		
+		//this.window.setFullScreen();
 	}
 	
 	
