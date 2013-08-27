@@ -73,7 +73,8 @@ public class Main
 		this.window.addActor(this.mainmousehandler);
 		this.window.addMouseListener(this.mainmousehandler);
 		
-		this.navigator = new Navigator(this.maindrawer);
+		this.navigator = new Navigator(this.maindrawer, this.mainactorhandler, 
+				this.mainkeyhandler);
 		
 		// Starts the game by starting the field
 		this.navigator.startField();

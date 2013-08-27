@@ -43,9 +43,9 @@ freeze#images/status/freeze_strip6.png#6#38#37
 wet#images/status/wet_strip2.png#2#33#43
 
 &creatures
-redwizard#images/wizards/wizard_red_strip8#8#61#28
-bluewizard#images/wizards/wizard_blue_strip8#8#61#28
-wizardmask#images/wizards/wizard_mask#1#61#28
+redwizard#images/wizards/wizard_red_strip8.png#8#61#28
+bluewizard#images/wizards/wizard_blue_strip8.png#8#61#28
+wizardmask#images/wizards/wizard_mask.png#1#61#28
 
 &spells
 amnesia#images/spells/amnesia.png#1#87#89

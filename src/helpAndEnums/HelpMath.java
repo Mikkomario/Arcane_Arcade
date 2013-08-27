@@ -169,6 +169,12 @@ public class HelpMath
 	public static boolean pointIsInRange(Point point, int minx, int maxx, 
 			int miny, int maxy)
 	{
+		// If, for some reason, a null point is given, returns false
+		/*
+		if (point == null)
+			return false;
+		*/
+		
 		return (point.x > minx && point.y > miny && point.x 
 				< maxx && point.y < maxy);
 	}

@@ -115,6 +115,14 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	 */
 	protected Point[] getRelativeCollisionPoints()
 	{
+		/*
+		System.out.println("Relative collision points:");
+		for (int i = 0; i < this.relativecollisionpoints.length; i++)
+		{
+			System.out.println(this.relativecollisionpoints[i]);
+		}
+		*/
+		
 		return this.relativecollisionpoints;
 	}
 	
@@ -160,8 +168,11 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	 * Changes how accurte the collisionpoints are. Works with circular objects. 
 	 * There is another method for objects that can be fit inside a box.
 	 *
-	 * @param radius The maximum radius of the collision circle (from origin) (>= 0)
-	 * @param edgeprecision How many collisionpoints will be added to the outer edge (>= 0)
+	 * @param radius The maximum radius of the collision circle (relative, 
+	 * from origin) (>= 0)
+	 * @param edgeprecision How many collisionpoints will be added to the outer 
+	 * edge (>= 0). Center is added at precision 2 and layers will be added 
+	 * between the center and the edge from precision 3 onwards.
 	 * @param layers How many collisionpoint layers there will be? (>= 0)
 	 * @see setBoxCollisionPrecision
 	 */
@@ -230,6 +241,7 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	private void initializeCircleCollisionPoints(int radius, int edgeprecision, 
 			int layers)
 	{
+		//System.out.println("Initializes circle collision points");
 		// Calculates the number of collisionpoints
 		int size = edgeprecision;
 		// From layer 2 onwards, center is added
@@ -241,6 +253,8 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 			int more = (int) ((i - 2.0) / (layers - 1.0) * edgeprecision);
 			size += more;
 		}
+		
+		//System.out.println("There will be " + size + " points");
 		
 		this.relativecollisionpoints = new Point[size];
 		int index = 0;
@@ -254,12 +268,17 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 				pointsonlayer = 1;
 			int layerradius = (int) (radius * ((i - 1.0) / (layers - 1.0)));
 			
+			//System.out.println("Layer " + i + " will have " + pointsonlayer + " points");
+			
 			// Creates the points
 			for (int a = 0; a < 360; a += 360 / pointsonlayer)
 			{
+				//System.out.println("Adds a point to the layer " + i);
 				this.relativecollisionpoints[index] = new Point(
 						getOriginX() + (int) HelpMath.lendirX(layerradius, a), 
 						getOriginY() + (int) HelpMath.lendirY(layerradius, a));
+				//System.out.println("The new point was " + this.relativecollisionpoints[index]);
+				index ++;
 			}
 		}
 	}

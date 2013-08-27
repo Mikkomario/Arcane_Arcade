@@ -42,6 +42,7 @@ public abstract class SpriteBank extends AbstractBank
         catch(FileNotFoundException fnfe)
         {
             System.err.println("All of the sprites could not be loaded!");
+            fnfe.printStackTrace();
         }
 	}
     

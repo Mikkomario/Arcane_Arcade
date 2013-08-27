@@ -3,6 +3,9 @@ Toimintasuunnitelma
 
 Eteneminen:														Status
 	* Alpha														...
+		- Prosessin tehokkuuden seuraaminen
+			* FpsAps testin lisäys
+			* FpsAps testin käyttöönotto
 		- Tarvittava grafiikka									DONE
 		- Grafiikan lataaminen ja lajitteleminen				DONE
 			* Ei näyttäisi täyttävän pankkeja					DONE
@@ -24,16 +27,30 @@ Eteneminen:														Status
 			* Roomin käyttö										...
 				- Backgrounding piirtäminen						DONE
 					* Backgroundien sijoittaminen				DONE
-				- Roomien luominen								...
-			* Objektien luominen huoneen alkaessa
-			* Pelin aloittaminen
-		- Maagi
-			* Maagin liikuttaminen
+				- Roomien luominen organisoidusti				...
+			* Objektien luominen huoneen alkaessa				...
+				- Tarvitaan luotavat objektit					...
+				- Creator-objektin kanssa yhteensopivan 
+				huoneen luominen
+			* Pelin aloittaminen								DONE
+		- Maagi													...
+			* Maagin liikuttaminen								...
+				- Maagin normaali liikuttaminen					DONE
+				- Maagin teleporttailu
 			* Maagin törmääminen seiniin
+				- Lisää oma luokka joka hoitaa tarkistuksen 
+				- Lisää myös listener rajapinta niin että 
+				uusi luokka voi kertoa objekteille kun ne 
+				törmää seinään
 		- Pallo
 			* Pallon liikuttaminen
 			* Pallon törmäys seiniin
 			* "Impact"
+		- Törmäys
+			* Tarvittavien törmäystarkastajien luominen ja 
+			alustaminen
+			* Pallon, maagien ja loitsujen lisääminen 
+			törmäystarjustuksiin
 		- Loitsut
 			* Loitsujen rakenne
 			* Loitsun valitseminen

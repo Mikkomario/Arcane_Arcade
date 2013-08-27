@@ -38,4 +38,26 @@ public class Tile extends Background
 		// Tiles are drawn a bit above the backgrounds
 		setDepth(getDepth() - 5);
 	}
+	
+	
+	// IMPLEMENTED METHODS	---------------------------------------------
+	
+	@Override
+	public int getOriginX()
+	{
+		// Unlike with background, tiles' origins are always in the middle
+		if (getSpriteDrawer() != null)
+			return getSpriteDrawer().getSprite().getWidth() / 2;
+		else
+			return 0;
+	}
+
+	@Override
+	public int getOriginY()
+	{
+		if (getSpriteDrawer() != null)
+			return getSpriteDrawer().getSprite().getHeight() / 2;
+		else
+			return 0;
+	}
 }

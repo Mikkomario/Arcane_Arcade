@@ -50,6 +50,8 @@ public class Sprite implements BankObject
 		if (filename == null || numberOfImages <= 0)
 			throw new IllegalArgumentException();
 		
+		//System.out.println("loads sprite " + filename);
+		
 		// Initializes attributes
 		this.origX = originX;
 		this.origY = originY;
@@ -65,7 +67,9 @@ public class Sprite implements BankObject
 		}
 		catch (IOException ioe)
 		{
-			System.err.println("Failed to load the image src/data/" + filename);
+			System.err.println(this + " failed to load the image src/data/" + 
+					filename);
+			ioe.printStackTrace();
 			return;
 		}
 		

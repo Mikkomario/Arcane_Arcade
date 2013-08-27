@@ -46,7 +46,9 @@ public class RoomListenerHandler extends LogicalHandler implements RoomListener
 		for (int i = 0; i < getHandledNumber(); i++)
 		{
 			if (getListener(i).isActive())
+			{
 				getListener(i).onRoomStart(room);
+			}
 		}
 	}
 

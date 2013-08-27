@@ -152,7 +152,6 @@ public class Room extends Handler
 	 */
 	public void start()
 	{
-		//System.out.println("starts the room");
 		// If the room had already been started, nothing happens
 		if (this.active)
 			return;
