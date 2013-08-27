@@ -94,6 +94,7 @@ public abstract class AbstractBank
 			return this.bank.get(objectname);
 		else
 		{
+			System.out.println("The bank holds " + this.bank.size() + " objects");
 			System.err.println("The bank " + getClass().getName() + 
 					" doesn't hold object named " + objectname);
 			return null;

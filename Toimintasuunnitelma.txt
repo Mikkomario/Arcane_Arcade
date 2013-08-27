@@ -5,6 +5,7 @@ Eteneminen:														Status
 	* Alpha														...
 		- Tarvittava grafiikka									DONE
 		- Grafiikan lataaminen ja lajitteleminen				DONE
+			* Ei näyttäisi täyttävän pankkeja					DONE
 		- Peliympäristön luominen								...
 			* Tarvittava ikkuna ja paneeli						...
 				- Fullscreen									...
@@ -19,7 +20,11 @@ Eteneminen:														Status
 								- Hiiren toimiminen 			DONE
 								paddingien kanssa
 						- Ei toimi useita kertoja putkeen
-			* Roomin käyttö
+							* Koska paddingia ei lasketa
+			* Roomin käyttö										...
+				- Backgrounding piirtäminen						DONE
+					* Backgroundien sijoittaminen				DONE
+				- Roomien luominen								...
 			* Objektien luominen huoneen alkaessa
 			* Pelin aloittaminen
 		- Maagi

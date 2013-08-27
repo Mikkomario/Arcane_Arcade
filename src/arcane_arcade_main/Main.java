@@ -9,8 +9,8 @@ import helpAndEnums.DepthConstants;
 
 import java.awt.BorderLayout;
 
-import tests.GamePanelSizeTest;
-import tests.MouseTest;
+import arcane_arcade_worlds.Navigator;
+
 import video.GamePanel;
 import video.GameWindow;
 
@@ -37,6 +37,8 @@ public class Main
 	private KeyListenerHandler mainkeyhandler;
 	private MouseListenerHandler mainmousehandler;
 	private ActorHandler mainactorhandler;
+	
+	private Navigator navigator;
 	
 	
 	// CONSTRUCTOR	----------------------------------------------------
@@ -70,6 +72,11 @@ public class Main
 		this.mainmousehandler = new MouseListenerHandler(false, null, null);
 		this.window.addActor(this.mainmousehandler);
 		this.window.addMouseListener(this.mainmousehandler);
+		
+		this.navigator = new Navigator(this.maindrawer);
+		
+		// Starts the game by starting the field
+		this.navigator.startField();
 	}
 	
 	
@@ -122,13 +129,13 @@ public class Main
 	public static void main(String[] args)
 	{
 		// Starts the game
-		Main main = 
+		//Main main = 
 				new Main();
 		
 		// Runs some tests
-		new GamePanelSizeTest(main.getDrawableHandler());
+		//new GamePanelSizeTest(main.getDrawableHandler());
 		//main.window.scaleToSize(800, 400, false, false);
-		main.window.scaleToSize(400, 600, true, true);
-		new MouseTest(main.getMouseListenerHandler());
+		//main.window.scaleToSize(400, 600, true, true);
+		//new MouseTest(main.getMouseListenerHandler());
 	}
 }

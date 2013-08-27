@@ -152,6 +152,7 @@ public class Room extends Handler
 	 */
 	public void start()
 	{
+		//System.out.println("starts the room");
 		// If the room had already been started, nothing happens
 		if (this.active)
 			return;
@@ -188,6 +189,8 @@ public class Room extends Handler
 	 */
 	protected void initialize()
 	{
+		this.active = true;
+		//System.out.println("initializes the room");
 		// Sets the backgrounds visible and animated
 		if (this.backgrounds != null)
 		{
@@ -219,6 +222,7 @@ public class Room extends Handler
 	 */
 	protected void uninitialize()
 	{
+		this.active = false;
 		// Sets the backgrounds invisible and unanimated
 		if (this.backgrounds != null)
 		{

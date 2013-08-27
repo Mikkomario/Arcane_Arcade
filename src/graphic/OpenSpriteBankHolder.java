@@ -40,6 +40,7 @@ public class OpenSpriteBankHolder extends FileReader
 	 * ...<br>
 	 * * this is a comment
 	 */
+	@SuppressWarnings("unchecked")
 	public OpenSpriteBankHolder(String filename)
 	{
 		// Initializes attributes
@@ -50,7 +51,12 @@ public class OpenSpriteBankHolder extends FileReader
 		readFile(filename);
 		// Adds the last spritebank and releases the memory
 		if (this.lastcommands.size() > 0)
-			this.banks.put(this.lastbankname, new OpenSpriteBank(this.lastcommands));
+		{
+			//System.out.println("Puts " + this.lastcommands.size() + 
+			//		" objects to the bank " + this.lastbankname);
+			this.banks.put(this.lastbankname, new OpenSpriteBank(
+					(ArrayList<String>) this.lastcommands.clone()));
+		}
 		this.lastcommands.clear();
 		this.lastbankname = null;
 	}
@@ -58,6 +64,7 @@ public class OpenSpriteBankHolder extends FileReader
 	
 	// IMPLEMENTED METHODS	----------------------------------------------
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onLine(String line)
 	{
@@ -67,8 +74,13 @@ public class OpenSpriteBankHolder extends FileReader
 		// If the line starts with '&' ends the last bank and starts a new bank
 		if (line.startsWith("&"))
 		{
-			this.banks.put(this.lastbankname, new OpenSpriteBank(this.lastcommands));
-			
+			if (this.lastbankname != null)
+			{
+				//System.out.println("Puts " + this.lastcommands.size() + 
+				//		" objects to the bank " + this.lastbankname);
+				this.banks.put(this.lastbankname, new OpenSpriteBank(
+						(ArrayList<String>) this.lastcommands.clone()));
+			}
 			this.lastbankname = line.substring(1);
 			this.lastcommands.clear();
 			return;
