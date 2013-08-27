@@ -43,10 +43,15 @@ Eteneminen:														Status
 				- Lisää myös listener rajapinta niin että 		Plääh
 				uusi luokka voi kertoa objekteille kun ne 
 				törmää seinään
-		- Pallo
-			* Pallon liikuttaminen
-			* Pallon törmäys seiniin
-			* "Impact"
+		- Pallo													Testaamatta
+			* Pallon liikuttaminen								DONE
+			* Pallon törmäys seiniin							DONE
+			* "Impact"											Testaamatta
+		- Serveri												...
+			* Pyöriminen										DONE
+			* Pallon ampuminen									DONE
+			* Katoaminen										...
+				- Lisää visuaalinen efekti
 		- Törmäys
 			* Tarvittavien törmäystarkastajien luominen ja 
 			alustaminen
@@ -54,11 +59,22 @@ Eteneminen:														Status
 			törmäystarjustuksiin
 		- Loitsut
 			* Loitsujen rakenne
+				- Perus loitsuluokka
+					* Projectile loitsut
+					* Area loitsut
+					* Seuraavat loitsut
+					* Hakeutuvat loitsut
+						- Pallon sijainnin selvittäminen
+						- Pallonkuuntelumekanismi
 			* Loitsun valitseminen
 			* Loitsun loihtiminen
 			* Uusien elementtien lisäämisen mahdollistaminen
 	* Beta
 		- Pallon statusefektit
+			* Statusefektit enumeraatioina
+			* Statusefektien piirtäminen (pallon ulkopuolella)
+			* Statusefektien vaikutuksen laskeminen ja 
+			ottaminen impactiin
 		- HUD
 			* Käytössä olevien elementtien piirtäminen
 		- Manamittari

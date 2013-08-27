@@ -198,6 +198,18 @@ public class Movement
 	}
 	
 	/**
+	 * Multiplies the movement's speed with the given multiplier
+	 *
+	 * @param multiplier What will the movement's speed be multiplied with (
+	 * for example, 2 means double the former speed)
+	 */
+	public void multiplySPeed(double multiplier)
+	{
+		this.hspeed *= multiplier;
+		this.vspeed *= multiplier;
+	}
+	
+	/**
 	 * Diminishes the the movement's one component while keeping other the same
 	 *
 	 * @param direction The direction to which the speedloss affects 

@@ -164,8 +164,8 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 	/**
 	 * Changes the object's radius
 	 *
-	 * @param r The object's new radius. Use a negative number if you want 
-	 * the radius to be approximated automatically.
+	 * @param r The object's new radius (not including scaling). Use a 
+	 * negative number if you want the radius to be approximated automatically.
 	 */
 	public void setRadius(int r)
 	{

@@ -95,6 +95,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		setRelativeCollisionPoints(
 				this.maskchecker.getRefinedRelativeCollisionPoints(
 				getRelativeCollisionPoints(), 0));
+		setRadius(27);
 		
 		// Adds the object to the handler(s) if possible
 		if (keylistenerhandler != null)

@@ -1,5 +1,6 @@
 package arcane_arcade_field;
 
+import arcane_arcade_main.GameSettings;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
@@ -50,27 +51,6 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 	
 	
 	// IMPLEMENTED METHODS	---------------------------------------------
-	
-	@Override
-	public boolean isActive()
-	{
-		// Objectcreators are always active
-		return true;
-	}
-
-	@Override
-	public boolean activate()
-	{
-		// Objectcreators are always active
-		return true;
-	}
-
-	@Override
-	public boolean inactivate()
-	{
-		// Objectcreators are always active
-		return false;
-	}
 
 	@Override
 	public void onRoomStart(Room room)
@@ -81,6 +61,10 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 		// TODO: Add collidablehandler & collisionhandler
 		room.addOnject(new Wizard(this.drawer, null, null, this.actorhandler, 
 				this.keylistenerhandler));
+		// Creates the server
+		room.addOnject(new Server(GameSettings.SCREENWIDTH / 2, 
+				GameSettings.SCREENHEIGHT / 2, this.drawer, this.actorhandler, 
+				null, null, room));
 	}
 
 	@Override

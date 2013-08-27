@@ -11,7 +11,7 @@ import listeners.RoomListener;
  * @author Mikko Hilpinen.
  *         Created 11.7.2013.
  */
-public class RoomListenerHandler extends LogicalHandler implements RoomListener
+public class RoomListenerHandler extends Handler implements RoomListener
 {
 	// CONSTRUCTOR	------------------------------------------------------
 	
@@ -45,10 +45,7 @@ public class RoomListenerHandler extends LogicalHandler implements RoomListener
 		// Informs all the listeners about the event
 		for (int i = 0; i < getHandledNumber(); i++)
 		{
-			if (getListener(i).isActive())
-			{
-				getListener(i).onRoomStart(room);
-			}
+			getListener(i).onRoomStart(room);
 		}
 	}
 
