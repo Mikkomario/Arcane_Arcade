@@ -35,9 +35,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 {
 	// ATTRBUTES	----------------------------------------------------
 	
-	private static double basicfriction = 0.5;
-	private static double basicmaxspeed = 6;
-	private static double basicaccelration = 1;
+	private static double basicfriction = 0.4;
+	private static double basicmaxspeed = 5;
+	private static double basicaccelration = 0.7;
 	
 	private SpriteDrawer spritedrawer;
 	private MaskChecker maskchecker;
@@ -62,7 +62,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			CollisionHandler collisionhandler, ActorHandler actorhandler, 
 			KeyListenerHandler keylistenerhandler)
 	{
-		super(90, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
+		super(80, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
 				true, CollisionType.CIRCLE, drawer, collidablehandler,
 				collisionhandler, actorhandler);
 		

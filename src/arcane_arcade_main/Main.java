@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 
 import arcane_arcade_worlds.Navigator;
 
+import tests.FpsApsTest;
 import video.GamePanel;
 import video.GameWindow;
 
@@ -130,13 +131,10 @@ public class Main
 	public static void main(String[] args)
 	{
 		// Starts the game
-		//Main main = 
+		Main main = 
 				new Main();
 		
 		// Runs some tests
-		//new GamePanelSizeTest(main.getDrawableHandler());
-		//main.window.scaleToSize(800, 400, false, false);
-		//main.window.scaleToSize(400, 600, true, true);
-		//new MouseTest(main.getMouseListenerHandler());
+		new FpsApsTest(main.getActorHandler(), main.getDrawableHandler());
 	}
 }
