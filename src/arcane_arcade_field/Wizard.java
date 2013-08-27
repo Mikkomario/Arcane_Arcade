@@ -35,12 +35,15 @@ public class Wizard extends BasicPhysicDrawnObject implements
 {
 	// ATTRBUTES	----------------------------------------------------
 	
-	private static double basicfriction = 0.4;
-	private static double basicmaxspeed = 5;
-	private static double basicaccelration = 0.7;
+	private double friction;
+	private double maxspeed;
+	private double accelration;
+	private int teleportdelay;
+	private int teleportdistance;
 	
 	private SpriteDrawer spritedrawer;
 	private MaskChecker maskchecker;
+	private int doubletaptime;
 	
 	
 	// CONSTRUCTOR	----------------------------------------------------
@@ -67,6 +70,12 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				collisionhandler, actorhandler);
 		
 		// Initializes attributes
+		this.friction = 0.4;
+		this.maxspeed = 5;
+		this.accelration = 0.7;
+		this.teleportdelay = 20;
+		this.teleportdistance = 130;
+		this.doubletaptime = 0;
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getBank("creatures").getSprite("redwizard"), 
 				actorhandler);
@@ -78,8 +87,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.spritedrawer.setImageIndex(0);
 		
 		// Sets the friction and maximum speed
-		setFriction(basicfriction);
-		setMaxSpeed(basicmaxspeed);
+		setFriction(this.friction);
+		setMaxSpeed(this.maxspeed);
 		
 		// Sets the collision precision
 		setCircleCollisionPrecision(27, 6, 2);
@@ -164,15 +173,32 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		if (!coded)
 		{
 			if (key == 'w' || key == 'W')
-				addVelocity(0, -basicaccelration);
+				addVelocity(0, -this.accelration);
 			else if (key == 's' || key == 'S')
-				addVelocity(0, basicaccelration);
+				addVelocity(0, this.accelration);
 		}
 	}
 
 	@Override
 	public void onKeyPressed(char key, int keyCode, boolean coded)
 	{
+		if (!coded)
+		{
+			if (key == 'w' || key == 'W')
+			{
+				// Checks whether the wizard should teleport
+				if (this.doubletaptime > 0)
+					addPosition(0, -this.teleportdistance);
+				this.doubletaptime = this.teleportdelay;
+			}
+			else if (key == 's' || key == 'S')
+			{
+				// Checks whether the wizard should teleport
+				if (this.doubletaptime > 0)
+					addPosition(0, this.teleportdistance);
+				this.doubletaptime = this.teleportdelay;
+			}
+		}
 		// TODO: Add Casting sometime
 	}
 
@@ -210,5 +236,22 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	{
 		// When the room ends, the wizard is killed
 		kill();
+	}
+	
+	@Override
+	public void act()
+	{
+		// Does all normal functions
+		super.act();
+		
+		// Checks doubletaptimer
+		if (this.doubletaptime > 0)
+			this.doubletaptime --;
+		
+		// Snaps back to the field
+		if (getY() < getOriginY())
+			setY(getOriginY());
+		else if (getY() > GameSettings.SCREENHEIGHT - getHeight() + getOriginY())
+			setY(GameSettings.SCREENHEIGHT - getHeight() + getOriginY());
 	}
 }
