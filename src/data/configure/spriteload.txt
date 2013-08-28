@@ -68,7 +68,7 @@ hastewind#images/spells/hastewind.png#1#109#109
 hurricanemask#images/spells/hurricane_mask_strip8.png#8#130#175
 hurricane#images/spells/hurricane_strip8.png#8#130#175
 iceexplosion#images/spells/ice_explosion_strip8.png#8#84#72
-iceexplosionmask#images/spells/ice_explosion_mask_strip1.png#8#84#72
+iceexplosionmask#images/spells/ice_explosion_mask_strip8.png#8#84#72
 iceminemask#images/spells/ice_mine_mask.png#1#28#37
 icemine#images/spells/ice_mine_strip6.png#6#28#37
 lightningfield#images/spells/lightfield_strip4.png#4#97#97
@@ -91,4 +91,5 @@ storm#images/spells/storm_strip8.png#8#0#0
 water#images/spells/water.png#1#41#38
 wavemask#images/spells/wave_mask_strip4.png#4#38#46
 wave#images/spells/wave_strip4.png#4#38#46
+freeze#images/status/freeze_strip6.png#6#38#37
 

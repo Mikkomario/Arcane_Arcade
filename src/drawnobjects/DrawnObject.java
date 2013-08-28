@@ -335,7 +335,13 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public void setAlpha(float alpha)
 	{
-		this.alpha = alpha;
+		// Checks the argument
+		if (alpha > 1)
+			this.alpha = 1;
+		else if (alpha < 0)
+			this.alpha = 0;
+		else
+			this.alpha = alpha;
 	}
 	
 	

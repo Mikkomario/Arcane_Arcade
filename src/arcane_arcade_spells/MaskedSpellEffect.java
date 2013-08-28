@@ -1,5 +1,6 @@
 package arcane_arcade_spells;
 
+import worlds.Room;
 import graphic.MaskChecker;
 import handleds.Collidable;
 import handlers.ActorHandler;
@@ -42,6 +43,7 @@ public abstract class MaskedSpellEffect extends SpellEffect
 	 * @param collisionhandler The collisionhandler that will inform the effect 
 	 * about collisions (if the spell collides with other spells, otherwise null)
 	 * @param actorhandler The actorhandler that will call the effect's act-event
+	 * @param room The room where the spelleffect was created
 	 * @param spritename The effect's sprite's name in the spritebank "spells"
 	 * @param maskname The effect's mask's name in the spritebank "spells"
 	 * @param collidesWithSpells Does the effect react to collisions with other 
@@ -62,14 +64,14 @@ public abstract class MaskedSpellEffect extends SpellEffect
 	public MaskedSpellEffect(int x, int y, int depth,
 			CollisionType collisiontype, DrawableHandler drawer,
 			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, ActorHandler actorhandler,
-			String spritename, String maskname, boolean collidesWithSpells,
-			boolean collidesWithBalls, boolean collidesWithWizards,
-			Element element1, Element element2, DeathType deathtype,
-			int lifetime, boolean isMaskAnimated)
+			CollisionHandler collisionhandler, ActorHandler actorhandler, 
+			Room room, String spritename, String maskname, 
+			boolean collidesWithSpells, boolean collidesWithBalls, 
+			boolean collidesWithWizards, Element element1, Element element2, 
+			DeathType deathtype, int lifetime, boolean isMaskAnimated)
 	{
 		super(x, y, depth, collisiontype, drawer, collidablehandler, collisionhandler,
-				actorhandler, spritename, collidesWithSpells, collidesWithBalls,
+				actorhandler, room, spritename, collidesWithSpells, collidesWithBalls,
 				collidesWithWizards, element1, element2, deathtype, lifetime);
 		// Initializes attributes
 		this.maskanimated = isMaskAnimated;

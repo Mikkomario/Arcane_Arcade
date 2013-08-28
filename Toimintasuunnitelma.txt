@@ -28,6 +28,11 @@ Eteneminen:														Status
 				- Backgrounding piirtäminen						DONE
 					* Backgroundien sijoittaminen				DONE
 				- Roomien luominen organisoidusti				...
+				- Roomissa tarvittavien spritebankkien 
+				listaaminen ja uninitializettaminen 
+				tarvittaesa
+					* Samoin joidenkin pankkien (spells) 
+					alustus huoneen alussa
 			* Objektien luominen huoneen alkaessa				...
 				- Tarvitaan luotavat objektit					DONE
 				- Creator-objektin kanssa yhteensopivan 
@@ -38,6 +43,7 @@ Eteneminen:														Status
 				- Maagin normaali liikuttaminen					DONE
 				- Maagin teleporttailu							...
 					* Lisää visuaalinen efekti
+						- Portal-grafiikka efektiin
 			* Maagin törmääminen seiniin						DONE
 				- Lisää oma luokka joka hoitaa tarkistuksen 	Plääh
 				- Lisää myös listener rajapinta niin että 		Plääh
@@ -63,14 +69,15 @@ Eteneminen:														Status
 				- Elementtien heikkoudet ja vahvuudet			Testaamatta
 			* Loitsujen rakenne									...
 				- Perus loitsuluokka							...
-					* Maskattava loitsuluokka					Untested
-					* Loitsujen häiväminen						Untested
+					* Maskattava loitsuluokka					Testaamatta
+					* Loitsujen häiväminen						DONE
 						- Enumeraatio							DONE
-						- Animaation seuraaminen				Untested
+						- Animaation seuraaminen				DONE
 						- Opaciteetin muuttaminen				DONE
-					* Hakeutuvat loitsut
-						- Pallon sijainnin selvittäminen
-						- Pallonkuuntelumekanismi
+						- Koon muuttaminen						DONE
+					* Hakeutuvat loitsut						Testaamatta
+						- Pallon sijainnin selvittäminen		Testaamatta
+						- Pallonkuuntelumekanismi				Testaamatta
 					* Curset
 					* Blessingit
 			* Loitsun valitseminen
@@ -80,7 +87,7 @@ Eteneminen:														Status
 		- Pallon statusefektit									...
 			* Statusefektit enumeraatioina						...
 			* Statusefektien piirtäminen (pallon ulkopuolella)
-			* Statusefektien vaikutuksen laskeminen ja 
+			* Statusefektien vaikutuksen laskeminen ja 			...
 			ottaminen impactiin
 		- Wizardin statusefektit
 			* Statusefektit enumeraatioina

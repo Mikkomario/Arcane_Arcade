@@ -133,6 +133,16 @@ public class Room extends Handler
 	}
 	
 	/**
+	 * Adds an object to be informed about room events
+	 *
+	 * @param l The listener that will be informed about room events
+	 */
+	public void addRoomListener(RoomListener l)
+	{
+		this.listenerhandler.addRoomListener(l);
+	}
+	
+	/**
 	 * Removes a gameobject from the room
 	 *
 	 * @param g The gameobject to be removed

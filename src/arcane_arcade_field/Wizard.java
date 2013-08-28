@@ -10,6 +10,7 @@ import listeners.RoomListener;
 
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Main;
+import arcane_arcade_spells.TeleportEffect;
 
 import graphic.MaskChecker;
 import graphic.SpriteDrawer;
@@ -41,6 +42,11 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private int teleportdelay;
 	private int teleportdistance;
 	
+	private Room room;
+	private DrawableHandler drawer;
+	private ActorHandler actorhandler;
+	private CollidableHandler collidablehandler;
+	
 	private SpriteDrawer spritedrawer;
 	private MaskChecker maskchecker;
 	private int doubletaptime;
@@ -60,10 +66,11 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 * act events
 	 * @param keylistenerhandler The keylistenerhandler that will inform 
 	 * the object about keypresses
+	 * @param room The room that will hold the wizard
 	 */
 	public Wizard(DrawableHandler drawer, CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, ActorHandler actorhandler, 
-			KeyListenerHandler keylistenerhandler)
+			KeyListenerHandler keylistenerhandler, Room room)
 	{
 		super(80, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
 				true, CollisionType.CIRCLE, drawer, collidablehandler,
@@ -76,6 +83,10 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.teleportdelay = 20;
 		this.teleportdistance = 130;
 		this.doubletaptime = 0;
+		this.room = room;
+		this.drawer = drawer;
+		this.actorhandler = actorhandler;
+		this.collidablehandler = collidablehandler;
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getBank("creatures").getSprite("redwizard"), 
 				actorhandler);
@@ -100,6 +111,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		// Adds the object to the handler(s) if possible
 		if (keylistenerhandler != null)
 			keylistenerhandler.addKeyListener(this);
+		// Adds the object to the room (if possible)
+		if (room != null)
+			room.addOnject(this);
 	}
 	
 	
@@ -186,19 +200,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	{
 		if (!coded)
 		{
+			// If w or s was double tapped, teleports
 			if (key == 'w' || key == 'W')
 			{
-				// Checks whether the wizard should teleport
-				if (this.doubletaptime > 0)
-					addPosition(0, -this.teleportdistance);
-				this.doubletaptime = this.teleportdelay;
+				tryTeleporting(-1);
 			}
 			else if (key == 's' || key == 'S')
 			{
-				// Checks whether the wizard should teleport
-				if (this.doubletaptime > 0)
-					addPosition(0, this.teleportdistance);
-				this.doubletaptime = this.teleportdelay;
+				tryTeleporting(1);
 			}
 		}
 		// TODO: Add Casting sometime
@@ -255,5 +264,22 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			setY(getOriginY());
 		else if (getY() > GameSettings.SCREENHEIGHT - getHeight() + getOriginY())
 			setY(GameSettings.SCREENHEIGHT - getHeight() + getOriginY());
+	}
+	
+	
+	// OTHER METHODS	-------------------------------------------------
+	
+	// Tries to eleport either up (-1) or down (1)
+	private void tryTeleporting(int movementsign)
+	{
+		if (this.doubletaptime > 0)
+		{
+			// Adds teleport effect
+			new TeleportEffect((int) getX(), (int) getY(), this.drawer, 
+					this.collidablehandler, this.actorhandler, this.room);
+			// Teleports
+			addPosition(0, movementsign * this.teleportdistance);
+		}
+		this.doubletaptime = this.teleportdelay;
 	}
 }

@@ -44,7 +44,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	private boolean spellcollision, ballcollision, wizardcollision;
 	private Element element1, element2;
 	private DeathType deathtype;
-	private int lifeleft;
+	private int lifeleft, lifetime;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -63,6 +63,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * about collisions (null if the spell doesn't collide with other spells)
 	 * @param actorhandler The actorhandler that will call the spell's act 
 	 * event
+	 * @param room The room in which the spelleffect was created
 	 * @param spritename The name of the sprite in the spritebank 'spells'
 	 * @param collidesWithSpells Does the spell collide with other spells. If 
 	 * this is on, the spell must call setBoxCollisionPrecision or 
@@ -81,8 +82,8 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	public SpellEffect(int x, int y, int depth,
 			CollisionType collisiontype, DrawableHandler drawer,
 			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, ActorHandler actorhandler, 
-			String spritename, boolean collidesWithSpells, 
+			CollisionHandler collisionhandler, ActorHandler actorhandler,
+			Room room, String spritename, boolean collidesWithSpells, 
 			boolean collidesWithBalls, boolean collidesWithWizards, 
 			Element element1, Element element2, DeathType deathtype, 
 			int lifetime)
@@ -100,6 +101,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.element2 = element2;
 		this.deathtype = deathtype;
 		this.lifeleft = lifetime;
+		this.lifetime = lifetime;
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getBank("spells").getSprite(spritename), 
 				actorhandler);
@@ -109,11 +111,17 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		{
 			this.spritedrawer.setImageIndex(0);
 			this.spritedrawer.setImageSpeed(
-					this.spritedrawer.getSprite().getImageNumber() / lifetime);
+					this.spritedrawer.getSprite().getImageNumber() / (double) lifetime);
 			this.spritedrawer.getAnimationListenerHandler().addAnimationListener(this);
 		}
 		else if (this.deathtype == DeathType.FADE)
 			setAlpha(0);
+		else if (this.deathtype == DeathType.SIZE)
+			setScale(0, 0);
+		
+		// Adds the effect to the room
+		if (room != null)
+			room.addOnject(this);
 	}
 	
 	
@@ -257,6 +265,13 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 			else if (getAlpha() < 1)
 				setAlpha(getAlpha() + 0.1f);
 		}
+		// Changes the object's size if needed
+		else if (this.deathtype == DeathType.SIZE)
+		{
+			double scale = Math.sin((this.lifeleft / (double) this.lifetime) 
+					* Math.PI);
+			setScale(scale, scale);
+		}
 	}
 	
 	
@@ -335,6 +350,10 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		 * The spell will quickly fade in and then fade out when a certain amount 
 		 * of steps has passed
 		 */
-		FADE;
+		FADE,
+		/**
+		 * The spell will first increase in size and then shrink away
+		 */
+		SIZE;
 	}
 }

@@ -37,6 +37,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 	private CollidableHandler collidablehandler;
 	private CollisionHandler collisionhandler;
 	private Room room;
+	private BallRelay ballrelay;
 	
 	private boolean serving;
 	private double rotationfriction;
@@ -61,10 +62,11 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 	 * @param collisionhandler The collisionhandler that will inform the 
 	 * ball about collisions
 	 * @param room where the server and the balls are created at
+	 * @param ballrelay The ballrelay where the created balls will be created
 	 */
 	public Server(int x, int y, DrawableHandler drawer, 
 			ActorHandler actorhandler, CollidableHandler collidablehandler, 
-			CollisionHandler collisionhandler, Room room)
+			CollisionHandler collisionhandler, Room room, BallRelay ballrelay)
 	{
 		super(x, y, DepthConstants.BOTTOM - 10, false, CollisionType.BOX, 
 				drawer, null, null, actorhandler);
@@ -85,10 +87,15 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 		this.collisionhandler = collisionhandler;
 		this.drawer = drawer;
 		this.room = room;
+		this.ballrelay = ballrelay;
 		this.rand = new Random();
 		
 		// Serves the ball
 		serve();
+		
+		// Adds the server to the room where it was created (if possible)
+		if (this.room != null)
+			this.room.addOnject(this);
 	}
 	
 	
@@ -229,8 +236,10 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 		// Creates the ball
 		Ball newball = new Ball((int) getX(), (int) getY(), this.drawer, 
 				this.collidablehandler, this.collisionhandler, 
-				this.actorhandler);
-		this.room.addOnject(newball);
+				this.actorhandler, this.room);
+		// Adds the ball to the relay
+		if (this.ballrelay != null)
+			this.ballrelay.addBall(newball);
 		// Shoots the ball
 		newball.setMotion(getAngle(), this.minshootforce + 
 				this.rand.nextDouble() * (this.maxshootforce - 

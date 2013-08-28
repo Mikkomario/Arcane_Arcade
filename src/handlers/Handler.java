@@ -177,6 +177,14 @@ public abstract class Handler implements Handled
 	}
 	
 	/**
+	 * Removes all the handleds from the handler
+	 */
+	protected void removeAllHandleds()
+	{
+		this.handleds.clear();
+	}
+	
+	/**
 	 * Removes possible dead handleds from the handled objects
 	 */
 	protected void removeDeadHandleds()

@@ -51,10 +51,12 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 	 * @param collisionhandler The collisionhandler that will inform the ball 
 	 * about collisions
 	 * @param actorhandler The actorhandler that will call the ball's act-event
+	 * @param room The room where the ball is created
 	 */
 	public Ball(int x, int y, DrawableHandler drawer,
 			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, ActorHandler actorhandler)
+			CollisionHandler collisionhandler, ActorHandler actorhandler, 
+			Room room)
 	{
 		super(x, y, DepthConstants.NORMAL, true, CollisionType.CIRCLE, drawer, 
 				collidablehandler, collisionhandler, actorhandler);
@@ -73,6 +75,10 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 		// Sets the collision precision
 		setCircleCollisionPrecision(33, 6, 2);
 		setRadius(33);
+		
+		// Adds the ball to the room (if possible)
+		if (room != null)
+			room.addOnject(this);
 	}
 	
 	
