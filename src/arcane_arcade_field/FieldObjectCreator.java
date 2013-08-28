@@ -2,6 +2,7 @@ package arcane_arcade_field;
 
 import arcane_arcade_main.GameSettings;
 import handlers.ActorHandler;
+import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
 import helpAndEnums.DepthConstants;
@@ -12,7 +13,8 @@ import listeners.RoomListener;
 
 /**
  * Objectcreator creates all the objects in the field at the beginning of the 
- * room using the given settings
+ * room using the given settings. The FieldObjectCreator also creates the 
+ * collision handling environment to the field
  *
  * @author Mikko Hilpinen.
  *         Created 27.8.2013.
@@ -24,7 +26,7 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 	private DrawableHandler drawer;
 	private ActorHandler actorhandler;
 	private KeyListenerHandler keylistenerhandler;
-	// TODO: Add collidablehandler and collisionhandlers somewhere
+	private CollisionHandler collisionhandler;
 	
 	
 	// CONSTRCUTOR	-----------------------------------------------------
@@ -47,6 +49,7 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 				superdrawer);
 		this.actorhandler = new ActorHandler(false, superactorhandler);
 		this.keylistenerhandler = new KeyListenerHandler(false, superkeyhandler);
+		this.collisionhandler = new CollisionHandler(false, this.actorhandler);
 	}
 	
 	
@@ -58,13 +61,15 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 		// Creates the objects needed
 
 		// Creates wizard(s)
-		// TODO: Add collidablehandler & collisionhandler
-		room.addOnject(new Wizard(this.drawer, null, null, this.actorhandler, 
+		room.addOnject(new Wizard(this.drawer, 
+				this.collisionhandler.getCollidableHandler(), 
+				this.collisionhandler, this.actorhandler, 
 				this.keylistenerhandler));
 		// Creates the server
 		room.addOnject(new Server(GameSettings.SCREENWIDTH / 2, 
 				GameSettings.SCREENHEIGHT / 2, this.drawer, this.actorhandler, 
-				null, null, room));
+				this.collisionhandler.getCollidableHandler(), 
+				this.collisionhandler, room));
 	}
 
 	@Override

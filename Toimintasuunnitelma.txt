@@ -53,9 +53,9 @@ Eteneminen:														Status
 			* Katoaminen										...
 				- Lisää visuaalinen efekti
 		- Törmäys
-			* Tarvittavien törmäystarkastajien luominen ja 
+			* Tarvittavien törmäystarkastajien luominen ja 		DONE
 			alustaminen
-			* Pallon, maagien ja loitsujen lisääminen 
+			* Pallon, maagien ja loitsujen lisääminen 			...
 			törmäystarjustuksiin
 		- Loitsut
 			* Loitsujen rakenne

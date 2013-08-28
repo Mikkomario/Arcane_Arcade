@@ -110,6 +110,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			Collidable collided)
 	{
 		// TODO: Add collision with the ball, the walls and certain spells
+		//System.out.println("Collision!");
 	}
 
 	@Override
