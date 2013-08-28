@@ -202,12 +202,15 @@ public enum Element
 		}
 		spellindex += index2 - index1;
 
+		//System.out.println("Getting a spell from the spellist at index " + 
+		//			spellindex + ". Spells in list: " + spells.size());
+		
 		// Returns the spell from the list
-		if (spells.size() < spellindex)
+		if (spellindex < spells.size())
 			return spells.get(spellindex);
 		// Or a warning and null
 		System.err.println("Not enough spells in the element's spell list! " +
-				"Spells required " + spellindex + 1);
+				"Spells required " + (spellindex + 1));
 		return null;
 	}
 	

@@ -25,7 +25,7 @@ public class ExplosionSpell extends Spell
 	 */
 	public ExplosionSpell()
 	{
-		super(CASTDELAY_NORMAL);
+		super(CASTDELAY_LONG);
 	}
 	
 	
@@ -37,7 +37,7 @@ public class ExplosionSpell extends Spell
 			CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, Room room)
 	{
-		new ExplosionEffect((int) caster.getX() + 110, (int) caster.getY(), 
+		new ExplosionEffect((int) caster.getX() + 120, (int) caster.getY(), 
 				drawer, collidablehandler, actorhandler, room); 
 	}
 }

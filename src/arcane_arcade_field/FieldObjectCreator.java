@@ -65,7 +65,7 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 		// Creates wizard(s)
 		new Wizard(this.drawer, this.collisionhandler.getCollidableHandler(), 
 				this.collisionhandler, this.actorhandler, 
-				this.keylistenerhandler, room);
+				this.keylistenerhandler, room, ballrelay);
 		// Creates the server
 		new Server(GameSettings.SCREENWIDTH / 2, GameSettings.SCREENHEIGHT / 2, 
 				this.drawer, this.actorhandler, 

@@ -1,6 +1,7 @@
 package arcane_arcade_field;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import worlds.Room;
@@ -47,6 +48,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private DrawableHandler drawer;
 	private ActorHandler actorhandler;
 	private CollidableHandler collidablehandler;
+	private BallRelay ballrelay;
+	private CollisionHandler collisionhandler;
 	
 	private SpriteDrawer spritedrawer;
 	private MaskChecker maskchecker;
@@ -72,10 +75,12 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 * @param keylistenerhandler The keylistenerhandler that will inform 
 	 * the object about keypresses
 	 * @param room The room that will hold the wizard
+	 * @param ballrelay The ballrelay that holds information about the balls 
+	 * in the field. That information will be forwarded to the casted spells.
 	 */
 	public Wizard(DrawableHandler drawer, CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, ActorHandler actorhandler, 
-			KeyListenerHandler keylistenerhandler, Room room)
+			KeyListenerHandler keylistenerhandler, Room room, BallRelay ballrelay)
 	{
 		super(80, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
 				true, CollisionType.CIRCLE, drawer, collidablehandler,
@@ -92,6 +97,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.drawer = drawer;
 		this.actorhandler = actorhandler;
 		this.collidablehandler = collidablehandler;
+		this.ballrelay = ballrelay;
+		this.collisionhandler = collisionhandler;
 		this.elementindex1 = 0;
 		this.elementindex2 = 0;
 		this.castdelay = 0;
@@ -207,6 +214,12 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			else if (key == 's' || key == 'S')
 				addVelocity(0, this.accelration);
 		}
+		else
+		{
+			// If ctrl was pressed, casts a spell
+			if (keyCode == KeyEvent.VK_CONTROL)
+				castSpell();
+		}
 	}
 
 	@Override
@@ -224,7 +237,6 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				tryTeleporting(1);
 			}
 		}
-		// TODO: Add Casting sometime
 	}
 
 	@Override
@@ -345,5 +357,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			addPosition(0, movementsign * this.teleportdistance);
 		}
 		this.doubletaptime = this.teleportdelay;
+	}
+	
+	// Casts the spell desided by the two active elements
+	private void castSpell()
+	{
+		this.elements.get(this.elementindex1).getSpell(
+				this.elements.get(this.elementindex2)).execute(
+				this, this.ballrelay, this.drawer, this.actorhandler, 
+				this.collidablehandler, this.collisionhandler, this.room);
 	}
 }
