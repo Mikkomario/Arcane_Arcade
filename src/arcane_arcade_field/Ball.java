@@ -163,7 +163,14 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 	
 	// OTHER METHODS	--------------------------------------------------
 	
-	private void impact(double force, int delay, double direction)
+	/**
+	 * With this method, an object can affect the ball's movement course.
+	 *
+	 * @param force How much force is added to the ball
+	 * @param delay How long is the delay before full force can be applied again
+	 * @param direction Towards which direction should the ball move
+	 */
+	public void impact(double force, int delay, double direction)
 	{
 		// If there's still force delay left, 90% of the impact is lost
 		if (this.forcedelay > 0)

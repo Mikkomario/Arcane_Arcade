@@ -29,7 +29,7 @@ Eteneminen:														Status
 					* Backgroundien sijoittaminen				DONE
 				- Roomien luominen organisoidusti				...
 			* Objektien luominen huoneen alkaessa				...
-				- Tarvitaan luotavat objektit					...
+				- Tarvitaan luotavat objektit					DONE
 				- Creator-objektin kanssa yhteensopivan 
 				huoneen luominen
 			* Pelin aloittaminen								DONE
@@ -57,24 +57,38 @@ Eteneminen:														Status
 			alustaminen
 			* Pallon, maagien ja loitsujen lisääminen 			...
 			törmäystarjustuksiin
-		- Loitsut
-			* Loitsujen rakenne
-				- Perus loitsuluokka
+		- Loitsut												...
+			* Elementit											Testaamatta
+				- Elementit enumeraatioina						DONE
+				- Elementtien heikkoudet ja vahvuudet			Testaamatta
+			* Loitsujen rakenne									...
+				- Perus loitsuluokka							...
+					* Maskattava loitsuluokka
+					* Loitsujen häiväminen						...
+						- Enumeraatio							DONE
+						- Animaation seuraaminen
+						- Opaciteetin muuttaminen
 					* Projectile loitsut
 					* Area loitsut
 					* Seuraavat loitsut
 					* Hakeutuvat loitsut
 						- Pallon sijainnin selvittäminen
 						- Pallonkuuntelumekanismi
+					* Curset
+					* Blessingit
 			* Loitsun valitseminen
 			* Loitsun loihtiminen
 			* Uusien elementtien lisäämisen mahdollistaminen
-	* Beta
-		- Pallon statusefektit
-			* Statusefektit enumeraatioina
+	* Beta														...
+		- Pallon statusefektit									...
+			* Statusefektit enumeraatioina						...
 			* Statusefektien piirtäminen (pallon ulkopuolella)
 			* Statusefektien vaikutuksen laskeminen ja 
 			ottaminen impactiin
+		- Wizardin statusefektit
+			* Statusefektit enumeraatioina
+			* Statusefektien piirtäminen
+			* Statusefektien vaikutus pelaamiseen
 		- HUD
 			* Käytössä olevien elementtien piirtäminen
 		- Manamittari
