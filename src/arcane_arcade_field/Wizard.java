@@ -104,8 +104,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		// TODO: Add elements
 		this.elements = new ArrayList<Element>();
 		this.elements.add(Element.FIRE);
-		this.elements.add(Element.WATER);
-		this.elements.add(Element.ICE);
+		//this.elements.add(Element.WATER);
+		//this.elements.add(Element.ICE);
 		
 		// Stops the animation
 		this.spritedrawer.setImageSpeed(0);

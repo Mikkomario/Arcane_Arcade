@@ -1,5 +1,10 @@
 package arcane_arcade_status;
 
+import java.util.ArrayList;
+
+import arcane_arcade_spells.ExplosionSpell;
+import arcane_arcade_spells.Spell;
+
 /**
  * There are multiple elements in the game. Some elements are effective against 
  * some statusses and some aren't. Each element also has an icon. Elements can 
@@ -29,9 +34,49 @@ public enum Element
 	LIGHT,
 	@SuppressWarnings("javadoc")
 	NOELEMENT;
+	
+	
+	// ATTRIBUTES	-----------------------------------------------------
+	
+	private static ArrayList<Spell> spells = null;
+	private static boolean initialized = false;
 
 	
-	// METHODS	---------------------------------------------------------
+	// STATIC METHODS	--------------------------------------------------
+	
+	private static void initializeSpellList()
+	{
+		// If the spells are already initialized, does nothing
+		if (initialized)
+			return;
+		
+		initialized = true;
+		spells = new ArrayList<Spell>();
+		// Adds the spells to the list
+		// NOTICE: Spells need to be in a specific order: 
+		// FIRE (fire + fire, fire + water, ...), 
+		// WATER (water + water, water + ice, ...), ICE, EARTH, WIND, 
+		// LIGHTNING, DARK and LIGHT
+		spells.add(new ExplosionSpell());
+		// TODO: Add spells
+	}
+	
+	/**
+	 * Uninitializes the spell list, releasing the memory
+	 */
+	public static void uninitializeSpellList()
+	{
+		// If the list is already uninitialized, does nothing
+		if (!initialized)
+			return;
+		
+		initialized = false;
+		spells.clear();
+		spells = null;
+	}
+	
+	
+	// OTHER METHODS	--------------------------------------------------
 	
 	/**
 	 * @return The imageindex in the element indicator that represents the 
@@ -131,7 +176,40 @@ public enum Element
 		}
 	}
 	
-	// TODO: Add getSpell method
+	/**
+	 * Finds a spell that is created using the this element and another element
+	 *
+	 * @param element2 The other element of the spell
+	 * @return The spell that is formed using this element and the given element 
+	 * together
+	 */
+	public Spell getSpell(Element element2)
+	{
+		// Initializes the spell list if needed
+		if (!initialized)
+			initializeSpellList();
+		
+		// Adds a spell from the list
+		// Uses the indexes in a certain order
+		int index1 = Math.max(getElementIconIndex(), element2.getElementIconIndex());
+		int index2 = Math.min(getElementIconIndex(), element2.getElementIconIndex());
+		int spellindex = 0;
+		
+		// Finds the corrent index in the list by using element indexes
+		for (int i = 0; i < index1; i ++)
+		{
+		    spellindex += Element.values().length - i;
+		}
+		spellindex += index2 - index1;
+
+		// Returns the spell from the list
+		if (spells.size() < spellindex)
+			return spells.get(spellindex);
+		// Or a warning and null
+		System.err.println("Not enough spells in the element's spell list! " +
+				"Spells required " + spellindex + 1);
+		return null;
+	}
 	
 	private double getWeakModifier(double strength)
 	{
