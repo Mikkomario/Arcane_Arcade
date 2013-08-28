@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import worlds.Room;
 
+import listeners.AnimationListener;
 import listeners.RoomListener;
 
 import arcane_arcade_field.Ball;
@@ -33,7 +34,8 @@ import drawnobjects.BasicPhysicDrawnObject;
  * @author Mikko Hilpinen.
  *         Created 28.8.2013.
  */
-public abstract class SpellEffect extends BasicPhysicDrawnObject implements RoomListener
+public abstract class SpellEffect extends BasicPhysicDrawnObject implements 
+		RoomListener, AnimationListener
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
@@ -100,6 +102,17 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements Room
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getBank("spells").getSprite(spritename), 
 				actorhandler);
+		
+		// Sets up the deaths
+		if (this.deathtype == DeathType.ANIMATION)
+		{
+			this.spritedrawer.setImageIndex(0);
+			this.spritedrawer.setImageSpeed(
+					this.spritedrawer.getSprite().getImageNumber() / lifetime);
+			this.spritedrawer.getAnimationListenerHandler().addAnimationListener(this);
+		}
+		else if (this.deathtype == DeathType.FADE)
+			setAlpha(0);
 	}
 	
 	
@@ -215,6 +228,34 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements Room
 	{
 		// Dies if the room ends
 		kill();
+	}
+	
+	@Override
+	public void onAnimationEnd(SpriteDrawer spritedrawer)
+	{
+		// If the effect is supposed to die at the end of the animation, dies
+		if (this.deathtype == DeathType.ANIMATION)
+			kill();
+	}
+	
+	@Override
+	public void act()
+	{
+		super.act();
+		
+		// Lifetime decreases
+		this.lifeleft --;
+		// Checks if the object should die
+		if (this.lifeleft == 0)
+			kill();
+		// Changes the alpha if needed
+		else if (this.deathtype == DeathType.FADE)
+		{
+			if (this.lifeleft < 20)
+				setAlpha((float)((20 - this.lifeleft) / 20.0));
+			else if (getAlpha() < 1)
+				setAlpha(getAlpha() + 0.1f);
+		}
 	}
 	
 	

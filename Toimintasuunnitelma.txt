@@ -64,9 +64,9 @@ Eteneminen:														Status
 			* Loitsujen rakenne									...
 				- Perus loitsuluokka							...
 					* Maskattava loitsuluokka
-					* Loitsujen häiväminen						...
+					* Loitsujen häiväminen						Untested
 						- Enumeraatio							DONE
-						- Animaation seuraaminen
+						- Animaation seuraaminen				Untested
 						- Opaciteetin muuttaminen				DONE
 					* Projectile loitsut
 					* Area loitsut
