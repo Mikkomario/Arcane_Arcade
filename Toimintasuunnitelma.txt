@@ -67,8 +67,8 @@ Eteneminen:														Status
 			* Elementit											Testaamatta
 				- Elementit enumeraatioina						DONE
 				- Elementtien heikkoudet ja vahvuudet			Testaamatta
-			* Loitsujen rakenne									...
-				- Perus loitsuluokka							...
+			* Loitsujen rakenne									Testaamatta
+				- Perus loitsuluokka							Testaamatta
 					* Maskattava loitsuluokka					DONE
 					* Loitsujen häiväminen						DONE
 						- Enumeraatio							DONE
@@ -80,10 +80,10 @@ Eteneminen:														Status
 						- Pallonkuuntelumekanismi				Testaamatta
 					* Curset									Testaamatta
 					* Blessingit								Testaamatta
-					* Loitsuefektigeneraattorit
-						- Staattiset generaattorit
-						- Liikkuvat generaattorit
-						- Seuraavat generaattorit
+					* Loitsuefektigeneraattorit					Testaamatta
+						- Staattiset generaattorit				Testaamatta
+						- Liikkuvat generaattorit				Testaamatta
+						- Seuraavat generaattorit				Testaamatta
 			* Loitsun valitseminen								...
 				- Loitsun etsiminen elementtien avulla			Testaamatta
 				- Loitsun elementtien vaihtaminen
