@@ -18,6 +18,32 @@ public abstract class Spell
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
+	/**
+	 * A very short castdelay usually used in repeatable / ongoing spells
+	 */
+	protected static final int CASTDELAY_VERY_SHORT = 18;
+	/**
+	 * A short castdelay used in light spells
+	 */
+	protected static final int CASTDELAY_SHORT = 25;
+	/**
+	 * A medium cast delay used in most spells
+	 */
+	protected static final int CASTDELAY_NORMAL = 33;
+	/**
+	 * A long cast delay used in heavy spells
+	 */
+	protected static final int CASTDELAY_LONG = 45;
+	/**
+	 * A very long cast delay used in very powerful spells
+	 */
+	protected static final int CASTDELAY_VERY_LONG = 85;
+	/**
+	 * A super long cast delay used only in the most powerful and 
+	 * rare spells
+	 */
+	protected static final int CASTDELAY_EPIC = 150;
+	
 	private int castdelay;
 	
 	
