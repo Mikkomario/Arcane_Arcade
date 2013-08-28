@@ -11,6 +11,7 @@ import listeners.RoomListener;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Main;
 import arcane_arcade_spelleffects.TeleportEffect;
+import arcane_arcade_status.Element;
 
 import graphic.MaskChecker;
 import graphic.SpriteDrawer;
@@ -49,6 +50,10 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	
 	private SpriteDrawer spritedrawer;
 	private MaskChecker maskchecker;
+	private ArrayList<Element> elements;
+	private int elementindex1;
+	private int elementindex2;
+	private int castdelay;
 	private int doubletaptime;
 	
 	
@@ -87,11 +92,20 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.drawer = drawer;
 		this.actorhandler = actorhandler;
 		this.collidablehandler = collidablehandler;
+		this.elementindex1 = 0;
+		this.elementindex2 = 0;
+		this.castdelay = 0;
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getBank("creatures").getSprite("redwizard"), 
 				actorhandler);
 		this.maskchecker = new MaskChecker(
 				Main.spritebanks.getBank("creatures").getSprite("wizardmask"));
+		// Initializes element list with three elements
+		// TODO: Add elements
+		this.elements = new ArrayList<Element>();
+		this.elements.add(Element.FIRE);
+		this.elements.add(Element.WATER);
+		this.elements.add(Element.ICE);
 		
 		// Stops the animation
 		this.spritedrawer.setImageSpeed(0);
@@ -259,11 +273,61 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		if (this.doubletaptime > 0)
 			this.doubletaptime --;
 		
+		// Checks castdelay
+		if (this.castdelay > 0)
+		{
+			this.castdelay --;
+			
+			// If the casting ended, stops the sprite
+			if (this.castdelay == 0)
+			{
+				this.spritedrawer.setImageSpeed(0);
+				this.spritedrawer.setImageIndex(0);
+			}
+		}
+		
 		// Snaps back to the field
 		if (getY() < getOriginY())
 			setY(getOriginY());
 		else if (getY() > GameSettings.SCREENHEIGHT - getHeight() + getOriginY())
 			setY(GameSettings.SCREENHEIGHT - getHeight() + getOriginY());
+	}
+	
+	
+	// GETTERS & SETTERS	---------------------------------------------
+	
+	/**
+	 * @return The spritedrawer that draws the wizard's sprite
+	 */
+	public SpriteDrawer getSpriteDrawer()
+	{
+		return this.spritedrawer;
+	}
+	
+	/**
+	 * @return Is the wizard currently casting a spell
+	 */
+	public boolean isCasting()
+	{
+		return this.castdelay > 0;
+	}
+	
+	/**
+	 * Changes the remaining time, how long the wizard is casting a new spell. 
+	 * Also sets a new animation and a meter to show the progress
+	 * 
+	 * @param castdelay How long the wizard will be casting
+	 */
+	public void setCastDelay(int castdelay)
+	{
+		this.castdelay = castdelay;
+		
+		// Restarts the image index
+		getSpriteDrawer().setImageIndex(0);
+		// Sets the animation on
+		getSpriteDrawer().setAnimationDuration(castdelay);
+		
+		// TODO: Add castdelaymeter
 	}
 	
 	

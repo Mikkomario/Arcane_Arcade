@@ -110,8 +110,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		if (this.deathtype == DeathType.ANIMATION)
 		{
 			this.spritedrawer.setImageIndex(0);
-			this.spritedrawer.setImageSpeed(
-					this.spritedrawer.getSprite().getImageNumber() / (double) lifetime);
+			this.spritedrawer.setAnimationDuration(this.lifeleft);
 			this.spritedrawer.getAnimationListenerHandler().addAnimationListener(this);
 		}
 		else if (this.deathtype == DeathType.FADE)

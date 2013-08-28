@@ -131,6 +131,8 @@ public enum Element
 		}
 	}
 	
+	// TODO: Add getSpell method
+	
 	private double getWeakModifier(double strength)
 	{
 		return 1 - 0.9 * strength;

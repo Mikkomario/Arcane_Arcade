@@ -136,6 +136,21 @@ public class SpriteDrawer implements Actor
 	}
 	
 	/**
+	 * Changes the image speed so that a single animation cycle will last 
+	 * <b>duration</b> steps
+	 *
+	 * @param duration How many steps will a single animation cycle last
+	 */
+	public void setAnimationDuration(int duration)
+	{
+		// Checks the argument
+		if (duration == 0)
+			setImageSpeed(0);
+		else
+			setImageSpeed(getSprite().getImageNumber() / (double) duration);
+	}
+	
+	/**
 	 * @return Which subimage from the animation is currently drawn [0, numberOfSubimages[
 	 */
 	public int getImageIndex()
