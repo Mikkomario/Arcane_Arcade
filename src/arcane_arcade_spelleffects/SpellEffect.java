@@ -1,6 +1,7 @@
 package arcane_arcade_spelleffects;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.util.ArrayList;
 
 import worlds.Room;
@@ -22,6 +23,7 @@ import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DoublePoint;
+import helpAndEnums.HelpMath;
 import drawnobjects.BasicPhysicDrawnObject;
 
 /**
@@ -168,20 +170,10 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		// If the spell collides with other spells, may react to them
 		if (this.spellcollision && collided instanceof SpellEffect)
 		{
-			// Calculates the center collision point
-			double x = colpoints.get(0).getX();
-			double y = colpoints.get(0).getY();
-			
-			for (int i = 1; i < colpoints.size(); i++)
-			{
-				x += colpoints.get(i).getX();
-				y += colpoints.get(i).getY();
-			}
-			
-			x /= colpoints.size();
-			y /= colpoints.size();
-			
-			onSpellCollision((SpellEffect) collided, (int) x, (int) y);
+			Point averagepoint = 
+					HelpMath.getAverageDoublePoint(colpoints).getAsPoint();
+			onSpellCollision((SpellEffect) collided, averagepoint.x, 
+					averagepoint.y);
 		}
 	}
 
@@ -319,7 +311,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	protected double getForceModifier(Ball ball)
 	{
 		// TODO: Complete this to use ball's statistics (not possible yet)
-		return this.element1.getForceModifier(BallStatus.NOSTATUS, 0) + 
+		return this.element1.getForceModifier(BallStatus.NOSTATUS, 0) *
 				this.element2.getForceModifier(BallStatus.NOSTATUS, 0);
 	}
 	

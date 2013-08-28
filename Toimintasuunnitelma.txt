@@ -49,10 +49,10 @@ Eteneminen:														Status
 				- Lisää myös listener rajapinta niin että 		Plääh
 				uusi luokka voi kertoa objekteille kun ne 
 				törmää seinään
-		- Pallo													Testaamatta
+		- Pallo													DONE
 			* Pallon liikuttaminen								DONE
 			* Pallon törmäys seiniin							DONE
-			* "Impact"											Testaamatta
+			* "Impact"											DONE
 		- Serveri												...
 			* Pyöriminen										DONE
 			* Pallon ampuminen									DONE
@@ -61,7 +61,7 @@ Eteneminen:														Status
 		- Törmäys
 			* Tarvittavien törmäystarkastajien luominen ja 		DONE
 			alustaminen
-			* Pallon, maagien ja loitsujen lisääminen 			Testaamatta
+			* Pallon, maagien ja loitsujen lisääminen 			DONE
 			törmäystarjustuksiin
 		- Loitsut												...
 			* Elementit											Testaamatta
@@ -69,7 +69,7 @@ Eteneminen:														Status
 				- Elementtien heikkoudet ja vahvuudet			Testaamatta
 			* Loitsujen rakenne									...
 				- Perus loitsuluokka							...
-					* Maskattava loitsuluokka					Testaamatta
+					* Maskattava loitsuluokka					DONE
 					* Loitsujen häiväminen						DONE
 						- Enumeraatio							DONE
 						- Animaation seuraaminen				DONE
@@ -78,8 +78,8 @@ Eteneminen:														Status
 					* Hakeutuvat loitsut						Testaamatta
 						- Pallon sijainnin selvittäminen		Testaamatta
 						- Pallonkuuntelumekanismi				Testaamatta
-					* Curset
-					* Blessingit
+					* Curset									Testaamatta
+					* Blessingit								Testaamatta
 					* Loitsuefektigeneraattorit
 						- Staattiset generaattorit
 						- Liikkuvat generaattorit

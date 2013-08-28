@@ -53,7 +53,7 @@ public class ExplosionEffect extends MaskedSpellEffect
 	public void onBallCollision(Ball ball, int x, int y)
 	{
 		// Causes impact to the ball
-		ball.impact(20 * getForceModifier(ball), 15, 
+		ball.impact(17 * getForceModifier(ball), 15, 
 				HelpMath.pointDirection(getX(), getY(), ball.getX(), 
 				ball.getY()));
 		// TODO: Add status flaming to the ball

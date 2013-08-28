@@ -54,8 +54,10 @@ public class CollisionHandler extends LogicalHandler implements Actor
 	@Override
 	public void act()
 	{
-		// Removes the dead handleds
+		// Removes the dead listeners
 		removeDeadHandleds();
+		// And dead collidables as well
+		getCollidableHandler().removeDeadHandleds();
 		
 		// Checks collisions between all the listeners and collidables
 		for (int listenerind = 0; listenerind < getHandledNumber(); listenerind++)

@@ -1,6 +1,7 @@
 package helpAndEnums;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 /**
  * This class calculates some mathematical problems
@@ -268,5 +269,33 @@ public class HelpMath
 			angledifference = 180 - angledifference;
 		
 		return angledifference;
+	}
+	
+	/**
+	 * Calculates an average doublepoint from multiple doublepoints
+	 *
+	 * @param doublepoints A list of doublepoints
+	 * @return The list's average doublepoint
+	 */
+	public static DoublePoint getAverageDoublePoint(ArrayList<DoublePoint> doublepoints)
+	{
+		// If there are not enought points, returns 0
+		if (doublepoints == null || doublepoints.isEmpty())
+			return new DoublePoint(0, 0);
+		
+		// Calculates the center collision point
+		double x = doublepoints.get(0).getX();
+		double y = doublepoints.get(0).getY();
+		
+		for (int i = 1; i < doublepoints.size(); i++)
+		{
+			x += doublepoints.get(i).getX();
+			y += doublepoints.get(i).getY();
+		}
+		
+		x /= doublepoints.size();
+		y /= doublepoints.size();
+		
+		return new DoublePoint(x, y);
 	}
 }
