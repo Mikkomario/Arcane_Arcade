@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 
 import handleds.Actor;
 import handlers.ActorHandler;
+import handlers.AnimationListenerHandler;
 
 /**
  * Spritedrawer is able to draw animated sprites for an object. Object's can 
@@ -16,9 +17,10 @@ public class SpriteDrawer implements Actor
 {
 	// ATTRIBUTES	-------------------------------------------------------
 	
-		private Sprite sprite;
-		private double imageSpeed, imageIndex;
-		private boolean alive, active;
+	private Sprite sprite;
+	private double imageSpeed, imageIndex;
+	private boolean alive, active;
+	private AnimationListenerHandler listenerhandler;
 		
 		
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -34,6 +36,7 @@ public class SpriteDrawer implements Actor
 	{
 		// Initializes the attributes
 		this.sprite = sprite;
+		this.listenerhandler = new AnimationListenerHandler(false, null);
 		
 		this.imageSpeed = 0.1;
 		this.imageIndex = 0;
@@ -152,6 +155,15 @@ public class SpriteDrawer implements Actor
 		checkImageIndex();
 	}
 	
+	/**
+	 * @return The animationlistenerhandler that will inform animationlisteners 
+	 * about the events in the animation
+	 */
+	public AnimationListenerHandler getAnimationListenerHandler()
+	{
+		return this.listenerhandler;
+	}
+	
 	
 	// OTHER METHODS	---------------------------------------------------
 	
@@ -177,9 +189,15 @@ public class SpriteDrawer implements Actor
 	// Returns the imageindex to a valid value
 	private void checkImageIndex()
 	{
+		double imageindexlast = getImageIndex();
+		
 		this.imageIndex = this.imageIndex % getSprite().getImageNumber();
 		
 		if (this.imageIndex < 0)
 			this.imageIndex += getSprite().getImageNumber();
+		
+		// If image index changed (cycle ended / looped), informs the listeners
+		if (getImageIndex() != imageindexlast)
+			getAnimationListenerHandler().onAnimationEnd(this);
 	}
 }
