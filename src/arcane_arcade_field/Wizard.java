@@ -10,7 +10,7 @@ import listeners.RoomListener;
 
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Main;
-import arcane_arcade_spells.TeleportEffect;
+import arcane_arcade_spelleffects.TeleportEffect;
 
 import graphic.MaskChecker;
 import graphic.SpriteDrawer;

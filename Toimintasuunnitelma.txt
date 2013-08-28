@@ -42,7 +42,7 @@ Eteneminen:														Status
 			* Maagin liikuttaminen								...
 				- Maagin normaali liikuttaminen					DONE
 				- Maagin teleporttailu							...
-					* Lisää visuaalinen efekti
+					* Lisää visuaalinen efekti					DONE
 						- Portal-grafiikka efektiin
 			* Maagin törmääminen seiniin						DONE
 				- Lisää oma luokka joka hoitaa tarkistuksen 	Plääh

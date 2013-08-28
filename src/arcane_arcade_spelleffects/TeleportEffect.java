@@ -1,4 +1,4 @@
-package arcane_arcade_spells;
+package arcane_arcade_spelleffects;
 
 import worlds.Room;
 import handlers.ActorHandler;

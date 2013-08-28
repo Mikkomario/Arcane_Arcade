@@ -1,4 +1,4 @@
-package arcane_arcade_spells;
+package arcane_arcade_spelleffects;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
