@@ -67,7 +67,7 @@ Eteneminen:														Status
 					* Loitsujen häiväminen						...
 						- Enumeraatio							DONE
 						- Animaation seuraaminen
-						- Opaciteetin muuttaminen
+						- Opaciteetin muuttaminen				DONE
 					* Projectile loitsut
 					* Area loitsut
 					* Seuraavat loitsut

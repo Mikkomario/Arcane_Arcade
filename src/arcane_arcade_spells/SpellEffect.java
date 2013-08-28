@@ -35,8 +35,6 @@ import drawnobjects.BasicPhysicDrawnObject;
  */
 public abstract class SpellEffect extends BasicPhysicDrawnObject implements RoomListener
 {
-	// TODO: Continue by following the toimintasuunnitelma
-	
 	// ATTRIBUTES	------------------------------------------------------
 	
 	private SpriteDrawer spritedrawer;

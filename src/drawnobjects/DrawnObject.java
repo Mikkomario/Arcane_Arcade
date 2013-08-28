@@ -6,6 +6,8 @@ import helpAndEnums.DoublePoint;
 import helpAndEnums.HelpMath;
 import helpAndEnums.Movement;
 
+import java.awt.AlphaComposite;
+import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
@@ -25,6 +27,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	// ATTRIBUTES	-------------------------------------------------------
 	
 	private double xscale, yscale, x, y, angle;
+	private float alpha;
 	private boolean visible;
 	private int depth;
 	
@@ -51,6 +54,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		this.visible = true;
 		this.angle = 0;
 		this.depth = depth;
+		this.alpha = 1;
 		
 		// Adds the object to the drawer (if possible)
 		if (drawer != null)
@@ -104,8 +108,13 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	@Override
 	public void drawSelf(Graphics2D g2d)
 	{
-		// Remembers the previous transformation
+		// Remembers the previous transformation and transparency
 		AffineTransform trans = g2d.getTransform();
+		Composite originalcomposite = g2d.getComposite();
+		
+		// Changes the object's transparency
+		int type = AlphaComposite.SRC_OVER; 
+		g2d.setComposite(AlphaComposite.getInstance(type, this.alpha));
 		
 		// Translates the sprite to the object's position
 		g2d.translate(getX(), getY());
@@ -119,8 +128,9 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		// Finally draws the object
 		drawSelfBasic(g2d);
 		
-		// Loads the previous transformation
+		// Loads the previous transformation and transparency
 		g2d.setTransform(trans);
+		g2d.setComposite(originalcomposite);
 	}
 	
 	@Override
@@ -306,6 +316,26 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	public void addPosition(Movement movement)
 	{
 		addPosition(movement.getHSpeed(), movement.getVSpeed());
+	}
+	
+	/**
+	 * @return The alpha value or the opacity of the object. 1 means that the 
+	 * object is fully visible, 0 means that the object is completely transparent.
+	 */
+	public float getAlpha()
+	{
+		return this.alpha;
+	}
+	
+	/**
+	 * Changes the objects alpha value, which affects its transparency.
+	 *
+	 * @param alpha The object's new alpha value [0, 1] (0 = invisible, 1 = 
+	 * fully visible)
+	 */
+	public void setAlpha(float alpha)
+	{
+		this.alpha = alpha;
 	}
 	
 	
