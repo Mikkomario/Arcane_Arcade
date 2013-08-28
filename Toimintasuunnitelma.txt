@@ -63,14 +63,11 @@ Eteneminen:														Status
 				- Elementtien heikkoudet ja vahvuudet			Testaamatta
 			* Loitsujen rakenne									...
 				- Perus loitsuluokka							...
-					* Maskattava loitsuluokka
+					* Maskattava loitsuluokka					Untested
 					* Loitsujen häiväminen						Untested
 						- Enumeraatio							DONE
 						- Animaation seuraaminen				Untested
 						- Opaciteetin muuttaminen				DONE
-					* Projectile loitsut
-					* Area loitsut
-					* Seuraavat loitsut
 					* Hakeutuvat loitsut
 						- Pallon sijainnin selvittäminen
 						- Pallonkuuntelumekanismi

@@ -11,6 +11,7 @@ import listeners.RoomListener;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_main.Main;
+import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 
 import graphic.SpriteDrawer;
@@ -259,6 +260,17 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	}
 	
 	
+	// GETTERS & SETTTERS	----------------------------------------------
+	
+	/**
+	 * @return The spritedrawer used to draw the object
+	 */
+	protected SpriteDrawer getSpriteDrawer()
+	{
+		return this.spritedrawer;
+	}
+	
+	
 	// OTHER METHODS	--------------------------------------------------
 	
 	/**
@@ -282,6 +294,20 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	}
 	
 	// TODO: Add force modifier calculations after ball has statusses
+	/**
+	 * Calculates the force modifier that affects the size of the impact caused 
+	 * to the ball.
+	 *
+	 * @param ball The ball to which impact will be added
+	 * @return How large should the impact be proportionally (1 means it stays 
+	 * the same, 2 twice as large and so on)
+	 */
+	protected double getForceModifier(Ball ball)
+	{
+		// TODO: Complete this to use ball's statistics (not possible yet)
+		return this.element1.getForceModifier(BallStatus.NOSTATUS, 0) + 
+				this.element2.getForceModifier(BallStatus.NOSTATUS, 0);
+	}
 	
 	
 	// ENUMERATIONS	-----------------------------------------------------

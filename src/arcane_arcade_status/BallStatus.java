@@ -21,5 +21,7 @@ public enum BallStatus
 	@SuppressWarnings("javadoc")
 	CHARGED, 
 	@SuppressWarnings("javadoc")
-	BOULDER;
+	BOULDER, 
+	@SuppressWarnings("javadoc")
+	NOSTATUS;
 }

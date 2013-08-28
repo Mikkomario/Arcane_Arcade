@@ -189,7 +189,7 @@ public class SpriteDrawer implements Actor
 	// Returns the imageindex to a valid value
 	private void checkImageIndex()
 	{
-		double imageindexlast = getImageIndex();
+		int imageindexlast = getImageIndex();
 		
 		this.imageIndex = this.imageIndex % getSprite().getImageNumber();
 		
