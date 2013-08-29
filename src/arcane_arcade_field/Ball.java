@@ -37,6 +37,7 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private SpriteDrawer spritedrawer;
+	private BallStatusDrawer statusdrawer;
 	
 	private double airfriction, forcedelay;
 	private int minspeed;
@@ -78,7 +79,8 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getOpenSpriteBank("field").getSprite("ball"), 
 				actorhandler);
-		this.statusdepletionrate = 0.2;
+		this.statusdrawer = new BallStatusDrawer(drawer, actorhandler, this);
+		this.statusdepletionrate = 0.15;
 		
 		// Sets up movement stats
 		setMaxSpeed(20);
@@ -154,6 +156,8 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 		// Kills the spritedrawer as well
 		this.spritedrawer.kill();
 		this.spritedrawer = null;
+		this.statusdrawer.kill();
+		this.statusdrawer = null;
 		
 		return super.kill();
 	}
@@ -262,11 +266,41 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 	{
 		switch(status)
 		{
-			case FLAMING: this.flaming += strength; break;
-			case FROZEN: this.frozen += strength; break;
-			case WET: this.wet += strength; break;
-			case MUDDY: this.muddy += strength; break;
-			case CHARGED: this.charged += strength; break;
+			case FLAMING:
+			{
+				this.flaming += strength;
+				if (this.flaming > 100)
+					this.flaming = 100;
+				break;
+			}
+			case FROZEN:
+			{
+				this.frozen += strength;
+				if (this.frozen > 100)
+					this.frozen = 100;
+				break;
+			}
+			case WET:
+			{
+				this.wet += strength;
+				if (this.wet > 100)
+					this.wet = 100;
+				break;
+			}
+			case MUDDY:
+			{
+				this.muddy += strength;
+				if (this.muddy > 100)
+					this.muddy = 100;
+				break;
+			}
+			case CHARGED:
+			{
+				this.charged += strength;
+				if (this.charged > 100)
+					this.charged = 100;
+				break;
+			}
 			default: break;
 		}
 	}

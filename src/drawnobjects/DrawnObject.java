@@ -114,7 +114,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		
 		// Changes the object's transparency
 		int type = AlphaComposite.SRC_OVER; 
-		g2d.setComposite(AlphaComposite.getInstance(type, this.alpha));
+		g2d.setComposite(AlphaComposite.getInstance(type, getAlpha()));
 		
 		// Translates the sprite to the object's position
 		g2d.translate(getX(), getY());
