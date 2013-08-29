@@ -11,6 +11,7 @@ import listeners.RoomListener;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Main;
 import arcane_arcade_spelleffects.SpellEffect;
+import arcane_arcade_status.BallStatus;
 
 import graphic.SpriteDrawer;
 import handleds.Collidable;
@@ -39,6 +40,7 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 	
 	private double airfriction, forcedelay;
 	private int minspeed;
+	private double flaming, wet, frozen, muddy, charged, statusdepletionrate;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -68,9 +70,15 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 		this.airfriction = 0.005;
 		this.forcedelay = 0;
 		this.minspeed = 6;
+		this.flaming = 0;
+		this.wet = 0;
+		this.frozen = 0;
+		this.muddy = 0;
+		this.charged = 0;
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getOpenSpriteBank("field").getSprite("ball"), 
 				actorhandler);
+		this.statusdepletionrate = 0.2;
 		
 		// Sets up movement stats
 		setMaxSpeed(20);
@@ -169,6 +177,9 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 		// Updates the force delay
 		if (this.forcedelay > 0)
 			this.forcedelay --;
+		
+		// Updates the ball's status effects
+		adjustStatusses();
 	}
 	
 	@Override
@@ -193,8 +204,13 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 	 * @param force How much force is added to the ball
 	 * @param delay How long is the delay before full force can be applied again
 	 * @param direction Towards which direction should the ball move
+	 * @param statuseffect A statuseffect applied to the ball (only if full 
+	 * force is applied)
+	 * @param statusstrength How much the status effect affects the ball [1, 100] 
+	 * (100 meaning that the status becomes maxed instantly) 
 	 */
-	public void impact(double force, int delay, double direction)
+	public void impact(double force, int delay, double direction, 
+			BallStatus statuseffect, int statusstrength)
 	{
 		// If there's still force delay left, 90% of the impact is lost
 		if (this.forcedelay > 0)
@@ -203,10 +219,31 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 		{
 			// Otherwise updates the delay
 			this.forcedelay = delay;
+			// Adds the status effect
+			addStatus(statuseffect, statusstrength);
 		}
 		
 		// Adds the motion
 		addMotion(direction, force);
+	}
+	
+	/**
+	 * Returns the strength of a single status effect the ball has
+	 *
+	 * @param status The status effect the ball might have
+	 * @return How strongly is that status affecting the ball [0, 100]
+	 */
+	public double getStatusStrength(BallStatus status)
+	{
+		switch(status)
+		{
+		case FLAMING: return this.flaming;
+		case WET: return this.wet;
+		case FROZEN: return this.frozen;
+		case MUDDY: return this.muddy;
+		case CHARGED: return this.charged;
+		default: return 0;
+		}
 	}
 	
 	private void bounceFromScreenBorders()
@@ -219,5 +256,80 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 			getMovement().setHSpeed(Math.abs(getMovement().getHSpeed()));
 		else if (getX() > GameSettings.SCREENWIDTH - getRadius())
 			getMovement().setHSpeed(-Math.abs(getMovement().getHSpeed()));
+	}
+	
+	private void addStatus(BallStatus status, int strength)
+	{
+		switch(status)
+		{
+			case FLAMING: this.flaming += strength; break;
+			case FROZEN: this.frozen += strength; break;
+			case WET: this.wet += strength; break;
+			case MUDDY: this.muddy += strength; break;
+			case CHARGED: this.charged += strength; break;
+			default: break;
+		}
+	}
+	
+	private void adjustStatusses()
+	{
+		// Makes changes according to each status
+		if (this.flaming > 0)
+		{
+		    this.flaming -= this.statusdepletionrate;
+		    if (this.frozen > 0)
+		        this.frozen -= this.statusdepletionrate;
+		    if (this.wet > 0)
+		        this.wet -= this.statusdepletionrate * 2;
+		}
+		if (this.frozen > 0)
+		{
+		    this.frozen -= this.statusdepletionrate;
+		    if (this.flaming > 0)
+		    	this.flaming -= this.statusdepletionrate * 1.5;
+		    if (getMovement().getSpeed() > this.minspeed * 0.75)
+		        getMovement().multiplySPeed(1 - 0.01 * (this.frozen / 100));
+		}
+		if (this.wet > 0)
+		{
+		    this.wet -= this.statusdepletionrate;
+		    if (this.flaming > 0)
+		        this.flaming -= this.statusdepletionrate;
+		    if (this.muddy > 0)
+		        this.muddy -= this.statusdepletionrate * 2;
+		    if (this.charged > 0)
+		        this.charged += this.statusdepletionrate * 2;
+		}
+		if (this.muddy > 0)
+		{
+		    this.muddy -= this.statusdepletionrate;
+		    if (this.flaming > 0)
+		        this.flaming -= this.statusdepletionrate * 1.5;
+		    if (this.charged > 0)
+		        this.charged -= this.statusdepletionrate * 2;
+		    if (getMovement().getSpeed() > this.minspeed * 0.75)
+		    	getMovement().multiplySPeed(1 - 0.01 * (this.muddy / 100));
+		}
+		if (this.charged > 0)
+		{
+		    this.charged -= this.statusdepletionrate;
+		    if (this.wet > 0)
+		        this.wet -= this.statusdepletionrate;
+		    if (getMovement().getSpeed() < getMaxSpeed())
+		        getMovement().multiplySPeed(1 + 0.005 * (this.charged / 100));
+		}
+		// takes the effects back to the limits
+		if (this.flaming < 0)
+			this.flaming = 0;
+		if (this.wet < 0)
+			this.wet = 0;
+		if (this.frozen < 0)
+			this.frozen = 0;
+		if (this.muddy < 0)
+			this.muddy = 0;
+		if (this.charged < 0)
+			this.charged = 0;
+		else if (this.charged > 100)
+			this.charged = 100;
 	}
 }

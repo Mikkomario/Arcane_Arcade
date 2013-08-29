@@ -374,7 +374,6 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		return this.wizardcollision;
 	}
 	
-	// TODO: Add force modifier calculations after ball has statusses
 	/**
 	 * Calculates the force modifier that affects the size of the impact caused 
 	 * to the ball.
@@ -385,8 +384,17 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 */
 	protected double getForceModifier(Ball ball)
 	{
-		// TODO: Complete this to use ball's statistics (not possible yet)
-		return this.element1.getForceModifier(BallStatus.NOSTATUS, 0) *
-				this.element2.getForceModifier(BallStatus.NOSTATUS, 0);
+		double modifier = 1;
+		// Goes through all status effects the ball might have and calculates 
+		// them to the modifier
+		for (BallStatus status: BallStatus.values())
+		{
+			double strength = ball.getStatusStrength(status);
+			if (strength > 0)
+				modifier *= this.element1.getForceModifier(status, strength) * 
+						this.element2.getForceModifier(status, strength);
+		}
+		// Returns the final modifier
+		return modifier;
 	}
 }

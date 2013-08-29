@@ -9,6 +9,7 @@ import helpAndEnums.HelpMath;
 import worlds.Room;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
+import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 
 /**
@@ -56,8 +57,7 @@ public class ExplosionEffect extends MaskedSpellEffect
 		// Causes impact to the ball
 		ball.impact(17 * getForceModifier(ball), 15, 
 				HelpMath.pointDirection(getX(), getY(), ball.getX(), 
-				ball.getY()));
-		// TODO: Add status flaming to the ball
+				ball.getY()), BallStatus.FLAMING, 40);
 	}
 
 	@Override

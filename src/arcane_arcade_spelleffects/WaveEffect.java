@@ -8,6 +8,7 @@ import helpAndEnums.DepthConstants;
 import worlds.Room;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
+import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 
 /**
@@ -52,8 +53,8 @@ public class WaveEffect extends MaskedSpellEffect
 	public void onBallCollision(Ball ball, int x, int y)
 	{
 		// Causes impact to the ball
-		ball.impact(3 * getForceModifier(ball), 4, getMovement().getDirection());
-		// TODO Add status wet to the ball		
+		ball.impact(3 * getForceModifier(ball), 4, getMovement().getDirection(), 
+				BallStatus.WET, 9);	
 	}
 
 	@Override

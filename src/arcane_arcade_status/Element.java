@@ -115,7 +115,7 @@ public enum Element
 	 * affected by the status.
 	 *
 	 * @param status The statuseffect the ball currently has
-	 * @param strength How strong the status effect on the ball is [0, 1]
+	 * @param strength How strong the status effect on the ball is [0, 100]
 	 * @return A modifier about how much the force should be affected (1 means 
 	 * that the status doesn't affect the force, 2 means that the force will 
 	 * increase 100% and 0.5 means that the force will be halved and so on)
@@ -225,11 +225,11 @@ public enum Element
 	
 	private double getWeakModifier(double strength)
 	{
-		return 1 - 0.9 * strength;
+		return 1 - 0.9 * strength / 100;
 	}
 	
 	private double getStrongModifier(double strength)
 	{
-		return 1 + strength;
+		return 1 + strength / 100;
 	}
 }

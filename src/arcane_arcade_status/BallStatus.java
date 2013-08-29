@@ -10,18 +10,38 @@ package arcane_arcade_status;
  */
 public enum BallStatus
 {
-	@SuppressWarnings("javadoc")
+	/**
+	 * A flaming ball is not as easliy affected by water or ice type spells, 
+	 * a strong flame also dries wet and melts ice
+	 */
 	FLAMING, 
-	@SuppressWarnings("javadoc")
+	/**
+	 * A wet ball is not so easily affected by fire type spells but ice 
+	 * and lightningn attacks become more effective against it. A very wet 
+	 * ball might cause a flaming condition to go away. Wet condition also 
+	 * washes off mud.
+	 */
 	WET, 
-	@SuppressWarnings("javadoc")
+	/**
+	 * A frozen ball moves slower than normally and fire attacks are not as 
+	 * effective against it. However, earth type spells are very effective. 
+	 * If the ball is deeply frozen, it will cause a flaming condition to 
+	 * disappear.
+	 */
 	FROZEN, 
-	@SuppressWarnings("javadoc")
+	/**
+	 * A muddy ball moves slower than normally and fire and lightning attacks 
+	 * are not as effective against it. Wind attack however are super effective. 
+	 * Mud makes fire go away more easily than other conditions.
+	 */
 	MUDDY, 
-	@SuppressWarnings("javadoc")
+	/**
+	 * A charged ball moves faster and makes lightning attacks more effective. 
+	 * Also dries wet.
+	 */
 	CHARGED, 
-	@SuppressWarnings("javadoc")
-	BOULDER, 
-	@SuppressWarnings("javadoc")
+	/**
+	 * An empty status that does absolutely nothing
+	 */
 	NOSTATUS;
 }
