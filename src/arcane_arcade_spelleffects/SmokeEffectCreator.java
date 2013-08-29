@@ -44,11 +44,11 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 	 * smoke's collision checking.
 	 * @param collisionhandler	Informs the smokeEffects about collisions.	
 	 */
-	public SmokeEffectCreator(int duration, int creationdelay, int burstsize,
+	public SmokeEffectCreator(int duration,
 			ActorHandler actorhandler, Room room, int x, int y,
 			DrawableHandler drawer, CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler) {
-		super(duration, creationdelay, burstsize, actorhandler, room);
+		super(duration, 5, 2, actorhandler, room);
 		this.randomGenerator = new Random();
 		this.x = x;
 		this.y = y;
