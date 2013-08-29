@@ -136,7 +136,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 	public void drawSelfBasic(Graphics2D g2d)
 	{
 		// Draws the sprite
-		this.spritedrawer.drawSprite(g2d);
+		this.spritedrawer.drawSprite(g2d, 0, 0);
 	}
 	
 	@Override

@@ -198,7 +198,8 @@ public enum Element
 		// Finds the corrent index in the list by using element indexes
 		for (int i = 0; i < index1; i ++)
 		{
-		    spellindex += Element.values().length - i;
+			// TODO: Added the -1 for NOELEMENT, check if it works
+		    spellindex += Element.values().length - 1 - i;
 		}
 		spellindex += index2 - index1;
 
