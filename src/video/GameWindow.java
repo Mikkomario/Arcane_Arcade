@@ -34,6 +34,7 @@ import listeners.AdvancedMouseListener;
  * @author Unto Solala & Mikko Hilpinen. Created 8.8.2013
  * @see video.GamePanel
  */
+@SuppressWarnings("serial")
 public class GameWindow extends JFrame
 {	
 	// ATTRIBUTES ---------------------------------------------------------

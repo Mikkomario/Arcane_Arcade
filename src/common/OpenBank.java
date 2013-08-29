@@ -1,7 +1,5 @@
 package common;
 
-import java.util.ArrayList;
-
 /**
  * Each object which implements this interface will be able to receive commands
  * in the form of an ArrayList<String>.

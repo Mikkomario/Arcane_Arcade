@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * OpenBankHolder is an abstract class which creates and stores various OpenBanks
+ * and gives access to them to it's subclasses.
  * 
  * @author Unto Solala & Mikko Hilpinen
  * 			Created 29.8.2013
@@ -23,13 +25,13 @@ public abstract class OpenBankHolder extends FileReader {
 	 * the given file.
 	 * 
 	 * @param filename A file that shows information about what banks to create
-	 * (src/data/ automatically included). The file should be written
+	 * (src/data/ automatically included). The file should be written for sprites
 	 * as follows:
 	 * <p>
 	 * &bankname<br>
-	 * objectname#filename(src/data/ automatically included)#number
+	 * spritename#filename(src/data/ automatically included)#number
 	 * of images# xorigin#yorigin<br>
-	 * anotherobjectname#...<br>
+	 * anotherspritename#...<br>
 	 *  ...<br>
 	 *  &anotherbankname<br>
 	 *   ...<br>
