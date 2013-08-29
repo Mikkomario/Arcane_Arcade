@@ -47,6 +47,7 @@ public class SmokeEffect extends MaskedSpellEffect
 				collidablehandler, collisionhandler, actorhandler, room, 
 				"smoke", "cloudmask", true, false, false, Element.NOELEMENT, 
 				Element.NOELEMENT, DeathType.FADE, duration, false);
+		setBoxCollisionPrecision(2, 2);
 	}
 	
 	
