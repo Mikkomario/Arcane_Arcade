@@ -21,7 +21,7 @@ public class StepHandler extends ActorHandler implements Runnable
 	private long lastMillis;
 	private boolean running;
 	private GameWindow window;
-	private double actionmodifier;
+	//private double actionmodifier;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -45,7 +45,10 @@ public class StepHandler extends ActorHandler implements Runnable
 		this.lastMillis = 0;
 		this.running = false;
 		this.window = window;
-		this.actionmodifier = 1;
+		//this.actionmodifier = 1;
+		
+		// Creates an ApsOptimizer and adds it to the actors
+		addActor(new ApsOptimizer(this.stepduration, 8, 4000, 20000, 6));
 	}
 	
 	
@@ -148,7 +151,7 @@ public class StepHandler extends ActorHandler implements Runnable
 			this.breaklength = breaklength;
 			this.checkphase = 0;
 			this.lastcheck = System.currentTimeMillis();
-			this.onbreak = true;
+			this.onbreak = false;
 			this.dead = false;
 			this.actions = 0;
 			this.lastmillis = System.currentTimeMillis();
@@ -236,9 +239,9 @@ public class StepHandler extends ActorHandler implements Runnable
 				{
 					this.optimalsteptime = StepHandler.this.stepduration;
 					if (this.aps < this.optimalaps)
-						this.stepsizeadjuster = 1;
-					else
 						this.stepsizeadjuster = -1;
+					else
+						this.stepsizeadjuster = 1;
 					this.checkphase ++;
 					this.currentstepsizeadjustments = 0;
 				}
@@ -254,7 +257,7 @@ public class StepHandler extends ActorHandler implements Runnable
 						this.currentstepsizeadjustments >= 
 						this.maxstepsizeadjustment)
 				{
-					this.checkphase ++;
+					goToBreak();
 					StepHandler.this.stepduration = this.optimalsteptime;
 				}
 				// Otherwise further adjusts the stepduration
@@ -270,13 +273,6 @@ public class StepHandler extends ActorHandler implements Runnable
 					this.currentstepsizeadjustments ++;
 				}
 			}
-			// Phase 2: Changes the actionmodifier and goes to break
-			if (this.checkphase == 2)
-			{
-				StepHandler.this.actionmodifier = 
-						this.aps / (double) this.optimalaps;
-				goToBreak();
-			}
 			
 			// Remembers the last aps difference
 			this.lastapsdifference = Math.abs(this.aps - this.optimalaps);
@@ -286,6 +282,10 @@ public class StepHandler extends ActorHandler implements Runnable
 		
 		private void goToBreak()
 		{
+			// Updates the stephandler's action modifier
+			//StepHandler.this.actionmodifier = this.optimalaps / 
+			//		(double) this.aps;
+			
 			this.onbreak = true;
 			this.checkphase = 0;
 			this.optimizationsdone ++;
