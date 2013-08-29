@@ -103,10 +103,10 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.elementindex2 = 0;
 		this.castdelay = 0;
 		this.spritedrawer = new SpriteDrawer(
-				Main.spritebanks.getBank("creatures").getSprite("redwizard"), 
+				Main.spritebanks.getOpenSpriteBank("creatures").getSprite("redwizard"), 
 				actorhandler);
 		this.maskchecker = new MaskChecker(
-				Main.spritebanks.getBank("creatures").getSprite("wizardmask"));
+				Main.spritebanks.getOpenSpriteBank("creatures").getSprite("wizardmask"));
 		// Initializes element list with three elements
 		// TODO: Add elements
 		this.elements = new ArrayList<Element>();

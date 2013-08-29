@@ -76,7 +76,7 @@ public abstract class MaskedSpellEffect extends SpellEffect
 		// Initializes attributes
 		this.maskanimated = isMaskAnimated;
 		this.maskchecker = new MaskChecker(
-				Main.spritebanks.getBank("spells").getSprite(maskname));
+				Main.spritebanks.getOpenSpriteBank("spells").getSprite(maskname));
 	}
 	
 	

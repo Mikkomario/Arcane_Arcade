@@ -1,30 +1,23 @@
 package graphic;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import common.FileReader;
+import common.OpenBank;
+import common.OpenBankHolder;
 
 /**
- * This class holds numberous openspritebanks and provides them to the objects 
+ * This class holds numerous OpenSpriteBanks and provides them to the objects 
  * that need them. The holder loads the banks using a specific file
  *
  * @author Mikko Hilpinen.
  *         Created 26.8.2013.
  */
-public class OpenSpriteBankHolder extends FileReader
+public class OpenSpriteBankHolder extends OpenBankHolder
 {
-	// ATTRIBUTES	-----------------------------------------------------
-	
-	private HashMap<String, OpenSpriteBank> banks;
-	private String lastbankname;
-	private ArrayList<String> lastcommands;
-	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
-	 * Creates and initializes new openspritebankholder. The content is loaded 
+	 * Creates and initializes new OpenSpriteBankHolder. The content is loaded 
 	 * using the given file.
 	 *
 	 * @param filename A file that shows information about what banks to create 
@@ -40,86 +33,28 @@ public class OpenSpriteBankHolder extends FileReader
 	 * ...<br>
 	 * * this is a comment
 	 */
-	@SuppressWarnings("unchecked")
-	public OpenSpriteBankHolder(String filename)
-	{
-		// Initializes attributes
-		this.banks = new HashMap<String, OpenSpriteBank>();
-		this.lastbankname = null;
-		this.lastcommands = new ArrayList<String>();
-		// Reads the file
-		readFile(filename);
-		// Adds the last spritebank and releases the memory
-		if (this.lastcommands.size() > 0)
-		{
-			//System.out.println("Puts " + this.lastcommands.size() + 
-			//		" objects to the bank " + this.lastbankname);
-			this.banks.put(this.lastbankname, new OpenSpriteBank(
-					(ArrayList<String>) this.lastcommands.clone()));
-		}
-		this.lastcommands.clear();
-		this.lastbankname = null;
+	public OpenSpriteBankHolder(String filename) {
+		super(filename);
 	}
 
-	
-	// IMPLEMENTED METHODS	----------------------------------------------
-
-	@SuppressWarnings("unchecked")
-	@Override
-	protected void onLine(String line)
-	{
-		// If the line starts with '*', skips it
-		if (line.startsWith("*"))
-			return;
-		// If the line starts with '&' ends the last bank and starts a new bank
-		if (line.startsWith("&"))
-		{
-			if (this.lastbankname != null)
-			{
-				//System.out.println("Puts " + this.lastcommands.size() + 
-				//		" objects to the bank " + this.lastbankname);
-				this.banks.put(this.lastbankname, new OpenSpriteBank(
-						(ArrayList<String>) this.lastcommands.clone()));
-			}
-			this.lastbankname = line.substring(1);
-			this.lastcommands.clear();
-			return;
-		}
-		// Otherwise, tries to add a new command to the lastcommands
-		this.lastcommands.add(line);
-	}
-	
-	
-	// OTHER METHODS	---------------------------------------------------
-	
-	/**
-	 * Provides an openspritebank with the given name from the databanks.
-	 *
-	 * @param bankname The name of the spritebank
-	 * @return The spritebank with the given name or null if no spritebank was 
-	 * found
+	/**Looks for the OpenBank matching the given bankName and if it is found,
+	 * casts it into OpenSpriteBank and returns it. If not found, returns null.
+	 * 
+	 * @param bankName	The OpenBank which is needed.
+	 * @return	Returns the needed OpenBank, if it is found and casts it into
+	 * OpenSpriteBank. If not found, return null.
 	 */
-	public OpenSpriteBank getBank(String bankname)
-	{
-		if (this.banks.containsKey(bankname))
-			return this.banks.get(bankname);
-		else
-		{
-			System.err.println("The OpenSpriteBankHolder doesn't hold a bank " +
-					"named " + bankname);
+	public OpenSpriteBank getOpenSpriteBank(String bankName){
+		OpenBank maybeOpenSpriteBank = getBank(bankName);
+		if(maybeOpenSpriteBank instanceof OpenSpriteBank){
+			return (OpenSpriteBank) maybeOpenSpriteBank;
+		}else{
 			return null;
 		}
 	}
 	
-	/**
-	 * Uninitializes all the banks held by this object
-	 */
-	public void uninitializeBanks()
-	{
-		// Goes through all the banks and uninitializes them
-		for (OpenSpriteBank bank: this.banks.values())
-		{
-			bank.uninitialize();
-		}
+	@Override
+	protected OpenBank createBank(ArrayList<String> commands) {
+		return new OpenSpriteBank(commands);
 	}
 }
