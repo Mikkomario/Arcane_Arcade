@@ -47,6 +47,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	private Element element1, element2;
 	private DeathType deathtype;
 	private int lifeleft, lifetime;
+	private boolean fades;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -80,6 +81,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * @param deathtype How will the spelleffect die
 	 * @param lifetime How long will the spelleffect live (steps) (negative 
 	 * value means that the spell will remain alive until killed)
+	 * @param fades	Determines whether the effect fades in/out
 	 */
 	public SpellEffect(int x, int y, int depth,
 			CollisionType collisiontype, DrawableHandler drawer,
@@ -88,7 +90,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 			Room room, String spritename, boolean collidesWithSpells, 
 			boolean collidesWithBalls, boolean collidesWithWizards, 
 			Element element1, Element element2, DeathType deathtype, 
-			int lifetime)
+			int lifetime, boolean fades)
 	{
 		super(x, y, depth, 
 				collidesWithBalls || collidesWithSpells || collidesWithWizards, 
@@ -107,6 +109,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getOpenSpriteBank("spells").getSprite(spritename), 
 				actorhandler);
+		this.fades = fades;
 		
 		// Sets up the deaths
 		if (this.deathtype == DeathType.ANIMATION)
@@ -115,10 +118,11 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 			this.spritedrawer.setAnimationDuration(this.lifeleft);
 			this.spritedrawer.getAnimationListenerHandler().addAnimationListener(this);
 		}
-		else if (this.deathtype == DeathType.FADE)
-			setAlpha(0);
 		else if (this.deathtype == DeathType.SIZE)
 			setScale(0, 0);
+		
+		if (this.fades)
+			setAlpha(0);
 		
 		// Adds the effect to the room
 		if (room != null)
@@ -248,20 +252,23 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		// Checks if the object should die
 		if (this.lifeleft == 0)
 			kill();
-		// Changes the alpha if needed
-		else if (this.deathtype == DeathType.FADE)
+		else
 		{
-			if (this.lifeleft < 20)
-				setAlpha((float)((20 - this.lifeleft) / 20.0));
-			else if (getAlpha() < 1)
-				setAlpha(getAlpha() + 0.1f);
-		}
-		// Changes the object's size if needed
-		else if (this.deathtype == DeathType.SIZE)
-		{
-			double scale = Math.sin((this.lifeleft / (double) this.lifetime) 
-					* Math.PI);
-			setScale(scale, scale);
+			// Changes the object's size if needed
+			if (this.deathtype == DeathType.SIZE)
+			{
+				double scale = Math.sin((this.lifeleft / (double) this.lifetime) 
+						* Math.PI);
+				setScale(scale, scale);
+			}
+			
+			// Changes the alpha if needed
+			if (this.fades) {
+				if (this.lifeleft < 20)
+					setAlpha((float) ((20 - this.lifeleft) / 20.0));
+				else if (getAlpha() < 1)
+					setAlpha(getAlpha() + 0.1f);
+			}
 		}
 	}
 	
@@ -337,11 +344,6 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		 * amount of steps
 		 */
 		ANIMATION, 
-		/**
-		 * The spell will quickly fade in and then fade out when a certain amount 
-		 * of steps has passed
-		 */
-		FADE,
 		/**
 		 * The spell will first increase in size and then shrink away
 		 */

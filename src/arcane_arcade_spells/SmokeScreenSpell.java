@@ -10,8 +10,17 @@ import arcane_arcade_field.Wizard;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_spelleffects.SmokeEffectCreator;
 
+/**SmokeScreenSpell creates a cloud of smoke, which will last for a while.
+ * 
+ * @author Unto Solala
+ * 			Created 29.8.2013
+ *
+ */
 public class SmokeScreenSpell extends Spell{
 
+	/**
+	 * Creates a new SmokeScreen-spell
+	 */
 	public SmokeScreenSpell() {
 		super(CASTDELAY_LONG);
 	}
