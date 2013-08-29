@@ -33,7 +33,7 @@ public class SmokeScreenSpell extends Spell{
 			CollisionHandler collisionhandler, Room room) 
 	{
 		new SmokeEffectCreator(400, actorhandler, room,
-				(int)(GameSettings.SCREENWIDTH * 0.7), (int)caster.getY(), 
+				(int)(GameSettings.SCREENWIDTH * 0.8), (int)caster.getY(), 
 				drawer, collidablehandler, collisionhandler);
 	}
 }

@@ -41,8 +41,9 @@ public class WaveEffect extends MaskedSpellEffect
 		super(x, y, DepthConstants.NORMAL, CollisionType.BOX, drawer, 
 				collidablehandler, null, actorhandler, room, "wave", 
 				"wavemask", false, true, false, Element.WATER, 
-				Element.NOELEMENT, 25, true);
+				Element.NOELEMENT, 35, true);
 		addAnimationEffect();
+		addScaleEffect(25, -1, 0.5);
 	}
 
 	//IMPLEMENTED METHODS----------------------------------------------

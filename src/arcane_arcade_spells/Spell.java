@@ -21,28 +21,28 @@ public abstract class Spell
 	/**
 	 * A very short castdelay usually used in repeatable / ongoing spells
 	 */
-	protected static final int CASTDELAY_VERY_SHORT = 18;
+	protected static final int CASTDELAY_VERY_SHORT = 25;
 	/**
 	 * A short castdelay used in light spells
 	 */
-	protected static final int CASTDELAY_SHORT = 25;
+	protected static final int CASTDELAY_SHORT = 33;
 	/**
 	 * A medium cast delay used in most spells
 	 */
-	protected static final int CASTDELAY_NORMAL = 33;
+	protected static final int CASTDELAY_NORMAL = 45;
 	/**
 	 * A long cast delay used in heavy spells
 	 */
-	protected static final int CASTDELAY_LONG = 45;
+	protected static final int CASTDELAY_LONG = 80;
 	/**
 	 * A very long cast delay used in very powerful spells
 	 */
-	protected static final int CASTDELAY_VERY_LONG = 85;
+	protected static final int CASTDELAY_VERY_LONG = 120;
 	/**
 	 * A super long cast delay used only in the most powerful and 
 	 * rare spells
 	 */
-	protected static final int CASTDELAY_EPIC = 150;
+	protected static final int CASTDELAY_EPIC = 170;
 	
 	private int castdelay;
 	

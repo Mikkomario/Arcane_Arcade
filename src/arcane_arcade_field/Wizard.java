@@ -225,6 +225,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			else if (key == 's' || key == 'S')
 				addVelocity(0, this.accelration);
 		}
+		// TODO: Get some other button than control to do the job since 
+		// it BLOCKS ALL OTHER BUTTONS (wtf?)
 		else
 		{
 			// If ctrl was pressed, casts a spell

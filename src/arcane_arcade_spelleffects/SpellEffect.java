@@ -47,8 +47,9 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	private boolean spellcollision, ballcollision, wizardcollision;
 	private Element element1, element2;
 	private int lifeleft, lifetime;
-	private boolean fadesin, fadesout, sizeeffect;
-	private int fadein, fadeout;
+	private boolean fadesin, fadesout, sizeeffect, scalesin, scalesout;
+	private int fadein, fadeout, scalein, scaleout;
+	private double minscale;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -109,6 +110,11 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.fadesin = false;
 		this.fadesout = false;
 		this.sizeeffect = false;
+		this.scalein = 0;
+		this.scalesin = false;
+		this.scaleout = 0;
+		this.scalesout = false;
+		this.minscale = 1;
 		
 		// Adds the effect to the room
 		if (room != null)
@@ -249,6 +255,19 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 			{
 				setAlpha(getAlpha() + 1 / (float) this.fadein);
 			}
+			// Changes the object's scaling if needed
+			if (this.scalesout && this.lifeleft < this.scaleout)
+			{
+				double scale = (1 - this.minscale * (this.scaleout - 
+						this.lifeleft) / this.scaleout);
+				setScale(scale, scale);
+			}
+			if (this.scalesin && this.lifetime - this.lifeleft < this.scalein && 
+					getXScale() < 1)
+			{
+				double scale = getXScale() + this.minscale / this.scalein;
+				setScale(scale, scale);
+			}
 		}
 	}
 	
@@ -289,23 +308,49 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * Makes the object fade in and / or fade out at certain points of its 
 	 * life
 	 *
-	 * @param fadein When has the effect fully faded in (in steps, use a 
+	 * @param fadedin When has the effect fully faded in (in steps, use a 
 	 * negative number if no fade in is used)
-	 * @param fadeout When the effect will start to fade out (in steps, 
+	 * @param startsfadeout When the effect will start to fade out (in steps, 
 	 * use a negative number if no fade out is used)
 	 */
-	protected void addFadeEffect(int fadein, int fadeout)
+	protected void addFadeEffect(int fadedin, int startsfadeout)
 	{
-		if (fadein > 0)
+		if (fadedin > 0)
 		{
 			setAlpha(0);
 			this.fadesin = true;
-			this.fadein = fadein;
+			this.fadein = fadedin;
 		}
-		if (fadeout >= 0)
+		if (startsfadeout >= 0)
 		{
 			this.fadesout = true;
-			this.fadeout = fadeout;
+			this.fadeout = startsfadeout;
+		}
+	}
+	
+	/**
+	 * Makes the effect first grow larger and / or then shrink
+	 *
+	 * @param scaledin When has the effect become full-sized (steps, use a negative 
+	 * number if the object doesn't scale in)
+	 * @param startscaleout When will the effect start to shrink (steps, use a 
+	 * negative number if you don't want the effect to shrink)
+	 * @param minscale How small can the effect possibly be / become (< 1)
+	 */
+	protected void addScaleEffect(int scaledin, int startscaleout, 
+			double minscale)
+	{
+		if (scaledin > 0)
+		{
+			this.scalesin = true;
+			this.scalein = scaledin;
+			this.minscale = minscale;
+			setScale(minscale, minscale);
+		}
+		if (startscaleout >= 0)
+		{
+			this.scalesout = true;
+			this.scaleout = startscaleout;
 		}
 	}
 	

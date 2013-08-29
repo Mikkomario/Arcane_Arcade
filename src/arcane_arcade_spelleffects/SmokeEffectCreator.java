@@ -49,7 +49,7 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 			ActorHandler actorhandler, Room room, int x, int y,
 			DrawableHandler drawer, CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler) {
-		super(duration, 13, 2, actorhandler, room);
+		super(duration, 20, 3, actorhandler, room);
 		this.randomGenerator = new Random();
 		this.x = x;
 		this.y = y;

@@ -63,15 +63,17 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 		WaveEffect wave = new WaveEffect((int) getFollowedObject().getX(), 
 				(int) getFollowedObject().getY(), this.drawer, 
 				this.collidablehandler, this.actorhandler, this.room);
+		
 		// Changes the effects direction and speed
 		double randomdir = HelpMath.checkDirection(-30 + 
 				this.rand.nextDouble() * 60);
-		double randomspeed = 6 + this.rand.nextDouble() * 3;
+		double randomspeed = 4 + this.rand.nextDouble() * 3;
 		wave.setMovement(Movement.createMovement(randomdir, randomspeed));
+		
 		// Also adds the followed objec'ts movement speed
 		if (getFollowedObject() instanceof BasicPhysicDrawnObject)
 			wave.addVelocity(0, ((BasicPhysicDrawnObject) 
-					getFollowedObject()).getMovement().getVSpeed() * 0.8);
+					getFollowedObject()).getMovement().getVSpeed());
 		// Changes the effects angle as well
 		wave.setAngle(wave.getMovement().getDirection());
 	}
