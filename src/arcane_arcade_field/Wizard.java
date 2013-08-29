@@ -127,7 +127,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		setMaxSpeed(this.maxspeed);
 		
 		// Sets the collision precision
-		setCircleCollisionPrecision(27, 6, 2);
+		setCircleCollisionPrecision(26, 5, 2);
 		setRelativeCollisionPoints(
 				this.maskchecker.getRefinedRelativeCollisionPoints(
 				getRelativeCollisionPoints(), 0));
@@ -201,6 +201,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 					this.castdelaymeterdrawer.getSprite().getOriginX(), 
 					getSpriteDrawer().getSprite().getOriginY() - 
 					this.castdelaymeterdrawer.getSprite().getOriginY());
+		//drawCollisionPoints(g2d);
 	}
 	
 	@Override

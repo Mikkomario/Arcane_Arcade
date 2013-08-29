@@ -7,6 +7,8 @@ import helpAndEnums.CollisionType;
 import helpAndEnums.DoublePoint;
 import helpAndEnums.HelpMath;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
 
 import listeners.CollisionListener;
@@ -187,6 +189,25 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	
 	
 	// OTHER METHODS	--------------------------------------------------
+	
+	/**
+	 * Draws the collision points of the object. This method should be called 
+	 * at the drawselfbasic method.
+	 *
+	 * @param g2d The graphics object that does the actual drawing
+	 * @warning This method is supposed to be used only in testing purposes
+	 */
+	protected void drawCollisionPoints(Graphics2D g2d)
+	{
+		g2d.setColor(new Color(255, 0, 0));
+		
+		for (Point p: getRelativeCollisionPoints())
+		{
+			g2d.drawRect(p.x, p.y, 5, 5);
+		}
+		
+		g2d.setColor(new Color(0, 0, 0));
+	}
 	
 	private void initializeBoxCollisionPoints(int edgeprecision, int insideprecision)
 	{

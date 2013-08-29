@@ -76,7 +76,7 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 		setMaxSpeed(20);
 		
 		// Sets the collision precision
-		setCircleCollisionPrecision(33, 6, 2);
+		setCircleCollisionPrecision(33, 5, 2);
 		setRadius(33);
 		
 		// Adds the ball to the room (if possible)
@@ -137,6 +137,7 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 	{
 		// Draws the sprite
 		this.spritedrawer.drawSprite(g2d, 0, 0);
+		//drawCollisionPoints(g2d);
 	}
 	
 	@Override
