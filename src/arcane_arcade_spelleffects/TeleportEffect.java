@@ -39,8 +39,8 @@ public class TeleportEffect extends SpellEffect
 	{
 		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, 
 				drawer, collidablehandler, null, actorhandler, room, "freeze", 
-				false, false, false, Element.NOELEMENT, Element.NOELEMENT, 
-				DeathType.ANIMATION, 20, false);
+				false, false, false, Element.NOELEMENT, Element.NOELEMENT, 20);
+		addAnimationEffect();
 	}
 	
 	

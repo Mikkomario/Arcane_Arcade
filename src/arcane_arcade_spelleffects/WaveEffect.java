@@ -10,15 +10,14 @@ import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.Element;
 
-/**WaveEffect is a simple wave which will last for a while.
+/**
+ * WaveEffect is a simple wave which will last for a while.
  * 
  * @author Unto Solala
  * 			Created 29.8.2013
- *
  */
-public class WaveEffect extends MaskedSpellEffect{
-	
-
+public class WaveEffect extends MaskedSpellEffect
+{
 	//CONSTRUCTOR--------------------------------------------------
 	
 	/**
@@ -42,8 +41,8 @@ public class WaveEffect extends MaskedSpellEffect{
 		super(x, y, DepthConstants.NORMAL, CollisionType.BOX, drawer, 
 				collidablehandler, null, actorhandler, room, "wave", 
 				"wavemask", false, true, false, Element.WATER, 
-				Element.NOELEMENT, DeathType.ANIMATION, 25, true, true);
-		setRadius(100);
+				Element.NOELEMENT, 25, true);
+		addAnimationEffect();
 	}
 
 	//IMPLEMENTED METHODS----------------------------------------------
@@ -53,20 +52,16 @@ public class WaveEffect extends MaskedSpellEffect{
 	{
 		// Causes impact to the ball
 		ball.impact(3 * getForceModifier(ball), 4, getMovement().getDirection());
-		// TODO Add status wet to the ball
-						
+		// TODO Add status wet to the ball		
 	}
 
 	@Override
 	public void onSpellCollision(SpellEffect spell, int x, int y) {
 		// Doesn't collide with spells
-		
 	}
 
 	@Override
 	public void onWizardCollision(Wizard wizard, int x, int y) {
 		// Doesn't collide with Wizards
-		
 	}
-
 }

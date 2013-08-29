@@ -55,10 +55,8 @@ public abstract class MaskedSpellEffect extends SpellEffect
 	 * no elements)
 	 * @param element2 The effect's secondary element (NOELEMENT if the spell 
 	 * doesn't have two elements)
-	 * @param deathtype How the effect will die
 	 * @param lifetime How many steps the effect will live (a negative number 
 	 * makes the effect live until killed)
-	 * @param fades	Determines whether the effect fades in/out
 	 * @param isMaskAnimated Is collision checking done with an animated mask 
 	 * (true) or a mask with no animation (false)
 	 */
@@ -69,11 +67,11 @@ public abstract class MaskedSpellEffect extends SpellEffect
 			Room room, String spritename, String maskname, 
 			boolean collidesWithSpells, boolean collidesWithBalls, 
 			boolean collidesWithWizards, Element element1, Element element2, 
-			DeathType deathtype, int lifetime, boolean fades, boolean isMaskAnimated)
+			int lifetime, boolean isMaskAnimated)
 	{
 		super(x, y, depth, collisiontype, drawer, collidablehandler, collisionhandler,
 				actorhandler, room, spritename, collidesWithSpells, collidesWithBalls,
-				collidesWithWizards, element1, element2, deathtype, lifetime, fades);
+				collidesWithWizards, element1, element2, lifetime);
 		// Initializes attributes
 		this.maskanimated = isMaskAnimated;
 		this.maskchecker = new MaskChecker(

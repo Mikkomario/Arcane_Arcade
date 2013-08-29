@@ -34,17 +34,18 @@ Eteneminen:														Status
 				tarvittaesa
 					* Samoin joidenkin pankkien (spells) 
 					alustus huoneen alussa
+					* Huom: backgroundeja ei oikein voi poistaa
 			* Objektien luominen huoneen alkaessa				DONE
 				- Tarvitaan luotavat objektit					DONE
 				- Creator-objektin kanssa yhteensopivan 		Pl‰‰h
 				huoneen luominen
 			* Pelin aloittaminen								DONE
-		- Maagi													...
-			* Maagin liikuttaminen								...
+		- Maagi													DONE
+			* Maagin liikuttaminen								DONE
 				- Maagin normaali liikuttaminen					DONE
-				- Maagin teleporttailu							...
+				- Maagin teleporttailu							DONE
 					* Lis‰‰ visuaalinen efekti					DONE
-					* Portal-grafiikka efektiin
+					* Portal-grafiikka efektiin					Pl‰‰h
 			* Maagin tˆrm‰‰minen seiniin						DONE
 				- Lis‰‰ oma luokka joka hoitaa tarkistuksen 	Pl‰‰h
 				- Lis‰‰ myˆs listener rajapinta niin ett‰ 		Pl‰‰h
@@ -82,12 +83,12 @@ Eteneminen:														Status
 					* Curset									Testaamatta
 					* Blessingit								Testaamatta
 					* Loitsuefektigeneraattorit					Testaamatta
-						- Staattiset generaattorit				Testaamatta
+						- Staattiset generaattorit				DONE
 						- Liikkuvat generaattorit				Testaamatta
-						- Seuraavat generaattorit				Testaamatta
-			* Loitsun valitseminen								...
-				- Loitsun etsiminen elementtien avulla			Testaamatta
-				- Loitsun elementtien vaihtaminen
+						- Seuraavat generaattorit				DONE
+			* Loitsun valitseminen								DONE
+				- Loitsun etsiminen elementtien avulla			DONE
+				- Loitsun elementtien vaihtaminen				DONE
 			* Loitsun loihtiminen								DONE
 				- Cast delay									DONE
 				- Animaation nopeus / lopetus					DONE
@@ -219,3 +220,6 @@ Eteneminen:														Status
 		- Visuaaliset erikoisefektit
 		- Mikrotransaktiot
 			* Mahdollisuuksien ja toteutuksen kartoittaminen
+		- HD Edition
+			* Parempiresoluutioisten spritejen valmistaminen
+			* Tilanteeseen sopivan spriteymp‰ristˆn luominen

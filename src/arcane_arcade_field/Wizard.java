@@ -111,12 +111,11 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.castdelaymeterdrawer = new SpriteDrawer(
 				Main.spritebanks.getOpenSpriteBank("field").getSprite(
 				"regeneration"), actorhandler);
-		// Initializes element list with three elements
+		// Initializes element list with two elements
 		// TODO: Add elements
 		this.elements = new ArrayList<Element>();
 		this.elements.add(Element.FIRE);
-		//this.elements.add(Element.WATER);
-		//this.elements.add(Element.ICE);
+		this.elements.add(Element.WATER);
 		
 		// Stops the animation(s)
 		this.spritedrawer.inactivate();
@@ -241,13 +240,19 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		{
 			// If w or s was double tapped, teleports
 			if (key == 'w' || key == 'W')
-			{
 				tryTeleporting(-1);
-			}
 			else if (key == 's' || key == 'S')
-			{
 				tryTeleporting(1);
-			}
+			// If Q or A was pressed, changes the left element
+			else if (key == 'Q' || key == 'q')
+				this.elementindex1 = getNextElementIndex(this.elementindex1);
+			else if (key == 'A' || key == 'a')
+				this.elementindex1 = getPreviousElementIndex(this.elementindex1);
+			// If E or D was pressed, changes the right element
+			else if (key == 'E' || key == 'e')
+				this.elementindex2 = getNextElementIndex(this.elementindex2);
+			else if (key == 'D' || key == 'd')
+				this.elementindex2 = getPreviousElementIndex(this.elementindex2);
 		}
 	}
 
@@ -378,9 +383,26 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	// Casts the spell desided by the two active elements
 	private void castSpell()
 	{
-		this.elements.get(this.elementindex1).getSpell(
-				this.elements.get(this.elementindex2)).execute(
-				this, this.ballrelay, this.drawer, this.actorhandler, 
-				this.collidablehandler, this.collisionhandler, this.room);
+		if (!isCasting())
+			this.elements.get(this.elementindex1).getSpell(
+					this.elements.get(this.elementindex2)).execute(
+					this, this.ballrelay, this.drawer, this.actorhandler, 
+					this.collidablehandler, this.collisionhandler, this.room);
+	}
+	
+	private int getNextElementIndex(int index)
+	{
+		if (index >= this.elements.size() - 1)
+			return 0;
+		else
+			return index + 1;
+	}
+	
+	private int getPreviousElementIndex(int index)
+	{
+		if (index <= 0)
+			return this.elements.size() - 1;
+		else
+			return index - 1;
 	}
 }

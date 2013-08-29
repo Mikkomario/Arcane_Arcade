@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import worlds.Room;
 
-import listeners.AnimationListener;
 import listeners.RoomListener;
 
 import arcane_arcade_field.Ball;
@@ -38,16 +37,18 @@ import drawnobjects.BasicPhysicDrawnObject;
  *         Created 28.8.2013.
  */
 public abstract class SpellEffect extends BasicPhysicDrawnObject implements 
-		RoomListener, AnimationListener
+		RoomListener
 {
+	// TODO: Add scale effect
+	
 	// ATTRIBUTES	------------------------------------------------------
 	
 	private SpriteDrawer spritedrawer;
 	private boolean spellcollision, ballcollision, wizardcollision;
 	private Element element1, element2;
-	private DeathType deathtype;
 	private int lifeleft, lifetime;
-	private boolean fades;
+	private boolean fadesin, fadesout, sizeeffect;
+	private int fadein, fadeout;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -78,10 +79,8 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * spell has no elements
 	 * @param element2 The secondary element of the spell (use NOELEMENT if the 
 	 * spell doesn't have two elements)
-	 * @param deathtype How will the spelleffect die
 	 * @param lifetime How long will the spelleffect live (steps) (negative 
 	 * value means that the spell will remain alive until killed)
-	 * @param fades	Determines whether the effect fades in/out
 	 */
 	public SpellEffect(int x, int y, int depth,
 			CollisionType collisiontype, DrawableHandler drawer,
@@ -89,8 +88,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 			CollisionHandler collisionhandler, ActorHandler actorhandler,
 			Room room, String spritename, boolean collidesWithSpells, 
 			boolean collidesWithBalls, boolean collidesWithWizards, 
-			Element element1, Element element2, DeathType deathtype, 
-			int lifetime, boolean fades)
+			Element element1, Element element2, int lifetime)
 	{
 		super(x, y, depth, 
 				collidesWithBalls || collidesWithSpells || collidesWithWizards, 
@@ -103,26 +101,14 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.wizardcollision = collidesWithWizards;
 		this.element1 = element1;
 		this.element2 = element2;
-		this.deathtype = deathtype;
 		this.lifeleft = lifetime;
 		this.lifetime = lifetime;
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getOpenSpriteBank("spells").getSprite(spritename), 
 				actorhandler);
-		this.fades = fades;
-		
-		// Sets up the deaths
-		if (this.deathtype == DeathType.ANIMATION)
-		{
-			this.spritedrawer.setImageIndex(0);
-			this.spritedrawer.setAnimationDuration(this.lifeleft);
-			this.spritedrawer.getAnimationListenerHandler().addAnimationListener(this);
-		}
-		else if (this.deathtype == DeathType.SIZE)
-			setScale(0, 0);
-		
-		if (this.fades)
-			setAlpha(0);
+		this.fadesin = false;
+		this.fadesout = false;
+		this.sizeeffect = false;
 		
 		// Adds the effect to the room
 		if (room != null)
@@ -235,14 +221,6 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	}
 	
 	@Override
-	public void onAnimationEnd(SpriteDrawer spritedrawer)
-	{
-		// If the effect is supposed to die at the end of the animation, dies
-		if (this.deathtype == DeathType.ANIMATION)
-			kill();
-	}
-	
-	@Override
 	public void act()
 	{
 		super.act();
@@ -255,19 +233,21 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		else
 		{
 			// Changes the object's size if needed
-			if (this.deathtype == DeathType.SIZE)
+			if (this.sizeeffect)
 			{
 				double scale = Math.sin((this.lifeleft / (double) this.lifetime) 
 						* Math.PI);
 				setScale(scale, scale);
 			}
-			
 			// Changes the alpha if needed
-			if (this.fades) {
-				if (this.lifeleft < 20)
-					setAlpha((float) ((20 - this.lifeleft) / 20.0));
-				else if (getAlpha() < 1)
-					setAlpha(getAlpha() + 0.1f);
+			if (this.fadesout && this.lifeleft < this.fadeout)
+			{
+				setAlpha(1 - (this.fadeout - this.lifeleft) / (float) this.fadeout);
+			}
+			if (this.fadesin && this.lifetime - this.lifeleft < this.fadein && 
+					getAlpha() < 1)
+			{
+				setAlpha(getAlpha() + 1 / (float) this.fadein);
 			}
 		}
 	}
@@ -285,6 +265,49 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	
 	
 	// OTHER METHODS	--------------------------------------------------
+	
+	/**
+	 * Makes the spell's animation last until the spell is dead
+	 */
+	protected void addAnimationEffect()
+	{
+		this.spritedrawer.setImageIndex(0);
+		this.spritedrawer.setAnimationDuration(this.lifeleft);
+		//this.spritedrawer.getAnimationListenerHandler().addAnimationListener(this);
+	}
+	
+	/**
+	 * Makes the effect first grow to full size and then disappear
+	 */
+	protected void addSizeEffect()
+	{
+		this.sizeeffect = true;
+		setScale(0, 0);
+	}
+	
+	/**
+	 * Makes the object fade in and / or fade out at certain points of its 
+	 * life
+	 *
+	 * @param fadein When has the effect fully faded in (in steps, use a 
+	 * negative number if no fade in is used)
+	 * @param fadeout When the effect will start to fade out (in steps, 
+	 * use a negative number if no fade out is used)
+	 */
+	protected void addFadeEffect(int fadein, int fadeout)
+	{
+		if (fadein > 0)
+		{
+			setAlpha(0);
+			this.fadesin = true;
+			this.fadein = fadein;
+		}
+		if (fadeout >= 0)
+		{
+			this.fadesout = true;
+			this.fadeout = fadeout;
+		}
+	}
 	
 	/**
 	 * @return Should the ball call onBallCollision method when it collides 
@@ -320,33 +343,5 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		// TODO: Complete this to use ball's statistics (not possible yet)
 		return this.element1.getForceModifier(BallStatus.NOSTATUS, 0) *
 				this.element2.getForceModifier(BallStatus.NOSTATUS, 0);
-	}
-	
-	
-	// ENUMERATIONS	-----------------------------------------------------
-	
-	/**
-	 * DeathType represents the way the spellEffect will die / stop being
-	 *
-	 * @author Mikko Hilpinen.
-	 *         Created 28.8.2013.
-	 */
-	public enum DeathType
-	{
-		/**
-		 * The spellEffect will simply die after a certain amount of steps 
-		 * has passed. No extra effects included
-		 */
-		TIME, 
-		/**
-		 * The spellEffect will die when it reaches the end of its sprites 
-		 * animation. The speed of the animation will be set to last a certain 
-		 * amount of steps
-		 */
-		ANIMATION, 
-		/**
-		 * The spell will first increase in size and then shrink away
-		 */
-		SIZE;
 	}
 }

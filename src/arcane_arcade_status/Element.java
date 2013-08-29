@@ -3,7 +3,9 @@ package arcane_arcade_status;
 import java.util.ArrayList;
 
 import arcane_arcade_spells.ExplosionSpell;
+import arcane_arcade_spells.SmokeScreenSpell;
 import arcane_arcade_spells.Spell;
+import arcane_arcade_spells.TidalWaveSpell;
 
 /**
  * There are multiple elements in the game. Some elements are effective against 
@@ -57,7 +59,15 @@ public enum Element
 		// FIRE (fire + fire, fire + water, ...), 
 		// WATER (water + water, water + ice, ...), ICE, EARTH, WIND, 
 		// LIGHTNING, DARK and LIGHT
-		spells.add(new ExplosionSpell());
+		spells.add(new ExplosionSpell());	// Fire Fire
+		spells.add(new SmokeScreenSpell());	// Fire Water
+		spells.add(new ExplosionSpell());	// Fire Ice
+		spells.add(new ExplosionSpell());	// Fire Earth
+		spells.add(new ExplosionSpell());	// Fire Wind
+		spells.add(new ExplosionSpell());	// Fire Lightning
+		spells.add(new ExplosionSpell());	// Fire Dark
+		spells.add(new ExplosionSpell());	// Fire Light
+		spells.add(new TidalWaveSpell());	// Water Water
 		// TODO: Add spells
 	}
 	
@@ -191,20 +201,18 @@ public enum Element
 		
 		// Adds a spell from the list
 		// Uses the indexes in a certain order
-		int index1 = Math.max(getElementIconIndex(), element2.getElementIconIndex());
-		int index2 = Math.min(getElementIconIndex(), element2.getElementIconIndex());
+		int index1 = Math.min(getElementIconIndex(), 
+				element2.getElementIconIndex());
+		int index2 = Math.max(getElementIconIndex(), 
+				element2.getElementIconIndex());
 		int spellindex = 0;
 		
 		// Finds the corrent index in the list by using element indexes
 		for (int i = 0; i < index1; i ++)
 		{
-			// TODO: Added the -1 for NOELEMENT, check if it works
 		    spellindex += Element.values().length - 1 - i;
 		}
 		spellindex += index2 - index1;
-
-		//System.out.println("Getting a spell from the spellist at index " + 
-		//			spellindex + ". Spells in list: " + spells.size());
 		
 		// Returns the spell from the list
 		if (spellindex < spells.size())

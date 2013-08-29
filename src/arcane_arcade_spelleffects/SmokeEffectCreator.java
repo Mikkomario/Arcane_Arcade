@@ -27,6 +27,7 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 	private CollisionHandler collisionhandler;
 	private ActorHandler actorhandler;
 	private Room room;
+	
 
 	//CONSTRUCTOR--------------------------------------------------.-
 	
@@ -48,7 +49,7 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 			ActorHandler actorhandler, Room room, int x, int y,
 			DrawableHandler drawer, CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler) {
-		super(duration, 5, 2, actorhandler, room);
+		super(duration, 13, 2, actorhandler, room);
 		this.randomGenerator = new Random();
 		this.x = x;
 		this.y = y;
@@ -66,7 +67,7 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 		// Direction is a random number between 0 and 360
 		double randomDirection = (this.randomGenerator.nextDouble() * 360);
 		// Speed is a random number between 1 and 3
-		double randomSpeed = (1 + (this.randomGenerator.nextDouble() * 2));
+		double randomSpeed = (1 + (this.randomGenerator.nextDouble() * 3));
 		//Creates a new smokeEffect which lasts somewhere between 50-150 steps
 		SmokeEffect smokeScreen = new SmokeEffect(this.x, this.y, this.drawer,
 				this.collidablehandler, this.collisionhandler,
@@ -74,7 +75,7 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 				(int) (50 + this.randomGenerator.nextDouble() * 100));
 		smokeScreen.setMovement(Movement.createMovement(randomDirection, randomSpeed));
 		// Friction of the smoke-plumes
-		smokeScreen.setFriction(0.05);
+		smokeScreen.setFriction(0.04);
 	}
 
 }
