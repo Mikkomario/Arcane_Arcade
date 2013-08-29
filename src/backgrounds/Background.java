@@ -69,7 +69,7 @@ public class Background extends DrawnObject
 	{
 		// Draws the sprite
 		if (this.texturedrawer != null)
-			this.texturedrawer.drawSprite(g2d);
+			this.texturedrawer.drawSprite(g2d, 0, 0);
 	}
 	
 	

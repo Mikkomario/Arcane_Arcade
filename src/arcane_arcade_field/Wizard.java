@@ -52,6 +52,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private CollisionHandler collisionhandler;
 	
 	private SpriteDrawer spritedrawer;
+	private SpriteDrawer castdelaymeterdrawer;
 	private MaskChecker maskchecker;
 	private ArrayList<Element> elements;
 	private int elementindex1;
@@ -107,6 +108,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				actorhandler);
 		this.maskchecker = new MaskChecker(
 				Main.spritebanks.getOpenSpriteBank("creatures").getSprite("wizardmask"));
+		this.castdelaymeterdrawer = new SpriteDrawer(
+				Main.spritebanks.getOpenSpriteBank("field").getSprite(
+				"regeneration"), actorhandler);
 		// Initializes element list with three elements
 		// TODO: Add elements
 		this.elements = new ArrayList<Element>();
@@ -114,9 +118,10 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		//this.elements.add(Element.WATER);
 		//this.elements.add(Element.ICE);
 		
-		// Stops the animation
-		this.spritedrawer.setImageSpeed(0);
+		// Stops the animation(s)
+		this.spritedrawer.inactivate();
 		this.spritedrawer.setImageIndex(0);
+		this.castdelaymeterdrawer.inactivate();
 		
 		// Sets the friction and maximum speed
 		setFriction(this.friction);
@@ -189,7 +194,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	{
 		// Draws the sprite
 		if (this.spritedrawer != null)
-			this.spritedrawer.drawSprite(g2d);
+			this.spritedrawer.drawSprite(g2d, 0, 0);
+		// Also draws the castregenmeter (if casting)
+		if (isCasting())
+			this.castdelaymeterdrawer.drawSprite(g2d, 
+					getSpriteDrawer().getSprite().getOriginX() - 
+					this.castdelaymeterdrawer.getSprite().getOriginX(), 
+					getSpriteDrawer().getSprite().getOriginY() - 
+					this.castdelaymeterdrawer.getSprite().getOriginY());
 	}
 	
 	@Override
@@ -293,8 +305,10 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			// If the casting ended, stops the sprite
 			if (this.castdelay == 0)
 			{
-				this.spritedrawer.setImageSpeed(0);
+				this.spritedrawer.inactivate();
 				this.spritedrawer.setImageIndex(0);
+				// Also stops the regen meter
+				this.castdelaymeterdrawer.inactivate();
 			}
 		}
 		
@@ -336,10 +350,12 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		
 		// Restarts the image index
 		getSpriteDrawer().setImageIndex(0);
+		this.castdelaymeterdrawer.setImageIndex(0);
 		// Sets the animation on
 		getSpriteDrawer().setAnimationDuration(castdelay);
-		
-		// TODO: Add castdelaymeter
+		getSpriteDrawer().activate();
+		this.castdelaymeterdrawer.setAnimationDuration(castdelay);
+		this.castdelaymeterdrawer.activate();
 	}
 	
 	

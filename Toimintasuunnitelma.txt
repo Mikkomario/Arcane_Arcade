@@ -59,7 +59,7 @@ Eteneminen:														Status
 			* Pallon ampuminen									DONE
 			* Katoaminen										...
 				- Lisää visuaalinen efekti
-		- Törmäys
+		- Törmäys												DONE
 			* Tarvittavien törmäystarkastajien luominen ja 		DONE
 			alustaminen
 			* Pallon, maagien ja loitsujen lisääminen 			DONE
@@ -88,11 +88,11 @@ Eteneminen:														Status
 			* Loitsun valitseminen								...
 				- Loitsun etsiminen elementtien avulla			Testaamatta
 				- Loitsun elementtien vaihtaminen
-			* Loitsun loihtiminen								...
+			* Loitsun loihtiminen								DONE
 				- Cast delay									DONE
 				- Animaation nopeus / lopetus					DONE
-				- Castausmittarin piirto
-			* Uusien elementtien lisäämisen mahdollistaminen	...
+				- Castausmittarin piirto						DONE
+			* Uusien elementtien lisäämisen mahdollistaminen	DONE
 		- Pelinopeuden optimointi								DONE
 			* Pelinopeuden seuraaminen							DONE
 			* Steplengthin muuttaminen sopivaksi				DONE
@@ -174,6 +174,8 @@ Eteneminen:														Status
 			* "Favi"
 			* Äänten soittaminen
 			* Resurssien järkevä käyttöönotto
+		- Loading screenin näyttäminen latauksien yhteydessä
+			* Oma päivitysthread?
 	* Gold
 		- Erilaiset kentät
 			* Erilaiset haasteet ja objektit

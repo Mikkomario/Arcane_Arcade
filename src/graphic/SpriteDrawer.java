@@ -187,11 +187,16 @@ public class SpriteDrawer implements Actor
 	 * method or in another similar method.
 	 * 
 	 * @param g2d The graphics object that does the actual drawing
+	 * @param xtranslation How much the sprite is translated horizontally 
+	 * before drawing
+	 * @param ytranslation How much the sprite is translated vertically 
+	 * before drawing
 	 */
-	public void drawSprite(Graphics2D g2d)
+	public void drawSprite(Graphics2D g2d, int xtranslation, int ytranslation)
 	{
 		// Draws the sprite
-		g2d.drawImage(getSprite().getSubImage(getImageIndex()), 0, 0, null);
+		g2d.drawImage(getSprite().getSubImage(getImageIndex()), xtranslation, 
+				ytranslation, null);
 	}
 	
 	// Handles the change of the image index

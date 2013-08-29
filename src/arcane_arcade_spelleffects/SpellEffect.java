@@ -209,7 +209,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	public void drawSelfBasic(Graphics2D g2d)
 	{
 		// Draws the sprite
-		this.spritedrawer.drawSprite(g2d);
+		this.spritedrawer.drawSprite(g2d, 0, 0);
 	}
 	
 	@Override
