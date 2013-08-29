@@ -17,6 +17,7 @@ import javax.swing.JPanel;
  * @author Unto Solala & Mikko Hilpinen. Created 8.8.2013
  * @see video.GameWindow
  */
+@SuppressWarnings("serial")
 public class GamePanel extends JPanel
 {
 	// ATTRIBUTES ---------------------------------------------------------

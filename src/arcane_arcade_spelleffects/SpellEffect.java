@@ -105,7 +105,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.lifeleft = lifetime;
 		this.lifetime = lifetime;
 		this.spritedrawer = new SpriteDrawer(
-				Main.spritebanks.getBank("spells").getSprite(spritename), 
+				Main.spritebanks.getOpenSpriteBank("spells").getSprite(spritename), 
 				actorhandler);
 		
 		// Sets up the deaths

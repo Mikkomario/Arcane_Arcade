@@ -80,7 +80,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 		this.minshootforce = 10;
 		this.maxshootforce = 15;
 		this.spritedrawer = new SpriteDrawer(
-				Main.spritebanks.getBank("field").getSprite("server"), 
+				Main.spritebanks.getOpenSpriteBank("field").getSprite("server"), 
 				actorhandler);
 		this.actorhandler = actorhandler;
 		this.collidablehandler = collidablehandler;

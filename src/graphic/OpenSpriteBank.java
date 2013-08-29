@@ -3,15 +3,17 @@ package graphic;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import common.OpenBank;
+
 /**
- * This spritebank, unlike other spritebanks can be put into a bank. Also, 
- * the content of the spritebank can be defined by providing a number of 
+ * This SpriteBank, unlike other SpriteBanks can be put into a bank. Also, 
+ * the content of the SpriteBank can be defined by providing a number of 
  * commands upon the creation of the bank.
  *
  * @author Mikko Hilpinen.
  *         Created 26.8.2013.
  */
-public class OpenSpriteBank extends SpriteBank
+public class OpenSpriteBank extends SpriteBank implements OpenBank
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
@@ -21,7 +23,7 @@ public class OpenSpriteBank extends SpriteBank
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
-	 * Creates a new openspritebank that will initialize itself using the 
+	 * Creates a new OpenSpriteBank that will initialize itself using the 
 	 * given information
 	 *
 	 * @param creationcommands Creation commands should follow the following 
@@ -78,4 +80,11 @@ public class OpenSpriteBank extends SpriteBank
 			createSprite(parts[1], imgnumber, originx, originy, parts[0]);
 		}
 	}
+
+	/*
+	@Override
+	public void setCommands(ArrayList<String> commands) {
+		this.commands = commands;
+	}
+	*/
 }

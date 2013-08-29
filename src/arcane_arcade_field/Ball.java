@@ -69,7 +69,7 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 		this.forcedelay = 0;
 		this.minspeed = 6;
 		this.spritedrawer = new SpriteDrawer(
-				Main.spritebanks.getBank("field").getSprite("ball"), 
+				Main.spritebanks.getOpenSpriteBank("field").getSprite("ball"), 
 				actorhandler);
 		
 		// Sets up movement stats
