@@ -65,7 +65,7 @@ Eteneminen:														Status
 			alustaminen
 			* Pallon, maagien ja loitsujen lisääminen 			DONE
 			törmäystarjustuksiin
-		- Loitsut												...
+		- Loitsut												Testaamatta
 			* Elementit											Testaamatta
 				- Elementit enumeraatioina						DONE
 				- Elementtien heikkoudet ja vahvuudet			Testaamatta

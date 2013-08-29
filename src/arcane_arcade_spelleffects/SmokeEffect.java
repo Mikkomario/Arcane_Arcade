@@ -44,8 +44,8 @@ public class SmokeEffect extends MaskedSpellEffect
 			Room room, int duration)
 	{
 		super(x, y, DepthConstants.FOREGROUND - 30, CollisionType.BOX, drawer, 
-				collidablehandler, collisionhandler, actorhandler, room, 
-				"smoke", "cloudmask", true, false, false, Element.NOELEMENT, 
+				collidablehandler, /*collisionhandler*/null, actorhandler, room, 
+				"smoke", "cloudmask", /*true*/false, false, false, Element.NOELEMENT, 
 				Element.NOELEMENT, duration, false);
 		setBoxCollisionPrecision(2, 2);
 		addFadeEffect((int) (duration * 0.2), (int) (duration * 0.6));
