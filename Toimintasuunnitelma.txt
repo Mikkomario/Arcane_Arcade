@@ -108,7 +108,7 @@ Eteneminen:														Status
 			ottaminen impactiin
 		- Wizardin statusefektit								...
 			* Statusefektit enumeraatioina						DONE
-			* Statusefektien aiheuttaminen ja muuttaminen
+			* Statusefektien aiheuttaminen ja muuttaminen		DONE
 			* Statusefektien piirtäminen
 			* Statusefektien vaikutus pelaamiseen
 		- HUD

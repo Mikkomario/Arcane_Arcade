@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import worlds.Room;
 
@@ -15,6 +16,7 @@ import arcane_arcade_main.Main;
 import arcane_arcade_spelleffects.SpellEffect;
 import arcane_arcade_spelleffects.TeleportEffect;
 import arcane_arcade_status.Element;
+import arcane_arcade_status.WizardStatus;
 
 import graphic.MaskChecker;
 import graphic.SpriteDrawer;
@@ -62,6 +64,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private int elementindex2;
 	private int castdelay;
 	private int doubletaptime;
+	
+	private HashMap<WizardStatus, Double> statusses;
+	private double statusdepletionrate;
 	
 	
 	// CONSTRUCTOR	----------------------------------------------------
@@ -119,6 +124,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.elements = new ArrayList<Element>();
 		this.elements.add(Element.FIRE);
 		this.elements.add(Element.WATER);
+		
+		// Initializes status effects
+		this.statusses = new HashMap<WizardStatus, Double>();
+		for (WizardStatus status: WizardStatus.values())
+		{
+			this.statusses.put(status, 0.0);
+		}
+		this.statusdepletionrate = 0.1;
 		
 		// Stops the animation(s)
 		this.spritedrawer.inactivate();
@@ -338,6 +351,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			setY(getOriginY());
 		else if (getY() > GameSettings.SCREENHEIGHT - getHeight() + getOriginY())
 			setY(GameSettings.SCREENHEIGHT - getHeight() + getOriginY());
+		
+		// Adjusts the status effects
+		depleteStatusses();
 	}
 	
 	
@@ -382,6 +398,26 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	
 	// OTHER METHODS	-------------------------------------------------
 	
+	
+	/**
+	 * Changes the strenght of a wizard's status effect
+	 *
+	 * @param status What status effect is adjusted
+	 * @param adjustment How much the effect is adjusted [-100, 100] (0 being 
+	 * the minimun final falue and 100 being the maximum final value).
+	 */
+	public void adjustStatus(WizardStatus status, double adjustment)
+	{
+		// Checks the new value and fixes it if needed
+		double newstatus = this.statusses.get(status);
+		if (newstatus < 0)
+			newstatus = 0;
+		else if (newstatus > 100)
+			newstatus = 100;
+		// Changes the status
+		this.statusses.put(status, newstatus);
+	}
+	
 	// Tries to eleport either up (-1) or down (1)
 	private void tryTeleporting(int movementsign)
 	{
@@ -420,5 +456,11 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			return this.elements.size() - 1;
 		else
 			return index - 1;
+	}
+	
+	private void depleteStatusses()
+	{
+		for (WizardStatus status: this.statusses.keySet())
+			adjustStatus(status, -this.statusdepletionrate);
 	}
 }
