@@ -42,6 +42,7 @@ muddy#images/status/muddy_streched_strip6.png#6#58#43
 rebirth#images/status/rebirth_strip14.png#14#177#177
 freeze#images/status/freeze_strip6.png#6#38#37
 wet#images/status/wet_strip2.png#2#63#45
+paralyze#images/spells/lightfield_strip4.png#4#97#97
 
 &creatures
 redwizard#images/wizards/wizard_red_strip8.png#8#61#28

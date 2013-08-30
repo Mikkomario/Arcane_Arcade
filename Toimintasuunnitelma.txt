@@ -109,7 +109,7 @@ Eteneminen:														Status
 		- Wizardin statusefektit								...
 			* Statusefektit enumeraatioina						DONE
 			* Statusefektien aiheuttaminen ja muuttaminen		DONE
-			* Statusefektien piirtäminen
+			* Statusefektien piirtäminen						Testaamatta
 			* Statusefektien vaikutus pelaamiseen
 		- HUD
 			* Käytössä olevien elementtien piirtäminen
@@ -154,9 +154,10 @@ Eteneminen:														Status
 				- Asetusten lukeminen pelin alussa
 			* Kenttävalikko
 			* Wikipedia
-		- Äänet
-			* Tarvittavat resurssit
-			* Resurssien järkevä organisointi ja lukeminen
+		- Äänet													...
+			* WavSoundien äänenvoimakkuuden säädön stackkaus
+			* Tarvittavat resurssit								...
+			* Resurssien järkevä organisointi ja lukeminen		...
 			* Äänien lisäys
 		- Musiikki
 			* Tarvittavat resurssit

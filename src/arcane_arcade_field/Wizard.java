@@ -65,6 +65,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private int castdelay;
 	private int doubletaptime;
 	
+	private WizardStatusDrawer statusdrawer;
 	private HashMap<WizardStatus, Double> statusses;
 	private double statusdepletionrate;
 	
@@ -132,6 +133,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			this.statusses.put(status, 0.0);
 		}
 		this.statusdepletionrate = 0.1;
+		this.statusdrawer = new WizardStatusDrawer(drawer, actorhandler, this);
 		
 		// Stops the animation(s)
 		this.spritedrawer.inactivate();
@@ -227,7 +229,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 					this.castdelaymeterdrawer.getSprite().getOriginX(), 
 					getSpriteDrawer().getSprite().getOriginY() - 
 					this.castdelaymeterdrawer.getSprite().getOriginY());
-		drawCollisionPoints(g2d);
+		//drawCollisionPoints(g2d);
 	}
 	
 	@Override
@@ -237,6 +239,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.spritedrawer.kill();
 		this.spritedrawer = null;
 		this.maskchecker = null;
+		// And the statusdrawer too
+		this.statusdrawer.kill();
+		this.statusdrawer = null;
 		
 		return super.kill();
 	}
@@ -416,6 +421,18 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			newstatus = 100;
 		// Changes the status
 		this.statusses.put(status, newstatus);
+	}
+	
+	/**
+	 * Returns the strength of a status effect affecting (or not affecting) the 
+	 * wizard
+	 *
+	 * @param status The status effect who's strength is asked
+	 * @return The strength of the status effect [0, 100]
+	 */
+	public double getStatusStrength(WizardStatus status)
+	{
+		return this.statusses.get(status);
 	}
 	
 	// Tries to eleport either up (-1) or down (1)
