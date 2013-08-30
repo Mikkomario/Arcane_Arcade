@@ -24,7 +24,6 @@ public class GamePanel extends JPanel
 	
 	private int width;
 	private int height;
-	private boolean needsUpdating;
 	private DrawableHandler drawer;
 	private double xscale, yscale;
 	
@@ -44,7 +43,6 @@ public class GamePanel extends JPanel
 		this.yscale = 1;
 		this.width = width;
 		this.height = height;
-		this.needsUpdating = true;
 		this.drawer = new DrawableHandler(false, true, DepthConstants.NORMAL, 
 				null);
 		
@@ -61,21 +59,17 @@ public class GamePanel extends JPanel
 	@Override
 	public void paintComponent(Graphics g)
 	{
-		// The panel draws all stuff inside it (if needed)
-		if (this.needsUpdating)
-		{
-			this.needsUpdating = false;
-			Graphics2D g2d = (Graphics2D) g;
-			
-			// Scales the area of drawing
-			if (this.xscale != 1 || this.yscale != 1)
-				g2d.scale(this.xscale, this.yscale);
-			
-			// Clears the former drawings
-			g2d.clearRect(0, 0, this.width, this.height);
-			
-			this.drawer.drawSelf(g2d);
-		}
+		// The panel draws all stuff inside it
+		Graphics2D g2d = (Graphics2D) g;
+		
+		// Scales the area of drawing
+		if (this.xscale != 1 || this.yscale != 1)
+			g2d.scale(this.xscale, this.yscale);
+		
+		// Clears the former drawings
+		g2d.clearRect(0, 0, this.width, this.height);
+		
+		this.drawer.drawSelf(g2d);
 	}
 	
 	
@@ -92,14 +86,6 @@ public class GamePanel extends JPanel
 	
 	
 	// OTHER METHODS ---------------------------------------------------
-	
-	/**
-	 * This method should be called when the screen needs redrawing
-	 */
-	public void callScreenUpdate()
-	{
-		this.needsUpdating = true;
-	}
 	
 	/**
 	 * Changes the size of the game panel.

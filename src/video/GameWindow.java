@@ -50,6 +50,7 @@ public class GameWindow extends JFrame
 	private KeyListenerHandler keylistenerhandler;
 	private MouseListenerHandler mouselistenerhandler;
 	private ActorHandler listeneractorhandler;
+	private ScreenDrawer screendrawer;
 	
 	private ArrayList<GamePanel> panels;
 	private ArrayList<JPanel> paddings;
@@ -97,6 +98,8 @@ public class GameWindow extends JFrame
 		
 		// Creates and initializes important handlers
 		this.stephandler = new StepHandler(15, this);
+		// And the screen drawer
+		this.screendrawer = new ScreenDrawer(this, 15);
 		
 		this.listeneractorhandler = new ActorHandler(false, this.stephandler);
 		this.mainkeyhandler = new MainKeyListenerHandler(this.listeneractorhandler);
@@ -111,6 +114,7 @@ public class GameWindow extends JFrame
 		
 		// Starts the game
 		new Thread(this.stephandler).start();
+		new Thread(this.screendrawer).start();
 	}
 	
 	
@@ -186,13 +190,8 @@ public class GameWindow extends JFrame
 	 */
 	public void callScreenUpdate()
 	{
-		// Updates all the panels in the window
-		for (int i = 0; i < this.panels.size(); i++)
-		{
-			this.panels.get(i).callScreenUpdate();
-		}
-		// Redraws the screen
-		repaint();
+		// Updates the screen drawer
+		this.screendrawer.callUpdate();
 	}
 	
 	/**

@@ -67,6 +67,14 @@ public class StepHandler extends ActorHandler implements Runnable
 	
 	// OTHER METHODS	--------------------------------------------------
 	
+	/**
+	 * Stops the stephandler from functioning anymore
+	 */
+	public void stop()
+	{
+		this.running = false;
+	}
+	
 	// This method updates the actors and the window when needed
 	private void update()
 	{
