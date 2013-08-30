@@ -151,7 +151,7 @@ public class WizardStatusDrawer extends DrawableHandler
 		public boolean isVisible()
 		{
 			// Only status effects that are affecting the ball are visible
-			return super.isVisible() && 
+			return super.isVisible() && this.status != null && 
 					WizardStatusDrawer.this.wizard.getStatusStrength(
 					this.status) > 0;
 		}

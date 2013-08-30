@@ -253,9 +253,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		if (!coded)
 		{
 			if (key == 'w' || key == 'W')
-				addVelocity(0, -this.accelration);
+				move(-1);
 			else if (key == 's' || key == 'S')
-				addVelocity(0, this.accelration);
+				move(1);
 		}
 		// TODO: Get some other button than control to do the job since 
 		// it BLOCKS ALL OTHER BUTTONS (wtf?)
@@ -279,14 +279,38 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				tryTeleporting(1);
 			// If Q or A was pressed, changes the left element
 			else if (key == 'Q' || key == 'q')
-				this.elementindex1 = getNextElementIndex(this.elementindex1);
+			{
+				// Panic switches the controls
+				if (getStatusStrength(WizardStatus.PANIC) > 0)
+					this.elementindex2 = getPreviousElementIndex(this.elementindex1);
+				else
+					this.elementindex1 = getNextElementIndex(this.elementindex1);
+			}
 			else if (key == 'A' || key == 'a')
-				this.elementindex1 = getPreviousElementIndex(this.elementindex1);
+			{
+				// Panic switches the controls
+				if (getStatusStrength(WizardStatus.PANIC) > 0)
+					this.elementindex2 = getNextElementIndex(this.elementindex1);
+				else
+					this.elementindex1 = getPreviousElementIndex(this.elementindex1);
+			}
 			// If E or D was pressed, changes the right element
 			else if (key == 'E' || key == 'e')
-				this.elementindex2 = getNextElementIndex(this.elementindex2);
+			{
+				// Panic switches the controls
+				if (getStatusStrength(WizardStatus.PANIC) > 0)
+					this.elementindex1 = getPreviousElementIndex(this.elementindex1);
+				else
+					this.elementindex2 = getNextElementIndex(this.elementindex2);
+			}
 			else if (key == 'D' || key == 'd')
-				this.elementindex2 = getPreviousElementIndex(this.elementindex2);
+			{
+				// Panic switches the controls
+				if (getStatusStrength(WizardStatus.PANIC) > 0)
+					this.elementindex1 = getNextElementIndex(this.elementindex1);
+				else
+					this.elementindex2 = getPreviousElementIndex(this.elementindex2);
+			}
 		}
 	}
 
@@ -413,12 +437,24 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 */
 	public void adjustStatus(WizardStatus status, double adjustment)
 	{
+		double oldstatus = this.statusses.get(status);
 		// Checks the new value and fixes it if needed
-		double newstatus = this.statusses.get(status);
+		double newstatus = oldstatus + adjustment;
 		if (newstatus < 0)
 			newstatus = 0;
 		else if (newstatus > 100)
 			newstatus = 100;
+		
+		// If the status didn't change, does nothing else
+		if (oldstatus == newstatus)
+			return;
+		
+		// Some status changes change the gameplay
+		if (status == WizardStatus.SLIPPERY)
+			setFriction(this.friction * (1 - newstatus / 100));
+		else if (status == WizardStatus.HASTE)
+			setMaxSpeed(this.maxspeed * (1 + newstatus / 75));
+		
 		// Changes the status
 		this.statusses.put(status, newstatus);
 	}
@@ -431,13 +467,37 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 * @return The strength of the status effect [0, 100]
 	 */
 	public double getStatusStrength(WizardStatus status)
-	{
+	{	
+		if (this.statusses == null)
+			return 0;
+		
 		return this.statusses.get(status);
+	}
+	
+	private void move(int movementsign)
+	{
+		// Doesn't work if the wizard is paralyzed
+		if (getStatusStrength(WizardStatus.PARALYZED) > 0)
+			return;
+		
+		// Haste affects accelration
+		double speedchange = this.accelration * 
+				(1 + getStatusStrength(WizardStatus.HASTE) / 75);
+		
+		// Panic switches the controls
+		if (getStatusStrength(WizardStatus.PANIC) > 0)
+			movementsign *= -1;
+		
+		addVelocity(0, movementsign * speedchange);
 	}
 	
 	// Tries to eleport either up (-1) or down (1)
 	private void tryTeleporting(int movementsign)
 	{
+		// Panic switches the controls
+		if (getStatusStrength(WizardStatus.PANIC) > 0)
+			movementsign *= -1;
+		
 		if (this.doubletaptime > 0)
 		{
 			// Adds teleport effect
@@ -477,6 +537,10 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	
 	private void depleteStatusses()
 	{
+		// Doesn't deplete statusses if they haven't been initialized yet
+		if (this.statusses == null)
+			return;
+		
 		for (WizardStatus status: this.statusses.keySet())
 			adjustStatus(status, -this.statusdepletionrate);
 	}

@@ -66,9 +66,9 @@ Eteneminen:														Status
 			* Pallon, maagien ja loitsujen lisääminen 			DONE
 			törmäystarjustuksiin
 		- Loitsut												Testaamatta
-			* Elementit											Testaamatta
+			* Elementit											DONE
 				- Elementit enumeraatioina						DONE
-				- Elementtien heikkoudet ja vahvuudet			Testaamatta
+				- Elementtien heikkoudet ja vahvuudet			DONE
 			* Loitsujen rakenne									Testaamatta
 				- Perus loitsuluokka							Testaamatta
 					* Maskattava loitsuluokka					DONE
@@ -106,11 +106,11 @@ Eteneminen:														Status
 			* Statusefektien piirtäminen (pallon ulkopuolella)	DONE
 			* Statusefektien vaikutuksen laskeminen ja 			DONE
 			ottaminen impactiin
-		- Wizardin statusefektit								...
+		- Wizardin statusefektit								Testaamatta
 			* Statusefektit enumeraatioina						DONE
 			* Statusefektien aiheuttaminen ja muuttaminen		DONE
 			* Statusefektien piirtäminen						Testaamatta
-			* Statusefektien vaikutus pelaamiseen
+			* Statusefektien vaikutus pelaamiseen				Testaamatta
 		- HUD
 			* Käytössä olevien elementtien piirtäminen
 		- Manamittari
