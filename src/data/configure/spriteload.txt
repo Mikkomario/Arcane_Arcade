@@ -31,6 +31,7 @@ mpuse#images/hud/mp_usage.png#1#8#12
 score#images/hud/scoreboard.png#1#100#11
 
 &status
+amnesia#images/spells/amnesia.png#1#87#89
 boulder#images/status/boulder.png#1#48#44
 charge#images/status/charge_strip4.png#4#64#26
 curse#images/status/curse_strip4.png#4#64#108

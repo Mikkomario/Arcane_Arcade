@@ -106,8 +106,9 @@ Eteneminen:														Status
 			* Statusefektien piirtäminen (pallon ulkopuolella)	DONE
 			* Statusefektien vaikutuksen laskeminen ja 			DONE
 			ottaminen impactiin
-		- Wizardin statusefektit
-			* Statusefektit enumeraatioina
+		- Wizardin statusefektit								...
+			* Statusefektit enumeraatioina						DONE
+			* Statusefektien aiheuttaminen ja muuttaminen
 			* Statusefektien piirtäminen
 			* Statusefektien vaikutus pelaamiseen
 		- HUD
