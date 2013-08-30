@@ -1,6 +1,7 @@
 package arcane_arcade_field;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ import listeners.RoomListener;
 
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Main;
+import arcane_arcade_spelleffects.SpellEffect;
 import arcane_arcade_spelleffects.TeleportEffect;
 import arcane_arcade_status.Element;
 
@@ -25,6 +27,7 @@ import handlers.KeyListenerHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
 import helpAndEnums.DoublePoint;
+import helpAndEnums.HelpMath;
 import drawnobjects.BasicPhysicDrawnObject;
 
 /**
@@ -148,8 +151,18 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	public void onCollision(ArrayList<DoublePoint> colpoints,
 			Collidable collided)
 	{
-		// TODO: Add collision with the ball, the walls and certain spells
-		//System.out.println("Collision!");
+		// TODO: Add collision with the ball
+		// Collides with certain spells
+		if (collided instanceof SpellEffect)
+		{
+			SpellEffect spell = (SpellEffect) collided;
+			if (spell.collidesWithWizards())
+			{
+				Point averagepoint = 
+						HelpMath.getAverageDoublePoint(colpoints).getAsPoint();
+				spell.onWizardCollision(this, averagepoint.x, averagepoint.y);
+			}
+		}
 	}
 
 	@Override

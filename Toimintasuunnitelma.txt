@@ -101,10 +101,10 @@ Eteneminen:														Status
 			* Pelinopeuskorjauksen käyttöönotto					Plääh
 				- act -metodin muokkaus							Plääh
 	* Beta														...
-		- Pallon statusefektit									...
+		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE
-			* Statusefektien piirtäminen (pallon ulkopuolella)
-			* Statusefektien vaikutuksen laskeminen ja 			Testaamatta
+			* Statusefektien piirtäminen (pallon ulkopuolella)	DONE
+			* Statusefektien vaikutuksen laskeminen ja 			DONE
 			ottaminen impactiin
 		- Wizardin statusefektit
 			* Statusefektit enumeraatioina
@@ -134,8 +134,6 @@ Eteneminen:														Status
 		- Loitsut
 			* Loitsujen manankulutus
 		- Toinen pelaaja
-		- Uudet loitsut
-			* Tarvittavat graafiset resurssit
 		- Menu
 			* Main-menun ympäristön luominen
 			* Ympäristöjen vaihtaminen
@@ -162,6 +160,8 @@ Eteneminen:														Status
 		- Musiikki
 			* Tarvittavat resurssit
 			* Musiikkien järkevä organisointi ja lukeminen
+		- Uudet loitsut
+			* Tarvittavat graafiset resurssit
 		- Pelin pysäyttäminen
 			* Pausen toiminnallisuus
 			* Pausen piirtäminen
