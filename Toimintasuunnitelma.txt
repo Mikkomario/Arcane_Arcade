@@ -111,8 +111,8 @@ Eteneminen:														Status
 			* Statusefektien aiheuttaminen ja muuttaminen		DONE
 			* Statusefektien piirtäminen						Testaamatta
 			* Statusefektien vaikutus pelaamiseen				Testaamatta
-		- HUD
-			* Käytössä olevien elementtien piirtäminen
+		- HUD													Testaamatta
+			* Käytössä olevien elementtien piirtäminen			Testaamatta
 		- Manamittari
 			* Manan lasku
 			* Manan piirto

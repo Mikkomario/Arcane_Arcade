@@ -69,6 +69,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private HashMap<WizardStatus, Double> statusses;
 	private double statusdepletionrate;
 	
+	private WizardHudDrawer huddrawer;
+	
 	
 	// CONSTRUCTOR	----------------------------------------------------
 	
@@ -134,6 +136,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		}
 		this.statusdepletionrate = 0.1;
 		this.statusdrawer = new WizardStatusDrawer(drawer, actorhandler, this);
+		// Initializes HUD
+		this.huddrawer = new WizardHudDrawer(drawer, this);
 		
 		// Stops the animation(s)
 		this.spritedrawer.inactivate();
@@ -242,6 +246,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		// And the statusdrawer too
 		this.statusdrawer.kill();
 		this.statusdrawer = null;
+		// And the huddrawer
+		this.huddrawer.kill();
+		this.huddrawer = null;
 		
 		return super.kill();
 	}
@@ -519,7 +526,47 @@ public class Wizard extends BasicPhysicDrawnObject implements
 					this.collidablehandler, this.collisionhandler, this.room);
 	}
 	
-	private int getNextElementIndex(int index)
+	/**
+	 * Returns an element from the given element index
+	 *
+	 * @param index The index of the element looked for
+	 * @return The element from the given index
+	 * @see Wizard#getFirstElementIndex()
+	 * @see Wizard#getSecondElementIndex()
+	 * @see Wizard#getNextElementIndex(int)
+	 * @see Wizard#getPreviousElementIndex(int)
+	 */
+	protected Element getElement(int index)
+	{
+		if (index < 0 || index >= this.elements.size())
+			return Element.NOELEMENT;
+		
+		return this.elements.get(index);
+	}
+	
+	/**
+	 * @return The index of the first active element
+	 */
+	protected int getFirstElementIndex()
+	{
+		return this.elementindex1;
+	}
+	
+	/**
+	 * @return The index of the second active element
+	 */
+	protected int getSecondElementIndex()
+	{
+		return this.elementindex2;
+	}
+	
+	/**
+	 * The index of the element that is next to the given element
+	 *
+	 * @param index The previous element index to the one looked for
+	 * @return The element index next to the given element index
+	 */
+	protected int getNextElementIndex(int index)
 	{
 		if (index >= this.elements.size() - 1)
 			return 0;
@@ -527,7 +574,13 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			return index + 1;
 	}
 	
-	private int getPreviousElementIndex(int index)
+	/**
+	 * The index of the element that is previous to the given element
+	 *
+	 * @param index The next element index to the one looked for
+	 * @return The element index previous to the given element index
+	 */
+	protected int getPreviousElementIndex(int index)
 	{
 		if (index <= 0)
 			return this.elements.size() - 1;
