@@ -146,18 +146,29 @@ public abstract class Handler implements Handled
 		if (!getSupportedClass().isInstance(h))
 			return;
 		
+		// TODO: Messes up the order of the drawables somehow
 		if (h != null && !this.handleds.contains(h))
 		{
 			// Removes all of the handleds after the index to another list
 			List<Handled> sublist = this.handleds.subList(index, 
 					this.handleds.size() - 1);
 			List<Handled> holding = new ArrayList<Handled>();
-			holding.addAll(sublist);
+			//holding.addAll(sublist);
+			for (int i = 0; i < sublist.size(); i++)
+			{
+				holding.add(sublist.get(i));
+			}
 			sublist.clear();
 			// Adds the current handled
 			this.handleds.add(h);
 			// Adds the moved handleds back to the list
-			this.handleds.addAll(holding);
+			//this.handleds.addAll(holding);
+			for (int i = holding.size() - 1; i >= 0; i--)
+			{
+				//System.out.println("Adding " + holding.get(i).getClass().getName());
+				this.handleds.add(holding.get(i));
+			}
+			holding.clear();
 			
 			// Also starts the handler if it wasn't already
 			if (!this.started)

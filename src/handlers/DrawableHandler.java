@@ -123,17 +123,30 @@ public class DrawableHandler extends Handler implements Drawable
 		if (!(h instanceof Drawable))
 			return;
 		
+		/*
+		// Prints all depths in order
+		System.out.println("*************************************");
+		for (int i = 0; i < getHandledNumber(); i++)
+		{
+			System.out.println("Depth " + i + "/" + getHandledNumber() + ": " + 
+					getDrawable(i).getDepth());
+		}
+		*/
+		
 		Drawable d = (Drawable) h;
 		
 		// If the depth sorting is on, finds the spot for the object
 		if (this.usesDepth)
 		{
 			int index = 0;
+			int newdepth = d.getDepth();
 			
 			while (index < getHandledNumber() - 1)
 			{
+				// TODO: Why is the index always 0?
+				
 				// Checks if there's an object with a higher depth
-				if (((Drawable) getHandled(index)).getDepth() < d.getDepth())
+				if (getDrawable(index).getDepth() < newdepth)
 				{
 					super.insertHandled(d, index);
 					return;

@@ -100,6 +100,12 @@ Eteneminen:														Status
 			* Pelinopeuskorjauksen laskeminen					DONE
 			* Pelinopeuskorjauksen käyttöönotto					Plääh
 				- act -metodin muokkaus							Plääh
+		- Piirtosyvyyden korjaaminen							...
+			* Ongelma: Piirtosyvyys vaihtelee jaksollisesti, 
+			mutta on säännöllisesti väärä 
+			(mutta toimii 1/2 aikaa oikein)
+			* Ongelman syyn etsiminen							...
+			* Ongelman ratkaiseminen
 	* Beta														...
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE
