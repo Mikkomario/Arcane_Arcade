@@ -123,9 +123,9 @@ Eteneminen:														Status
 			* Käytössä olevien elementtien piirtäminen			DONE
 		- Manamittari											...
 			* Manan lasku										DONE
-			* Manan piirto
-				- Pohjan piirto
-				- Mittarin piirto
+			* Manan piirto										...
+				- Pohjan piirto									DONE
+				- Mittarin piirto								DONE
 				- Viimeisen kulutuksen piirto
 				- Seuraavan kulutuksen piirto
 			* Manan kulutus										DONE

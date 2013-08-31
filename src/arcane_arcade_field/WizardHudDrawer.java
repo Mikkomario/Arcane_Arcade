@@ -23,6 +23,9 @@ public class WizardHudDrawer extends DrawableHandler
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
+	private static int mpblockwidth = 32;
+	private static int mpblockheight = 32;
+	
 	private Wizard wizard;
 	
 	
@@ -43,7 +46,7 @@ public class WizardHudDrawer extends DrawableHandler
 		
 		// Creates the drawers and adds them to the handleds
 		int element1x = 5;
-		int elementy = GameSettings.SCREENHEIGHT - 140;
+		int elementy = GameSettings.SCREENHEIGHT - 125;
 		// Current 1
 		ElementDrawer elementexample = new ElementDrawer(element1x, elementy, 
 				DepthConstants.HUD -1, this, 
@@ -68,6 +71,15 @@ public class WizardHudDrawer extends DrawableHandler
 		new ElementDrawer(element1x + elementexample.getWidth(), elementy + 
 				(int) (elementexample.getHeight() * 0.5), DepthConstants.HUD, 
 				this, ElementDrawer.ELEMENTINDEX_LAST_SECOND);
+		
+		// Creates the MP-meters and adds them to the drawer
+		int meterx = element1x + elementexample.getWidth() * 2 + 10;
+		int metery = GameSettings.SCREENHEIGHT - mpblockheight * 2 - 10;
+		
+		// The bottom meter
+		new MPMeterDrawer(meterx, metery, 1, this, 0);
+		// Current mp meter
+		new CurrentMPDrawer(meterx, metery, 0, this);
 	}
 	
 	
@@ -249,12 +261,11 @@ public class WizardHudDrawer extends DrawableHandler
 		 * @param y The meter's top left corner's x-coordinate
 		 * @param depth The drawing depth of the meter
 		 * @param drawer The drawer that will draw the meter
-		 * @param length How long is the meter [0, 10]
 		 * @param meterimageindex Which subimage from the MP-meter sprite is 
 		 * used to represent the meter's blocks
 		 */
 		public MPMeterDrawer(int x, int y, int depth, WizardHudDrawer drawer, 
-				int length, int meterimageindex)
+				int meterimageindex)
 		{
 			super(x, y, depth, drawer);
 			
@@ -263,13 +274,7 @@ public class WizardHudDrawer extends DrawableHandler
 					Main.spritebanks.getOpenSpriteBank("hud").getSprite(
 					"mp"), null);
 			this.spritedrawer.setImageIndex(meterimageindex);
-			this.length = length;
-			
-			// Fixes the length
-			if (this.length < 0)
-				this.length = 0;
-			else if (this.length > 10)
-				this.length = 10;
+			this.length = 10;
 		}
 		
 		
@@ -290,13 +295,20 @@ public class WizardHudDrawer extends DrawableHandler
 		@Override
 		public void drawSelfBasic(Graphics2D g2d)
 		{
-			int blockwidth = this.spritedrawer.getSprite().getWidth();
-			
 			// Draws blocks up to the length of the meter
 			for (int i = 0; i < this.length; i++)
 			{
-				this.spritedrawer.drawSprite(g2d, i * blockwidth, 0);
+				this.spritedrawer.drawSprite(g2d, 
+						i * WizardHudDrawer.mpblockwidth, 0);
 			}
+		}
+		
+		@Override
+		public boolean kill()
+		{
+			// Also kills the spritedrawer
+			this.spritedrawer.kill();
+			return super.kill();
 		}
 		
 		@Override
@@ -322,6 +334,39 @@ public class WizardHudDrawer extends DrawableHandler
 				this.length = 0;
 			else if (this.length > 10)
 				this.length = 10;
+		}
+	}
+	
+	
+	// This MPMeterDrawer draws the blue MP-Bar showing the current MP
+	private class CurrentMPDrawer extends MPMeterDrawer
+	{
+		// CONSTRUCTOR	-------------------------------------------------
+		
+		/**
+		 * Creates a new MPMeterdrawer to the given position added to the 
+		 * given handler.
+		 *
+		 * @param x The meter's top left corner's y-coordinate
+		 * @param y The meter's top left corner's x-coordinate
+		 * @param depth The drawing depth of the meter
+		 * @param drawer The drawer that will draw the meter
+		 */
+		public CurrentMPDrawer(int x, int y, int depth, WizardHudDrawer drawer)
+		{
+			super(x, y, depth, drawer, 1);
+		}
+		
+		
+		// IMPLEMENTED METHODS	----------------------------------------
+		
+		@Override
+		public void drawSelfBasic(Graphics2D g2d)
+		{
+			// Adjusts length before drawing the meter
+			setLength(WizardHudDrawer.this.wizard.getMana() / 10);
+			
+			super.drawSelfBasic(g2d);
 		}
 	}
 }
