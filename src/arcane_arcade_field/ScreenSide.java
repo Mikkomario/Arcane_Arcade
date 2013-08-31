@@ -17,4 +17,20 @@ public enum ScreenSide
 	 * The right side of the field
 	 */
 	RIGHT;
+	
+	
+	// METHODS	--------------------------------------------------------
+	
+	/**
+	 * @return The side opposing to the side called
+	 */
+	public ScreenSide getOppositeSide()
+	{
+		switch (this)
+		{
+			case LEFT: return RIGHT;
+			case RIGHT: return LEFT;
+			default: return LEFT;
+		}
+	}
 }

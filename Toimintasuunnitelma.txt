@@ -133,30 +133,31 @@ Eteneminen:														Status
 				- Regeneroinnin pysäytys castingin ajaksi		DONE
 				- Pysäytyksen vaikutusten korjaus 				DONE
 				manakulutuksessa
-		- HP													...
+		- HP													DONE
 			* HP:n lasku										DONE
 			* HP:n piirto										DONE
 			* HP:n menettäminen									DONE
-			* Kuoleminen										...
-			* Respawn											...
-				- Pallon uudelleen syöttäminen
+			* Kuoleminen										DONE
+			* Respawn											DONE
+				- Pallon uudelleen syöttäminen					DONE
 		- Ruudun puoli											DONE
 			* Ruudun puolen vaikutus loitsuihin					DONE
 			* Ruudun puolen vaikutus Hudiin						DONE
 			* Ruudun puolen vaikutus HP -laskuihin				DONE
-		- Pisteet
-			* Pisteiden lasku
-			* Pisteiden piirto
-			* Pisteiden kasvattaminen
+		- Pisteet												...
+			* Pisteiden lasku									DONE
+			* Pisteiden piirto									DONE
+				- Fontin asettaminen							DONE
+			* Pisteiden kasvattaminen							DONE
 			* Voiton checkkaus
 		- Loitsut												DONE
 			* Loitsujen manankulutus							DONE
 		- Toinen pelaaja
-			* Vaihtoehtoisen grafiikan käyttäminen
+			* Eri näppäinten käyttäminen
 		- Menu
 			* Main-menun ympäristön luominen
 			* Ympäristöjen vaihtaminen
-			* Näppäimet ja valikot
+			* Nappulat ja valikot
 			* Tausta
 		- Voittovalikko
 			* Tiedon siirtäminen ympäristöjen välillä
@@ -180,12 +181,12 @@ Eteneminen:														Status
 		- Musiikki
 			* Tarvittavat resurssit
 			* Musiikkien järkevä organisointi ja lukeminen
-		- Uudet loitsut
-			* Tarvittavat graafiset resurssit
 		- Pelin pysäyttäminen
 			* Pausen toiminnallisuus
 			* Pausen piirtäminen
 			* Pausen ääni
+		- Uudet loitsut / Elementit
+			* Tarvittavat graafiset resurssit					...
 		- Tutorial
 			* Tarvittavat valikot
 			* Tarvittavan interaktion luonti
@@ -205,10 +206,14 @@ Eteneminen:														Status
 				- Salamat
 				- Seinät
 				- Eri koot
+				- Kts. Dokumentti jossain
 		- Näppäinten remappaaminen optionsseissa
 		- Erilaiset maagit
 			* Vaikutus peliin
-			* Järkevä arkkitehtuuri vaaditaan, jotta maagien 
+				- Attribuuttimuunnoksia
+				- Spriten vaihto
+				- Äänien muuttaminen
+			* Järkevä arkkitehtuuri vaaditaan, jotta maagien 	...
 			lisäys olisi helppoa
 		- Title screen
 		- Vaihtoehtoiset tavat ohjata maagia

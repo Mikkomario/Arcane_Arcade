@@ -147,12 +147,16 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	@Override
 	public int getOriginX()
 	{
+		if (this.spritedrawer == null)
+			return 0;
 		return this.spritedrawer.getSprite().getOriginX();
 	}
 
 	@Override
 	public int getOriginY()
 	{
+		if (this.spritedrawer == null)
+			return 0;
 		return this.spritedrawer.getSprite().getOriginY();
 	}
 

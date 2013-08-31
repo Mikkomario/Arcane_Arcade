@@ -13,6 +13,7 @@ import listeners.RoomListener;
 
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Main;
+import arcane_arcade_spelleffects.ExplosionEffect;
 import arcane_arcade_spelleffects.SpellEffect;
 import arcane_arcade_spelleffects.TeleportEffect;
 import arcane_arcade_spells.Spell;
@@ -62,6 +63,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private CollidableHandler collidablehandler;
 	private BallRelay ballrelay;
 	private CollisionHandler collisionhandler;
+	private ScoreKeeper scorekeeper;
 	
 	private SpriteDrawer spritedrawer;
 	private SpriteDrawer castdelaymeterdrawer;
@@ -104,6 +106,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 * @param keylistenerhandler The keylistenerhandler that will inform 
 	 * the object about keypresses
 	 * @param room The room that will hold the wizard
+	 * @param scorekeeper The scorekeeper that will keep track of the 
+	 * game's score and respawn the wizard after they die
 	 * @param ballrelay The ballrelay that holds information about the balls 
 	 * in the field. That information will be forwarded to the casted spells.
 	 * @param screenside Which side of the room the wizard is created at
@@ -111,7 +115,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	public Wizard(DrawableHandler drawer, CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, ActorHandler actorhandler, 
 			KeyListenerHandler keylistenerhandler, Room room, 
-			BallRelay ballrelay, ScreenSide screenside)
+			ScoreKeeper scorekeeper, BallRelay ballrelay, ScreenSide screenside)
 	{
 		super(70, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
 				true, CollisionType.CIRCLE, drawer, collidablehandler,
@@ -131,6 +135,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.collidablehandler = collidablehandler;
 		this.ballrelay = ballrelay;
 		this.collisionhandler = collisionhandler;
+		this.scorekeeper = scorekeeper;
 		this.elementindex1 = 0;
 		this.elementindex2 = 0;
 		this.castdelay = 0;
@@ -639,6 +644,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		// The wizard comes back to life
 		this.hp = this.maxhp;
 		this.mana = 100;
+		this.invincibilitytime = this.invincibilitydelay;
 		activate();
 		setVisible();
 	}
@@ -716,10 +722,25 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		// If the rebirth spell was active, the wizard respawns instead of 
 		// dying
 		if (getStatusStrength(WizardStatus.REBIRTH) > 0)
+		{
+			adjustStatus(WizardStatus.REBIRTH, -100);
 			respawn();
+		}
 		// The wizard disappears for a moment with an explosion
-		// TODO: Call some handler to handle the death & respawn
-		System.out.println("Dies :(");
+		new ExplosionEffect((int) getX(), (int) getY(), this.drawer, 
+				this.collidablehandler, this.actorhandler, this.room);
+		// Also kills the ball(s)
+		Ball[] balls = this.ballrelay.getBalls();
+		for (int i = 0; i < balls.length; i++)
+		{
+			balls[i].kill();
+		}
+		
+		// Informs the scorekeeper
+		this.scorekeeper.score(getScreenSide().getOppositeSide());
+		
+		inactivate();
+		setInvisible();
 	}
 	
 	/**

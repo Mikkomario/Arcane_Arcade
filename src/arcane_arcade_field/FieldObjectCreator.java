@@ -62,17 +62,22 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 
 		// Creates a ballrelay
 		BallRelay ballrelay = new BallRelay(room);
+		// And the wizardrelay
 		WizardRelay wizardrelay = new WizardRelay(room);
+		// Creates the server
+		Server server = new Server(GameSettings.SCREENWIDTH / 2, 
+				GameSettings.SCREENHEIGHT / 2, this.drawer, this.actorhandler, 
+				this.collisionhandler.getCollidableHandler(), 
+				this.collisionhandler, room, ballrelay, wizardrelay);
+		// Creates the scorekeeper
+		ScoreKeeper scorekeeper = new ScoreKeeper(this.drawer, 
+				this.actorhandler, room, server, wizardrelay);
 		// Creates wizard(s)
 		wizardrelay.addWizard(new Wizard(this.drawer, 
 				this.collisionhandler.getCollidableHandler(), 
 				this.collisionhandler, this.actorhandler, 
-				this.keylistenerhandler, room, ballrelay, ScreenSide.LEFT));
-		// Creates the server
-		new Server(GameSettings.SCREENWIDTH / 2, GameSettings.SCREENHEIGHT / 2, 
-				this.drawer, this.actorhandler, 
-				this.collisionhandler.getCollidableHandler(), 
-				this.collisionhandler, room, ballrelay, wizardrelay);
+				this.keylistenerhandler, room, scorekeeper, ballrelay, 
+				ScreenSide.LEFT));
 	}
 
 	@Override

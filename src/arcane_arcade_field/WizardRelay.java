@@ -95,4 +95,18 @@ public class WizardRelay extends Handler implements RoomListener
 		
 		return wizards;
 	}
+	
+	/**
+	 * Makes all the wizards respawn
+	 */
+	public void respawnWizards()
+	{
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
+		{
+			Wizard w = (Wizard) iterator.next();
+			w.respawn();
+		}
+	}
 }
