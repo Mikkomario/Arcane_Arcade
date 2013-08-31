@@ -1,5 +1,7 @@
 package arcane_arcade_field;
 
+import java.util.Iterator;
+
 import worlds.Room;
 import listeners.RoomListener;
 import handleds.Handled;
@@ -80,8 +82,14 @@ public class BallRelay extends Handler implements RoomListener
 		
 		// Forms a table containing all balls
 		Ball[] balls = new Ball[getHandledNumber()];
-		for (int i = 0; i < getHandledNumber(); i++)
-			balls[i] = getBall(i);
+		
+		Iterator<Handled> iterator = getIterator();
+		int index = 0;
+		while (iterator.hasNext())
+		{
+			balls[index] = (Ball) iterator.next();
+			index ++;
+		}
 		
 		return balls;
 	}
@@ -113,15 +121,17 @@ public class BallRelay extends Handler implements RoomListener
 			return null;
 		// If there's just one ball, returns that
 		else if (getHandledNumber() == 1)
-			return getBall(0);
+			return (Ball) getFirstHandled();
 		
 		// Otherwise finds the closest one
-		Ball closestball = getBall(0);
+		Ball closestball = (Ball) getFirstHandled();
 		double smallestdist = HelpMath.pointDistance(x, y, closestball.getX(), 
 				closestball.getY());
-		for (int i = 1; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			Ball newball = getBall(i);
+			Ball newball = (Ball) iterator.next();
 			double newdist = HelpMath.pointDistance(x, y, newball.getX(), 
 					newball.getY());
 			if (newdist < smallestdist)
@@ -132,14 +142,5 @@ public class BallRelay extends Handler implements RoomListener
 		}
 		// Returns the ball found
 		return closestball;
-	}
-	
-	private Ball getBall(int index)
-	{
-		Handled maybeball = getHandled(index);
-		if (maybeball instanceof Ball)
-			return (Ball) maybeball;
-		else
-			return null;
 	}
 }

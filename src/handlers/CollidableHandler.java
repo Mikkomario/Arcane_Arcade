@@ -1,5 +1,7 @@
 package handlers;
 
+import java.util.Iterator;
+
 import handleds.Collidable;
 import handleds.Handled;
 
@@ -32,9 +34,13 @@ public class CollidableHandler extends Handler implements Collidable
 	public boolean isSolid()
 	{
 		// Handler is solid if any of the objects are solid
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			if (getCollidable(i).isSolid())
+			Collidable c = (Collidable) iterator.next();
+			
+			if (c.isSolid())
 				return true;
 		}
 		
@@ -46,9 +52,13 @@ public class CollidableHandler extends Handler implements Collidable
 	{
 		boolean returnvalue = true;
 		// Tries to make all of the collidables solid
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			if (!getCollidable(i).makeSolid())
+			Collidable c = (Collidable) iterator.next();
+			
+			if (!c.makeSolid())
 				returnvalue = false;
 		}
 		// Returns whether all of the objects were made solid
@@ -60,9 +70,13 @@ public class CollidableHandler extends Handler implements Collidable
 	{
 		boolean returnvalue = true;
 		// Tries to make all of the collidables solid
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			if (!getCollidable(i).makeUnsolid())
+			Collidable c = (Collidable) iterator.next();
+			
+			if (!c.makeUnsolid())
 				returnvalue = false;
 		}
 		// Returns whether all of the objects were made solid
@@ -77,23 +91,6 @@ public class CollidableHandler extends Handler implements Collidable
 	
 	
 	// OTHER METHODS	-----------------------------------------------------
-	
-	/**
-	 * Returns a collidable from the list of collidables
-	 *
-	 * @param index The index of the collidable
-	 * @return The collidable from the list (or null if no collidable was found 
-	 * from the index)
-	 */
-	protected Collidable getCollidable(int index)
-	{
-		Handled maybecollidable = getHandled(index);
-		// Casts the handled to collidable
-		if (maybecollidable instanceof Collidable)
-			return (Collidable) maybecollidable;
-		else
-			return null;
-	}
 	
 	/**
 	 * Adds a new collidable to the list of collidables
@@ -112,9 +109,11 @@ public class CollidableHandler extends Handler implements Collidable
 		removeDeadHandleds();
 		
 		// Returns true if any object collides with the point
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			Collidable c = getCollidable(i);
+			Collidable c = (Collidable) iterator.next();
 			
 			// Non-solid objects can't collide
 			if (!c.isSolid())

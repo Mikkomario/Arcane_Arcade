@@ -1,7 +1,6 @@
 package handlers;
 
 import drawnobjects.DrawnObject;
-import handleds.Handled;
 
 /**
  * Drawnobjecthandler is a special drawablehandler that handles only drawn 
@@ -48,21 +47,5 @@ public class DrawnObjectHandler extends DrawableHandler
 	public void addDrawnObject(DrawnObject d)
 	{
 		addHandled(d);
-	}
-	
-	/**
-	 * Gets a handled from the list of handleds casted as a drawnobject
-	 *
-	 * @param index The index of the drawnobject
-	 * @return The drawnobject from the index (or null if no drawn object was 
-	 * found from the index)
-	 */
-	protected DrawnObject getDrawnObject(int index)
-	{
-		Handled maybeDrawnObject = getHandled(index);
-		if (maybeDrawnObject instanceof DrawnObject)
-			return (DrawnObject) maybeDrawnObject;
-		else
-			return null;
 	}
 }

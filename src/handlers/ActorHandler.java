@@ -1,7 +1,6 @@
 package handlers;
 
 import handleds.Actor;
-import handleds.Handled;
 
 
 /**
@@ -38,8 +37,10 @@ public class ActorHandler extends LogicalHandler implements Actor
 		// This calls for all active actor's act method
 		for (int i = 0; i < getHandledNumber(); i++)
 		{
-			if (getActor(i).isActive())
-				getActor(i).act();
+			Actor a = (Actor) getHandled(i);
+			
+			if (a.isActive())
+				a.act();
 		}
 	}
 	
@@ -51,17 +52,6 @@ public class ActorHandler extends LogicalHandler implements Actor
 	
 	
 	// OTHER METHODS	---------------------------------------------------
-	
-	// Casts the handled to actor (or null)
-	private Actor getActor(int index)
-	{
-		Handled maybeActor = getHandled(index);
-		
-		if (maybeActor instanceof Actor)
-			return (Actor) maybeActor;
-		else
-			return null;
-	}
 	
 	/**
 	 * Adds a new actor to the handled actors

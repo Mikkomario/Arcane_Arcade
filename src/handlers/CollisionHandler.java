@@ -2,6 +2,7 @@ package handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import listeners.CollisionListener;
 import handleds.Actor;
@@ -60,10 +61,11 @@ public class CollisionHandler extends LogicalHandler implements Actor
 		getCollidableHandler().removeDeadHandleds();
 		
 		// Checks collisions between all the listeners and collidables
-		for (int listenerind = 0; listenerind < getHandledNumber(); listenerind++)
+		Iterator<Handled> listeneriterator = getIterator();
+		
+		while (listeneriterator.hasNext())
 		{
-			// Remembers the important data about the listener
-			CollisionListener listener = getCollisionListener(listenerind);
+			CollisionListener listener = (CollisionListener) listeneriterator.next();
 			
 			// Inactive listeners are not counted
 			if (!listener.isActive())
@@ -73,11 +75,13 @@ public class CollisionHandler extends LogicalHandler implements Actor
 			HashMap<Collidable, ArrayList<DoublePoint>> collidedpoints = 
 					new HashMap<Collidable, ArrayList<DoublePoint>>();
 			
-			for (int colind = 0; 
-					colind < this.collidablehandler.getHandledNumber(); colind++)
+			// Goes through all collidables and checks collisions
+			Iterator<Handled> collidableiterator = 
+					this.collidablehandler.getIterator();
+			
+			while (collidableiterator.hasNext())
 			{
-				// Remembers the collidable
-				Collidable c = this.collidablehandler.getCollidable(colind);
+				Collidable c = (Collidable) collidableiterator.next();
 				
 				// Non-solid collidables cannot collide
 				if (!c.isSolid())
@@ -157,15 +161,5 @@ public class CollisionHandler extends LogicalHandler implements Actor
 	public void addCollidable(Collidable c)
 	{
 		this.collidablehandler.addCollidable(c);
-	}
-	
-	private CollisionListener getCollisionListener(int index)
-	{
-		Handled maybeListener = getHandled(index);
-		
-		if (maybeListener instanceof CollisionListener)
-			return (CollisionListener) maybeListener;
-		else
-			return null;
 	}
 }

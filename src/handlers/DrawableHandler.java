@@ -1,6 +1,7 @@
 package handlers;
 
 import java.awt.Graphics2D;
+import java.util.Iterator;
 
 import handleds.Drawable;
 import handleds.Handled;
@@ -51,10 +52,12 @@ public class DrawableHandler extends Handler implements Drawable
 		removeDeadHandleds();
 		
 		// This calls for all active actor's act method
-		for (int i = 0; i < getHandledNumber(); i++)
+		for(int i = 0; i < getHandledNumber(); i++)
 		{
-			if (getDrawable(i).isVisible())
-				getDrawable(i).drawSelf(g2d);
+			Drawable d = (Drawable) getHandled(i);
+			
+			if (d.isVisible())
+				d.drawSelf(g2d);
 		}
 	}
 
@@ -64,7 +67,9 @@ public class DrawableHandler extends Handler implements Drawable
 		// Returns false only if all the handleds are invisible
 		for (int i = 0; i < getHandledNumber(); i++)
 		{
-			if (getDrawable(i).isVisible())
+			Drawable d = (Drawable) getHandled(i);
+			
+			if (d.isVisible())
 				return true;
 		}
 		
@@ -77,10 +82,13 @@ public class DrawableHandler extends Handler implements Drawable
 		// tries to set all the drawables visible, returns false if all the drawables
 		// couldn't be made visible
 		boolean returnValue = true;
+		Iterator<Handled> iterator = getIterator();
 		
-		for (int i = 0; i < getHandledNumber(); i++)
+		while (iterator.hasNext())
 		{
-			if (!getDrawable(i).setVisible())
+			Drawable d = (Drawable) iterator.next();
+			
+			if (!d.setVisible())
 				returnValue = false;
 		}
 		
@@ -93,10 +101,13 @@ public class DrawableHandler extends Handler implements Drawable
 		// tries to set all the drawables invisible, returns false if all the drawables
 		// couldn't be made invisible
 		boolean returnValue = true;
+		Iterator<Handled> iterator = getIterator();
 		
-		for (int i = 0; i < getHandledNumber(); i++)
+		while (iterator.hasNext())
 		{
-			if (!getDrawable(i).setInvisible())
+			Drawable d = (Drawable) iterator.next();
+			
+			if (!d.setInvisible())
 				returnValue = false;
 		}
 		
@@ -123,32 +134,40 @@ public class DrawableHandler extends Handler implements Drawable
 		if (!(h instanceof Drawable))
 			return;
 		
-		/*
-		// Prints all depths in order
-		System.out.println("*************************************");
-		for (int i = 0; i < getHandledNumber(); i++)
-		{
-			System.out.println("Depth " + i + "/" + getHandledNumber() + ": " + 
-					getDrawable(i).getDepth());
-		}
-		*/
-		
 		Drawable d = (Drawable) h;
 		
 		// If the depth sorting is on, finds the spot for the object
 		if (this.usesDepth)
 		{
+			// Prints all depths in order
+			/*
+			System.out.println("*************************************");
+			for (int i = 0; i < getHandledNumber(); i++)
+			{
+				System.out.println("Depth " + (i + 1) + "/" + getHandledNumber() + ": " + 
+						((Drawable) getHandled(i)).getDepth());
+			}
+			*/
+			
+			// Repairs any problems in the depth sorting
+			checkDepthSorting();
+			
 			int index = 0;
 			int newdepth = d.getDepth();
+			Iterator<Handled> iterator = getIterator();
 			
-			while (index < getHandledNumber() - 1)
+			while (iterator.hasNext())
 			{
-				// TODO: Why is the index always 0?
+				Drawable other = (Drawable) iterator.next();
+				
+				//System.out.println(newdepth + " -> " + other.getDepth() + "?");
+				//System.out.println(index);
 				
 				// Checks if there's an object with a higher depth
-				if (getDrawable(index).getDepth() < newdepth)
+				if (other.getDepth() < newdepth)
 				{
-					super.insertHandled(d, index);
+					//System.out.println("Yes");
+					insertHandled(d, index);
 					return;
 				}
 				else
@@ -180,19 +199,28 @@ public class DrawableHandler extends Handler implements Drawable
 		addHandled(d);
 	}
 	
-	/**
-	 * Gets a handled from the list of handleds casted as a drawable
-	 *
-	 * @param index The index of the drawable
-	 * @return The drawable from the index (or null if no drawable was found 
-	 * from the index)
-	 */
-	private Drawable getDrawable(int index)
+	// Checks if there are errors in current depth sorting and tries to fix them
+	private void checkDepthSorting()
 	{
-		Handled maybeDrawable = getHandled(index);
-		if (maybeDrawable instanceof Drawable)
-			return (Drawable) maybeDrawable;
-		else
-			return null;
+		int lastdepth = 900000;
+		Iterator<Handled> ite = getIterator();
+		while(ite.hasNext())
+		{
+			Drawable drawable = (Drawable) ite.next();
+			if (drawable.getDepth() > lastdepth)
+			{
+				//System.out.println("ERROR IN DEPTH SORTING");
+				tryFixingDepthSorting(drawable);
+				break;
+			}
+			lastdepth = drawable.getDepth();
+		}
+	}
+	
+	// Tries to fix the depth sorting for the given object
+	private void tryFixingDepthSorting(Drawable mistake)
+	{
+		removeHandled(mistake);
+		addHandled(mistake);
 	}
 }

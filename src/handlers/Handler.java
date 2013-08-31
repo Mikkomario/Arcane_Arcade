@@ -2,8 +2,8 @@ package handlers;
 
 import handleds.Handled;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * Handlers specialize in handling certain types of objects. Each handler can 
@@ -16,7 +16,7 @@ public abstract class Handler implements Handled
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
-	private ArrayList<Handled> handleds;
+	private LinkedList<Handled> handleds;
 	private boolean autodeath;
 	private boolean killed;
 	private boolean started; // Have any objects been added to the handler yet
@@ -37,7 +37,7 @@ public abstract class Handler implements Handled
 		// Initializes attributes
 		this.autodeath = autodeath;
 		this.killed = false;
-		this.handleds = new ArrayList<Handled>();
+		this.handleds = new LinkedList<Handled>();
 		this.started = false;
 		
 		// Tries to add itself to the superhandler
@@ -83,9 +83,11 @@ public abstract class Handler implements Handled
 		// killed, this handldler is also killed in the process
 		boolean returnValue = true;
 		
-		for (int i = 0; i < this.handleds.size(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			if (!this.handleds.get(i).kill())
+			if (!iterator.next().kill())
 				returnValue = false;
 		}
 		
@@ -114,12 +116,20 @@ public abstract class Handler implements Handled
 	// OTHER METHODS	---------------------------------------------------
 	
 	/**
+	 * @return The iterator of the handled list
+	 */
+	protected Iterator<Handled> getIterator()
+	{
+		return this.handleds.iterator();
+	}
+	
+	/**
 	 * Adds a new object to the handled objects
 	 *
 	 * @param h The object to be handled
 	 */
 	protected void addHandled(Handled h)
-	{
+	{	
 		// Handled must be of the supported class
 		if (!getSupportedClass().isInstance(h))
 			return;
@@ -142,6 +152,8 @@ public abstract class Handler implements Handled
 	 */
 	protected void insertHandled(Handled h, int index)
 	{
+		this.handleds.add(index, h);
+		/*
 		// Handled must be of the supported class
 		if (!getSupportedClass().isInstance(h))
 			return;
@@ -174,6 +186,7 @@ public abstract class Handler implements Handled
 			if (!this.started)
 				this.started = true;
 		}
+		*/
 	}
 	
 	/**
@@ -201,10 +214,11 @@ public abstract class Handler implements Handled
 	protected void removeDeadHandleds()
 	{
 		// Removes all the dead handleds from the list to save processing time
-		for (int i = 0; i < this.handleds.size(); i++)
-		{	
-			if (this.handleds.get(i).isDead())
-				this.handleds.remove(i);
+		for (int i = 0; i < getHandledNumber(); i++)
+		{
+			Handled h = getHandled(i);
+			if (h.isDead())
+				this.handleds.remove(h);
 		}
 	}
 	
@@ -217,11 +231,37 @@ public abstract class Handler implements Handled
 	}
 	
 	/**
+	 * @return The first handled in the list of handleds
+	 */
+	protected Handled getFirstHandled()
+	{
+		return this.handleds.getFirst();
+	}
+	
+	/**
+	 * Returns a certain handled form the list
+	 *
+	 * @param index The index from which the handled is taken
+	 * @return The handled from the given index or null if no such index exists
+	 * @warning Normally it is adviced to use the iterator to go through the 
+	 * handleds but if the caller modifies the list during the iteration, this 
+	 * method should be used instead
+	 * @see #getIterator()
+	 */
+	protected Handled getHandled(int index)
+	{
+		if (index < 0 || index >= getHandledNumber())
+			return null;
+		return this.handleds.get(index);
+	}
+	
+	/*
 	 * Returns a single handled from the list of handled objects
 	 * 
 	 * @param index The index of the handled object
 	 * @return The object or null if no such index exists
 	 */
+	/*
 	protected Handled getHandled(int index)
 	{
 		if (index >= 0 && index < getHandledNumber())
@@ -229,4 +269,5 @@ public abstract class Handler implements Handled
 		else
 			return null;
 	}
+	*/
 }

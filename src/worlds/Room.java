@@ -7,6 +7,7 @@ import handlers.Handler;
 import handlers.RoomListenerHandler;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import listeners.RoomListener;
 
@@ -213,9 +214,11 @@ public class Room extends Handler
 		// Removes dead handleds
 		removeDeadHandleds();
 		// Activates all the objects and sets them visible (if applicable)
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			Handled h = getHandled(i);
+			Handled h = iterator.next();
 			
 			if (h instanceof Drawable)
 				((Drawable) h).setVisible();
@@ -247,9 +250,11 @@ public class Room extends Handler
 		// Removes all dead handleds
 		removeDeadHandleds();
 		// InActivates all the objects and sets them invisible (if applicable)
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			Handled h = getHandled(i);
+			Handled h = iterator.next();
 			
 			if (h instanceof Drawable)
 				((Drawable) h).setInvisible();

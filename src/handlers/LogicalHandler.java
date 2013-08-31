@@ -1,5 +1,7 @@
 package handlers;
 
+import java.util.Iterator;
+
 import handleds.Handled;
 import handleds.LogicalHandled;
 
@@ -33,9 +35,12 @@ public abstract class LogicalHandler extends Handler implements LogicalHandled
 	public boolean isActive()
 	{
 		// Returns false only if all the handleds are inactive
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			if (getLogicalHandled(i).isActive())
+			LogicalHandled h = (LogicalHandled) iterator.next();
+			if (h.isActive())
 				return true;
 		}
 		
@@ -49,9 +54,12 @@ public abstract class LogicalHandler extends Handler implements LogicalHandled
 		// objects could not be activated
 		boolean returnValue = true;
 		
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			if (!getLogicalHandled(i).activate())
+			LogicalHandled h = (LogicalHandled) iterator.next();
+			if (!h.activate())
 				returnValue = false;
 		}
 		
@@ -65,26 +73,15 @@ public abstract class LogicalHandler extends Handler implements LogicalHandled
 		// could not be inactivated
 		boolean returnValue = true;
 		
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			if (!getLogicalHandled(i).inactivate())
+			LogicalHandled h = (LogicalHandled) iterator.next();
+			if (!h.inactivate())
 				returnValue = false;
 		}
 		
 		return returnValue;
-	}
-	
-	
-	// OTHER METHODS	--------------------------------------------------
-
-	// Casts the handled object to an logical object (or null)
-	private LogicalHandled getLogicalHandled(int index)
-	{
-		Handled maybelogical = getHandled(index);
-		
-		if (maybelogical instanceof LogicalHandled)
-			return (LogicalHandled) maybelogical;
-		else
-			return null;
 	}
 }

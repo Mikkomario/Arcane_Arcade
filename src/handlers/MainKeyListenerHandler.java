@@ -4,6 +4,7 @@ import handleds.Actor;
 import handleds.Handled;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import listeners.AdvancedKeyListener;
 
@@ -59,9 +60,11 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 		removeDeadHandleds();
 		
 		// Informs all listeners of the last changes
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			AdvancedKeyListener listener = getListener(i);
+			AdvancedKeyListener listener = (AdvancedKeyListener) iterator.next();
 			
 			if (listener == null)
 				continue;
@@ -192,14 +195,5 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 	public void addListener(AdvancedKeyListener k)
 	{
 		addHandled(k);
-	}
-	
-	private AdvancedKeyListener getListener(int index)
-	{
-		Handled maybeListener = getHandled(index);
-		if (maybeListener instanceof AdvancedKeyListener)
-			return (AdvancedKeyListener) maybeListener;
-		else
-			return null;
 	}
 }

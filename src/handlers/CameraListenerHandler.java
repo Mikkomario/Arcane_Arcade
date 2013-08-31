@@ -1,5 +1,7 @@
 package handlers;
 
+import java.util.Iterator;
+
 import handleds.Handled;
 import listeners.CameraListener;
 
@@ -36,9 +38,12 @@ public class CameraListenerHandler extends LogicalHandler implements CameraListe
 		removeDeadHandleds();
 		
 		// Informs all sublisteners about the change
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			getListener(i).informCameraPosition(posx, posy, w, h, angle);
+			CameraListener l = (CameraListener) iterator.next();
+			l.informCameraPosition(posx, posy, w, h, angle);
 		}	
 	}
 	
@@ -58,15 +63,5 @@ public class CameraListenerHandler extends LogicalHandler implements CameraListe
 	public void addListener(CameraListener c)
 	{
 		super.addHandled(c);
-	}
-	
-	// Casts the handled to listener
-	private CameraListener getListener(int index)
-	{
-		Handled maybeListener = getHandled(index);
-		if (maybeListener instanceof CameraListener)
-			return (CameraListener) maybeListener;
-		else
-			return null;
 	}
 }

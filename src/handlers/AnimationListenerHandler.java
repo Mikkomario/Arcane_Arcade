@@ -1,5 +1,7 @@
 package handlers;
 
+import java.util.Iterator;
+
 import graphic.SpriteDrawer;
 import handleds.Handled;
 import listeners.AnimationListener;
@@ -46,9 +48,11 @@ public class AnimationListenerHandler extends LogicalHandler implements
 		removeDeadHandleds();
 		
 		// Informs all active listeners
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			AnimationListener l = getListener(i);
+			AnimationListener l = (AnimationListener) iterator.next();
 			
 			if (l.isActive())
 				l.onAnimationEnd(spritedrawer);
@@ -66,14 +70,5 @@ public class AnimationListenerHandler extends LogicalHandler implements
 	public void addAnimationListener(AnimationListener l)
 	{
 		addHandled(l);
-	}
-	
-	private AnimationListener getListener(int index)
-	{
-		Handled maybelistener = getHandled(index);
-		if (maybelistener instanceof AnimationListener)
-			return (AnimationListener) maybelistener;
-		else
-			return null;
 	}
 }

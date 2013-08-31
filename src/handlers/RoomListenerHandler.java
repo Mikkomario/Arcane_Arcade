@@ -1,6 +1,5 @@
 package handlers;
 
-import handleds.Handled;
 import worlds.Room;
 import listeners.RoomListener;
 
@@ -43,9 +42,10 @@ public class RoomListenerHandler extends Handler implements RoomListener
 		removeDeadHandleds();
 		
 		// Informs all the listeners about the event
-		for (int i = 0; i < getHandledNumber(); i++)
+		for(int i = 0; i < getHandledNumber(); i++)
 		{
-			getListener(i).onRoomStart(room);
+			RoomListener listener = (RoomListener) getHandled(i);
+			listener.onRoomStart(room);
 		}
 	}
 
@@ -56,9 +56,10 @@ public class RoomListenerHandler extends Handler implements RoomListener
 		removeDeadHandleds();
 		
 		// Informs all the listeners about the event
-		for (int i = 0; i < getHandledNumber(); i++)
+		for(int i = 0; i < getHandledNumber(); i++)
 		{
-			getListener(i).onRoomEnd(room);
+			RoomListener listener = (RoomListener) getHandled(i);
+			listener.onRoomEnd(room);
 		}
 	}
 
@@ -73,15 +74,5 @@ public class RoomListenerHandler extends Handler implements RoomListener
 	public void addRoomListener(RoomListener r)
 	{
 		addHandled(r);
-	}
-	
-	private RoomListener getListener(int index)
-	{
-		Handled maybelistener = getHandled(index);
-		
-		if (maybelistener instanceof RoomListener)
-			return (RoomListener) maybelistener;
-		else
-			return null;
 	}
 }

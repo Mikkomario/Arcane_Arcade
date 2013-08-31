@@ -1,5 +1,7 @@
 package handlers;
 
+import java.util.Iterator;
+
 import handleds.Handled;
 import listeners.AdvancedKeyListener;
 
@@ -33,9 +35,13 @@ public class KeyListenerHandler extends LogicalHandler implements AdvancedKeyLis
 		// Cleans unnecessary handleds
 		removeDeadHandleds();
 		
-		for (int i = 0; i < getHandledNumber(); i++)
+		// Informs all listeners
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			getListener(i).onKeyDown(key, keyCode, coded);
+			AdvancedKeyListener l = (AdvancedKeyListener) iterator.next();
+			l.onKeyDown(key, keyCode, coded);
 		}
 	}
 
@@ -45,9 +51,13 @@ public class KeyListenerHandler extends LogicalHandler implements AdvancedKeyLis
 		// Cleans unnecessary handleds
 		removeDeadHandleds();
 		
-		for (int i = 0; i < getHandledNumber(); i++)
+		// Informs all listeners
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			getListener(i).onKeyPressed(key, keyCode, coded);
+			AdvancedKeyListener l = (AdvancedKeyListener) iterator.next();
+			l.onKeyPressed(key, keyCode, coded);
 		}
 	}
 
@@ -57,9 +67,13 @@ public class KeyListenerHandler extends LogicalHandler implements AdvancedKeyLis
 		// Cleans unnecessary handleds
 		removeDeadHandleds();
 		
-		for (int i = 0; i < getHandledNumber(); i++)
+		// Informs all listeners
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			getListener(i).onKeyReleased(key, keyCode, coded);
+			AdvancedKeyListener l = (AdvancedKeyListener) iterator.next();
+			l.onKeyReleased(key, keyCode, coded);
 		}
 	}
 	
@@ -71,17 +85,6 @@ public class KeyListenerHandler extends LogicalHandler implements AdvancedKeyLis
 	
 	
 	// OTHER METHODS	---------------------------------------------------
-	
-	// Casts a handled to listener
-	private AdvancedKeyListener getListener(int index)
-	{
-		Handled maybeListener = getHandled(index);
-		
-		if (maybeListener instanceof AdvancedKeyListener)
-			return (AdvancedKeyListener) maybeListener;
-		else
-			return null;
-	}
 	
 	/**
 	 * Adds a new listener to the informed listeners

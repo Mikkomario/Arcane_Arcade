@@ -1,5 +1,7 @@
 package handlers;
 
+import java.util.Iterator;
+
 import sound.Sound;
 import handleds.Handled;
 import listeners.SoundListener;
@@ -44,9 +46,11 @@ public class SoundListenerHandler extends LogicalHandler implements SoundListene
 		removeDeadHandleds();
 		
 		// Informs all the listeners about the event
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			SoundListener s = getListener(i);
+			SoundListener s = (SoundListener) iterator.next();
 			if (s.isActive())
 				s.onSoundStart(source);
 		}
@@ -59,9 +63,11 @@ public class SoundListenerHandler extends LogicalHandler implements SoundListene
 		removeDeadHandleds();
 		
 		// Informs all the listeners about the event
-		for (int i = 0; i < getHandledNumber(); i++)
+		Iterator<Handled> iterator = getIterator();
+		
+		while (iterator.hasNext())
 		{
-			SoundListener s = getListener(i);
+			SoundListener s = (SoundListener) iterator.next();
 			if (s.isActive())
 				s.onSoundEnd(source);
 		}
@@ -69,16 +75,6 @@ public class SoundListenerHandler extends LogicalHandler implements SoundListene
 	
 	
 	// OTHER METHODS	-------------------------------------------------
-	
-	private SoundListener getListener(int index)
-	{
-		Handled maybelistener = getHandled(index);
-		
-		if (maybelistener instanceof SoundListener)
-			return (SoundListener) maybelistener;
-		else
-			return null;
-	}
 	
 	/**
 	 * Adds a new listener to the informed listeners
