@@ -26,4 +26,8 @@ public class GameSettings
 	 * The name of the file where the sprites are loaded from
 	 */
 	public final static String SPRITEDATALOCATION = "configure/spriteload.txt";
+	/**
+	 * How fast the wizards should normally regenerate mana
+	 */
+	public final static double DEFAULTMANAREGENERATIONRATE = 0.14;
 }

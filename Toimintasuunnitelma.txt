@@ -129,9 +129,9 @@ Eteneminen:														Status
 				- Viimeisen kulutuksen piirto					DONE
 				- Seuraavan kulutuksen piirto					DONE
 			* Manan kulutus										DONE
-			* Manan regenerointi
-				- Regeneroinnin pysäytys castingin ajaksi
-				- Pysäytyksen vaikutusten korjaus 
+			* Manan regenerointi								DONE
+				- Regeneroinnin pysäytys castingin ajaksi		DONE
+				- Pysäytyksen vaikutusten korjaus 				DONE
 				manakulutuksessa
 		- HP
 			* HP:n lasku

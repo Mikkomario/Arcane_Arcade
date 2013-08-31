@@ -7,6 +7,7 @@ import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.Wizard;
+import arcane_arcade_main.GameSettings;
 
 /**
  * Spells can be cast by giving them certain information.
@@ -96,6 +97,11 @@ public abstract class Spell
 		// Initializes attributes
 		this.castdelay = castdelay;
 		this.manausage = manausage;
+		
+		// Manausage is lowered according to the length of the spell (affects 
+		// regeneration)
+		this.manausage = (int) (manausage - castdelay * 
+				GameSettings.DEFAULTMANAREGENERATIONRATE);
 	}
 	
 	

@@ -54,6 +54,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private double accelration;
 	private int teleportdelay;
 	private int teleportdistance;
+	private double manaregeneration;
 	
 	private Room room;
 	private DrawableHandler drawer;
@@ -127,6 +128,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.lastcastdelay = 0;
 		this.mana = 100;
 		this.manabeforecasting = 100;
+		this.manaregeneration = GameSettings.DEFAULTMANAREGENERATIONRATE;
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getOpenSpriteBank("creatures").getSprite("redwizard"), 
 				actorhandler);
@@ -383,6 +385,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		
 		// Adjusts the status effects
 		depleteStatusses();
+		
+		// Regenerates mana
+		regenerateMana();
 	}
 	
 	
@@ -458,9 +463,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	/**
 	 * @return How much mana the wizard has left [0, 100]
 	 */
-	protected int getMana()
+	protected double getMana()
 	{
-		return (int) this.mana;
+		return this.mana;
 	}
 	
 	/**
@@ -478,6 +483,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	protected Spell getCurrentSpell()
 	{
 		return this.currentspell;
+	}
+	
+	/**
+	 * @return How much mana the wizard regenerates each step
+	 */
+	public double getManaRegeneration()
+	{
+		return this.manaregeneration;
 	}
 	
 	
@@ -583,11 +596,18 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		if (!isCasting())
 		{
 			// Remembers the amount of mana before casting
-			this.manabeforecasting = getMana();
+			this.manabeforecasting = (int) getMana();
 			getCurrentSpell().execute(this, this.ballrelay, this.drawer, 
 					this.actorhandler, this.collidablehandler, 
 					this.collisionhandler, this.room);
 		}
+	}
+	
+	private void regenerateMana()
+	{
+		// Only regenerates mana while not casting
+		if (!isCasting())
+			adjustMana(this.manaregeneration);
 	}
 	
 	/**

@@ -366,7 +366,7 @@ public class WizardHudDrawer extends DrawableHandler
 		public void drawSelfBasic(Graphics2D g2d)
 		{
 			// Adjusts length before drawing the meter
-			setLength(WizardHudDrawer.this.wizard.getMana() / 10);
+			setLength((int) WizardHudDrawer.this.wizard.getMana() / 10);
 			
 			super.drawSelfBasic(g2d);
 		}
