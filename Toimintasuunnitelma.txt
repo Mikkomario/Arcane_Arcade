@@ -136,14 +136,14 @@ Eteneminen:														Status
 		- HP													...
 			* HP:n lasku										DONE
 			* HP:n piirto										DONE
-			* HP:n menettäminen									Testaamatta
+			* HP:n menettäminen									DONE
 			* Kuoleminen										...
 			* Respawn											...
 				- Pallon uudelleen syöttäminen
-		- Ruudun puoli											...
+		- Ruudun puoli											DONE
 			* Ruudun puolen vaikutus loitsuihin					DONE
 			* Ruudun puolen vaikutus Hudiin						DONE
-			* Ruudun puolen vaikutus HP -laskuihin
+			* Ruudun puolen vaikutus HP -laskuihin				DONE
 		- Pisteet
 			* Pisteiden lasku
 			* Pisteiden piirto

@@ -40,6 +40,8 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	private SpriteDrawer spritedrawer;
 	private BallStatusDrawer statusdrawer;
 	
+	private WizardRelay wizardrelay;
+	
 	private double airfriction, forcedelay;
 	private int minspeed;
 	private double flaming, wet, frozen, muddy, charged, statusdepletionrate;
@@ -59,11 +61,13 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	 * about collisions
 	 * @param actorhandler The actorhandler that will call the ball's act-event
 	 * @param room The room where the ball is created
+	 * @param wizardrelay The WizardRelay that contains information about the 
+	 * wizards of the field
 	 */
 	public Ball(int x, int y, DrawableHandler drawer,
 			CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, ActorHandler actorhandler, 
-			Room room)
+			Room room, WizardRelay wizardrelay)
 	{
 		super(x, y, DepthConstants.NORMAL, true, CollisionType.CIRCLE, drawer, 
 				collidablehandler, collisionhandler, actorhandler);
@@ -82,6 +86,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 				actorhandler);
 		this.statusdrawer = new BallStatusDrawer(drawer, actorhandler, this);
 		this.statusdepletionrate = 0.15;
+		this.wizardrelay = wizardrelay;
 		
 		// Sets up movement stats
 		setMaxSpeed(20);
@@ -262,13 +267,35 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	private void bounceFromScreenBorders()
 	{
 		if (getY() < getRadius())
+		{
 			getMovement().setVSpeed(Math.abs(getMovement().getVSpeed()));
+		}
 		else if (getY() > GameSettings.SCREENHEIGHT - getRadius())
+		{
 			getMovement().setVSpeed(-Math.abs(getMovement().getVSpeed()));
+		}
+		// If the ball bounced from a vertical screen border, it hurts the 
+		// wizard on that side of the screen
 		if (getX() < getRadius())
+		{
 			getMovement().setHSpeed(Math.abs(getMovement().getHSpeed()));
+			hurtWizards(ScreenSide.LEFT);
+		}
 		else if (getX() > GameSettings.SCREENWIDTH - getRadius())
+		{
 			getMovement().setHSpeed(-Math.abs(getMovement().getHSpeed()));
+			hurtWizards(ScreenSide.RIGHT);
+		}
+	}
+	
+	private void hurtWizards(ScreenSide side)
+	{
+		ArrayList<Wizard> wizards = this.wizardrelay.getWizardsFromSide(side);
+		// Goes through the list and hurts all wizards
+		for (int i = 0; i < wizards.size(); i++)
+		{
+			wizards.get(i).causeDamage();
+		}
 	}
 	
 	private void addStatus(BallStatus status, int strength)

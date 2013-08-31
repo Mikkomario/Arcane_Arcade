@@ -141,7 +141,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.maxhp = 3;
 		this.hp = this.maxhp;
 		this.invincibilitytime = 0;
-		this.invincibilitydelay = 50;
+		this.invincibilitydelay = 60;
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getOpenSpriteBank("creatures").getSprite("redwizard"), 
 				actorhandler);

@@ -38,6 +38,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 	private CollisionHandler collisionhandler;
 	private Room room;
 	private BallRelay ballrelay;
+	private WizardRelay wizardrelay;
 	
 	private boolean serving;
 	private double rotationfriction;
@@ -63,10 +64,13 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 	 * ball about collisions
 	 * @param room where the server and the balls are created at
 	 * @param ballrelay The ballrelay where the created balls will be created
+	 * @param wizardrelay The wizardrelay that has information about the wizards 
+	 * in the field
 	 */
 	public Server(int x, int y, DrawableHandler drawer, 
 			ActorHandler actorhandler, CollidableHandler collidablehandler, 
-			CollisionHandler collisionhandler, Room room, BallRelay ballrelay)
+			CollisionHandler collisionhandler, Room room, BallRelay ballrelay, 
+			WizardRelay wizardrelay)
 	{
 		super(x, y, DepthConstants.BOTTOM - 10, false, CollisionType.BOX, 
 				drawer, null, null, actorhandler);
@@ -88,6 +92,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 		this.drawer = drawer;
 		this.room = room;
 		this.ballrelay = ballrelay;
+		this.wizardrelay = wizardrelay;
 		this.rand = new Random();
 		
 		// Serves the ball
@@ -240,7 +245,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 		// Creates the ball
 		Ball newball = new Ball((int) getX(), (int) getY(), this.drawer, 
 				this.collidablehandler, this.collisionhandler, 
-				this.actorhandler, this.room);
+				this.actorhandler, this.room, this.wizardrelay);
 		// Adds the ball to the relay
 		if (this.ballrelay != null)
 			this.ballrelay.addBall(newball);

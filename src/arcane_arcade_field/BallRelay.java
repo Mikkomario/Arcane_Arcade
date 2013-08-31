@@ -47,8 +47,7 @@ public class BallRelay extends Handler implements RoomListener
 	@Override
 	public void onRoomStart(Room room)
 	{
-		// Removes all the former balls just to be sure
-		removeAllHandleds();
+		// Doesn't do anything
 	}
 
 	@Override
