@@ -24,7 +24,7 @@ public class TidalWaveSpell extends Spell
 	 */
 	public TidalWaveSpell()
 	{
-		super(CASTDELAY_LONG);
+		super(CASTDELAY_LONG, MPUSE_MEDIUM);
 	}
 	
 	

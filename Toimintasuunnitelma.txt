@@ -101,11 +101,13 @@ Eteneminen:														Status
 			* Pelinopeuskorjauksen käyttöönotto					Plääh
 				- act -metodin muokkaus							Plääh
 		- Piirtosyvyyden korjaaminen							...
-			* Ongelma: Piirtosyvyys vaihtelee jaksollisesti, 
+			* Ongelma: Piirtosyvyys vaihtelee jaksollisesti, 	DONE
 			mutta on säännöllisesti väärä 
 			(mutta toimii 1/2 aikaa oikein)
 			* Ongelman syyn etsiminen							...
-			* Ongelman ratkaiseminen
+			* Ongelman ratkaiseminen							DONE
+			* Ratkaisun seurausten kartoittaminen ja 			...
+			korjaaminen
 	* Beta														...
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE
@@ -117,13 +119,20 @@ Eteneminen:														Status
 			* Statusefektien aiheuttaminen ja muuttaminen		DONE
 			* Statusefektien piirtäminen						Testaamatta
 			* Statusefektien vaikutus pelaamiseen				Testaamatta
-		- HUD													Testaamatta
-			* Käytössä olevien elementtien piirtäminen			Testaamatta
-		- Manamittari
-			* Manan lasku
+		- HUD													DONE
+			* Käytössä olevien elementtien piirtäminen			DONE
+		- Manamittari											...
+			* Manan lasku										DONE
 			* Manan piirto
-			* Manan kulutus
+				- Pohjan piirto
+				- Mittarin piirto
+				- Viimeisen kulutuksen piirto
+				- Seuraavan kulutuksen piirto
+			* Manan kulutus										DONE
 			* Manan regenerointi
+				- Regeneroinnin pysäytys castingin ajaksi
+				- Pysäytyksen vaikutusten korjaus 
+				manakulutuksessa
 		- HP
 			* HP:n lasku
 			* HP:n piirto

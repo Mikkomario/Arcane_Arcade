@@ -25,7 +25,7 @@ public class ExplosionSpell extends Spell
 	 */
 	public ExplosionSpell()
 	{
-		super(CASTDELAY_LONG);
+		super(CASTDELAY_LONG, MPUSE_SEMI_HIGH);
 	}
 	
 	

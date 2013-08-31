@@ -15,6 +15,7 @@ import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Main;
 import arcane_arcade_spelleffects.SpellEffect;
 import arcane_arcade_spelleffects.TeleportEffect;
+import arcane_arcade_spells.Spell;
 import arcane_arcade_status.Element;
 import arcane_arcade_status.WizardStatus;
 
@@ -43,6 +44,11 @@ public class Wizard extends BasicPhysicDrawnObject implements
 {
 	// ATTRBUTES	----------------------------------------------------
 	
+	private static final int UP = -1;
+	private static final int DOWN = 1;
+	private static final int LEFT = -2;
+	private static final int RIGHT = 2;
+	
 	private double friction;
 	private double maxspeed;
 	private double accelration;
@@ -64,6 +70,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private int elementindex2;
 	private int castdelay;
 	private int doubletaptime;
+	private double mana;
+	private Spell currentspell;
 	
 	private WizardStatusDrawer statusdrawer;
 	private HashMap<WizardStatus, Double> statusses;
@@ -114,6 +122,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.elementindex1 = 0;
 		this.elementindex2 = 0;
 		this.castdelay = 0;
+		this.mana = 100;
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getOpenSpriteBank("creatures").getSprite("redwizard"), 
 				actorhandler);
@@ -127,6 +136,10 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.elements = new ArrayList<Element>();
 		this.elements.add(Element.FIRE);
 		this.elements.add(Element.WATER);
+		
+		// Initializes current spell
+		this.currentspell = this.elements.get(this.elementindex1).getSpell(
+				this.elements.get(this.elementindex2));
 		
 		// Initializes status effects
 		this.statusses = new HashMap<WizardStatus, Double>();
@@ -286,38 +299,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				tryTeleporting(1);
 			// If Q or A was pressed, changes the left element
 			else if (key == 'Q' || key == 'q')
-			{
-				// Panic switches the controls
-				if (getStatusStrength(WizardStatus.PANIC) > 0)
-					this.elementindex2 = getPreviousElementIndex(this.elementindex1);
-				else
-					this.elementindex1 = getNextElementIndex(this.elementindex1);
-			}
+				changeElement(LEFT, UP);
 			else if (key == 'A' || key == 'a')
-			{
-				// Panic switches the controls
-				if (getStatusStrength(WizardStatus.PANIC) > 0)
-					this.elementindex2 = getNextElementIndex(this.elementindex1);
-				else
-					this.elementindex1 = getPreviousElementIndex(this.elementindex1);
-			}
+				changeElement(LEFT, DOWN);
 			// If E or D was pressed, changes the right element
 			else if (key == 'E' || key == 'e')
-			{
-				// Panic switches the controls
-				if (getStatusStrength(WizardStatus.PANIC) > 0)
-					this.elementindex1 = getPreviousElementIndex(this.elementindex1);
-				else
-					this.elementindex2 = getNextElementIndex(this.elementindex2);
-			}
+				changeElement(RIGHT, UP);
 			else if (key == 'D' || key == 'd')
-			{
-				// Panic switches the controls
-				if (getStatusStrength(WizardStatus.PANIC) > 0)
-					this.elementindex1 = getNextElementIndex(this.elementindex1);
-				else
-					this.elementindex2 = getPreviousElementIndex(this.elementindex2);
-			}
+				changeElement(RIGHT, DOWN);
 		}
 	}
 
@@ -431,6 +420,43 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.castdelaymeterdrawer.activate();
 	}
 	
+	/**
+	 * Changes how much mana the wizard has left
+	 *
+	 * @param adjustment How much the remaining mana is increased / decreased 
+	 * [-100, 100]
+	 */
+	public void adjustMana(double adjustment)
+	{
+		// Changes how much wizard has mana
+		this.mana += adjustment;
+		
+		// If the mana went under 0 or over 100, fixes the value
+		if (this.mana < 0)
+			this.mana = 0;
+		else if (this.mana > 100)
+			this.mana = 100;
+	}
+	
+	/**
+	 * Checks if the wizard has enough mana left to use it
+	 *
+	 * @param mpusage How much mana the wizard has to have left ]0, 100]
+	 * @return Does the wizard have at least the given amount of mana
+	 */
+	public boolean hasEnoughMana(int mpusage)
+	{
+		return this.mana >= mpusage;
+	}
+	
+	/**
+	 * @return How much mana the wizard has left [0, 100]
+	 */
+	protected int getMana()
+	{
+		return (int) this.mana;
+	}
+	
 	
 	// OTHER METHODS	-------------------------------------------------
 	
@@ -520,10 +546,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private void castSpell()
 	{
 		if (!isCasting())
-			this.elements.get(this.elementindex1).getSpell(
-					this.elements.get(this.elementindex2)).execute(
-					this, this.ballrelay, this.drawer, this.actorhandler, 
-					this.collidablehandler, this.collisionhandler, this.room);
+			this.currentspell.execute(this, this.ballrelay, this.drawer, 
+					this.actorhandler, this.collidablehandler, 
+					this.collisionhandler, this.room);
 	}
 	
 	/**
@@ -596,5 +621,35 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		
 		for (WizardStatus status: this.statusses.keySet())
 			adjustStatus(status, -this.statusdepletionrate);
+	}
+	
+	private void changeElement(int elementside, int direction)
+	{
+		// Panic switches the controls
+		if (getStatusStrength(WizardStatus.PANIC) > 0)
+		{
+			elementside *= -1;
+			direction *= -1;
+		}
+		
+		// Changes elements
+		if (elementside == LEFT)
+		{
+			if (direction == DOWN)
+				this.elementindex1 = getNextElementIndex(this.elementindex1);
+			else
+				this.elementindex1 = getPreviousElementIndex(this.elementindex1);
+		}
+		else
+		{
+			if (direction == DOWN)
+				this.elementindex2 = getNextElementIndex(this.elementindex2);
+			else
+				this.elementindex2 = getPreviousElementIndex(this.elementindex2);
+		}
+		
+		// Updates the current spell
+		this.currentspell = this.elements.get(this.elementindex1).getSpell(
+				this.elements.get(this.elementindex2));
 	}
 }

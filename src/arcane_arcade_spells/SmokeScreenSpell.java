@@ -23,7 +23,7 @@ public class SmokeScreenSpell extends Spell{
 	 */
 	public SmokeScreenSpell()
 	{
-		super(CASTDELAY_VERY_LONG);
+		super(CASTDELAY_VERY_LONG, MPUSE_VERY_LOW);
 	}
 
 	@Override

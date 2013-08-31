@@ -44,7 +44,42 @@ public abstract class Spell
 	 */
 	protected static final int CASTDELAY_EPIC = 170;
 	
+	/**
+	 * A very low mana cost used by spells that have ligth effects or are 
+	 * used in quick succession
+	 */
+	protected static final int MPUSE_VERY_LOW = 13;
+	/**
+	 * A low mana cost used by spells that have light effects and / or are 
+	 * medium curses
+	 */
+	protected static final int MPUSE_LOW = 18;
+	/**
+	 * A medium mana cost used by most spells
+	 */
+	protected static final int MPUSE_MEDIUM = 24;
+	/**
+	 * A bit higher than normal mana cost used by rather effective spells or 
+	 * blessings
+	 */
+	protected static final int MPUSE_SEMI_HIGH = 28;
+	/**
+	 * A high mana cost used by very effective spells and / or blessings
+	 */
+	protected static final int MPUSE_HIGH = 35;
+	/**
+	 * A very high mana cost used only by very strong blessings or very lenghty 
+	 * and effective spells
+	 */
+	protected static final int MPUSE_VERY_HIGH = 42;
+	/**
+	 * An extremely high mana cost used only by the most incredible spells 
+	 * like the rebirth
+	 */
+	protected static final int MPUSE_EPIC = 75;
+	
 	private int castdelay;
+	private int manausage;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -54,11 +89,13 @@ public abstract class Spell
 	 *
 	 * @param castdelay How many steps it will take after casting the spell 
 	 * before the caster can cast another spell
+	 * @param manausage How much the spell uses mana
 	 */
-	public Spell(int castdelay)
+	public Spell(int castdelay, int manausage)
 	{
 		// Initializes attributes
 		this.castdelay = castdelay;
+		this.manausage = manausage;
 	}
 	
 	
@@ -112,9 +149,14 @@ public abstract class Spell
 		// Checks cast delay
 		if (caster.isCasting())
 			return;
+		// Checks if the wizard has enough mana
+		if (!caster.hasEnoughMana(this.manausage))
+			return;
 		
 		// Sets the cast delay
 		caster.setCastDelay(this.castdelay);
+		// Uses mana
+		caster.adjustMana(-this.manausage);
 		
 		// Creates an effect
 		createEffects(caster, ballrelay, drawer, actorhandler, collidablehandler, collisionhandler, room);
