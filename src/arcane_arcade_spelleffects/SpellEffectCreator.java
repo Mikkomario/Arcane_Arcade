@@ -117,4 +117,25 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 		// Dies at the end of the room
 		kill();
 	}
+	
+	
+	// OTHER METHODS	--------------------------------------------------
+	
+	/**
+	 * Changes the creator's burstsize
+	 *
+	 * @param adjustment How much the burstsize is increased / decreased
+	 */
+	protected void adjustBurstSize(int adjustment)
+	{
+		this.burstsize += adjustment;
+	}
+	
+	/**
+	 * @return How many effects are created at once
+	 */
+	protected int getBurstSize()
+	{
+		return this.burstsize;
+	}
 }

@@ -140,9 +140,9 @@ Eteneminen:														Status
 			* Kuoleminen										...
 			* Respawn											...
 				- Pallon uudelleen syöttäminen
-		- Ruudun puoli
-			* Ruudun puolen vaikutus loitsuihin
-			* Ruudun puolen vaikutus Hudiin
+		- Ruudun puoli											...
+			* Ruudun puolen vaikutus loitsuihin					DONE
+			* Ruudun puolen vaikutus Hudiin						DONE
 			* Ruudun puolen vaikutus HP -laskuihin
 		- Pisteet
 			* Pisteiden lasku

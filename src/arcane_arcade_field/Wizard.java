@@ -86,6 +86,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	
 	private WizardHudDrawer huddrawer;
 	
+	private ScreenSide screenside;
+	
 	
 	// CONSTRUCTOR	----------------------------------------------------
 	
@@ -104,16 +106,19 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 * @param room The room that will hold the wizard
 	 * @param ballrelay The ballrelay that holds information about the balls 
 	 * in the field. That information will be forwarded to the casted spells.
+	 * @param screenside Which side of the room the wizard is created at
 	 */
 	public Wizard(DrawableHandler drawer, CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, ActorHandler actorhandler, 
-			KeyListenerHandler keylistenerhandler, Room room, BallRelay ballrelay)
+			KeyListenerHandler keylistenerhandler, Room room, 
+			BallRelay ballrelay, ScreenSide screenside)
 	{
-		super(80, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
+		super(70, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
 				true, CollisionType.CIRCLE, drawer, collidablehandler,
 				collisionhandler, actorhandler);
 		
 		// Initializes attributes
+		this.screenside = screenside;
 		this.friction = 0.4;
 		this.maxspeed = 5;
 		this.accelration = 0.7;
@@ -181,6 +186,13 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				this.maskchecker.getRefinedRelativeCollisionPoints(
 				getRelativeCollisionPoints(), 0));
 		setRadius(27);
+		
+		// Changes some aspects according to the screen side
+		if (this.screenside == ScreenSide.RIGHT)
+		{
+			setXScale(-1);
+			setX(GameSettings.SCREENWIDTH - getX());
+		}
 		
 		// Adds the object to the handler(s) if possible
 		if (keylistenerhandler != null)
@@ -536,6 +548,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	public int getHP()
 	{
 		return this.hp;
+	}
+	
+	/**
+	 * @return Which side of the screen the wizard is on
+	 */
+	public ScreenSide getScreenSide()
+	{
+		return this.screenside;
 	}
 	
 	

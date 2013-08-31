@@ -6,6 +6,7 @@ import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import worlds.Room;
 import arcane_arcade_field.BallRelay;
+import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_spelleffects.ExplosionEffect;
 
@@ -37,7 +38,11 @@ public class ExplosionSpell extends Spell
 			CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, Room room)
 	{
-		new ExplosionEffect((int) caster.getX() + 120, (int) caster.getY(), 
+		 int x = (int) caster.getX() + 120;
+		 if (caster.getScreenSide() == ScreenSide.RIGHT)
+			 x -= 240;
+		
+		new ExplosionEffect(x, (int) caster.getY(), 
 				drawer, collidablehandler, actorhandler, room); 
 	}
 }

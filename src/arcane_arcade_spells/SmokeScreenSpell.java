@@ -6,6 +6,7 @@ import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import worlds.Room;
 import arcane_arcade_field.BallRelay;
+import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_spelleffects.SmokeEffectCreator;
@@ -32,8 +33,11 @@ public class SmokeScreenSpell extends Spell{
 			CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, Room room) 
 	{
-		new SmokeEffectCreator(400, actorhandler, room,
-				(int)(GameSettings.SCREENWIDTH * 0.8), (int)caster.getY(), 
+		int x = (int)(GameSettings.SCREENWIDTH * 0.8);
+		if (caster.getScreenSide() == ScreenSide.RIGHT)
+			x = (int)(GameSettings.SCREENWIDTH * 0.2);
+		
+		new SmokeEffectCreator(400, actorhandler, room, x, (int)caster.getY(), 
 				drawer, collidablehandler, collisionhandler);
 	}
 }

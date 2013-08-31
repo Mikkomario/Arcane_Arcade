@@ -53,7 +53,7 @@ public class WaveEffect extends MaskedSpellEffect
 	public void onBallCollision(Ball ball, int x, int y)
 	{
 		// Causes impact to the ball
-		ball.impact(3 * getForceModifier(ball), 4, getMovement().getDirection(), 
+		ball.impact(2.5 * getForceModifier(ball), 4, getMovement().getDirection(), 
 				BallStatus.WET, 9);	
 	}
 

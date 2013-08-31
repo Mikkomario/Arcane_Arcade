@@ -2,6 +2,7 @@ package arcane_arcade_spelleffects;
 
 import java.util.Random;
 
+import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
@@ -26,6 +27,7 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 	private CollidableHandler collidablehandler;
 	private Room room;
 	private Random rand;
+	private int creations;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -43,7 +45,7 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 	public WaveEffectCreator(DrawableHandler drawer, ActorHandler actorhandler, 
 			CollidableHandler collidablehandler, Room room, Wizard caster)
 	{
-		super(40, 15, 3, actorhandler, room, caster);
+		super(40, 19, 5, actorhandler, room, caster);
 		
 		// Initializes attributes
 		this.drawer = drawer;
@@ -51,6 +53,7 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 		this.collidablehandler = collidablehandler;
 		this.room = room;
 		this.rand = new Random();
+		this.creations = 0;
 	}
 	
 	
@@ -65,16 +68,31 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 				this.collidablehandler, this.actorhandler, this.room);
 		
 		// Changes the effects direction and speed
-		double randomdir = HelpMath.checkDirection(-30 + 
-				this.rand.nextDouble() * 60);
-		double randomspeed = 4 + this.rand.nextDouble() * 3;
-		wave.setMovement(Movement.createMovement(randomdir, randomspeed));
+		double randomdir = HelpMath.checkDirection(-25 + 
+				this.rand.nextDouble() * 50);
+		double speed = 4.5;
+		
+		wave.setMovement(Movement.createMovement(randomdir, speed));
+		
+		// If the caster was on the right side of the screen, the movement is 
+		// inverted
+		Wizard caster = (Wizard) getFollowedObject();
+		if (caster.getScreenSide() == ScreenSide.RIGHT)
+			wave.setMovement(wave.getMovement().getOpposingMovement());
 		
 		// Also adds the followed objec'ts movement speed
 		if (getFollowedObject() instanceof BasicPhysicDrawnObject)
-			wave.addVelocity(0, ((BasicPhysicDrawnObject) 
-					getFollowedObject()).getMovement().getVSpeed());
+			wave.addVelocity(0, caster.getMovement().getVSpeed());
 		// Changes the effects angle as well
 		wave.setAngle(wave.getMovement().getDirection());
+		
+		this.creations ++;
+		
+		// Adjusts the burst size after each burst
+		if (this.creations == getBurstSize())
+		{
+			this.creations = 0;
+			this.adjustBurstSize(-2);
+		}
 	}
 }
