@@ -126,7 +126,7 @@ Eteneminen:														Status
 			* Manan piirto										...
 				- Pohjan piirto									DONE
 				- Mittarin piirto								DONE
-				- Viimeisen kulutuksen piirto
+				- Viimeisen kulutuksen piirto					DONE
 				- Seuraavan kulutuksen piirto
 			* Manan kulutus										DONE
 			* Manan regenerointi

@@ -71,6 +71,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private int castdelay;
 	private int doubletaptime;
 	private double mana;
+	private int manabeforecasting;
+	private int lastcastdelay;
 	private Spell currentspell;
 	
 	private WizardStatusDrawer statusdrawer;
@@ -122,7 +124,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.elementindex1 = 0;
 		this.elementindex2 = 0;
 		this.castdelay = 0;
+		this.lastcastdelay = 0;
 		this.mana = 100;
+		this.manabeforecasting = 100;
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getOpenSpriteBank("creatures").getSprite("redwizard"), 
 				actorhandler);
@@ -408,6 +412,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 */
 	public void setCastDelay(int castdelay)
 	{
+		// Remembers the castdelay for calculations
+		this.lastcastdelay = castdelay;
 		this.castdelay = castdelay;
 		
 		// Restarts the image index
@@ -455,6 +461,15 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	protected int getMana()
 	{
 		return (int) this.mana;
+	}
+	
+	/**
+	 * @return The amount of mana the wizard had before they casted their last 
+	 * spell
+	 */
+	protected int getManaBeforeCasting()
+	{
+		return this.manabeforecasting;
 	}
 	
 	
@@ -507,6 +522,19 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		return this.statusses.get(status);
 	}
 	
+	/**
+	 * @return How large portion of the last spell has been casted at the moment 
+	 * [0, 1]
+	 */
+	protected double getCastingProgress()
+	{
+		// Only works if the wizard is casting
+		if (!isCasting())
+			return 1;
+		else
+			return 1 - (this.castdelay / (double) this.lastcastdelay);
+	}
+	
 	private void move(int movementsign)
 	{
 		// Doesn't work if the wizard is paralyzed
@@ -546,9 +574,13 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private void castSpell()
 	{
 		if (!isCasting())
+		{
+			// Remembers the amount of mana before casting
+			this.manabeforecasting = getMana();
 			this.currentspell.execute(this, this.ballrelay, this.drawer, 
 					this.actorhandler, this.collidablehandler, 
 					this.collisionhandler, this.room);
+		}
 	}
 	
 	/**

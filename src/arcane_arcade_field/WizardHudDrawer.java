@@ -49,27 +49,25 @@ public class WizardHudDrawer extends DrawableHandler
 		int elementy = GameSettings.SCREENHEIGHT - 125;
 		// Current 1
 		ElementDrawer elementexample = new ElementDrawer(element1x, elementy, 
-				DepthConstants.HUD -1, this, 
-				ElementDrawer.ELEMENTINDEX_CURRENT);
+				-1, this, ElementDrawer.ELEMENTINDEX_CURRENT);
 		// Current 2
 		new ElementDrawer(element1x + elementexample.getWidth(), elementy, 
-				DepthConstants.HUD -1, this, 
-				ElementDrawer.ELEMENTINDEX_CURRENT_SECOND);
+				-1, this, ElementDrawer.ELEMENTINDEX_CURRENT_SECOND);
 		// Next 1
 		new ElementDrawer(element1x, elementy - 
-				(int) (elementexample.getHeight() * 0.5), DepthConstants.HUD, 
+				(int) (elementexample.getHeight() * 0.5), 0, 
 				this, ElementDrawer.ELEMENTINDEX_NEXT);
 		// Next 2
 		new ElementDrawer(element1x + elementexample.getWidth(), elementy - 
-				(int) (elementexample.getHeight() * 0.5), DepthConstants.HUD, 
+				(int) (elementexample.getHeight() * 0.5), 0, 
 				this, ElementDrawer.ELEMENTINDEX_NEXT_SECOND);
 		// Last 1
 		new ElementDrawer(element1x, elementy + 
-				(int) (elementexample.getHeight() * 0.5), DepthConstants.HUD, 
+				(int) (elementexample.getHeight() * 0.5), 0, 
 				this, ElementDrawer.ELEMENTINDEX_LAST);
 		// Last 2
 		new ElementDrawer(element1x + elementexample.getWidth(), elementy + 
-				(int) (elementexample.getHeight() * 0.5), DepthConstants.HUD, 
+				(int) (elementexample.getHeight() * 0.5), 0, 
 				this, ElementDrawer.ELEMENTINDEX_LAST_SECOND);
 		
 		// Creates the MP-meters and adds them to the drawer
@@ -78,8 +76,10 @@ public class WizardHudDrawer extends DrawableHandler
 		
 		// The bottom meter
 		new MPMeterDrawer(meterx, metery, 1, this, 0);
+		// Lost mp meter
+		new LostMPDrawer(meterx, metery, 0, this);
 		// Current mp meter
-		new CurrentMPDrawer(meterx, metery, 0, this);
+		new CurrentMPDrawer(meterx, metery, -1, this);
 	}
 	
 	
@@ -367,6 +367,49 @@ public class WizardHudDrawer extends DrawableHandler
 			setLength(WizardHudDrawer.this.wizard.getMana() / 10);
 			
 			super.drawSelfBasic(g2d);
+		}
+	}
+	
+	
+	// This MPMeterdrawer draws the MP lost during the casting
+	private class LostMPDrawer extends MPMeterDrawer
+	{
+		// CONSTRUCTOR	------------------------------------------------
+		
+		/**
+		 * Creates a new MPMeterdrawer to the given position added to the 
+		 * given handler.
+		 *
+		 * @param x The meter's top left corner's y-coordinate
+		 * @param y The meter's top left corner's x-coordinate
+		 * @param depth The drawing depth of the meter
+		 * @param drawer The drawer that will draw the meter
+		 */
+		public LostMPDrawer(int x, int y, int depth, WizardHudDrawer drawer)
+		{
+			super(x, y, depth, drawer, 2);
+		}
+		
+		
+		// IMPLEMENTED METHODS	----------------------------------------
+		
+		@Override
+		public void drawSelf(Graphics2D g2d)
+		{
+			// Adjusts length before drawing the meter
+			setLength(WizardHudDrawer.this.wizard.getManaBeforeCasting() / 10);
+			// Also adjusts the alpha value
+			setAlpha(1 - 
+					(float) WizardHudDrawer.this.wizard.getCastingProgress());
+			
+			super.drawSelf(g2d);
+		}
+		
+		@Override
+		public boolean isVisible()
+		{
+			// The meter is only visible while the wizard is casting
+			return super.isVisible() && WizardHudDrawer.this.wizard.isCasting();
 		}
 	}
 }
