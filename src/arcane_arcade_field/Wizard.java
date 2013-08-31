@@ -75,6 +75,10 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private int manabeforecasting;
 	private int lastcastdelay;
 	private Spell currentspell;
+	private int hp;
+	private int maxhp;
+	private int invincibilitytime;
+	private int invincibilitydelay;
 	
 	private WizardStatusDrawer statusdrawer;
 	private HashMap<WizardStatus, Double> statusses;
@@ -129,6 +133,10 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.mana = 100;
 		this.manabeforecasting = 100;
 		this.manaregeneration = GameSettings.DEFAULTMANAREGENERATIONRATE;
+		this.maxhp = 3;
+		this.hp = this.maxhp;
+		this.invincibilitytime = 0;
+		this.invincibilitydelay = 50;
 		this.spritedrawer = new SpriteDrawer(
 				Main.spritebanks.getOpenSpriteBank("creatures").getSprite("redwizard"), 
 				actorhandler);
@@ -189,9 +197,20 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	public void onCollision(ArrayList<DoublePoint> colpoints,
 			Collidable collided)
 	{
-		// TODO: Add collision with the ball
+		// Collides with the ball (normally causes instant death)
+		if (collided instanceof Ball)
+		{
+			// If the wizard is not invincible, they take a hit
+			if (this.invincibilitytime > 0 || 
+					getStatusStrength(WizardStatus.PHASING) > 0 || 
+					getStatusStrength(WizardStatus.IRONFLESH) > 0)
+				return;
+			
+			// Wizard dies :(
+			die();
+		}
 		// Collides with certain spells
-		if (collided instanceof SpellEffect)
+		else if (collided instanceof SpellEffect)
 		{
 			SpellEffect spell = (SpellEffect) collided;
 			if (spell.collidesWithWizards())
@@ -388,6 +407,16 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		
 		// Regenerates mana
 		regenerateMana();
+		
+		// Checks invincibility
+		if (this.invincibilitytime > 0)
+		{
+			this.invincibilitytime --;
+			if (this.invincibilitytime / 5 % 2 == 0)
+				setVisible();
+			else
+				setInvisible();
+		}
 	}
 	
 	
@@ -493,6 +522,22 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		return this.manaregeneration;
 	}
 	
+	/**
+	 * @return The maximum health of the wizard
+	 */
+	public int getMaxHP()
+	{
+		return this.maxhp;
+	}
+	
+	/**
+	 * @return The current health of the wizard
+	 */
+	public int getHP()
+	{
+		return this.hp;
+	}
+	
 	
 	// OTHER METHODS	-------------------------------------------------
 	
@@ -522,6 +567,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			setFriction(this.friction * (1 - newstatus / 100));
 		else if (status == WizardStatus.HASTE)
 			setMaxSpeed(this.maxspeed * (1 + newstatus / 75));
+		else if (status == WizardStatus.PHASING)
+			setAlpha((float) (0.5 + 0.5 * Math.sin(Math.PI/2 + 
+					newstatus / 100 * Math.PI/4)));
 		
 		// Changes the status
 		this.statusses.put(status, newstatus);
@@ -540,6 +588,39 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			return 0;
 		
 		return this.statusses.get(status);
+	}
+	
+	/**
+	 * Causes the wizard to take 1 damage (if possible), which can also cause 
+	 * death
+	 */
+	public void causeDamage()
+	{
+		// If the wizard is invincible, damage is not done
+		if (this.invincibilitytime > 0 || 
+				getStatusStrength(WizardStatus.PHASING) > 0)
+			return;
+		
+		// Otherwise deals 1 damage and makes the wizard immune to damage 
+		// for some time (or die)
+		this.hp --;
+		
+		if (this.hp <= 0)
+			die();
+		else
+			this.invincibilitytime = this.invincibilitydelay;
+	}
+	
+	/**
+	 * Makes the wizard reappera with full HP and Mana
+	 */
+	public void respawn()
+	{
+		// The wizard comes back to life
+		this.hp = this.maxhp;
+		this.mana = 100;
+		activate();
+		setVisible();
 	}
 	
 	/**
@@ -608,6 +689,17 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		// Only regenerates mana while not casting
 		if (!isCasting())
 			adjustMana(this.manaregeneration);
+	}
+	
+	private void die()
+	{
+		// If the rebirth spell was active, the wizard respawns instead of 
+		// dying
+		if (getStatusStrength(WizardStatus.REBIRTH) > 0)
+			respawn();
+		// The wizard disappears for a moment with an explosion
+		// TODO: Call some handler to handle the death & respawn
+		System.out.println("Dies :(");
 	}
 	
 	/**

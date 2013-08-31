@@ -121,7 +121,7 @@ Eteneminen:														Status
 			* Statusefektien vaikutus pelaamiseen				Testaamatta
 		- HUD													DONE
 			* Käytössä olevien elementtien piirtäminen			DONE
-		- Manamittari											...
+		- Manamittari											DONE
 			* Manan lasku										DONE
 			* Manan piirto										DONE
 				- Pohjan piirto									DONE
@@ -133,23 +133,26 @@ Eteneminen:														Status
 				- Regeneroinnin pysäytys castingin ajaksi		DONE
 				- Pysäytyksen vaikutusten korjaus 				DONE
 				manakulutuksessa
-		- HP
-			* HP:n lasku
-			* HP:n piirto
-			* HP:n menettäminen
-			* Kuoleminen
-			* Respawn
+		- HP													...
+			* HP:n lasku										DONE
+			* HP:n piirto										DONE
+			* HP:n menettäminen									Testaamatta
+			* Kuoleminen										...
+			* Respawn											...
 				- Pallon uudelleen syöttäminen
+		- Ruudun puoli
+			* Ruudun puolen vaikutus loitsuihin
+			* Ruudun puolen vaikutus Hudiin
+			* Ruudun puolen vaikutus HP -laskuihin
 		- Pisteet
 			* Pisteiden lasku
 			* Pisteiden piirto
 			* Pisteiden kasvattaminen
 			* Voiton checkkaus
-		- Ruudun puoli
-			* Ruudun puolen vaikutus loitsuihin
-		- Loitsut
-			* Loitsujen manankulutus
+		- Loitsut												DONE
+			* Loitsujen manankulutus							DONE
 		- Toinen pelaaja
+			* Vaihtoehtoisen grafiikan käyttäminen
 		- Menu
 			* Main-menun ympäristön luominen
 			* Ympäristöjen vaihtaminen

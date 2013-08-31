@@ -25,6 +25,8 @@ public class WizardHudDrawer extends DrawableHandler
 	
 	private static int mpblockwidth = 32;
 	private static int mpblockheight = 32;
+	private static int hpblockwidth = 32;
+	private static int hpblockheight = 32;
 	
 	private Wizard wizard;
 	
@@ -82,6 +84,10 @@ public class WizardHudDrawer extends DrawableHandler
 		new CurrentMPDrawer(meterx, metery, 2, this);
 		// MP use meter
 		new MPUseMeter(meterx, metery - 10, 1, this);
+		
+		// Creates the HP-meter and adds it to the drawer
+		metery -= hpblockheight + 10;
+		new HealthMeter(meterx, metery, 2, this);
 	}
 	
 	
@@ -491,6 +497,85 @@ public class WizardHudDrawer extends DrawableHandler
 				imgindex = 1;
 			
 			this.spritedrawer.drawSprite(g2d,(int) x, 0, imgindex);
+		}
+	}
+	
+	
+	// Healthmeterdrawer draws a wizard's health meter
+	private class HealthMeter extends DrawnObject implements WizardHudElement
+	{
+		// ATTRIBUTES	--------------------------------------------------
+		
+		private SpriteDrawer spritedrawer;
+		
+		
+		// CONSTRUCTOR	--------------------------------------------------
+		
+		/**
+		 * Creates a new healthmeterdrawer to the given position added to the 
+		 * given drawer
+		 *
+		 * @param x The x-coordinate of the meter's left top corner
+		 * @param y The y-coordinate of the meter's left top corner
+		 * @param depth The drawing depth of the meter
+		 * @param drawer The huddrawer that will draw the meter
+		 */
+		public HealthMeter(int x, int y, int depth, WizardHudDrawer drawer)
+		{
+			super(x, y, depth, drawer);
+			
+			// Initializes attributes
+			this.spritedrawer = new SpriteDrawer(
+					Main.spritebanks.getOpenSpriteBank("hud").getSprite(
+					"hp"), null);
+		}
+		
+		
+		// IMPLEMENTED METHODS	-----------------------------------------
+
+		@Override
+		public int getOriginX()
+		{
+			return 0;
+		}
+
+		@Override
+		public int getOriginY()
+		{
+			return 0;
+		}
+
+		@Override
+		public void drawSelfBasic(Graphics2D g2d)
+		{
+			// draws full or empty hearts
+			int hp = WizardHudDrawer.this.wizard.getHP();
+			int maxhp = WizardHudDrawer.this.wizard.getMaxHP();
+			
+			for (int full = 0; full < hp; full ++)
+			{
+				this.spritedrawer.drawSprite(g2d, 
+						full * WizardHudDrawer.hpblockwidth, 0, 1);
+			}
+			for (int empty = hp; empty < maxhp; empty ++)
+			{
+				this.spritedrawer.drawSprite(g2d, 
+						empty * WizardHudDrawer.hpblockwidth, 0, 0);
+			}
+		}
+		
+		@Override
+		public boolean kill()
+		{
+			// Also kills the spritedrawer
+			this.spritedrawer.kill();
+			return super.kill();
+		}
+
+		@Override
+		public void onSpellChange()
+		{
+			// Doesn't react to spell change
 		}
 	}
 }

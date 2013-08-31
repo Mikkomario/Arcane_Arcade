@@ -12,6 +12,7 @@ import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Main;
 import arcane_arcade_spelleffects.SpellEffect;
 import arcane_arcade_status.BallStatus;
+import arcane_arcade_status.WizardStatus;
 
 import graphic.SpriteDrawer;
 import handleds.Collidable;
@@ -23,7 +24,7 @@ import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
 import helpAndEnums.DoublePoint;
 import helpAndEnums.HelpMath;
-import drawnobjects.BasicPhysicDrawnObject;
+import drawnobjects.BouncingBasicPhysicDrawnObject;
 
 /**
  * Ball is one of the main objects of the game. It mainly flies around the 
@@ -32,7 +33,7 @@ import drawnobjects.BasicPhysicDrawnObject;
  * @author Mikko Hilpinen.
  *         Created 27.8.2013.
  */
-public class Ball extends BasicPhysicDrawnObject implements RoomListener
+public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
@@ -115,6 +116,14 @@ public class Ball extends BasicPhysicDrawnObject implements RoomListener
 			
 			// Informs the spell about the collision
 			effect.onBallCollision(this, averagepoint.x, averagepoint.y);
+		}
+		// The ball may also collide with a wizard if they have IRONFLESH
+		else if (collided instanceof Wizard)
+		{
+			Wizard wizard = (Wizard) collided;
+			
+			if (wizard.getStatusStrength(WizardStatus.IRONFLESH) > 0)
+				bounceWithoutRotationFrom(wizard, colpoints.get(0), 1, 0);
 		}
 	}
 
