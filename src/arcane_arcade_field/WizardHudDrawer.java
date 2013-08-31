@@ -1,12 +1,14 @@
 package arcane_arcade_field;
 
 import java.awt.Graphics2D;
+import java.util.Iterator;
 
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Main;
 import drawnobjects.DrawnObject;
 import graphic.SpriteDrawer;
 import handleds.Drawable;
+import handleds.Handled;
 import handlers.DrawableHandler;
 import helpAndEnums.DepthConstants;
 
@@ -79,13 +81,31 @@ public class WizardHudDrawer extends DrawableHandler
 	}
 	
 	
+	// OTHER METHODS	--------------------------------------------------
+	
+	/**
+	 * Updates the hud to show values according to the new element combination
+	 */
+	protected void callSpellUpdate()
+	{
+		// Goes through the handleds and updates their status
+		Iterator<Handled> iterator = getIterator();
+		while (iterator.hasNext())
+		{
+			((WizardHudElement) iterator.next()).onSpellChange(); 
+		}
+	}
+	
+	
 	// SUBCLASSES	------------------------------------------------------
 	
 	private interface WizardHudElement extends Drawable
 	{
-		// This interface is simply used as a wrapper
+		// WizardHudElements may react to spell changes
+		public void onSpellChange();
 	}
 	
+	// Elementdrawer draws a single element icon
 	private class ElementDrawer extends DrawnObject implements WizardHudElement
 	{
 		// ATTRIBUTES	------------------------------------------------
@@ -99,6 +119,7 @@ public class WizardHudDrawer extends DrawableHandler
 		
 		private SpriteDrawer spritedrawer;
 		private int elementindex;
+		private int elementspriteindex;
 		
 		
 		// CONSTRUCTOR	------------------------------------------------
@@ -124,6 +145,9 @@ public class WizardHudDrawer extends DrawableHandler
 					Main.spritebanks.getOpenSpriteBank("hud").getSprite(
 					"elements"), null);
 			this.elementindex = elementindex;
+			this.elementspriteindex = 0;
+			
+			onSpellChange();
 			
 			// Changes alpha depending on the elementindex
 			if (this.elementindex == ELEMENTINDEX_LAST ||
@@ -160,9 +184,15 @@ public class WizardHudDrawer extends DrawableHandler
 				return;
 			
 			// Draws the shown element
+			this.spritedrawer.drawSprite(g2d, 0, 0, this.elementspriteindex);
+		}
+		
+		@Override
+		public void onSpellChange()
+		{
 			// Gets the element index
-			int elemindex = 0;
 			Wizard wizard = WizardHudDrawer.this.wizard;
+			int elemindex = 0;
 			switch(this.elementindex)
 			{
 				case ELEMENTINDEX_CURRENT: elemindex = 
@@ -182,8 +212,8 @@ public class WizardHudDrawer extends DrawableHandler
 						wizard.getNextElementIndex(
 						wizard.getSecondElementIndex()); break;
 			}
-			this.spritedrawer.drawSprite(g2d, 0, 0, wizard.getElement(
-					elemindex).getElementIconIndex());
+			this.elementspriteindex = 
+					wizard.getElement(elemindex).getElementIconIndex();
 		}
 		
 		
@@ -197,6 +227,101 @@ public class WizardHudDrawer extends DrawableHandler
 		private int getWidth()
 		{
 			return this.spritedrawer.getSprite().getWidth();
+		}
+	}
+	
+	// MP-Meter drawer draws a parth of the mp-meter to the given location.
+	private class MPMeterDrawer extends DrawnObject implements WizardHudElement
+	{
+		// ATTRIBUTES	--------------------------------------------------
+		
+		private int length;
+		private SpriteDrawer spritedrawer;
+		
+		
+		// CONSTRUCTOR	--------------------------------------------------
+		
+		/**
+		 * Creates a new MPMeterdrawer to the given position added to the 
+		 * given handler.
+		 *
+		 * @param x The meter's top left corner's y-coordinate
+		 * @param y The meter's top left corner's x-coordinate
+		 * @param depth The drawing depth of the meter
+		 * @param drawer The drawer that will draw the meter
+		 * @param length How long is the meter [0, 10]
+		 * @param meterimageindex Which subimage from the MP-meter sprite is 
+		 * used to represent the meter's blocks
+		 */
+		public MPMeterDrawer(int x, int y, int depth, WizardHudDrawer drawer, 
+				int length, int meterimageindex)
+		{
+			super(x, y, depth, drawer);
+			
+			// Initializes attributes
+			this.spritedrawer = new SpriteDrawer(
+					Main.spritebanks.getOpenSpriteBank("hud").getSprite(
+					"mp"), null);
+			this.spritedrawer.setImageIndex(meterimageindex);
+			this.length = length;
+			
+			// Fixes the length
+			if (this.length < 0)
+				this.length = 0;
+			else if (this.length > 10)
+				this.length = 10;
+		}
+		
+		
+		// IMPLEMENTED METHODS	------------------------------------------
+
+		@Override
+		public int getOriginX()
+		{
+			return 0;
+		}
+
+		@Override
+		public int getOriginY()
+		{
+			return 0;
+		}
+
+		@Override
+		public void drawSelfBasic(Graphics2D g2d)
+		{
+			int blockwidth = this.spritedrawer.getSprite().getWidth();
+			
+			// Draws blocks up to the length of the meter
+			for (int i = 0; i < this.length; i++)
+			{
+				this.spritedrawer.drawSprite(g2d, i * blockwidth, 0);
+			}
+		}
+		
+		@Override
+		public void onSpellChange()
+		{
+			// Does nothing
+		}
+		
+		
+		// OTHER METHODS	----------------------------------------------
+		
+		/**
+		 * Changes how many blocks of the meter is drawn
+		 *
+		 * @param newlength The new amount of blocks drawn
+		 */
+		protected void setLength(int newlength)
+		{
+			this.length = newlength;
+			
+			// Fixes the length
+			if (this.length < 0)
+				this.length = 0;
+			else if (this.length > 10)
+				this.length = 10;
 		}
 	}
 }

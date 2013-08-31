@@ -651,5 +651,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		// Updates the current spell
 		this.currentspell = this.elements.get(this.elementindex1).getSpell(
 				this.elements.get(this.elementindex2));
+		// Informs the hud about the change
+		this.huddrawer.callSpellUpdate();
 	}
 }
