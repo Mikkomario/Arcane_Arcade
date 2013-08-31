@@ -472,9 +472,16 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		return this.manabeforecasting;
 	}
 	
+	/**
+	 * @return The currently active wizard's spell
+	 */
+	protected Spell getCurrentSpell()
+	{
+		return this.currentspell;
+	}
+	
 	
 	// OTHER METHODS	-------------------------------------------------
-	
 	
 	/**
 	 * Changes the strenght of a wizard's status effect
@@ -577,7 +584,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		{
 			// Remembers the amount of mana before casting
 			this.manabeforecasting = getMana();
-			this.currentspell.execute(this, this.ballrelay, this.drawer, 
+			getCurrentSpell().execute(this, this.ballrelay, this.drawer, 
 					this.actorhandler, this.collidablehandler, 
 					this.collisionhandler, this.room);
 		}

@@ -123,6 +123,17 @@ public abstract class Spell
 			CollisionHandler collisionhandler, Room room);
 	
 	
+	// GETTERS & SETTERS	---------------------------------------------
+	
+	/**
+	 * @return How much mana the spell consumes
+	 */
+	public int getManaUsage()
+	{
+		return this.manausage;
+	}
+	
+	
 	// OTHER METHODS	-------------------------------------------------
 	
 	/**

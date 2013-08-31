@@ -75,11 +75,13 @@ public class WizardHudDrawer extends DrawableHandler
 		int metery = GameSettings.SCREENHEIGHT - mpblockheight * 2 - 10;
 		
 		// The bottom meter
-		new MPMeterDrawer(meterx, metery, 1, this, 0);
+		new MPMeterDrawer(meterx, metery, 4, this, 0);
 		// Lost mp meter
-		new LostMPDrawer(meterx, metery, 0, this);
+		new LostMPDrawer(meterx, metery, 3, this);
 		// Current mp meter
-		new CurrentMPDrawer(meterx, metery, -1, this);
+		new CurrentMPDrawer(meterx, metery, 2, this);
+		// MP use meter
+		new MPUseMeter(meterx, metery - 10, 1, this);
 	}
 	
 	
@@ -410,6 +412,85 @@ public class WizardHudDrawer extends DrawableHandler
 		{
 			// The meter is only visible while the wizard is casting
 			return super.isVisible() && WizardHudDrawer.this.wizard.isCasting();
+		}
+	}
+	
+	
+	// This class draws a stick that shows how much mana will be used when the 
+	// next spell is cast
+	private class MPUseMeter extends DrawnObject implements WizardHudElement
+	{
+		// ATTRIBUTES	-------------------------------------------------
+		
+		private int meterwidth;
+		private SpriteDrawer spritedrawer;
+		private int mpuse;
+		
+		
+		// CONSTRUCTOR	-------------------------------------------------
+		
+		/**
+		 * Creates a new MPUseMeter to the given position added to the given 
+		 * handler
+		 *
+		 * @param x The x-coordinate of the meter's left top corner
+		 * @param y The y-coordinate of the meter's left top corner
+		 * @param depth How deep the meter will be drawn
+		 * @param drawer Which wizardHudDrawer draws the meter
+		 */
+		public MPUseMeter(int x, int y, int depth, WizardHudDrawer drawer)
+		{
+			super(x, y, depth, drawer);
+			
+			// Initializes attributes
+			this.spritedrawer = new SpriteDrawer(
+					Main.spritebanks.getOpenSpriteBank("hud").getSprite(
+					"mpuse"), null);
+			this.meterwidth = this.spritedrawer.getSprite().getWidth() - 
+					this.spritedrawer.getSprite().getOriginX();
+			this.mpuse = 0;
+			
+			onSpellChange();
+		}
+		
+		
+		// IMPLMENTED MEHTODS	-----------------------------------------
+
+		@Override
+		public void onSpellChange()
+		{
+			// Updates the MP-use and the scaling of the meter
+			this.mpuse = 
+					WizardHudDrawer.this.wizard.getCurrentSpell().getManaUsage();
+			setXScale((this.mpuse / 10.0) * WizardHudDrawer.mpblockwidth / 
+					this.meterwidth);
+		}
+
+		@Override
+		public int getOriginX()
+		{
+			return this.spritedrawer.getSprite().getOriginX();
+		}
+
+		@Override
+		public int getOriginY()
+		{
+			return this.spritedrawer.getSprite().getOriginY();
+		}
+
+		@Override
+		public void drawSelfBasic(Graphics2D g2d)
+		{
+			// Sets the meter to the right position
+			double x = (WizardHudDrawer.this.wizard.getMana() - this.mpuse) / 
+					10.0 * WizardHudDrawer.mpblockwidth * (1 / getXScale());
+			// Checks if the wizard has enough mana and changes the image index 
+			// if not
+			int imgindex = 0;
+			if (!WizardHudDrawer.this.wizard.hasEnoughMana(this.mpuse))
+				imgindex = 1;
+			
+			this.spritedrawer.drawSprite(g2d,(int) x, 0, imgindex);
 		}
 	}
 }

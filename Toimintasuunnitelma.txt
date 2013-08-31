@@ -123,11 +123,11 @@ Eteneminen:														Status
 			* Käytössä olevien elementtien piirtäminen			DONE
 		- Manamittari											...
 			* Manan lasku										DONE
-			* Manan piirto										...
+			* Manan piirto										DONE
 				- Pohjan piirto									DONE
 				- Mittarin piirto								DONE
 				- Viimeisen kulutuksen piirto					DONE
-				- Seuraavan kulutuksen piirto
+				- Seuraavan kulutuksen piirto					DONE
 			* Manan kulutus										DONE
 			* Manan regenerointi
 				- Regeneroinnin pysäytys castingin ajaksi

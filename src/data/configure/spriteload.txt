@@ -27,7 +27,7 @@ regeneration#images/hud/regen_meter_strip19.png#19#55#54
 elements#images/hud/elem_button_strip8.png#8#0#0
 hp#images/hud/heart_meter_strip2.png#2#0#0
 mp#images/hud/mp_meter_block_strip3.png#3#0#0
-mpuse#images/hud/mp_usage.png#1#8#12
+mpuse#images/hud/mp_usage_strip2.png#2#8#12
 score#images/hud/scoreboard.png#1#100#11
 
 &status
