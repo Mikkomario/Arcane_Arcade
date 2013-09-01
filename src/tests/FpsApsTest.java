@@ -64,17 +64,15 @@ public class FpsApsTest implements Actor, Drawable
 	}
 
 	@Override
-	public boolean activate()
+	public void activate()
 	{
 		this.active = true;
-		return true;
 	}
 
 	@Override
-	public boolean inactivate()
+	public void inactivate()
 	{
 		this.active = false;
-		return true;
 	}
 
 	@Override

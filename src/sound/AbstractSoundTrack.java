@@ -81,17 +81,15 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 	}
 	
 	@Override
-	public boolean activate()
+	public void activate()
 	{
 		// The track is always active
-		return true;
 	}
 	
 	@Override
-	public boolean inactivate()
+	public void inactivate()
 	{
 		// The track is always active
-		return false;
 	}
 	
 	@Override

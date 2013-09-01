@@ -17,13 +17,11 @@ public interface LogicalHandled extends Handled
 	
 	/**
 	 * Tries to restart the objects logical processes
-	 * @return Was the object made active
 	 */
-	public boolean activate();
+	public void activate();
 	
 	/**
 	 * Tries to stop the objects logical processes
-	 * @return Was the object made inactive
 	 */
-	public boolean inactivate();
+	public void inactivate();
 }

@@ -71,17 +71,15 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 	}
 
 	@Override
-	public boolean activate()
+	public void activate()
 	{
 		this.active = true;
-		return true;
 	}
 
 	@Override
-	public boolean inactivate()
+	public void inactivate()
 	{
 		this.active = false;
-		return true;
 	}
 
 	@Override

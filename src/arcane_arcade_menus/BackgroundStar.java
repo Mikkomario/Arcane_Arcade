@@ -70,15 +70,15 @@ public class BackgroundStar extends DrawnObject implements RoomListener,
 	}
 
 	@Override
-	public boolean activate()
+	public void activate()
 	{
-		return true;
+		// The star is always active
 	}
 
 	@Override
-	public boolean inactivate()
+	public void inactivate()
 	{
-		return false;
+		// The star is always active
 	}
 
 	@Override

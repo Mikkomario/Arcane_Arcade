@@ -48,40 +48,28 @@ public abstract class LogicalHandler extends Handler implements LogicalHandled
 	}
 
 	@Override
-	public boolean activate()
+	public void activate()
 	{
-		// tries to activate all the handled objects, returns false if all the
-		// objects could not be activated
-		boolean returnValue = true;
-		
+		// tries to activate all the handled objects
 		Iterator<Handled> iterator = getIterator();
 		
 		while (iterator.hasNext())
 		{
 			LogicalHandled h = (LogicalHandled) iterator.next();
-			if (!h.activate())
-				returnValue = false;
+			h.activate();
 		}
-		
-		return returnValue;
 	}
 
 	@Override
-	public boolean inactivate()
+	public void inactivate()
 	{
-		// tries to inactivate all the handled objects, returns false if all the objects
-		// could not be inactivated
-		boolean returnValue = true;
-		
+		// tries to inactivate all the handled objects
 		Iterator<Handled> iterator = getIterator();
 		
 		while (iterator.hasNext())
 		{
 			LogicalHandled h = (LogicalHandled) iterator.next();
-			if (!h.inactivate())
-				returnValue = false;
+			h.inactivate();
 		}
-		
-		return returnValue;
 	}
 }

@@ -181,15 +181,15 @@ public class StepHandler extends ActorHandler implements Runnable
 		}
 
 		@Override
-		public boolean activate()
+		public void activate()
 		{
-			return true;
+			// The optimizer is always active
 		}
 
 		@Override
-		public boolean inactivate()
+		public void inactivate()
 		{
-			return false;
+			// The optimizer is always active
 		}
 
 		@Override
