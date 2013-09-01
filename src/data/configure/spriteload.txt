@@ -1,7 +1,10 @@
 * This is a list of sprites and spritebanks for the Arcane Arcade
 
+&background
+mountains#images/background/mountains.png#1#0#0
+space#images/background/space.png#1#0#0
+
 &menu
-background#images/background/space.png#1#0#0
 comet#images/menu/comet_strip4.png#4#48#352
 button#images/menu/menu_button.png#1#34#34
 center#images/menu/menu_center.png#1#101#99
@@ -18,7 +21,6 @@ tutorial#images/menu/menu_tutorial.png#1#131#152
 tutorialmask#images/menu/menu_tutorial_mask.png#1#131#152
 
 &field
-mountains#images/background/mountains.png#1#0#0
 ball#images/game/ball_strip8.png#8#65#76
 server#images/game/server.png#1#91#52
 regeneration#images/hud/regen_meter_strip19.png#19#55#54

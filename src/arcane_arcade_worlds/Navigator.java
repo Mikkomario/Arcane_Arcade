@@ -43,7 +43,7 @@ public class Navigator
 		// Initializes attributes
 		// Initializes field
 		Background mountainback = new Background(0, 0, drawer, null, 
-				Main.spritebanks.getOpenSpriteBank("field"), "mountains");
+				Main.spritebanks.getOpenSpriteBank("background"), "mountains");
 		mountainback.setDimensions(GameSettings.SCREENWIDTH, 
 				GameSettings.SCREENHEIGHT);
 		ArrayList<Background> mountainbacks = new ArrayList<Background>();

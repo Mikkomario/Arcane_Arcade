@@ -1,5 +1,6 @@
 package arcane_arcade_field;
 
+import arcane_arcade_main.ButtonMapRelay;
 import arcane_arcade_main.GameSettings;
 import handlers.ActorHandler;
 import handlers.CollisionHandler;
@@ -60,6 +61,8 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 	{
 		// Creates the objects needed
 
+		// Creates the button maps
+		ButtonMapRelay buttonrelay = new ButtonMapRelay();
 		// Creates a ballrelay
 		BallRelay ballrelay = new BallRelay(room);
 		// And the wizardrelay
@@ -77,7 +80,7 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 				this.collisionhandler.getCollidableHandler(), 
 				this.collisionhandler, this.actorhandler, 
 				this.keylistenerhandler, room, scorekeeper, ballrelay, 
-				ScreenSide.LEFT));
+				ScreenSide.LEFT, buttonrelay.getLeftWizardButtons()));
 	}
 
 	@Override

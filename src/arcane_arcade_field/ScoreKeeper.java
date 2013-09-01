@@ -32,6 +32,7 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 	private SpriteDrawer spritedrawer;
 	private int scoreleft;
 	private int scoreright;
+	private int maxscore;
 	private Font scorefont;
 	private Color scorecolor;
 	private Server server;
@@ -65,6 +66,7 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 				"score"), null);
 		this.scoreleft = 0;
 		this.scoreright = 0;
+		this.maxscore = 25;
 		this.wizardrelay = wizardrelay;
 		this.server = server;
 		this.respawntime = 100;
@@ -193,11 +195,15 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 		else
 			this.scoreright ++;
 		
-		// Starts respawning
-		this.respawntimeleft = this.respawntime;
-		activate();
+		// If the game is on, Starts respawning
+		if (this.scoreleft < this.maxscore && this.scoreright < this.maxscore)
+		{
+			this.respawntimeleft = this.respawntime;
+			activate();
+		}
 		
-		// TODO: Add victory
+		// If the game was won, goes to the victory screen
+		// TODO: Add victory screen
 	}
 	
 	

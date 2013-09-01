@@ -144,19 +144,22 @@ Eteneminen:														Status
 			* Ruudun puolen vaikutus loitsuihin					DONE
 			* Ruudun puolen vaikutus Hudiin						DONE
 			* Ruudun puolen vaikutus HP -laskuihin				DONE
-		- Pisteet												...
+		- Pisteet												DONE
 			* Pisteiden lasku									DONE
 			* Pisteiden piirto									DONE
 				- Fontin asettaminen							DONE
 			* Pisteiden kasvattaminen							DONE
-			* Voiton checkkaus
+			* Voiton checkkaus									DONE
 		- Loitsut												DONE
 			* Loitsujen manankulutus							DONE
-		- Toinen pelaaja
-			* Eri näppäinten käyttäminen
+		- Toinen pelaaja										DONE
+			* Eri näppäinten käyttäminen						DONE
 		- Menu
 			* Main-menun ympäristön luominen
 			* Ympäristöjen vaihtaminen
+				- Muistin vapauttaminen välissä
+					* Tarpeettomiksi tulleiden pankkien 
+					tyhjentäminen
 			* Nappulat ja valikot
 			* Tausta
 		- Voittovalikko

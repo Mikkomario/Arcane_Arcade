@@ -2,7 +2,6 @@ package arcane_arcade_field;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,6 +10,7 @@ import worlds.Room;
 import listeners.AdvancedKeyListener;
 import listeners.RoomListener;
 
+import arcane_arcade_main.Buttons;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Main;
 import arcane_arcade_spelleffects.ExplosionEffect;
@@ -89,6 +89,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private WizardHudDrawer huddrawer;
 	
 	private ScreenSide screenside;
+	private HashMap<Buttons, Character> buttonmaps;
 	
 	
 	// CONSTRUCTOR	----------------------------------------------------
@@ -111,11 +112,13 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 * @param ballrelay The ballrelay that holds information about the balls 
 	 * in the field. That information will be forwarded to the casted spells.
 	 * @param screenside Which side of the room the wizard is created at
+	 * @param buttonmaps The buttons used to control the wizard
 	 */
 	public Wizard(DrawableHandler drawer, CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, ActorHandler actorhandler, 
 			KeyListenerHandler keylistenerhandler, Room room, 
-			ScoreKeeper scorekeeper, BallRelay ballrelay, ScreenSide screenside)
+			ScoreKeeper scorekeeper, BallRelay ballrelay, ScreenSide screenside, 
+			HashMap<Buttons, Character> buttonmaps)
 	{
 		super(70, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
 				true, CollisionType.CIRCLE, drawer, collidablehandler,
@@ -155,6 +158,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.castdelaymeterdrawer = new SpriteDrawer(
 				Main.spritebanks.getOpenSpriteBank("field").getSprite(
 				"regeneration"), actorhandler);
+		this.buttonmaps = buttonmaps;
 		// Initializes element list with two elements
 		// TODO: Add elements
 		this.elements = new ArrayList<Element>();
@@ -311,20 +315,15 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	@Override
 	public void onKeyDown(char key, int keyCode, boolean coded)
 	{
-		// If W or S was pressed, moves up / down
+		// If UP or DOWN buttons were pressed, moves up / down
 		if (!coded)
 		{
-			if (key == 'w' || key == 'W')
+			if (key == this.buttonmaps.get(Buttons.UP))
 				move(-1);
-			else if (key == 's' || key == 'S')
+			else if (key == this.buttonmaps.get(Buttons.DOWN))
 				move(1);
-		}
-		// TODO: Get some other button than control to do the job since 
-		// it BLOCKS ALL OTHER BUTTONS (wtf?)
-		else
-		{
-			// If ctrl was pressed, casts a spell
-			if (keyCode == KeyEvent.VK_CONTROL)
+			// If CAST button was pressed, casts a spell
+			if (key == this.buttonmaps.get(Buttons.CAST))
 				castSpell();
 		}
 	}
@@ -335,19 +334,19 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		if (!coded)
 		{
 			// If w or s was double tapped, teleports
-			if (key == 'w' || key == 'W')
+			if (key == this.buttonmaps.get(Buttons.UP))
 				tryTeleporting(-1);
-			else if (key == 's' || key == 'S')
+			else if (key == this.buttonmaps.get(Buttons.DOWN))
 				tryTeleporting(1);
 			// If Q or A was pressed, changes the left element
-			else if (key == 'Q' || key == 'q')
+			else if (key == this.buttonmaps.get(Buttons.LEFT_ELEMENT_UP))
 				changeElement(LEFT, UP);
-			else if (key == 'A' || key == 'a')
+			else if (key == this.buttonmaps.get(Buttons.LEFT_ELEMENT_DOWN))
 				changeElement(LEFT, DOWN);
 			// If E or D was pressed, changes the right element
-			else if (key == 'E' || key == 'e')
+			else if (key == this.buttonmaps.get(Buttons.RIGHT_ELEMENT_UP))
 				changeElement(RIGHT, UP);
-			else if (key == 'D' || key == 'd')
+			else if (key == this.buttonmaps.get(Buttons.RIGHT_ELEMENT_DOWN))
 				changeElement(RIGHT, DOWN);
 		}
 	}
