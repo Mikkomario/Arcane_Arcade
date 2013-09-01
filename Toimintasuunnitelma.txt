@@ -163,10 +163,10 @@ Eteneminen:														Status
 				- Ainoastaan alustettujen pankkien jakaminen 	DONE
 				eteenpäin
 			* Nappulat ja valikot
-			* Tausta											...
+			* Tausta											Testaamatta
 				- Tähdet										Testaamatta
 				- Komeetat										Testaamatta
-				- Taustan luonti
+				- Taustan luonti								Testaamatta
 		- Voittovalikko
 			* Tiedon siirtäminen ympäristöjen välillä
 				- Settings -luokka ja sen phasekohtaiset 
