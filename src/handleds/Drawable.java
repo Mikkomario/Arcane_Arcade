@@ -26,17 +26,13 @@ public interface Drawable extends Handled
 	
 	/**
 	 * Tries to set the object visible
-	 *
-	 * @return Was the object made visible
 	 */
-	public boolean setVisible();
+	public void setVisible();
 	
 	/**
 	 * Tries to momentarily make the object invisible
-	 *
-	 * @return Was the object made invisible
 	 */
-	public boolean setInvisible();
+	public void setInvisible();
 	
 	/**
 	 * @return How deep should the object be drawn (object with positive depth 

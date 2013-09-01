@@ -77,41 +77,29 @@ public class DrawableHandler extends Handler implements Drawable
 	}
 
 	@Override
-	public boolean setVisible()
+	public void setVisible()
 	{
-		// tries to set all the drawables visible, returns false if all the drawables
-		// couldn't be made visible
-		boolean returnValue = true;
+		// tries to set all the drawables visible
 		Iterator<Handled> iterator = getIterator();
 		
 		while (iterator.hasNext())
 		{
 			Drawable d = (Drawable) iterator.next();
-			
-			if (!d.setVisible())
-				returnValue = false;
+			d.setVisible();
 		}
-		
-		return returnValue;
 	}
 
 	@Override
-	public boolean setInvisible()
+	public void setInvisible()
 	{
-		// tries to set all the drawables invisible, returns false if all the drawables
-		// couldn't be made invisible
-		boolean returnValue = true;
+		// tries to set all the drawables invisible
 		Iterator<Handled> iterator = getIterator();
 		
 		while (iterator.hasNext())
 		{
 			Drawable d = (Drawable) iterator.next();
-			
-			if (!d.setInvisible())
-				returnValue = false;
+			d.setInvisible();
 		}
-		
-		return returnValue;
 	}
 	
 	@Override

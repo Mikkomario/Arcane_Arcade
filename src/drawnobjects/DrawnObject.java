@@ -92,17 +92,15 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	}
 
 	@Override
-	public boolean setVisible()
+	public void setVisible()
 	{
 		this.visible = true;
-		return true;
 	}
 
 	@Override
-	public boolean setInvisible()
+	public void setInvisible()
 	{
 		this.visible = false;
-		return true;
 	}
 	
 	@Override

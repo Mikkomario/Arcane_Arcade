@@ -106,17 +106,15 @@ public class FpsApsTest implements Actor, Drawable
 	}
 
 	@Override
-	public boolean setVisible()
+	public void setVisible()
 	{
 		this.visible = true;
-		return true;
 	}
 
 	@Override
-	public boolean setInvisible()
+	public void setInvisible()
 	{
 		this.visible = false;
-		return true;
 	}
 
 	@Override
