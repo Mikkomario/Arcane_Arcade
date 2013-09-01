@@ -117,10 +117,10 @@ public class BallStatusDrawer extends DrawableHandler
 		}
 		
 		@Override
-		public boolean kill()
+		public void kill()
 		{
 			this.spritedrawer.kill();
-			return super.kill();
+			super.kill();
 		}
 		
 		@Override

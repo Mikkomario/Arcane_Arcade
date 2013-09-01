@@ -97,17 +97,19 @@ public class DimensionalRoom extends TiledRoom implements Collidable
 	}
 
 	@Override
-	public boolean makeSolid()
+	public void makeSolid()
 	{
 		// Uses tilemap for collision checking
-		return getTiles().makeSolid();
+		if (getTiles() != null)
+			getTiles().makeSolid();
 	}
 
 	@Override
-	public boolean makeUnsolid()
+	public void makeUnsolid()
 	{
 		// Uses tilemap for collision checking
-		return getTiles().makeUnsolid();
+		if (getTiles() != null)
+			getTiles().makeUnsolid();
 	}
 	
 	

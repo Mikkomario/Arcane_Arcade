@@ -80,17 +80,15 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 	}
 	
 	@Override
-	public boolean makeSolid()
+	public void makeSolid()
 	{
 		this.solid = true;
-		return true;
 	}
 		
 	@Override
-	public boolean makeUnsolid()
+	public void makeUnsolid()
 	{
 		this.solid = false;
-		return true;
 	}
 	
 	@Override

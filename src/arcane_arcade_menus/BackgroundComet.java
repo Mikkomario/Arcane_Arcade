@@ -132,12 +132,12 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 	}
 
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		// Also kills the spritedrawer
 		this.spritedrawer.kill();
 		
-		return super.kill();
+		super.kill();
 	}
 	
 	@Override

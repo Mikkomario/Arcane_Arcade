@@ -101,7 +101,7 @@ public abstract class Spell
 		// Manausage is lowered according to the length of the spell (affects 
 		// regeneration)
 		this.manausage = (int) (manausage - castdelay * 
-				GameSettings.DEFAULTMANAREGENERATIONRATE * 0.6);
+				GameSettings.DEFAULTMANAREGENERATIONRATE * 0.8);
 	}
 	
 	

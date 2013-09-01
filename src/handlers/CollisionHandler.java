@@ -121,11 +121,11 @@ public class CollisionHandler extends LogicalHandler implements Actor
 	}
 	
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		// In addition to the normal killing, kills the collidablehandler as well
 		getCollidableHandler().kill();
-		return super.kill();
+		super.kill();
 	}
 	
 	

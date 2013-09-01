@@ -14,10 +14,8 @@ public interface BankObject
 	/**
 	 * In this method the object should prepare for the inevitable end of 
 	 * its existence by stopping all of its processes
-	 * 
-	 * @return Was the process successfull
 	 */
-	public boolean kill();
+	public void kill();
 	
 	/**
 	 * @return Is the object dead (true) or alive (false)

@@ -38,10 +38,9 @@ public abstract class GameObject implements Handled
 	}
 
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		this.dead = true;
-		return true;
 	}
 	
 	@Override

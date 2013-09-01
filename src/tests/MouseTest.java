@@ -50,9 +50,9 @@ public class MouseTest implements listeners.AdvancedMouseListener
 	}
 
 	@Override
-	public boolean kill() {
+	public void kill()
+	{
 		this.isDead = true;
-		return true;
 	}
 
 	

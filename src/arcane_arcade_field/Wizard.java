@@ -295,7 +295,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	}
 	
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		// Kills the spritedrawer as well
 		this.spritedrawer.kill();
@@ -308,7 +308,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.huddrawer.kill();
 		this.huddrawer = null;
 		
-		return super.kill();
+		super.kill();
 	}
 
 	@Override

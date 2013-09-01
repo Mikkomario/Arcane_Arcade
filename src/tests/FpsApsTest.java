@@ -82,10 +82,9 @@ public class FpsApsTest implements Actor, Drawable
 	}
 
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		this.alive = false;
-		return true;
 	}
 
 	@Override

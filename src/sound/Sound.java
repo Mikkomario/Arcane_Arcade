@@ -72,7 +72,7 @@ public abstract class Sound implements BankObject
 	// IMPLEMENTED METHODS	----------------------------------------------
 	
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		// Stops the sound and empties the handler
 		stop();
@@ -80,8 +80,6 @@ public abstract class Sound implements BankObject
 		this.listenerhandler.killWithoutKillingHandleds();
 		
 		this.dead = true;
-		
-		return true;
 	}
 	
 	@Override

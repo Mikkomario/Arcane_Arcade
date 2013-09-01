@@ -76,10 +76,9 @@ public class SpriteDrawer implements Actor
 	}
 
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		this.alive = false;
-		return true;
 	}
 
 	@Override

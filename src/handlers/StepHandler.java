@@ -200,10 +200,9 @@ public class StepHandler extends ActorHandler implements Runnable
 		}
 
 		@Override
-		public boolean kill()
+		public void kill()
 		{
 			this.dead = true;
-			return true;
 		}
 
 		@Override

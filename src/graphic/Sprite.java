@@ -93,12 +93,11 @@ public class Sprite implements BankObject
 	// IMPLEMENTED METHODS	-----------------------------------------------
 	
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		// Doesn't do much since the image information will be released 
 		// automatically once the sprite is not held anywhere anymore
 		this.dead = true;
-		return true;
 	}
 	
 	@Override

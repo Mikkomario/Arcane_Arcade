@@ -25,14 +25,11 @@ public interface Collidable extends Handled
 	
 	/**
 	 * Tries to make the object solid so that the objects will collide with it
-	 * @return Was the object made solid
 	 */
-	public boolean makeSolid();
+	public void makeSolid();
 	
 	/**
 	 * Tries to make the object unsolid so that no object can collide with it
-	 *
-	 * @return Was the object successfully made unsolid
 	 */
-	public boolean makeUnsolid();
+	public void makeUnsolid();
 }

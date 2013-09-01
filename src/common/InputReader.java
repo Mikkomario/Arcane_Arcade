@@ -109,10 +109,9 @@ public class InputReader implements AdvancedKeyListener
 	}
 
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		this.dead = true;
-		return true;
 	}
 
 	@Override

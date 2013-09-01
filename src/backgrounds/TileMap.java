@@ -124,7 +124,7 @@ public class TileMap extends DimensionalDrawnObject
 	}
 	
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		// Also kills all the tiles and clears the data
 		clear();
@@ -137,7 +137,7 @@ public class TileMap extends DimensionalDrawnObject
 		if (this.tileanimator != null)
 			this.tileanimator.kill();
 		
-		return super.kill();
+		super.kill();
 	}
 	
 	@Override

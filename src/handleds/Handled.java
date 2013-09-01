@@ -18,7 +18,6 @@ public interface Handled
 	/**
 	 * Tries to end the objects all activities and release the memory used in the 
 	 * object
-	 * @return Was the object made permanently inactive
 	 */
-	public boolean kill();
+	public void kill();
 }

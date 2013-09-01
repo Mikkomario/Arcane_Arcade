@@ -169,7 +169,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	}
 	
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		// Kills the spritedrawer as well
 		this.spritedrawer.kill();
@@ -177,7 +177,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 		this.statusdrawer.kill();
 		this.statusdrawer = null;
 		
-		return super.kill();
+		super.kill();
 	}
 	
 	@Override

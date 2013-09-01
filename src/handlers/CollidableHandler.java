@@ -48,39 +48,29 @@ public class CollidableHandler extends Handler implements Collidable
 	}
 
 	@Override
-	public boolean makeSolid()
+	public void makeSolid()
 	{
-		boolean returnvalue = true;
 		// Tries to make all of the collidables solid
 		Iterator<Handled> iterator = getIterator();
 		
 		while (iterator.hasNext())
 		{
 			Collidable c = (Collidable) iterator.next();
-			
-			if (!c.makeSolid())
-				returnvalue = false;
+			c.makeSolid();
 		}
-		// Returns whether all of the objects were made solid
-		return returnvalue;
 	}
 
 	@Override
-	public boolean makeUnsolid()
+	public void makeUnsolid()
 	{
-		boolean returnvalue = true;
 		// Tries to make all of the collidables solid
 		Iterator<Handled> iterator = getIterator();
 		
 		while (iterator.hasNext())
 		{
 			Collidable c = (Collidable) iterator.next();
-			
-			if (!c.makeUnsolid())
-				returnvalue = false;
+			c.makeUnsolid();
 		}
-		// Returns whether all of the objects were made solid
-		return returnvalue;
 	}
 	
 	@Override

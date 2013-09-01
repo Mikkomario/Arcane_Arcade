@@ -117,13 +117,13 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 	}
 	
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		// Also kills the spritedrawer
 		this.spritedrawer.kill();
 		this.spritedrawer = null;
 		
-		return super.kill();
+		super.kill();
 	}
 
 	@Override

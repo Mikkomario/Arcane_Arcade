@@ -151,12 +151,12 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 	}
 	
 	@Override
-	public boolean kill()
+	public void kill()
 	{
 		// Also kills the spritedrawer when dies
 		this.spritedrawer.kill();
 		
-		return super.kill();
+		super.kill();
 	}
 
 	@Override

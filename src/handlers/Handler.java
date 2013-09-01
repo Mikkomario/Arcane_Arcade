@@ -77,28 +77,19 @@ public abstract class Handler implements Handled
 	}
 
 	@Override
-	public boolean kill()
+	public void kill()
 	{
-		// Tries to permanently inactivate all subhandleds. If all were successfully
-		// killed, this handldler is also killed in the process
-		boolean returnValue = true;
-		
+		// Tries to permanently inactivate all subhandleds. If all were 
+		// successfully killed, this handldler is also killed in the process
 		Iterator<Handled> iterator = getIterator();
 		
 		while (iterator.hasNext())
 		{
-			if (!iterator.next().kill())
-				returnValue = false;
+			iterator.next().kill();
 		}
 		
-		// Also erases the memory if all the handleds were killed
-		if (returnValue)
-			killWithoutKillingHandleds();
-		// Or just removes the dead handleds
-		else
-			removeDeadHandleds();
-		
-		return returnValue;
+		// Also erases the memory
+		killWithoutKillingHandleds();
 	}
 	
 	/**
