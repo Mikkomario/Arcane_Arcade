@@ -49,6 +49,7 @@ public class BackgroundStar extends DrawnObject implements RoomListener,
 		// Initializes attributes
 		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
 				"menu").getSprite("star"), animator);
+		this.spritedrawer.getAnimationListenerHandler().addAnimationListener(this);
 		this.spritedrawer.setAnimationDuration(duration);
 		
 		// Changes the scaling of the star

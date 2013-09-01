@@ -57,7 +57,7 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 		
 		// Changes the scaling and speed
 		setScale(scale, scale);
-		setMotion(240, scale * 20);
+		setMotion(240, scale * 15);
 		
 		// Adds the comet to the room
 		if (room != null)
@@ -147,7 +147,7 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 		
 		// In addition to normal acting, comets check if they should die
 		if (getY() > GameSettings.SCREENHEIGHT + getOriginY() * getYScale() || 
-				getX() < getWidth() * getXScale())
+				getX() < -getWidth() * getXScale())
 			kill();
 	}
 }

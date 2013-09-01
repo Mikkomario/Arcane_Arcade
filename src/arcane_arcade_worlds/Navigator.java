@@ -11,6 +11,7 @@ import handlers.KeyListenerHandler;
 import backgrounds.Background;
 import arcane_arcade_field.FieldObjectCreator;
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_menus.MainMenuObjectCreator;
 import worlds.Room;
 
 /**
@@ -59,7 +60,7 @@ public class Navigator
 		addSpriteBank("background");
 		
 		// Initializes the rooms
-		initializeMainMenu(drawer);
+		initializeMainMenu(drawer, actorhandler);
 		initializeField(drawer, actorhandler, keylistenerhandler);
 	}
 	
@@ -113,19 +114,25 @@ public class Navigator
 		mountainback.setDimensions(GameSettings.SCREENWIDTH, 
 				GameSettings.SCREENHEIGHT);
 		Room field = Room.createSimpleRoom(mountainback);
-		field.addOnject(new FieldObjectCreator(drawer, actorhandler, 
-				keyhandler));
+		// Creates the object creator
+		new FieldObjectCreator(drawer, actorhandler, 
+				keyhandler, field);
 		
 		this.rooms.put(GamePhase.FIELD, field);
 	}
 	
-	private void initializeMainMenu(DrawableHandler drawer)
+	private void initializeMainMenu(DrawableHandler drawer, 
+			ActorHandler actorhandler)
 	{
+		// Initializes mainmenu
 		Background spaceback = new Background(0, 0, drawer, null, 
-				getSpriteBank("background"), "mountains");
+				getSpriteBank("background"), "space");
 		spaceback.setDimensions(GameSettings.SCREENWIDTH, 
 				GameSettings.SCREENHEIGHT);
 		Room mainmenu = Room.createSimpleRoom(spaceback);
+		// Creates the object creator
+		new MainMenuObjectCreator(drawer, actorhandler, mainmenu);
+		
 		this.rooms.put(GamePhase.MAINMENU, mainmenu);
 	}
 	

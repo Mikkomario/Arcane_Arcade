@@ -41,9 +41,11 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 	 * actor about the act event
 	 * @param superkeyhandler The keylistenerhandler that will inform created 
 	 * objects about the key events
+	 * @param room The room where the objects are created into
 	 */
 	public FieldObjectCreator(DrawableHandler superdrawer, 
-			ActorHandler superactorhandler, KeyListenerHandler superkeyhandler)
+			ActorHandler superactorhandler, KeyListenerHandler superkeyhandler, 
+			Room room)
 	{
 		// Initializes attributes
 		this.drawer = new DrawableHandler(false, true, DepthConstants.NORMAL, 
@@ -51,6 +53,10 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 		this.actorhandler = new ActorHandler(false, superactorhandler);
 		this.keylistenerhandler = new KeyListenerHandler(false, superkeyhandler);
 		this.collisionhandler = new CollisionHandler(false, this.actorhandler);
+		
+		// Adds the object to the room
+		if (room != null)
+			room.addOnject(this);
 	}
 	
 	

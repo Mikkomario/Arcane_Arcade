@@ -65,9 +65,11 @@ public class MenuBackgroundEffectCreator extends GameObject implements Actor,
 				"comet").getOriginY();
 		this.active = true;
 		
-		// Adds the creator the room
+		// Adds the creator the room and actorhandler
 		if (room != null)
 			room.addOnject(this);
+		if (actorhandler != null)
+			actorhandler.addActor(this);
 	}
 	
 	
@@ -100,11 +102,11 @@ public class MenuBackgroundEffectCreator extends GameObject implements Actor,
 		
 		if (this.timetillnextcomet < 0)
 		{
-			this.timetillnextcomet = this.random.nextInt(100);
+			this.timetillnextcomet = this.random.nextInt(70);
 			
 			// Randomizes the starting position (along the screen border) and scale
 			int startposition = (int) (this.random.nextInt(GameSettings.SCREENWIDTH + 
-					GameSettings.SCREENHEIGHT) * 0.7);
+					GameSettings.SCREENHEIGHT) * 0.8);
 			double scale = 0.1 + this.random.nextDouble() * 0.9;
 			int x = 0;
 			int y = 0;
@@ -125,7 +127,7 @@ public class MenuBackgroundEffectCreator extends GameObject implements Actor,
 		}
 		if (this.timetillnextstar < 0)
 		{
-			this.timetillnextstar = this.random.nextInt(50);
+			this.timetillnextstar = this.random.nextInt(100);
 			int stars = 1 + this.random.nextInt(10);
 			
 			// Creates a random amount of stars to random positions with random 
@@ -135,7 +137,7 @@ public class MenuBackgroundEffectCreator extends GameObject implements Actor,
 				int x = this.random.nextInt(GameSettings.SCREENWIDTH);
 				int y = this.random.nextInt(GameSettings.SCREENHEIGHT);
 				double scale = 0.1 + this.random.nextDouble() * 0.9;
-				int duration = 40 + this.random.nextInt(20);
+				int duration = 60 + this.random.nextInt(40);
 				
 				new BackgroundStar(x, y, this.drawer, this.actorhandler, 
 						this.room, scale, duration);
