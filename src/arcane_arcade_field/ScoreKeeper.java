@@ -9,7 +9,7 @@ import worlds.Room;
 import listeners.RoomListener;
 
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_main.Main;
+import arcane_arcade_worlds.Navigator;
 
 import graphic.SpriteDrawer;
 import handleds.Actor;
@@ -62,8 +62,7 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 		
 		// Initializes attributes
 		this.spritedrawer = new SpriteDrawer(
-				Main.spritebanks.getOpenSpriteBank("hud").getSprite(
-				"score"), null);
+				Navigator.getSpriteBank("hud").getSprite("score"), null);
 		this.scoreleft = 0;
 		this.scoreright = 0;
 		this.maxscore = 25;

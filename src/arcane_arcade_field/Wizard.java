@@ -12,13 +12,13 @@ import listeners.RoomListener;
 
 import arcane_arcade_main.Buttons;
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_main.Main;
 import arcane_arcade_spelleffects.ExplosionEffect;
 import arcane_arcade_spelleffects.SpellEffect;
 import arcane_arcade_spelleffects.TeleportEffect;
 import arcane_arcade_spells.Spell;
 import arcane_arcade_status.Element;
 import arcane_arcade_status.WizardStatus;
+import arcane_arcade_worlds.Navigator;
 
 import graphic.MaskChecker;
 import graphic.SpriteDrawer;
@@ -150,13 +150,12 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.hp = this.maxhp;
 		this.invincibilitytime = 0;
 		this.invincibilitydelay = 60;
-		this.spritedrawer = new SpriteDrawer(
-				Main.spritebanks.getOpenSpriteBank("creatures").getSprite("redwizard"), 
-				actorhandler);
-		this.maskchecker = new MaskChecker(
-				Main.spritebanks.getOpenSpriteBank("creatures").getSprite("wizardmask"));
+		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+				"creatures").getSprite("redwizard"), actorhandler);
+		this.maskchecker = new MaskChecker(Navigator.getSpriteBank(
+				"creatures").getSprite("wizardmask"));
 		this.castdelaymeterdrawer = new SpriteDrawer(
-				Main.spritebanks.getOpenSpriteBank("field").getSprite(
+				Navigator.getSpriteBank("field").getSprite(
 				"regeneration"), actorhandler);
 		this.buttonmaps = buttonmaps;
 		// Initializes element list with two elements

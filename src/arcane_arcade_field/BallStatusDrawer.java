@@ -2,8 +2,8 @@ package arcane_arcade_field;
 
 import java.awt.Graphics2D;
 
-import arcane_arcade_main.Main;
 import arcane_arcade_status.BallStatus;
+import arcane_arcade_worlds.Navigator;
 
 import drawnobjects.DrawnObject;
 import graphic.SpriteDrawer;
@@ -88,7 +88,7 @@ public class BallStatusDrawer extends DrawableHandler
 			
 			// Initializes attributes
 			this.spritedrawer = new SpriteDrawer(
-					Main.spritebanks.getOpenSpriteBank(
+					Navigator.getSpriteBank(
 					"status").getSprite(statusspritename), 
 					BallStatusDrawer.this.animator);
 			this.status = status;

@@ -10,9 +10,9 @@ import listeners.RoomListener;
 
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
-import arcane_arcade_main.Main;
 import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
+import arcane_arcade_worlds.Navigator;
 
 import graphic.SpriteDrawer;
 import handleds.Collidable;
@@ -39,8 +39,6 @@ import drawnobjects.BasicPhysicDrawnObject;
 public abstract class SpellEffect extends BasicPhysicDrawnObject implements 
 		RoomListener
 {
-	// TODO: Add scale effect
-	
 	// ATTRIBUTES	------------------------------------------------------
 	
 	private SpriteDrawer spritedrawer;
@@ -104,9 +102,8 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.element2 = element2;
 		this.lifeleft = lifetime;
 		this.lifetime = lifetime;
-		this.spritedrawer = new SpriteDrawer(
-				Main.spritebanks.getOpenSpriteBank("spells").getSprite(spritename), 
-				actorhandler);
+		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+				"spells").getSprite(spritename), actorhandler);
 		this.fadesin = false;
 		this.fadesout = false;
 		this.sizeeffect = false;

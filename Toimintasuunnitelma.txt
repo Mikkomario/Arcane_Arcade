@@ -2,7 +2,7 @@ Arcane Arcade
 Toimintasuunnitelma
 
 Eteneminen:														Status
-	* Alpha														...
+	* Alpha		------------------------------------------------------------
 		- Prosessin tehokkuuden seuraaminen						DONE
 			* FpsAps testin lisäys								DONE
 			* FpsAps testin käyttöönotto						DONE
@@ -25,16 +25,16 @@ Eteneminen:														Status
 								paddingien kanssa
 						- Ei toimi useita kertoja putkeen
 							* Koska paddingia ei lasketa
-			* Roomin käyttö										...
+			* Roomin käyttö										DONE
 				- Backgrounding piirtäminen						DONE
 					* Backgroundien sijoittaminen				DONE
-				- Roomien luominen organisoidusti				...
-				- Roomissa tarvittavien spritebankkien 
+				- Roomien luominen organisoidusti				DONE
+				- Roomissa tarvittavien spritebankkien 			DONE
 				listaaminen ja uninitializettaminen 
 				tarvittaesa
-					* Samoin joidenkin pankkien (spells) 
+					* Samoin joidenkin pankkien (spells) 		DONE
 					alustus huoneen alussa
-					* Huom: backgroundeja ei oikein voi poistaa
+					* Huom: backgroundeja ei oikein voi poistaa	DONE
 			* Objektien luominen huoneen alkaessa				DONE
 				- Tarvitaan luotavat objektit					DONE
 				- Creator-objektin kanssa yhteensopivan 		Plääh
@@ -108,7 +108,7 @@ Eteneminen:														Status
 			* Ongelman ratkaiseminen							DONE
 			* Ratkaisun seurausten kartoittaminen ja 			...
 			korjaaminen
-	* Beta														...
+	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE
 			* Statusefektien piirtäminen (pallon ulkopuolella)	DONE
@@ -154,16 +154,21 @@ Eteneminen:														Status
 			* Loitsujen manankulutus							DONE
 		- Toinen pelaaja										DONE
 			* Eri näppäinten käyttäminen						DONE
-		- Menu
+		- Menu													...
 			* Main-menun ympäristön luominen
-			* Ympäristöjen vaihtaminen
-				- Muistin vapauttaminen välissä
-					* Tarpeettomiksi tulleiden pankkien 
+			* Ympäristöjen vaihtaminen							Testaamatta
+				- Muistin vapauttaminen välissä					Testaamatta
+					* Tarpeettomiksi tulleiden pankkien 		Testaamatta
 					tyhjentäminen
+				- Ainoastaan alustettujen pankkien jakaminen 	DONE
+				eteenpäin
 			* Nappulat ja valikot
 			* Tausta
 		- Voittovalikko
 			* Tiedon siirtäminen ympäristöjen välillä
+				- Settings -luokka ja sen phasekohtaiset 
+				alaluokat
+				- Settingsien eteenpäinviemisen implementtointi
 		- Muut tarvittavat valikot
 			* Hahmovalikko
 			* Loitsuvalikko
@@ -201,7 +206,7 @@ Eteneminen:														Status
 			* Resurssien järkevä käyttöönotto
 		- Loading screenin näyttäminen latauksien yhteydessä
 			* Oma päivitysthread?
-	* Gold
+	* Gold	---------------------------------------------------------------
 		- Erilaiset kentät
 			* Erilaiset haasteet ja objektit
 				- Nopeutus

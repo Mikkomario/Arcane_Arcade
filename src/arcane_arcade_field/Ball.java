@@ -9,10 +9,10 @@ import worlds.Room;
 import listeners.RoomListener;
 
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_main.Main;
 import arcane_arcade_spelleffects.SpellEffect;
 import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.WizardStatus;
+import arcane_arcade_worlds.Navigator;
 
 import graphic.SpriteDrawer;
 import handleds.Collidable;
@@ -82,7 +82,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 		this.muddy = 0;
 		this.charged = 0;
 		this.spritedrawer = new SpriteDrawer(
-				Main.spritebanks.getOpenSpriteBank("field").getSprite("ball"), 
+				Navigator.getSpriteBank("field").getSprite("ball"), 
 				actorhandler);
 		this.statusdrawer = new BallStatusDrawer(drawer, actorhandler, this);
 		this.statusdepletionrate = 0.15;

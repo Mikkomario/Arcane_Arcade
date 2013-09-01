@@ -9,6 +9,7 @@ import helpAndEnums.DepthConstants;
 
 import java.awt.BorderLayout;
 
+import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 
 import tests.FpsApsTest;
@@ -24,13 +25,6 @@ import video.GameWindow;
 public class Main
 {
 	// ATTRIBUTES	----------------------------------------------------
-	
-	/**
-	 * The openspritebankholder that holds all the spritebanks used in the 
-	 * game
-	 */
-	public static OpenSpriteBankHolder spritebanks = 
-			new OpenSpriteBankHolder(GameSettings.SPRITEDATALOCATION);
 	
 	private GameWindow window;
 	private GamePanel mainpanel;
@@ -75,10 +69,11 @@ public class Main
 		this.window.addMouseListener(this.mainmousehandler);
 		
 		this.navigator = new Navigator(this.maindrawer, this.mainactorhandler, 
-				this.mainkeyhandler);
+				this.mainkeyhandler, 
+				new OpenSpriteBankHolder(GameSettings.SPRITEDATALOCATION));
 		
 		// Starts the game by starting the field
-		this.navigator.startField();
+		this.navigator.startPhase(GamePhase.FIELD);
 	}
 	
 	

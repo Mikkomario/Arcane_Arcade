@@ -19,6 +19,7 @@ spellbook#images/menu/menu_spellbook.png#1#142#105
 spellbookmask#images/menu/menu_spellbook_mask.png#1#142#105
 tutorial#images/menu/menu_tutorial.png#1#131#152
 tutorialmask#images/menu/menu_tutorial_mask.png#1#131#152
+star#images/status/freeze_strip6.png#6#38#37
 
 &field
 ball#images/game/ball_strip8.png#8#65#76

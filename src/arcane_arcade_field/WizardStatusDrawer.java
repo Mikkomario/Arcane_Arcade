@@ -6,8 +6,8 @@ import handlers.DrawableHandler;
 
 import java.awt.Graphics2D;
 
-import arcane_arcade_main.Main;
 import arcane_arcade_status.WizardStatus;
+import arcane_arcade_worlds.Navigator;
 import drawnobjects.DrawnObject;
 
 /**
@@ -88,8 +88,7 @@ public class WizardStatusDrawer extends DrawableHandler
 			super(0, 0, 0, drawer);
 			
 			// Initializes attributes
-			this.spritedrawer = new SpriteDrawer(
-					Main.spritebanks.getOpenSpriteBank(
+			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
 					"status").getSprite(statusspritename), 
 					WizardStatusDrawer.this.animator);
 			this.status = status;

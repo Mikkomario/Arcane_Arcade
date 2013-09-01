@@ -8,7 +8,7 @@ import worlds.Room;
 
 import listeners.RoomListener;
 
-import arcane_arcade_main.Main;
+import arcane_arcade_worlds.Navigator;
 
 import graphic.SpriteDrawer;
 import handleds.Collidable;
@@ -84,7 +84,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 		this.minshootforce = 10;
 		this.maxshootforce = 15;
 		this.spritedrawer = new SpriteDrawer(
-				Main.spritebanks.getOpenSpriteBank("field").getSprite("server"), 
+				Navigator.getSpriteBank("field").getSprite("server"), 
 				actorhandler);
 		this.actorhandler = actorhandler;
 		this.collidablehandler = collidablehandler;

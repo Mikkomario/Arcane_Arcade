@@ -82,12 +82,12 @@ public abstract class AbstractBank
 	 */
 	protected BankObject getObject(String objectname)
 	{
-		// If the bank hasn't yet been initialized, initializes it
-		if (!this.initialized)
-		{
-			initialize();
-			this.initialized = true;
-		}
+		// Initializes the bank if it hasn't already
+		initializeBank();
+		
+		// Checks the parameter
+		if (objectname == null)
+			return null;
 		
 		// Tries to get the object from the map and return it
 		if (this.bank.containsKey(objectname))
@@ -142,6 +142,19 @@ public abstract class AbstractBank
 		// Clears the bank
 		this.bank.clear();
 		this.initialized = false;
+	}
+	
+	/**
+	 * Initializes the bank so it can be used immediately
+	 */
+	public void initializeBank()
+	{
+		// If the bank hasn't yet been initialized, initializes it
+		if (!this.initialized)
+		{
+			initialize();
+			this.initialized = true;
+		}
 	}
 	
 	/**
