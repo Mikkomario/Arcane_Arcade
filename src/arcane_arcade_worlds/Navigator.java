@@ -59,8 +59,8 @@ public class Navigator
 		addSpriteBank("background");
 		
 		// Initializes the rooms
+		initializeMainMenu(drawer);
 		initializeField(drawer, actorhandler, keylistenerhandler);
-		// TOOD: Add main menu initialization
 	}
 	
 	
@@ -112,13 +112,21 @@ public class Navigator
 				getSpriteBank("background"), "mountains");
 		mountainback.setDimensions(GameSettings.SCREENWIDTH, 
 				GameSettings.SCREENHEIGHT);
-		ArrayList<Background> mountainbacks = new ArrayList<Background>();
-		mountainbacks.add(mountainback);
-		Room field = new Room(mountainbacks);
+		Room field = Room.createSimpleRoom(mountainback);
 		field.addOnject(new FieldObjectCreator(drawer, actorhandler, 
 				keyhandler));
 		
 		this.rooms.put(GamePhase.FIELD, field);
+	}
+	
+	private void initializeMainMenu(DrawableHandler drawer)
+	{
+		Background spaceback = new Background(0, 0, drawer, null, 
+				getSpriteBank("background"), "mountains");
+		spaceback.setDimensions(GameSettings.SCREENWIDTH, 
+				GameSettings.SCREENHEIGHT);
+		Room mainmenu = Room.createSimpleRoom(spaceback);
+		this.rooms.put(GamePhase.MAINMENU, mainmenu);
 	}
 	
 	private void updatePhaseSpriteBanks(GamePhase newphase)

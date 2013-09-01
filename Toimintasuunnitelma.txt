@@ -155,7 +155,7 @@ Eteneminen:														Status
 		- Toinen pelaaja										DONE
 			* Eri näppäinten käyttäminen						DONE
 		- Menu													...
-			* Main-menun ympäristön luominen
+			* Main-menun ympäristön luominen					...
 			* Ympäristöjen vaihtaminen							Testaamatta
 				- Muistin vapauttaminen välissä					Testaamatta
 					* Tarpeettomiksi tulleiden pankkien 		Testaamatta
@@ -163,7 +163,10 @@ Eteneminen:														Status
 				- Ainoastaan alustettujen pankkien jakaminen 	DONE
 				eteenpäin
 			* Nappulat ja valikot
-			* Tausta
+			* Tausta											...
+				- Tähdet										Testaamatta
+				- Komeetat										Testaamatta
+				- Taustan luonti
 		- Voittovalikko
 			* Tiedon siirtäminen ympäristöjen välillä
 				- Settings -luokka ja sen phasekohtaiset 
@@ -185,6 +188,8 @@ Eteneminen:														Status
 			* WavSoundien äänenvoimakkuuden säädön stackkaus
 			* Tarvittavat resurssit								...
 			* Resurssien järkevä organisointi ja lukeminen		...
+				- SoundTrackien käyttö äänicomboissa
+					* Sountrackien luonti / päivitys
 			* Äänien lisäys
 		- Musiikki
 			* Tarvittavat resurssit
@@ -238,6 +243,11 @@ Eteneminen:														Status
 			* Itemien saaminen
 			* Itemien tallentaminen
 			* Itemien käyttö
+		- Käyttäjät ja tietojen pitäminen
+			* Käyttäjän luominen
+			* Käyttäjän lataaminen pelin alussa
+			* Käyttäjän statsien kirjanpito
+			* Käyttäjän statsien tallentaminen ja lataaminen
 		- Online multiplayer tai LAN
 			* Mahdollisuuksiin perehtyminen
 			* Informaation välitys

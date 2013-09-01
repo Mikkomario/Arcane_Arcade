@@ -119,6 +119,21 @@ public class Room extends Handler
 	
 	// OTHER METHODS	-------------------------------------------------
 	
+	
+	/**
+	 * Creates a room that has a single background in it
+	 *
+	 * @param background The background the room will have
+	 * @return A new room with the background
+	 */
+	public static Room createSimpleRoom(Background background)
+	{
+		ArrayList<Background> backs = new ArrayList<Background>();
+		backs.add(background);
+		
+		return new Room(backs);
+	}
+	
 	/**
 	 * Adds a new object to the room. If the object is an (active) roomlistener, 
 	 * it will be automatically informed about the events in the room.
