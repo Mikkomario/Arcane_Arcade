@@ -183,7 +183,7 @@ Eteneminen:														Status
 				- Asetusten tallentaminen
 				- Asetusten lukeminen pelin alussa
 			* Kenttävalikko
-			* Wikipedia
+			* SpellBook
 		- Äänet													...
 			* WavSoundien äänenvoimakkuuden säädön stackkaus
 			* Tarvittavat resurssit								...
@@ -194,12 +194,14 @@ Eteneminen:														Status
 		- Musiikki
 			* Tarvittavat resurssit
 			* Musiikkien järkevä organisointi ja lukeminen
+			* Musiikin äänenvoimakkuuden säädön mahdollisaminen
 		- Pelin pysäyttäminen
 			* Pausen toiminnallisuus
 			* Pausen piirtäminen
 			* Pausen ääni
 		- Uudet loitsut / Elementit
 			* Tarvittavat graafiset resurssit					...
+			* Useamman statusefektin laittaminen kerralla
 		- Tutorial
 			* Tarvittavat valikot
 			* Tarvittavan interaktion luonti
