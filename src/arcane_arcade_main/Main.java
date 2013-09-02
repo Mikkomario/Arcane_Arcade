@@ -69,7 +69,7 @@ public class Main
 		this.window.addMouseListener(this.mainmousehandler);
 		
 		this.navigator = new Navigator(this.maindrawer, this.mainactorhandler, 
-				this.mainkeyhandler, 
+				this.mainkeyhandler, this.mainmousehandler, 
 				new OpenSpriteBankHolder(GameSettings.SPRITEDATALOCATION));
 		
 		// Starts the game by starting the field

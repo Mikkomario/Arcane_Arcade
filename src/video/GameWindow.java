@@ -70,10 +70,9 @@ public class GameWindow extends JFrame
 	 */
 	public GameWindow(int width, int height, String title, boolean hastoolbar)
 	{
-		// TODO: Readd this
 		// Sets the decorations off if needed
-		//if (!hastoolbar)
-		//	setUndecorated(true);
+		if (!hastoolbar)
+			setUndecorated(true);
 		
 		// Initializes attributes
 		this.width = width;
@@ -134,7 +133,7 @@ public class GameWindow extends JFrame
 		this.gamepanel.setVisible(true);
 		this.gamepanel.setLayout(new BorderLayout());
 		add(this.gamepanel, BorderLayout.CENTER);
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
 	}
 	
 	

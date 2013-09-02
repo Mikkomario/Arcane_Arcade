@@ -23,8 +23,13 @@ Eteneminen:														Status
 							* Fillerpaneelit					DONE
 								- Hiiren toimiminen 			DONE
 								paddingien kanssa
+								- Paneelien värjääminen 
+								mustaksi
 						- Ei toimi useita kertoja putkeen
 							* Koska paddingia ei lasketa
+				- Ikkunan yläosan ottaminen huomioon
+					* Lisää ikkunan y-suuntaista kokoa 
+					kun yläosa on käytössä
 			* Roomin käyttö										DONE
 				- Backgrounding piirtäminen						DONE
 					* Backgroundien sijoittaminen				DONE
@@ -108,6 +113,13 @@ Eteneminen:														Status
 			* Ongelman ratkaiseminen							DONE
 			* Ratkaisun seurausten kartoittaminen ja 			...
 			korjaaminen
+		- Mouse Enter & Mouse Exitin korjaaminen ei-fullscreen 	...
+		modessa
+			* Ongelman syyn etsiminen							DONE
+				- Itse asiassa ei toimi jos ikkunaa siirtää		DONE 
+				(hiiren koordinaatit ei siis oo suhteessa 
+				ikkunaan)
+			* Ongelman korjaaminen
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE
@@ -167,6 +179,9 @@ Eteneminen:														Status
 				- Tähdet										DONE
 				- Komeetat										DONE
 				- Taustan luonti								DONE
+			* Kulmat											DONE
+				- Normikulmat									DONE
+				- Quit -kulma									DONE
 		- Voittovalikko
 			* Tiedon siirtäminen ympäristöjen välillä
 				- Settings -luokka ja sen phasekohtaiset 

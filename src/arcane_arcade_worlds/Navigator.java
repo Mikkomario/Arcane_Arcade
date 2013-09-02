@@ -8,6 +8,7 @@ import graphic.SpriteBank;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
+import handlers.MouseListenerHandler;
 import backgrounds.Background;
 import arcane_arcade_field.FieldObjectCreator;
 import arcane_arcade_main.GameSettings;
@@ -44,11 +45,14 @@ public class Navigator
 	 * in the rooms
 	 * @param keylistenerhandler The keylistenerhandler that will inform 
 	 * all keylisteners about the keypresses
+	 * @param mouselistenerhandler The mouselistenerhandler that will inform 
+	 * the game's objects about mouse events
 	 * @param spritebankholder The spritebankholder that holds the data of 
 	 * the spritebanks used in the game
 	 */
 	public Navigator(DrawableHandler drawer, ActorHandler actorhandler, 
 			KeyListenerHandler keylistenerhandler, 
+			MouseListenerHandler mouselistenerhandler,
 			OpenSpriteBankHolder spritebankholder)
 	{
 		// Initializes attributes
@@ -60,7 +64,7 @@ public class Navigator
 		addSpriteBank("background");
 		
 		// Initializes the rooms
-		initializeMainMenu(drawer, actorhandler);
+		initializeMainMenu(drawer, actorhandler, mouselistenerhandler);
 		initializeField(drawer, actorhandler, keylistenerhandler);
 	}
 	
@@ -122,7 +126,7 @@ public class Navigator
 	}
 	
 	private void initializeMainMenu(DrawableHandler drawer, 
-			ActorHandler actorhandler)
+			ActorHandler actorhandler, MouseListenerHandler mousehandler)
 	{
 		// Initializes mainmenu
 		Background spaceback = new Background(0, 0, drawer, null, 
@@ -131,7 +135,7 @@ public class Navigator
 				GameSettings.SCREENHEIGHT);
 		Room mainmenu = Room.createSimpleRoom(spaceback);
 		// Creates the object creator
-		new MainMenuObjectCreator(drawer, actorhandler, mainmenu);
+		new MainMenuObjectCreator(drawer, actorhandler, mainmenu, mousehandler);
 		
 		this.rooms.put(GamePhase.MAINMENU, mainmenu);
 	}
