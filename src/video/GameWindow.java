@@ -134,6 +134,7 @@ public class GameWindow extends JFrame
 		this.gamepanel.setVisible(true);
 		this.gamepanel.setLayout(new BorderLayout());
 		add(this.gamepanel, BorderLayout.CENTER);
+		setLocationRelativeTo(null);
 	}
 	
 	

@@ -117,4 +117,13 @@ public class MenuCorner extends DrawnObject implements RoomListener
 		if (this.spritedrawer != null)
 			this.spritedrawer.drawSprite(g2d, 0, 0);
 	}
+	
+	@Override
+	public void kill()
+	{
+		// Also kills the spritedrawer
+		this.spritedrawer.kill();
+		this.spritedrawer = null;
+		super.kill();
+	}
 }
