@@ -17,7 +17,26 @@ public enum GamePhase
 	/**
 	 * In the main menu, the user can access different phases of the game
 	 */
-	MAINMENU;
+	MAINMENU, 
+	/**
+	 * In tutorial menu the user chooses which tutorial they would like to 
+	 * go through
+	 */
+	TUTORIALMENU, 
+	/**
+	 * In battlesettingmenu the user chooses how they want to change the 
+	 * circumstances of the next battle
+	 */
+	BATTLESETTINGMENU, 
+	/**
+	 * In the element menu the user chooses which elements to use in the 
+	 * following battle
+	 */
+	ELEMENTMENU,
+	/**
+	 * In the victory screen the stats of the former battle are shown
+	 */
+	VICTORYSCREEN;
 	
 	
 	// METHODS	---------------------------------------------------------
@@ -38,7 +57,27 @@ public enum GamePhase
 			}
 			case MAINMENU:
 			{
-				String[] returned = {"menu", "background"};
+				String[] returned = {"menu"};
+				return returned;
+			}
+			case TUTORIALMENU:
+			{
+				String[] returned = {"menu"};
+				return returned;
+			}
+			case BATTLESETTINGMENU:
+			{
+				String[] returned = {"menu"};
+				return returned;
+			}
+			case ELEMENTMENU:
+			{
+				String[] returned = {"menu"};
+				return returned;
+			}
+			case VICTORYSCREEN:
+			{
+				String[] returned = {"menu"};
 				return returned;
 			}
 			default: return new String[0];
