@@ -135,7 +135,7 @@ public class Navigator
 				GameSettings.SCREENHEIGHT);
 		Room mainmenu = Room.createSimpleRoom(spaceback);
 		// Creates the object creator
-		new MainMenuObjectCreator(drawer, actorhandler, mainmenu, mousehandler);
+		new MainMenuObjectCreator(drawer, actorhandler, mainmenu, mousehandler, this);
 		
 		this.rooms.put(GamePhase.MAINMENU, mainmenu);
 	}
