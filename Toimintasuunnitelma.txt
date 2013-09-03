@@ -188,7 +188,7 @@ Eteneminen:														Status
 				alaluokat
 				- Settingsien eteenpäinviemisen implementtointi
 		- Muut tarvittavat valikot
-			* Hahmovalikko
+			* Hahmovalikko (Sitten kun on hahmoja)
 			* Loitsuvalikko
 				- Myös muut pikavalinnat
 					* Tarvittavat pisteet
@@ -196,8 +196,9 @@ Eteneminen:														Status
 					* tms.
 			* Optionssit
 				- Asetusten tallentaminen
+					* Filewriter
 				- Asetusten lukeminen pelin alussa
-			* Kenttävalikko
+			* Kenttävalikko (Sitten kun on kenttiä)
 			* SpellBook
 		- Äänet													...
 			* WavSoundien äänenvoimakkuuden säädön stackkaus
