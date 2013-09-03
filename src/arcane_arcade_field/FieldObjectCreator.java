@@ -2,6 +2,8 @@ package arcane_arcade_field;
 
 import arcane_arcade_main.ButtonMapRelay;
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_worlds.AreaSetting;
+import arcane_arcade_worlds.RoomObjectCreator;
 import handlers.ActorHandler;
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
@@ -10,7 +12,6 @@ import helpAndEnums.DepthConstants;
 import common.GameObject;
 
 import worlds.Room;
-import listeners.RoomListener;
 
 /**
  * Objectcreator creates all the objects in the field at the beginning of the 
@@ -20,7 +21,7 @@ import listeners.RoomListener;
  * @author Mikko Hilpinen.
  *         Created 27.8.2013.
  */
-public class FieldObjectCreator extends GameObject implements RoomListener
+public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
@@ -44,8 +45,7 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 	 * @param room The room where the objects are created into
 	 */
 	public FieldObjectCreator(DrawableHandler superdrawer, 
-			ActorHandler superactorhandler, KeyListenerHandler superkeyhandler, 
-			Room room)
+			ActorHandler superactorhandler, KeyListenerHandler superkeyhandler)
 	{
 		// Initializes attributes
 		this.drawer = new DrawableHandler(false, true, DepthConstants.NORMAL, 
@@ -53,10 +53,6 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 		this.actorhandler = new ActorHandler(false, superactorhandler);
 		this.keylistenerhandler = new KeyListenerHandler(false, superkeyhandler);
 		this.collisionhandler = new CollisionHandler(false, this.actorhandler);
-		
-		// Adds the object to the room
-		if (room != null)
-			room.addOnject(this);
 	}
 	
 	
@@ -65,6 +61,7 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 	@Override
 	public void onRoomStart(Room room)
 	{
+		// TODO: Use settings here!
 		// Creates the objects needed
 
 		// Creates the button maps
@@ -93,5 +90,12 @@ public class FieldObjectCreator extends GameObject implements RoomListener
 	public void onRoomEnd(Room room)
 	{
 		// Does nothing
+	}
+
+
+	@Override
+	public void setSettings(AreaSetting setting)
+	{
+		// TODO: Add setting updating
 	}
 }

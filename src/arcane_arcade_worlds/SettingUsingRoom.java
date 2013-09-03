@@ -2,6 +2,8 @@ package arcane_arcade_worlds;
 
 import java.util.ArrayList;
 
+import common.GameObject;
+
 import backgrounds.Background;
 
 import worlds.Room;
@@ -37,6 +39,10 @@ public class SettingUsingRoom extends Room
 		
 		// Initializes attributes
 		this.objectcreator = objectcreator;
+		// Adds the creator to the room
+		addRoomListener(this.objectcreator);
+		if (objectcreator instanceof GameObject)
+			addOnject((GameObject) this.objectcreator);
 	}
 	
 	

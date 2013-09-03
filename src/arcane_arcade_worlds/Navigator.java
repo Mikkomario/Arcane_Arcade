@@ -13,12 +13,10 @@ import backgrounds.Background;
 import arcane_arcade_field.FieldObjectCreator;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_menus.MainMenuObjectCreator;
-import worlds.Room;
 
 /**
  * Navigator is a class that handles the transition between different rooms 
- * and / or phases of the game. (Currently the class only creates the first 
- * and only room)
+ * and / or phases of the game.
  *
  * @author Mikko Hilpinen.
  *         Created 27.8.2013.
@@ -30,7 +28,7 @@ public class Navigator
 	private static HashMap<String, SpriteBank> activeSpriteBanks 
 			= new HashMap<String, SpriteBank>();
 	
-	private HashMap<GamePhase, Room> rooms;
+	private HashMap<GamePhase, SettingUsingRoom> rooms;
 	private OpenSpriteBankHolder spritebankholder;
 	private GamePhase activephase;
 	
@@ -56,7 +54,7 @@ public class Navigator
 			OpenSpriteBankHolder spritebankholder)
 	{
 		// Initializes attributes
-		this.rooms = new HashMap<GamePhase, Room>();
+		this.rooms = new HashMap<GamePhase, SettingUsingRoom>();
 		this.activephase = null;
 		this.spritebankholder = spritebankholder;
 		
@@ -117,10 +115,14 @@ public class Navigator
 				getSpriteBank("background"), "mountains");
 		mountainback.setDimensions(GameSettings.SCREENWIDTH, 
 				GameSettings.SCREENHEIGHT);
-		Room field = Room.createSimpleRoom(mountainback);
+		ArrayList<Background> mountainbacklist = new ArrayList<Background>();
+		mountainbacklist.add(mountainback);
+		
 		// Creates the object creator
-		new FieldObjectCreator(drawer, actorhandler, 
-				keyhandler, field);
+		FieldObjectCreator creator = new FieldObjectCreator(drawer, actorhandler, 
+				keyhandler);
+		
+		SettingUsingRoom field = new SettingUsingRoom(creator, mountainbacklist);
 		
 		this.rooms.put(GamePhase.FIELD, field);
 	}
@@ -133,9 +135,14 @@ public class Navigator
 				getSpriteBank("background"), "space");
 		spaceback.setDimensions(GameSettings.SCREENWIDTH, 
 				GameSettings.SCREENHEIGHT);
-		Room mainmenu = Room.createSimpleRoom(spaceback);
+		ArrayList<Background> spacebacklist = new ArrayList<Background>();
+		spacebacklist.add(spaceback);
+		
 		// Creates the object creator
-		new MainMenuObjectCreator(drawer, actorhandler, mainmenu, mousehandler);
+		MainMenuObjectCreator creator = 
+				new MainMenuObjectCreator(drawer, actorhandler, mousehandler);
+		
+		SettingUsingRoom mainmenu = new SettingUsingRoom(creator, spacebacklist);
 		
 		this.rooms.put(GamePhase.MAINMENU, mainmenu);
 	}

@@ -1,10 +1,11 @@
 package arcane_arcade_menus;
 
+import arcane_arcade_worlds.AreaSetting;
+import arcane_arcade_worlds.RoomObjectCreator;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import worlds.Room;
-import listeners.RoomListener;
 import common.GameObject;
 
 /**
@@ -14,7 +15,8 @@ import common.GameObject;
  * @author Mikko Hilpinen.
  *         Created 1.9.2013.
  */
-public class MainMenuObjectCreator extends GameObject implements RoomListener
+public class MainMenuObjectCreator extends GameObject implements 
+		RoomObjectCreator
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
@@ -37,17 +39,12 @@ public class MainMenuObjectCreator extends GameObject implements RoomListener
 	 * about mouse events
 	 */
 	public MainMenuObjectCreator(DrawableHandler drawer, 
-			ActorHandler actorhandler, Room room, 
-			MouseListenerHandler mousehandler)
+			ActorHandler actorhandler, MouseListenerHandler mousehandler)
 	{
 		// Initializes attributes
 		this.drawer = drawer;
 		this.actorhandler = actorhandler;
 		this.mouselistenerhandler = mousehandler;
-		
-		// Adds the object to the room
-		if (room != null)
-			room.addOnject(this);
 	}
 	
 	
@@ -67,5 +64,11 @@ public class MainMenuObjectCreator extends GameObject implements RoomListener
 	public void onRoomEnd(Room room)
 	{
 		// Does nothing
+	}
+
+	@Override
+	public void setSettings(AreaSetting setting)
+	{
+		// The main menu doesn't need any special settings
 	}
 }
