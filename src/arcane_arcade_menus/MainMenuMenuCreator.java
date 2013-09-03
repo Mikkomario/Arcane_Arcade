@@ -24,16 +24,36 @@ import helpAndEnums.DepthConstants;
  *
  */
 public class MainMenuMenuCreator {
+	
+	//CONSTRUCTOR---------------------------------------------------
+	/**
+	 * 
+	 * @param drawer
+	 * @param mousehandler
+	 * @param room
+	 * @param navigator
+	 */
+	public MainMenuMenuCreator(DrawableHandler drawer, 
+			MouseListenerHandler mousehandler, Room room, Navigator navigator)
+	{
+		//Let's create the four menuElements
+		new MainMenuElement(MainMenuElement.UP, drawer, mousehandler, room, navigator);
+		new MainMenuElement(MainMenuElement.RIGHT, drawer, mousehandler, room, navigator);
+		new MainMenuElement(MainMenuElement.DOWN, drawer, mousehandler, room, navigator);
+		new MainMenuElement(MainMenuElement.LEFT, drawer, mousehandler, room, navigator);
+		
+	}
 
 	
 	
-	/**
+	/**MainMenuElements are the four main buttons in the MainMenu-screen. The 
+	 * buttons take the user to another phase within the game and a new screen.
 	 * 
 	 * @author Unto Solala
 	 * 			Created 3.9.2013
 	 *
 	 */
-	private class MainMenuElements extends DrawnObject implements AdvancedMouseListener, RoomListener{
+	private class MainMenuElement extends DrawnObject implements AdvancedMouseListener, RoomListener{
 		
 		private static final int UP = 0;
 		private static final int RIGHT = 1;
@@ -48,7 +68,17 @@ public class MainMenuMenuCreator {
 		private Point startposition;
 		private Navigator navigator;
 		
-		public MainMenuElements(int direction, DrawableHandler drawer, 
+		/**Constructs one of the buttons in the MainMenu.
+		 * 
+		 * @param direction	Direction determines where the button is located.
+		 * There are four possible locations: UP, RIGHT, DOWN and LEFT.
+		 * @param drawer	The drawer that will draw the menu corner
+		 * @param mousehandler	The mouselistenerhandler that will inform the 
+		 * corner about mouse events
+		 * @param room	The room where the corner is created at
+		 * @param navigator	Navigator is needed for moving between the gamePhases
+		 */
+		public MainMenuElement(int direction, DrawableHandler drawer, 
 				MouseListenerHandler mousehandler, Room room, Navigator navigator) {
 			super(0, 0, DepthConstants.NORMAL, drawer);
 			//We need a couple of new variables for construction
@@ -209,6 +239,7 @@ public class MainMenuMenuCreator {
 		@Override
 		public void onMouseEnter(int mouseX, int mouseY)
 		{
+			//Moves the MenuElement slightly when the mouse enters
 			switch (this.direction) 
 			{
 				case UP: 
@@ -243,29 +274,8 @@ public class MainMenuMenuCreator {
 		@Override
 		public void onMouseExit(int mouseX, int mouseY)
 		{
-			switch (this.direction) 
-			{
-				case UP: 
-				{
-					
-					break;
-				}
-				case RIGHT: 
-				{
-					
-					break;
-				}
-				case DOWN: 
-				{
-					
-					break;
-				}
-				case LEFT: 
-				{
-					
-					break;
-				}
-			}
+			//Resets the position of the MenuElement
+			this.setPosition(this.startposition.getX(), this.startposition.getY());
 		}
 
 		@Override

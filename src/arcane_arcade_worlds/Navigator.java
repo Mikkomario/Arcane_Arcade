@@ -140,7 +140,7 @@ public class Navigator
 		
 		// Creates the object creator
 		MainMenuObjectCreator creator = 
-				new MainMenuObjectCreator(drawer, actorhandler, mousehandler);
+				new MainMenuObjectCreator(drawer, actorhandler, mousehandler, this);
 		
 		SettingUsingRoom mainmenu = new SettingUsingRoom(creator, spacebacklist);
 		

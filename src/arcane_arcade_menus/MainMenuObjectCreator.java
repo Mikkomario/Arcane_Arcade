@@ -2,6 +2,7 @@ package arcane_arcade_menus;
 
 import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.RoomObjectCreator;
+import arcane_arcade_worlds.Navigator;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
@@ -23,6 +24,7 @@ public class MainMenuObjectCreator extends GameObject implements
 	private DrawableHandler drawer;
 	private ActorHandler actorhandler;
 	private MouseListenerHandler mouselistenerhandler;
+	private Navigator navigator;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -37,14 +39,18 @@ public class MainMenuObjectCreator extends GameObject implements
 	 * @param room The room where the objects will be created
 	 * @param mousehandler The mouselistenerhandler that will inform the objects 
 	 * about mouse events
+	 * @param navigator The navigator that handles the transion between the 
+	 * gamephases
 	 */
 	public MainMenuObjectCreator(DrawableHandler drawer, 
-			ActorHandler actorhandler, MouseListenerHandler mousehandler)
+			ActorHandler actorhandler, MouseListenerHandler mousehandler, 
+			Navigator navigator)
 	{
 		// Initializes attributes
 		this.drawer = drawer;
 		this.actorhandler = actorhandler;
 		this.mouselistenerhandler = mousehandler;
+		this.navigator = navigator;
 	}
 	
 	
@@ -58,6 +64,8 @@ public class MainMenuObjectCreator extends GameObject implements
 		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
 		// Creates the menucorners
 		new MenuCornerCreator(this.drawer, this.mouselistenerhandler, room, false);
+		// Creates the MainMenuElements
+		new MainMenuMenuCreator(this.drawer, this.mouselistenerhandler, room, this.navigator);
 	}
 
 	@Override
