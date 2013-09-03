@@ -4,7 +4,7 @@ package arcane_arcade_worlds;
  * Gamephases represent the phases in a game like the menu screen or the 
  * actual game field
  *
- * @author Mikko Hilpinen.
+ * @author Mikko Hilpinen & Unto Solala
  *         Created 1.9.2013.
  */
 public enum GamePhase
@@ -23,6 +23,14 @@ public enum GamePhase
 	 * go through
 	 */
 	TUTORIALMENU, 
+	/**
+	 * In options menu the user can change the game options.
+	 */
+	OPTIONSMENU,
+	/**
+	 * In spellbook menu the user can view the various spells the game offers.
+	 */
+	SPELLBOOKMENU,
 	/**
 	 * In battlesettingmenu the user chooses how they want to change the 
 	 * circumstances of the next battle

@@ -19,7 +19,8 @@ import helpAndEnums.DepthConstants;
 
 /**
  * 
- * @author Unto
+ * @author Unto Solala
+ * 			Created 3.9.2013
  *
  */
 public class MainMenuMenuCreator {
@@ -28,7 +29,8 @@ public class MainMenuMenuCreator {
 	
 	/**
 	 * 
-	 * @author Unto
+	 * @author Unto Solala
+	 * 			Created 3.9.2013
 	 *
 	 */
 	private class MainMenuElements extends DrawnObject implements AdvancedMouseListener, RoomListener{
@@ -44,20 +46,23 @@ public class MainMenuMenuCreator {
 		private GamePhase gamephase;
 		private boolean active;
 		private Point startposition;
+		private Navigator navigator;
 		
 		public MainMenuElements(int direction, DrawableHandler drawer, 
-				MouseListenerHandler mousehandler, Room room) {
+				MouseListenerHandler mousehandler, Room room, Navigator navigator) {
 			super(0, 0, DepthConstants.NORMAL, drawer);
 			//We need a couple of new variables for construction
 			String spriteName = new String();
 			int x=GameSettings.SCREENWIDTH/2;
 			int y=GameSettings.SCREENHEIGHT/2;
-			switch (direction) {
+			switch (this.direction) 
+			{
 				case UP: 
 				{
 					spriteName = "play";
 					// Let's move the MenuElement up a bit
 					y = y - 50;
+					this.gamephase = GamePhase.BATTLESETTINGMENU;
 					break;
 				}
 				case RIGHT: 
@@ -65,6 +70,7 @@ public class MainMenuMenuCreator {
 					spriteName = "options";
 					// Let's move the MenuElement to the right a bit
 					x = x + 50;
+					this.gamephase = GamePhase.OPTIONSMENU;
 					break;
 				}
 				case DOWN: 
@@ -72,6 +78,7 @@ public class MainMenuMenuCreator {
 					spriteName = "spellbook";
 					// Let's move the MenuElement down a bit
 					y = y + 50;
+					this.gamephase = GamePhase.SPELLBOOKMENU;
 					break;
 				}
 				case LEFT: 
@@ -79,20 +86,21 @@ public class MainMenuMenuCreator {
 					spriteName = "tutorial";
 					// Let's move the MenuElement to the left a bit
 					x = x - 50;
+					this.gamephase = GamePhase.TUTORIALMENU;
 					break;
 				}
 			}
 			//Let's set the position for our MenuElement
 			this.setPosition(x, y);
 			this.startposition = new Point(x,y);
-			// Initializes attributes
+			// Let's initialize rest of the attributes
 			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
 					"menu").getSprite(spriteName), null);
 			this.spritedrawer.inactivate();
 			this.maskchecker = new MaskChecker(Navigator.getSpriteBank(
 					"menu").getSprite(spriteName+"mask"));
 			this.active = true;
-			
+			this.navigator = navigator;
 			// Adds the object to the handlers
 			if (mousehandler != null)
 				mousehandler.addMouseListener(this);
@@ -159,28 +167,8 @@ public class MainMenuMenuCreator {
 		@Override
 		public void onLeftPressed(int mouseX, int mouseY)
 		{
-		switch (this.direction) {
-			case UP: 
-			{
-				
-				break;
-			}
-			case RIGHT: 
-			{
-				
-				break;
-			}
-			case DOWN: 
-			{
-				
-				break;
-			}
-			case LEFT: 
-			{
-				
-				break;
-			}
-		}
+			//Starts the correct gamePhase
+			this.navigator.startPhase(this.gamephase);
 		}
 
 		@Override
@@ -221,8 +209,29 @@ public class MainMenuMenuCreator {
 		@Override
 		public void onMouseEnter(int mouseX, int mouseY)
 		{
-			// Changes sprite index
-			this.spritedrawer.setImageIndex(1);
+			switch (this.direction) 
+			{
+				case UP: 
+				{
+					this.setPosition(this.startposition.getX(), this.startposition.getY()-50);
+					break;
+				}
+				case RIGHT: 
+				{
+					this.setPosition(this.startposition.getX()+50, this.startposition.getY());
+					break;
+				}
+				case DOWN: 
+				{
+					this.setPosition(this.startposition.getX(), this.startposition.getY()+50);
+					break;
+				}
+				case LEFT: 
+				{
+					this.setPosition(this.startposition.getX()-50, this.startposition.getY());
+					break;
+				}
+			}
 		}
 
 		@Override
@@ -234,8 +243,29 @@ public class MainMenuMenuCreator {
 		@Override
 		public void onMouseExit(int mouseX, int mouseY)
 		{
-			// Changes sprite index
-			this.spritedrawer.setImageIndex(0);
+			switch (this.direction) 
+			{
+				case UP: 
+				{
+					
+					break;
+				}
+				case RIGHT: 
+				{
+					
+					break;
+				}
+				case DOWN: 
+				{
+					
+					break;
+				}
+				case LEFT: 
+				{
+					
+					break;
+				}
+			}
 		}
 
 		@Override
