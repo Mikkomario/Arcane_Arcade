@@ -166,15 +166,15 @@ Eteneminen:														Status
 			* Loitsujen manankulutus							DONE
 		- Toinen pelaaja										DONE
 			* Eri näppäinten käyttäminen						DONE
-		- Menu													...
-			* Main-menun ympäristön luominen					...
+		- Menu													Testaamatta
+			* Main-menun ympäristön luominen					Testaamatta
 			* Ympäristöjen vaihtaminen							Testaamatta
 				- Muistin vapauttaminen välissä					Testaamatta
 					* Tarpeettomiksi tulleiden pankkien 		Testaamatta
 					tyhjentäminen
 				- Ainoastaan alustettujen pankkien jakaminen 	DONE
 				eteenpäin
-			* Nappulat ja valikot
+			* Nappulat ja valikot								DONE
 			* Tausta											DONE
 				- Tähdet										DONE
 				- Komeetat										DONE
@@ -183,10 +183,10 @@ Eteneminen:														Status
 				- Normikulmat									DONE
 				- Quit -kulma									DONE
 		- Voittovalikko
-			* Tiedon siirtäminen ympäristöjen välillä
-				- Settings -luokka ja sen phasekohtaiset 
+			* Tiedon siirtäminen ympäristöjen välillä			...
+				- Settings -luokka ja sen phasekohtaiset 		...
 				alaluokat
-				- Settingsien eteenpäinviemisen implementtointi
+				- Settingsien eteenpäinviemisen implementtointi	...
 		- Muut tarvittavat valikot
 			* Hahmovalikko (Sitten kun on hahmoja)
 			* Loitsuvalikko
