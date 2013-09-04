@@ -17,7 +17,8 @@ import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.DepthConstants;
 
-/**
+/**MainMenuMenuCreator creates the main buttons and the emblem in the center
+ * of the MainMenu.
  * 
  * @author Unto Solala
  * 			Created 3.9.2013
@@ -26,12 +27,13 @@ import helpAndEnums.DepthConstants;
 public class MainMenuMenuCreator {
 	
 	//CONSTRUCTOR---------------------------------------------------
-	/**
+	/**Constructs and places the buttons to the center of the MainMenu.
 	 * 
-	 * @param drawer
-	 * @param mousehandler
-	 * @param room
-	 * @param navigator
+	 * @param drawer	The drawer that will draw the menu corner
+	 * @param mousehandler	The mouselistenerhandler that will inform the 
+	 * corner about mouse events
+	 * @param room	The room where the corner is created at
+	 * @param navigator	Navigator is needed for moving between the gamePhases
 	 */
 	public MainMenuMenuCreator(DrawableHandler drawer, 
 			MouseListenerHandler mousehandler, Room room, Navigator navigator)
@@ -41,6 +43,8 @@ public class MainMenuMenuCreator {
 		new MainMenuElement(MainMenuElement.RIGHT, drawer, mousehandler, room, navigator);
 		new MainMenuElement(MainMenuElement.DOWN, drawer, mousehandler, room, navigator);
 		new MainMenuElement(MainMenuElement.LEFT, drawer, mousehandler, room, navigator);
+		
+		new MainMenuCenterPiece(drawer);
 		
 	}
 
@@ -92,7 +96,7 @@ public class MainMenuMenuCreator {
 				{
 					spriteName = "play";
 					// Let's move the MenuElement up a bit
-					y = y - 50;
+					y = y - 140;
 					this.gamephase = GamePhase.BATTLESETTINGMENU;
 					break;
 				}
@@ -100,7 +104,7 @@ public class MainMenuMenuCreator {
 				{
 					spriteName = "options";
 					// Let's move the MenuElement to the right a bit
-					x = x + 50;
+					x = x + 146;
 					this.gamephase = GamePhase.OPTIONSMENU;
 					break;
 				}
@@ -108,7 +112,7 @@ public class MainMenuMenuCreator {
 				{
 					spriteName = "spellbook";
 					// Let's move the MenuElement down a bit
-					y = y + 50;
+					y = y + 145;
 					this.gamephase = GamePhase.SPELLBOOKMENU;
 					break;
 				}
@@ -116,7 +120,7 @@ public class MainMenuMenuCreator {
 				{
 					spriteName = "tutorial";
 					// Let's move the MenuElement to the left a bit
-					x = x - 50;
+					x = x - 152;
 					this.gamephase = GamePhase.TUTORIALMENU;
 					break;
 				}
@@ -245,22 +249,22 @@ public class MainMenuMenuCreator {
 			{
 				case UP: 
 				{
-					this.setPosition(this.startposition.getX(), this.startposition.getY()-50);
+					this.setPosition(this.startposition.getX(), this.startposition.getY()-15);
 					break;
 				}
 				case RIGHT: 
 				{
-					this.setPosition(this.startposition.getX()+50, this.startposition.getY());
+					this.setPosition(this.startposition.getX()+15, this.startposition.getY());
 					break;
 				}
 				case DOWN: 
 				{
-					this.setPosition(this.startposition.getX(), this.startposition.getY()+50);
+					this.setPosition(this.startposition.getX(), this.startposition.getY()+15);
 					break;
 				}
 				case LEFT: 
 				{
-					this.setPosition(this.startposition.getX()-50, this.startposition.getY());
+					this.setPosition(this.startposition.getX()-15, this.startposition.getY());
 					break;
 				}
 			}
@@ -307,5 +311,55 @@ public class MainMenuMenuCreator {
 			this.maskchecker = null;
 			super.kill();
 		}
+	}
+	
+	/**MainMenuCenterPiece is the emblem in the center of the main menu.
+	 * 
+	 * @author Unto Solala
+	 *			Created 4.9.2013
+	 */
+	private class MainMenuCenterPiece extends DrawnObject{
+		
+		//ATTRIBUTES------------------------------------------------------
+		private SpriteDrawer spritedrawer;
+		
+		
+		//CONSTRUCTOR------------------------------------------------------
+		/**Draws the center emblem to the MainMenu.
+		 * 
+		 * @param drawer	The drawer that will draw the menu corner
+		 */
+		public MainMenuCenterPiece(DrawableHandler drawer) {
+			super(GameSettings.SCREENWIDTH/2, GameSettings.SCREENHEIGHT/2, 
+					DepthConstants.FOREGROUND, drawer);
+			
+			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+					"menu").getSprite("center"), null);
+			this.spritedrawer.inactivate();
+		}
+
+		// IMPLEMENTENTED METHODS ------------------------------------------
+
+		@Override
+		public int getOriginX() {
+			if (this.spritedrawer == null)
+				return 0;
+			return this.spritedrawer.getSprite().getOriginX();
+		}
+
+		@Override
+		public int getOriginY() {
+			if (this.spritedrawer == null)
+				return 0;
+			return this.spritedrawer.getSprite().getOriginY();
+		}
+
+		@Override
+		public void drawSelfBasic(Graphics2D g2d) {
+			// Draws the sprite
+			if (this.spritedrawer != null)
+				this.spritedrawer.drawSprite(g2d, 0, 0);
+		}
+
 	}
 }
