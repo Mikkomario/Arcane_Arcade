@@ -9,6 +9,7 @@ import helpAndEnums.DepthConstants;
 
 import java.awt.BorderLayout;
 
+import arcane_arcade_worlds.FieldSetting;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.VictorySetting;
@@ -20,7 +21,7 @@ import video.GameWindow;
 /**
  * Main class starts the game
  *
- * @author Mikko Hilpinen.
+ * @author Mikko Hilpinen & Unto Solala.
  *         Created 26.8.2013.
  */
 public class Main
@@ -75,8 +76,9 @@ public class Main
 		
 		// Starts the game by starting the field
 		//this.navigator.startPhase(GamePhase.MAINMENU, null);
-		VictorySetting setting = new VictorySetting(7,5);
-		this.navigator.startPhase(GamePhase.VICTORYSCREEN, setting);
+		//VictorySetting victorysetting = new VictorySetting(7,5);
+		//this.navigator.startPhase(GamePhase.VICTORYSCREEN, victorysetting);
+		this.navigator.startPhase(GamePhase.BATTLESETTINGMENU, null);
 	}
 	
 	

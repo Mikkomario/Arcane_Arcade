@@ -10,16 +10,16 @@ import arcane_arcade_status.Element;
  * and other stats.
  * 
  *
- * @author Mikko Hilpinen.
+ * @author Mikko Hilpinen & Unto Solala.
  *         Created 4.9.2013.
  */
 public class FieldSetting implements AreaSetting
 {
 	// ATTRIBUTES	----------------------------------------------------
 	
-	private int ballnumber, victorypoints;
+	private int ballnumber, victorypoints, maximumElementNumber;
 	private double spelldelaymodifier, manaregenerationmodifier;
-	private ArrayList<Element> usedelements1, usedelements2;
+	private ArrayList<Element> usedelementsleft, usedelementsright;
 	
 	
 	// CONSTRUCTOR	----------------------------------------------------
@@ -40,15 +40,17 @@ public class FieldSetting implements AreaSetting
 	public FieldSetting(int ballnumber, int victorypoints, 
 			double spelldelaymodifier, double manaregenerationmodifier, 
 			ArrayList<Element> leftsideelements, 
-			ArrayList<Element> rightsideelements)
+			ArrayList<Element> rightsideelements,
+			int maximumElementNumber)
 	{
 		// Initializes attributes
 		this.ballnumber = ballnumber;
 		this.victorypoints = victorypoints;
 		this.spelldelaymodifier = spelldelaymodifier;
 		this.manaregenerationmodifier = manaregenerationmodifier;
-		this.usedelements1 = leftsideelements;
-		this.usedelements2 = rightsideelements;
+		this.usedelementsleft = leftsideelements;
+		this.usedelementsright = rightsideelements;
+		this.maximumElementNumber = maximumElementNumber;
 	}
 	
 	
@@ -98,9 +100,40 @@ public class FieldSetting implements AreaSetting
 	{
 		switch (side)
 		{
-			case LEFT: return this.usedelements1;
-			case RIGHT: return this.usedelements2;
+			case LEFT: return this.usedelementsleft;
+			case RIGHT: return this.usedelementsright;
 			default: return null;
+		}
+	}
+	
+	/**
+	 * @return The maximum number of magical elements in the field.
+	 */
+	public int getMaximumElementNumber()
+	{
+		return this.maximumElementNumber;
+	}
+	
+	/**
+	 * Adds the given element to the given side.
+	 * 
+	 * @param element	The element that will be added to the wizard's arsenal.
+	 * @param side	Which wizard gets the new element added, LEFT or RIGHT?
+	 */
+	public void addElementOnSide(Element element, ScreenSide side)
+	{
+		switch (side)
+		{
+			case LEFT: 
+			{
+				this.usedelementsleft.add(element);
+				break;
+			}
+			case RIGHT: 
+			{
+				this.usedelementsright.add(element);
+				break;
+			}
 		}
 	}
 }
