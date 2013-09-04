@@ -55,6 +55,7 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 		this.actorhandler = new ActorHandler(false, superactorhandler);
 		this.keylistenerhandler = new KeyListenerHandler(false, superkeyhandler);
 		this.collisionhandler = new CollisionHandler(false, this.actorhandler);
+		this.currentsetting = null;
 	}
 	
 	

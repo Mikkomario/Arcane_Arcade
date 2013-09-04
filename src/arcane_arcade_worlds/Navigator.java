@@ -13,12 +13,13 @@ import backgrounds.Background;
 import arcane_arcade_field.FieldObjectCreator;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_menus.MainMenuObjectCreator;
+import arcane_arcade_menus.VictoryScreenCreator;
 
 /**
  * Navigator is a class that handles the transition between different rooms 
  * and / or phases of the game.
  *
- * @author Mikko Hilpinen.
+ * @author Mikko Hilpinen & Unto Solala
  *         Created 27.8.2013.
  */
 public class Navigator
@@ -64,6 +65,7 @@ public class Navigator
 		// Initializes the rooms
 		initializeMainMenu(drawer, actorhandler, mouselistenerhandler);
 		initializeField(drawer, actorhandler, keylistenerhandler);
+		initializeVictoryScreen(drawer, actorhandler, mouselistenerhandler);
 	}
 	
 	
@@ -147,6 +149,25 @@ public class Navigator
 		SettingUsingRoom mainmenu = new SettingUsingRoom(creator, spacebacklist);
 		
 		this.rooms.put(GamePhase.MAINMENU, mainmenu);
+	}
+	
+	private void initializeVictoryScreen(DrawableHandler drawer,
+			ActorHandler actorhandler, MouseListenerHandler mousehandler) {
+		// Initializes mainmenu
+		Background spaceback = new Background(0, 0, drawer, null,
+				getSpriteBank("background"), "space");
+		spaceback.setDimensions(GameSettings.SCREENWIDTH,
+				GameSettings.SCREENHEIGHT);
+		ArrayList<Background> spacebacklist = new ArrayList<Background>();
+		spacebacklist.add(spaceback);
+		
+		// Creates the object creator
+		VictoryScreenCreator creator = new VictoryScreenCreator(drawer,
+				actorhandler, mousehandler, this);
+		
+		SettingUsingRoom victoryscreen = new SettingUsingRoom(creator, spacebacklist);
+		
+		this.rooms.put(GamePhase.VICTORYSCREEN, victoryscreen);
 	}
 	
 	private void updatePhaseSpriteBanks(GamePhase newphase)

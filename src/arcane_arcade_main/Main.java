@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
+import arcane_arcade_worlds.VictorySetting;
 
 import tests.FpsApsTest;
 import video.GamePanel;
@@ -73,7 +74,9 @@ public class Main
 				new OpenSpriteBankHolder(GameSettings.SPRITEDATALOCATION));
 		
 		// Starts the game by starting the field
-		this.navigator.startPhase(GamePhase.MAINMENU, null);
+		//this.navigator.startPhase(GamePhase.MAINMENU, null);
+		VictorySetting setting = new VictorySetting(7,5);
+		this.navigator.startPhase(GamePhase.VICTORYSCREEN, setting);
 	}
 	
 	
