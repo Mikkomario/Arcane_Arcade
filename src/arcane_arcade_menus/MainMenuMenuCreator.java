@@ -84,6 +84,7 @@ public class MainMenuMenuCreator {
 			//We need a couple of new variables for construction
 			String spriteName = new String();
 			int x=GameSettings.SCREENWIDTH/2;
+			this.direction = direction;
 			int y=GameSettings.SCREENHEIGHT/2;
 			switch (this.direction) 
 			{
