@@ -182,11 +182,15 @@ Eteneminen:														Status
 			* Kulmat											DONE
 				- Normikulmat									DONE
 				- Quit -kulma									DONE
-		- Voittovalikko
-			* Tiedon siirtäminen ympäristöjen välillä			...
-				- Settings -luokka ja sen phasekohtaiset 		...
+		- Perus nappula
+			* Nappulan muuttuminen kun hiiri menee päälle
+			* Nappulan funktion piirtäminen kun hiiri päällä
+		- Voittovalikko											...
+			* Tiedon siirtäminen ympäristöjen välillä			Testaamatta
+				- Settings -luokka ja sen phasekohtaiset 		Testaamatta
 				alaluokat
-				- Settingsien eteenpäinviemisen implementtointi	...
+				- Settingsien eteenpäinviemisen implementtointi	Testaamatta
+			* Tarvittavat graafiset resurssit					...
 		- Muut tarvittavat valikot
 			* Hahmovalikko (Sitten kun on hahmoja)
 			* Loitsuvalikko
