@@ -13,7 +13,6 @@ import drawnobjects.DrawnObject;
 
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;
-import arcane_arcade_worlds.FieldSetting;
 import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.RoomObjectCreator;
 import arcane_arcade_worlds.VictorySetting;

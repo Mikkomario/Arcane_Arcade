@@ -1,7 +1,5 @@
 package arcane_arcade_field;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 
 import worlds.Room;
@@ -33,8 +31,8 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 	private int scoreleft;
 	private int scoreright;
 	private int maxscore;
-	private Font scorefont;
-	private Color scorecolor;
+	//private Font scorefont;
+	//private Color scorecolor;
 	private Server server;
 	private WizardRelay wizardrelay;
 	private int respawntime;
@@ -71,8 +69,6 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 		this.server = server;
 		this.respawntime = 100;
 		this.respawntimeleft = 0;
-		this.scorefont = new Font("Old English Text MT", Font.BOLD, 40);
-		this.scorecolor = new Color(235, 232, 168);
 		this.active = false;
 		
 		// Adds the object to the room (if possible)
@@ -111,8 +107,8 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 		// Draws the sprite
 		this.spritedrawer.drawSprite(g2d, 0, 0);
 		// Also draws the score
-		g2d.setFont(this.scorefont);
-		g2d.setColor(this.scorecolor);
+		g2d.setFont(GameSettings.BASICFONT);
+		g2d.setColor(GameSettings.WHITETEXTCOLOR);
 		g2d.drawString(this.scoreleft + "", 35, 40);
 		g2d.drawString(this.scoreright + "", 130, 40);
 	}

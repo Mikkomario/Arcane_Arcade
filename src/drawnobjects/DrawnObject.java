@@ -342,6 +342,16 @@ public abstract class DrawnObject extends GameObject implements Drawable
 			this.alpha = alpha;
 	}
 	
+	/**
+	 * Changes the object's alpha value relative to the former value
+	 *
+	 * @param adjustment How much the alpha value is adjusted
+	 */
+	public void adjustAlpha(float adjustment)
+	{
+		setAlpha(getAlpha() + adjustment);
+	}
+	
 	
 	// OTHER METHODS	---------------------------------------------------
 	

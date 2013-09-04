@@ -2,17 +2,20 @@ package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
 
+import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.Navigator;
 
 import worlds.Room;
 
 import graphic.SpriteDrawer;
+import handleds.Actor;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
 import drawnobjects.DimensionalDrawnObject;
+import drawnobjects.DrawnObject;
 import listeners.AdvancedMouseListener;
 import listeners.RoomListener;
 
@@ -28,7 +31,7 @@ public abstract class MenuButton extends DimensionalDrawnObject implements
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private SpriteDrawer spritedrawer;
-	private boolean active;
+	private boolean active, mouseon;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -60,12 +63,16 @@ public abstract class MenuButton extends DimensionalDrawnObject implements
 		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
 				"menu").getSprite("button"), null);
 		this.active = true;
+		this.mouseon = false;
 		
 		// Sets the radius
 		setRadius(this.spritedrawer.getSprite().getOriginX());
 		
+		// Creates the textdrawer
+		new ButtonTextDrawer((int) getX() - getOriginX(), (int) getY() - 
+				getOriginY() - 50, drawer, actorhandler, message);
+		
 		// Adds the object to the handlers
-		// TODO: Add the textdrawer to the actorhandler
 		if (mouselistenerhandler != null)
 			mouselistenerhandler.addMouseListener(this);
 		if (room != null)
@@ -108,7 +115,6 @@ public abstract class MenuButton extends DimensionalDrawnObject implements
 		// Also kills the spritedrawer
 		this.spritedrawer.kill();
 		this.spritedrawer = null;
-		// TODO: Kill the textdrawer as well (if needed)
 		super.kill();
 	}
 
@@ -166,6 +172,7 @@ public abstract class MenuButton extends DimensionalDrawnObject implements
 	{
 		// Changes image index
 		this.spritedrawer.setImageIndex(1);
+		this.mouseon = true;
 	}
 
 	@Override
@@ -179,6 +186,7 @@ public abstract class MenuButton extends DimensionalDrawnObject implements
 	{
 		// Changes image index back
 		this.spritedrawer.setImageIndex(0);
+		this.mouseon = false;
 	}
 
 	@Override
@@ -242,5 +250,109 @@ public abstract class MenuButton extends DimensionalDrawnObject implements
 	{
 		// Dies
 		kill();
+	}
+	
+	
+	// The buttontextdrawer draws a text over the button when the mouse is 
+	// over it
+	private class ButtonTextDrawer extends DrawnObject implements Actor
+	{
+		// ATTRIBUTES	-------------------------------------------------
+		
+		private String message;
+		
+		
+		// CONSTRUCTOR	-------------------------------------------------
+		
+		/**
+		 * Creates a new textdrawer to the given position added to the given 
+		 * handlers showing the given message
+		 *
+		 * @param x The x-coordinate of the text
+		 * @param y The y-coordinate of the text
+		 * @param drawer The drawer that will draw the text
+		 * @param actorhandler The actorhandler that will inform the object 
+		 * about step events
+		 * @param text The text the drawer will draw
+		 */
+		public ButtonTextDrawer(int x, int y, DrawableHandler drawer, 
+				ActorHandler actorhandler, String text)
+		{
+			super(x, y, DepthConstants.FOREGROUND, drawer);
+			
+			// Initializes attributes
+			this.message = text;
+			
+			// Adds the object to the handler
+			if (actorhandler != null)
+				actorhandler.addActor(this);
+		}
+
+		@Override
+		public int getOriginX()
+		{
+			return 0;
+		}
+
+		@Override
+		public int getOriginY()
+		{
+			return 0;
+		}
+
+		@Override
+		public void drawSelfBasic(Graphics2D g2d)
+		{
+			// Draws the text with the basic font and white colour
+			g2d.setFont(GameSettings.BASICFONT);
+			g2d.setColor(GameSettings.WHITETEXTCOLOR);
+			g2d.drawString(this.message, 0, 0);
+		}
+
+		@Override
+		public boolean isActive()
+		{
+			return MenuButton.this.isActive();
+		}
+
+		@Override
+		public void activate()
+		{
+			// Can't be activated through the textdrawer
+		}
+
+		@Override
+		public void inactivate()
+		{
+			// Can't bedeactivated through the textdrawer
+		}
+
+		@Override
+		public void act()
+		{
+			// Adjusts the alpha value of the text
+			if (MenuButton.this.mouseon)
+			{
+				if (getAlpha() < 1)
+					adjustAlpha(0.1f);
+			}
+			else
+			{
+				if (getAlpha() > 0)
+					adjustAlpha(-0.1f);
+			}
+		}
+		
+		@Override
+		public boolean isVisible()
+		{
+			return MenuButton.this.isVisible() && getAlpha() > 0;
+		}
+		
+		@Override
+		public boolean isDead()
+		{
+			return MenuButton.this.isDead();
+		}
 	}
 }

@@ -1,5 +1,8 @@
 package arcane_arcade_main;
 
+import java.awt.Color;
+import java.awt.Font;
+
 /**
  * Gamesettings provides information about the current settings of the game.
  *
@@ -30,4 +33,13 @@ public class GameSettings
 	 * How fast the wizards should normally regenerate mana
 	 */
 	public final static double DEFAULTMANAREGENERATIONRATE = 0.14;
+	/**
+	 * The basic font used in the game
+	 */
+	public final static Font BASICFONT = new Font("Old English Text MT", 
+			Font.BOLD, 40);
+	/**
+	 * The basic white colour used in the basic texts of the game
+	 */
+	public final static Color WHITETEXTCOLOR = new Color(235, 232, 168);
 }
