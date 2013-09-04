@@ -238,6 +238,8 @@ Eteneminen:														Status
 				- Seinät
 				- Eri koot
 				- Kts. Dokumentti jossain
+		- Useamman pallon asettaminen peliin
+			* Serverrelay usean serverin ylläpitämiseen
 		- Näppäinten remappaaminen optionsseissa
 		- Erilaiset maagit
 			* Vaikutus peliin

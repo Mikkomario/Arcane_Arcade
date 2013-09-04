@@ -71,19 +71,21 @@ public class Navigator
 	
 	/**
 	 * Stops the current phase and starts a new one.
+	 * 
 	 * @param phase The new gamephase that will start
+	 * @param setting The setting(s) used in the new phase
 	 */
-	public void startPhase(GamePhase phase)
+	public void startPhase(GamePhase phase, AreaSetting setting)
 	{
-		// TODO: Add setting passing (like the winner of the round) between 
-		// the phases
-		
 		// Ends the currently active room
 		if (this.activephase != null)
 			this.rooms.get(this.activephase).end();
 		
 		// Updates the loaded resources
 		updatePhaseSpriteBanks(phase);
+		
+		// Updates the settings
+		this.rooms.get(phase).setSettings(setting);
 		
 		// Starts the room of the given phase
 		this.rooms.get(phase).start();

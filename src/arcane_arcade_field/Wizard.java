@@ -56,6 +56,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private int teleportdelay;
 	private int teleportdistance;
 	private double manaregeneration;
+	private double castdelaymodifier;
 	
 	private Room room;
 	private DrawableHandler drawer;
@@ -113,12 +114,19 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 * in the field. That information will be forwarded to the casted spells.
 	 * @param screenside Which side of the room the wizard is created at
 	 * @param buttonmaps The buttons used to control the wizard
+	 * @param usedelements Which elements the wizard uses in their spells
+	 * @param manaregenerationmodifier How fast the wizard regenerates mana 
+	 * (default 1)
+	 * @param castdelaymodifier How fast / slow the wizard casts spells 
+	 * (default 1) 
 	 */
 	public Wizard(DrawableHandler drawer, CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, ActorHandler actorhandler, 
 			KeyListenerHandler keylistenerhandler, Room room, 
 			ScoreKeeper scorekeeper, BallRelay ballrelay, ScreenSide screenside, 
-			HashMap<Buttons, Character> buttonmaps)
+			HashMap<Buttons, Character> buttonmaps, 
+			ArrayList<Element> usedelements, double manaregenerationmodifier, 
+			double castdelaymodifier)
 	{
 		super(70, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
 				true, CollisionType.CIRCLE, drawer, collidablehandler,
@@ -142,10 +150,12 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.elementindex1 = 0;
 		this.elementindex2 = 0;
 		this.castdelay = 0;
+		this.castdelaymodifier = castdelaymodifier;
 		this.lastcastdelay = 0;
 		this.mana = 100;
 		this.manabeforecasting = 100;
-		this.manaregeneration = GameSettings.DEFAULTMANAREGENERATIONRATE;
+		this.manaregeneration = GameSettings.DEFAULTMANAREGENERATIONRATE * 
+				manaregenerationmodifier;
 		this.maxhp = 3;
 		this.hp = this.maxhp;
 		this.invincibilitytime = 0;
@@ -160,9 +170,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.buttonmaps = buttonmaps;
 		// Initializes element list with two elements
 		// TODO: Add elements
-		this.elements = new ArrayList<Element>();
-		this.elements.add(Element.FIRE);
-		this.elements.add(Element.WATER);
+		this.elements = usedelements;
 		
 		// Initializes current spell
 		this.currentspell = this.elements.get(this.elementindex1).getSpell(
@@ -461,6 +469,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 */
 	public void setCastDelay(int castdelay)
 	{
+		// Modifies the castdelay
+		castdelay *= this.castdelaymodifier;
+		
 		// Remembers the castdelay for calculations
 		this.lastcastdelay = castdelay;
 		this.castdelay = castdelay;

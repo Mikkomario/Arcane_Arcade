@@ -17,12 +17,12 @@ import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.DepthConstants;
 
-/**MainMenuMenuCreator creates the main buttons and the emblem in the center
+/**
+ * MainMenuMenuCreator creates the main buttons and the emblem in the center
  * of the MainMenu.
  * 
  * @author Unto Solala
  * 			Created 3.9.2013
- *
  */
 public class MainMenuMenuCreator {
 	
@@ -203,7 +203,7 @@ public class MainMenuMenuCreator {
 		public void onLeftPressed(int mouseX, int mouseY)
 		{
 			//Starts the correct gamePhase
-			this.navigator.startPhase(this.gamephase);
+			this.navigator.startPhase(this.gamephase, null);
 		}
 
 		@Override

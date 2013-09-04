@@ -73,7 +73,7 @@ public class Main
 				new OpenSpriteBankHolder(GameSettings.SPRITEDATALOCATION));
 		
 		// Starts the game by starting the field
-		this.navigator.startPhase(GamePhase.MAINMENU);
+		this.navigator.startPhase(GamePhase.MAINMENU, null);
 	}
 	
 	

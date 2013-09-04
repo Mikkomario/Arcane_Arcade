@@ -3,6 +3,7 @@ package arcane_arcade_field;
 import arcane_arcade_main.ButtonMapRelay;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;
+import arcane_arcade_worlds.FieldSetting;
 import arcane_arcade_worlds.RoomObjectCreator;
 import handlers.ActorHandler;
 import handlers.CollisionHandler;
@@ -29,6 +30,7 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 	private ActorHandler actorhandler;
 	private KeyListenerHandler keylistenerhandler;
 	private CollisionHandler collisionhandler;
+	private FieldSetting currentsetting;
 	
 	
 	// CONSTRCUTOR	-----------------------------------------------------
@@ -77,13 +79,17 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 				this.collisionhandler, room, ballrelay, wizardrelay);
 		// Creates the scorekeeper
 		ScoreKeeper scorekeeper = new ScoreKeeper(this.drawer, 
-				this.actorhandler, room, server, wizardrelay);
+				this.actorhandler, room, server, wizardrelay, 
+				this.currentsetting.getVictoryPoints());
 		// Creates wizard(s)
 		wizardrelay.addWizard(new Wizard(this.drawer, 
 				this.collisionhandler.getCollidableHandler(), 
 				this.collisionhandler, this.actorhandler, 
 				this.keylistenerhandler, room, scorekeeper, ballrelay, 
-				ScreenSide.LEFT, buttonrelay.getLeftWizardButtons()));
+				ScreenSide.LEFT, buttonrelay.getLeftWizardButtons(), 
+				this.currentsetting.getElementsOnSide(ScreenSide.LEFT), 
+				this.currentsetting.getManaRegenerationModifier(), 
+				this.currentsetting.getSpellDelayModifier()));
 	}
 
 	@Override
@@ -92,10 +98,14 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 		// Does nothing
 	}
 
-
 	@Override
 	public void setSettings(AreaSetting setting)
 	{
-		// TODO: Add setting updating
+		// Checks that the setting is the right type
+		if (setting instanceof FieldSetting)
+			this.currentsetting = (FieldSetting) setting;
+		else
+			System.err.println("FieldObjectCreator requires an " +
+					"FieldSetting -setting and will not function otherwise!");
 	}
 }

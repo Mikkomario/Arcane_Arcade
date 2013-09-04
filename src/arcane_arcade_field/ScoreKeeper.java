@@ -54,9 +54,10 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 	 * @param server The server that serves the ball after each score
 	 * @param wizardrelay The wizards who need to be respawned after each 
 	 * score
+	 * @param maxscore How many points are needed to win the game
 	 */
 	public ScoreKeeper(DrawableHandler drawer, ActorHandler actorhandler, 
-			Room room, Server server, WizardRelay wizardrelay)
+			Room room, Server server, WizardRelay wizardrelay, int maxscore)
 	{
 		super(GameSettings.SCREENWIDTH / 2, 20, DepthConstants.HUD, drawer);
 		
@@ -65,7 +66,7 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 				Navigator.getSpriteBank("hud").getSprite("score"), null);
 		this.scoreleft = 0;
 		this.scoreright = 0;
-		this.maxscore = 25;
+		this.maxscore = maxscore;
 		this.wizardrelay = wizardrelay;
 		this.server = server;
 		this.respawntime = 100;
