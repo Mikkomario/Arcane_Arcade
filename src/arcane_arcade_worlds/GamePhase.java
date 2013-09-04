@@ -73,6 +73,16 @@ public enum GamePhase
 				String[] returned = {"menu"};
 				return returned;
 			}
+			case OPTIONSMENU:
+			{
+				String[] returned = {"menu"};
+				return returned;
+			}
+			case SPELLBOOKMENU:
+			{
+				String[] returned = {"menu"};
+				return returned;
+			}
 			case BATTLESETTINGMENU:
 			{
 				String[] returned = {"menu"};
