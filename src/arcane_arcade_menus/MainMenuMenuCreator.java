@@ -17,7 +17,8 @@ import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.DepthConstants;
 
-/**
+/**MainMenuMenuCreator creates the main buttons and the emblem in the center
+ * of the MainMenu.
  * 
  * @author Unto Solala
  * 			Created 3.9.2013
@@ -26,12 +27,13 @@ import helpAndEnums.DepthConstants;
 public class MainMenuMenuCreator {
 	
 	//CONSTRUCTOR---------------------------------------------------
-	/**
+	/**Constructs and places the buttons to the center of the MainMenu.
 	 * 
-	 * @param drawer
-	 * @param mousehandler
-	 * @param room
-	 * @param navigator
+	 * @param drawer	The drawer that will draw the menu corner
+	 * @param mousehandler	The mouselistenerhandler that will inform the 
+	 * corner about mouse events
+	 * @param room	The room where the corner is created at
+	 * @param navigator	Navigator is needed for moving between the gamePhases
 	 */
 	public MainMenuMenuCreator(DrawableHandler drawer, 
 			MouseListenerHandler mousehandler, Room room, Navigator navigator)
