@@ -12,8 +12,9 @@ import handlers.MouseListenerHandler;
 import backgrounds.Background;
 import arcane_arcade_field.FieldObjectCreator;
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_menus.BattleScreenObjectCreator;
 import arcane_arcade_menus.MainMenuObjectCreator;
-import arcane_arcade_menus.VictoryScreenCreator;
+import arcane_arcade_menus.VictoryScreenObjectCreator;
 
 /**
  * Navigator is a class that handles the transition between different rooms 
@@ -66,6 +67,7 @@ public class Navigator
 		initializeMainMenu(drawer, actorhandler, mouselistenerhandler);
 		initializeField(drawer, actorhandler, keylistenerhandler);
 		initializeVictoryScreen(drawer, actorhandler, mouselistenerhandler);
+		initializeBattleScreen(drawer, actorhandler, mouselistenerhandler);
 	}
 	
 	
@@ -162,12 +164,31 @@ public class Navigator
 		spacebacklist.add(spaceback);
 		
 		// Creates the object creator
-		VictoryScreenCreator creator = new VictoryScreenCreator(drawer,
+		VictoryScreenObjectCreator creator = new VictoryScreenObjectCreator(drawer,
 				actorhandler, mousehandler, this);
 		
 		SettingUsingRoom victoryscreen = new SettingUsingRoom(creator, spacebacklist);
 		
 		this.rooms.put(GamePhase.VICTORYSCREEN, victoryscreen);
+	}
+	
+	private void initializeBattleScreen(DrawableHandler drawer,
+			ActorHandler actorhandler, MouseListenerHandler mousehandler) {
+		// Initializes mainmenu
+		Background spaceback = new Background(0, 0, drawer, null,
+				getSpriteBank("background"), "space");
+		spaceback.setDimensions(GameSettings.SCREENWIDTH,
+				GameSettings.SCREENHEIGHT);
+		ArrayList<Background> spacebacklist = new ArrayList<Background>();
+		spacebacklist.add(spaceback);
+		
+		// Creates the object creator
+		BattleScreenObjectCreator creator = new BattleScreenObjectCreator(drawer,
+				actorhandler, mousehandler, this);
+		
+		SettingUsingRoom battlescreen = new SettingUsingRoom(creator, spacebacklist);
+		
+		this.rooms.put(GamePhase.BATTLESETTINGMENU, battlescreen);
 	}
 	
 	private void updatePhaseSpriteBanks(GamePhase newphase)
