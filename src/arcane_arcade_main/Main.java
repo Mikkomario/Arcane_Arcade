@@ -44,8 +44,7 @@ public class Main
 	public Main()
 	{
 		// Reads the options from a file
-		// TODO: Add options reading
-		//Options.saveSettings();
+		Options.loadSettings();
 		
 		// Initializes attributes
 		this.mainpanel = new GamePanel(GameSettings.SCREENWIDTH, 

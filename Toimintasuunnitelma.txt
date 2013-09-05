@@ -217,7 +217,7 @@ Eteneminen:														Status
 					* Fullscreen p‰‰ll‰							...
 				- Asetusten tallentaminen						DONE
 					* Filewriter								DONE
-				- Asetusten lukeminen pelin alussa
+				- Asetusten lukeminen pelin alussa				DONE
 			* Kentt‰valikko (Sitten kun on kentti‰)
 			* SpellBook
 				- Ohjeresurssien rakenteen m‰‰ritt‰minen

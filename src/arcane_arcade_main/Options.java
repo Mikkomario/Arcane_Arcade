@@ -3,6 +3,7 @@ package arcane_arcade_main;
 import java.util.HashMap;
 
 import common.AbstractFileWriter;
+import common.FileReader;
 
 /**
  * Options class loads the chosen settings at the start of the game, provides 
@@ -18,11 +19,13 @@ public class Options
 	/**
 	 * The button mappings the wizard on the left side of the screen uses
 	 */
-	public static HashMap<Buttons, Character> leftwizardbuttons = null;
+	public static HashMap<Buttons, Character> leftwizardbuttons = 
+			new HashMap<Buttons, Character>();
 	/**
 	 * The button mappings the wizard on the right side of the screen uses
 	 */
-	public static HashMap<Buttons, Character> rightwizardbuttons = null;
+	public static HashMap<Buttons, Character> rightwizardbuttons = 
+			new HashMap<Buttons, Character>();
 	/**
 	 * How many desibels each sound effect's volume should be adjusted from 
 	 * the default value
@@ -51,9 +54,19 @@ public class Options
 		saver.saveSettings();
 	}
 	
+	/**
+	 * Loads the used settings from a text file t the default location
+	 */
+	public static void loadSettings()
+	{
+		OptionsReader reader = new Options().new OptionsReader();
+		reader.loadSettings();
+	}
+	
 	
 	// SUBCLASSES	------------------------------------------------------
 	
+	// Optionssaver saves the current settings into the save file
 	private class OptionsSaver extends AbstractFileWriter
 	{
 		// ATTRIBUTES	--------------------------------------------------
@@ -99,7 +112,7 @@ public class Options
 					return buttonstring;
 				}
 				case 3: return "\n* These are the button mappings for the " +
-						"right side playe.\nbuttons2";
+						"right side playe.\n&buttons2";
 				case 4:
 				{
 					// Collects all the left buttons
@@ -132,6 +145,139 @@ public class Options
 			
 			// Saves settings
 			saveIntoFile(GameSettings.OPTIONSDATALOCATION);
+		}
+	}
+	
+	// Optionsreader updates the settings by reading them from a file
+	private class OptionsReader extends FileReader
+	{
+		// ATTRIBUTES	-------------------------------------------------
+		
+		/*
+		 * The loadphase goes as follows
+		 * 0 = Find next phase
+		 * 1 = Reads left wizard buttons
+		 * 2 = Reads right wizard buttons
+		 * 3 = Reads sound volume
+		 * 4 = Reads music volume
+		 * 5 = Reads the full screen effect
+		 */
+		private int loadphase = 0;
+		
+		
+		// IMPLEMENTED METHODS	-----------------------------------------
+		
+		@Override
+		protected void onLine(String line)
+		{
+			// Skips the comments (start with *)
+			if (line.startsWith("*"))
+				return;
+			
+			//System.out.println(line);
+			
+			// If the line starts with &, changes the loadphase
+			if (line.startsWith("&"))
+			{
+				String phaseline = line.substring(1);
+				switch (phaseline)
+				{
+					case "buttons1": this.loadphase = 1; break;
+					case "buttons2": this.loadphase = 2; break;
+					case "soundvolume": this.loadphase = 3; break;
+					case "musicvolume": this.loadphase = 4; break;
+					case "fullscreen": this.loadphase = 5; break;
+					default: System.err.println("An unknown command in the " +
+							"usersettings file!"); break;
+				}
+			}
+			// Otherwise tries to update different data according to the 
+			// loadphase
+			else
+			{
+				switch (this.loadphase)
+				{
+					// Tries to read a button mapping for the left side
+					case 1:
+					{
+						String[] parts = line.split("#");
+						// Reads the button part
+						Buttons button = readAsButton(parts[0]);
+						// Reads the character part
+						char key = parts[1].charAt(0);
+						// Adds the new mapping to the button mappings
+						//System.out.println("Button: " + button + ", key: " + key);
+						leftwizardbuttons.put(button, key);
+						break;
+					}
+					// Tries to read a button mapping for the right side
+					case 2:
+					{
+						String[] parts = line.split("#");
+						Buttons button = readAsButton(parts[0]);
+						char key = parts[1].charAt(0);
+						// Adds the new mapping to the button mappings
+						rightwizardbuttons.put(button, key);
+						break;
+					}
+					// Changes the sound volume
+					case 3: soundvolumeadjustment = readAsInt(line); break;
+					// Changes the music volume
+					case 4: musicvolumeadjustment = readAsInt(line); break;
+					// Changes the full screen modifier
+					case 5: fullscreenon = line.equals("true"); break;
+					default: System.err.println("The options reader doesn't " +
+							"know what to do to the line " + line);
+				}
+			}
+		}
+		
+		
+		// OTHER METHODS	---------------------------------------------
+		
+		private void loadSettings()
+		{
+			this.loadphase = 0;
+			readFile(GameSettings.OPTIONSDATALOCATION);
+		}
+		
+		private int readAsInt(String intstring)
+		{
+			int value = 0;
+			
+			try
+			{
+				value = Integer.parseInt(intstring);
+			}
+			catch (NumberFormatException nfe)
+			{
+				System.err.println("The options couldn't be read from a " +
+						"save file since " + intstring + " is not an integer!");
+				nfe.printStackTrace();
+			}
+			
+			return value;
+		}
+		
+		private Buttons readAsButton(String buttonstring)
+		{
+			Buttons button = null;
+			for (Buttons b: Buttons.values())
+			{
+				if (b.toString().equals(buttonstring))
+				{
+					button = b;
+					break;
+				}
+			}
+			
+			// Prints an error message if the button was not found
+			if (button == null)
+				System.err.println("There's an invalid button mapping in " +
+						"the user settings. " + buttonstring + 
+						" is not a button!");
+			
+			return button;
 		}
 	}
 }
