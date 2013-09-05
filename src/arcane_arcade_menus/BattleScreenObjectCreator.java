@@ -7,7 +7,6 @@ import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import worlds.Room;
 import arcane_arcade_worlds.AreaSetting;
-import arcane_arcade_worlds.FieldSetting;
 import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.RoomObjectCreator;
 
@@ -62,7 +61,6 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
 		new MenuCornerCreator(this.drawer, this.mousehandler, room,
 				true);
-
 	}
 
 	@Override
@@ -74,5 +72,4 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 	public void setSettings(AreaSetting setting) {
 		// Does nothing
 	}
-
 }

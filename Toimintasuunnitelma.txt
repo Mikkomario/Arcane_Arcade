@@ -42,7 +42,7 @@ Eteneminen:														Status
 					* Huom: backgroundeja ei oikein voi poistaa	DONE
 			* Objektien luominen huoneen alkaessa				DONE
 				- Tarvitaan luotavat objektit					DONE
-				- Creator-objektin kanssa yhteensopivan 		Plääh
+				- Creator-objektin kanssa yhteensopivan 		DONE
 				huoneen luominen
 			* Pelin aloittaminen								DONE
 		- Maagi													DONE
@@ -105,21 +105,21 @@ Eteneminen:														Status
 			* Pelinopeuskorjauksen laskeminen					DONE
 			* Pelinopeuskorjauksen käyttöönotto					Plääh
 				- act -metodin muokkaus							Plääh
-		- Piirtosyvyyden korjaaminen							...
+		- Piirtosyvyyden korjaaminen							DONE
 			* Ongelma: Piirtosyvyys vaihtelee jaksollisesti, 	DONE
 			mutta on säännöllisesti väärä 
 			(mutta toimii 1/2 aikaa oikein)
-			* Ongelman syyn etsiminen							...
+			* Ongelman syyn etsiminen							Plääh
 			* Ongelman ratkaiseminen							DONE
-			* Ratkaisun seurausten kartoittaminen ja 			...
+			* Ratkaisun seurausten kartoittaminen ja 			Plääh :)
 			korjaaminen
-		- Mouse Enter & Mouse Exitin korjaaminen ei-fullscreen 	...
+		- Mouse Enter & Mouse Exitin korjaaminen ei-fullscreen 	DONE
 		modessa
 			* Ongelman syyn etsiminen							DONE
 				- Itse asiassa ei toimi jos ikkunaa siirtää		DONE 
 				(hiiren koordinaatit ei siis oo suhteessa 
 				ikkunaan)
-			* Ongelman korjaaminen
+			* Ongelman korjaaminen								DONE
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE
@@ -191,16 +191,16 @@ Eteneminen:														Status
 				alaluokat
 				- Settingsien eteenpäinviemisen implementtointi	Testaamatta
 			* Tarvittavat graafiset resurssit					...
-		- Muut tarvittavat valikot
+		- Muut tarvittavat valikot								...
 			* Hahmovalikko (Sitten kun on hahmoja)
 			* Loitsuvalikko
-				- Myös muut pikavalinnat
-					* Tarvittavat pisteet
-					* Manaregeneraatio
-					* tms.
-			* Optionssit
-				- Asetusten tallentaminen
-					* Filewriter
+				- Myös muut pikavalinnat						...
+					* Tarvittavat pisteet						...
+					* Manaregeneraatio							...
+					* tms.										...
+			* Optionssit										...
+				- Asetusten tallentaminen						...
+					* Filewriter								Testaamatta
 				- Asetusten lukeminen pelin alussa
 			* Kenttävalikko (Sitten kun on kenttiä)
 			* SpellBook
@@ -217,6 +217,7 @@ Eteneminen:														Status
 			* Musiikin äänenvoimakkuuden säädön mahdollisaminen
 		- Pelin pysäyttäminen
 			* Pausen toiminnallisuus
+				- Omat handlerit fieldille
 			* Pausen piirtäminen
 			* Pausen ääni
 		- Uudet loitsut / Elementit
@@ -242,9 +243,14 @@ Eteneminen:														Status
 				- Seinät
 				- Eri koot
 				- Kts. Dokumentti jossain
-		- Useamman pallon asettaminen peliin
+		- Useamman pallon asettaminen peliin					...
 			* Serverrelay usean serverin ylläpitämiseen
-		- Näppäinten remappaaminen optionsseissa
+		- Näppäinten remappaaminen optionsseissa				...
+			* Remappauksen mahdollistaminen tietorakenteen		... 
+			puolesta
+			* Käyttäjän syötteen lukeminen ja sen pohjalta 
+			kartan tekeminen
+			* Näppäinten tallentaminen
 		- Erilaiset maagit
 			* Vaikutus peliin
 				- Attribuuttimuunnoksia
@@ -253,6 +259,8 @@ Eteneminen:														Status
 			* Järkevä arkkitehtuuri vaaditaan, jotta maagien 	...
 			lisäys olisi helppoa
 		- Title screen
+			* Alkunäyte?
+				- Videoiden näyttäminen
 		- Vaihtoehtoiset tavat ohjata maagia
 			* Hiiri
 			* Erilaiset elementtivalinnat

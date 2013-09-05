@@ -9,10 +9,8 @@ import helpAndEnums.DepthConstants;
 
 import java.awt.BorderLayout;
 
-import arcane_arcade_worlds.FieldSetting;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
-import arcane_arcade_worlds.VictorySetting;
 
 import tests.FpsApsTest;
 import video.GamePanel;

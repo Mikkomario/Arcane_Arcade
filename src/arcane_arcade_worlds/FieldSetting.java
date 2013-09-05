@@ -1,7 +1,5 @@
 package arcane_arcade_worlds;
 
-import java.util.ArrayList;
-
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_status.Element;
 
@@ -19,7 +17,8 @@ public class FieldSetting implements AreaSetting
 	
 	private int ballnumber, victorypoints, maximumElementNumber;
 	private double spelldelaymodifier, manaregenerationmodifier;
-	private ArrayList<Element> usedelementsleft, usedelementsright;
+	private Element[] usedelementsleft, usedelementsright;
+	private int currentleftelementnumber, currentrightelementnumber;
 	
 	
 	// CONSTRUCTOR	----------------------------------------------------
@@ -36,21 +35,22 @@ public class FieldSetting implements AreaSetting
 	 * in the match
 	 * @param leftsideelements What elements does the player on the left use
 	 * @param rightsideelements What elements does the player on the right use
+	 * @param elementnumber How many elements the wizards have
 	 */
 	public FieldSetting(int ballnumber, int victorypoints, 
-			double spelldelaymodifier, double manaregenerationmodifier, 
-			ArrayList<Element> leftsideelements, 
-			ArrayList<Element> rightsideelements,
-			int maximumElementNumber)
+			double spelldelaymodifier, double manaregenerationmodifier,
+			int elementnumber)
 	{
 		// Initializes attributes
 		this.ballnumber = ballnumber;
 		this.victorypoints = victorypoints;
 		this.spelldelaymodifier = spelldelaymodifier;
 		this.manaregenerationmodifier = manaregenerationmodifier;
-		this.usedelementsleft = leftsideelements;
-		this.usedelementsright = rightsideelements;
-		this.maximumElementNumber = maximumElementNumber;
+		this.usedelementsleft = new Element[elementnumber];
+		this.usedelementsright = new Element[elementnumber];
+		this.maximumElementNumber = elementnumber;
+		this.currentleftelementnumber = 0;
+		this.currentrightelementnumber = 0;
 	}
 	
 	
@@ -96,7 +96,7 @@ public class FieldSetting implements AreaSetting
 	 * @param side Which side's wizard's elements are asked for
 	 * @return The elements used on the given screenside
 	 */
-	public ArrayList<Element> getElementsOnSide(ScreenSide side)
+	public Element[] getElementsOnSide(ScreenSide side)
 	{
 		switch (side)
 		{
@@ -126,14 +126,66 @@ public class FieldSetting implements AreaSetting
 		{
 			case LEFT: 
 			{
-				this.usedelementsleft.add(element);
+				// Only adds an element if there's room left
+				if (this.currentleftelementnumber < this.usedelementsleft.length)
+				{
+					this.usedelementsleft[this.currentleftelementnumber] = element;
+					this.currentleftelementnumber ++;
+				}
 				break;
 			}
 			case RIGHT: 
 			{
-				this.usedelementsright.add(element);
+				// Only adds an element if there's room left
+				if (this.currentrightelementnumber < this.usedelementsright.length)
+				{
+					this.usedelementsright[this.currentrightelementnumber] = element;
+					this.currentrightelementnumber ++;
+				}
 				break;
 			}
 		}
+	}
+	
+	/**
+	 * Removes the last added element from one side of the screen
+	 *
+	 * @param side The side from which an element is removed
+	 */
+	public void removeLastElementFromSide(ScreenSide side)
+	{
+		switch (side)
+		{
+			case LEFT:
+			{
+				// Checks if there's anything to remove
+				if (this.currentleftelementnumber == 0)
+					return;
+				// Removes the element and remembers the new amount of elements
+				this.currentleftelementnumber --;
+				this.usedelementsleft[this.currentleftelementnumber] = null;
+				break;
+			}
+			case RIGHT:
+			{
+				// Checks if there's anything to remove
+				if (this.currentrightelementnumber == 0)
+					return;
+				// Removes the element and remembers the new amount of elements
+				this.currentrightelementnumber --;
+				this.usedelementsright[this.currentrightelementnumber] = null;
+				break;
+			}
+		}
+	}
+	
+	/**
+	 * @return Are the elements ready to be used in the field. This method 
+	 * should be checked before the using of these settings in the field
+	 */
+	public boolean elementsAreReady()
+	{
+		return (this.currentleftelementnumber == this.usedelementsleft.length 
+				&& this.currentrightelementnumber == this.usedelementsright.length);
 	}
 }

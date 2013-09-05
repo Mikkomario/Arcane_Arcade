@@ -69,7 +69,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private SpriteDrawer spritedrawer;
 	private SpriteDrawer castdelaymeterdrawer;
 	private MaskChecker maskchecker;
-	private ArrayList<Element> elements;
+	private Element[] elements;
 	private int elementindex1;
 	private int elementindex2;
 	private int castdelay;
@@ -124,9 +124,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			CollisionHandler collisionhandler, ActorHandler actorhandler, 
 			KeyListenerHandler keylistenerhandler, Room room, 
 			ScoreKeeper scorekeeper, BallRelay ballrelay, ScreenSide screenside, 
-			HashMap<Buttons, Character> buttonmaps, 
-			ArrayList<Element> usedelements, double manaregenerationmodifier, 
-			double castdelaymodifier)
+			HashMap<Buttons, Character> buttonmaps, Element[] usedelements, 
+			double manaregenerationmodifier, double castdelaymodifier)
 	{
 		super(70, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
 				true, CollisionType.CIRCLE, drawer, collidablehandler,
@@ -173,8 +172,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.elements = usedelements;
 		
 		// Initializes current spell
-		this.currentspell = this.elements.get(this.elementindex1).getSpell(
-				this.elements.get(this.elementindex2));
+		this.currentspell = this.elements[this.elementindex1].getSpell(
+				this.elements[this.elementindex2]);
 		
 		// Initializes status effects
 		this.statusses = new HashMap<WizardStatus, Double>();
@@ -764,10 +763,10 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 */
 	protected Element getElement(int index)
 	{
-		if (index < 0 || index >= this.elements.size())
+		if (index < 0 || index >= this.elements.length)
 			return Element.NOELEMENT;
 		
-		return this.elements.get(index);
+		return this.elements[index];
 	}
 	
 	/**
@@ -794,7 +793,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 */
 	protected int getNextElementIndex(int index)
 	{
-		if (index >= this.elements.size() - 1)
+		if (index >= this.elements.length - 1)
 			return 0;
 		else
 			return index + 1;
@@ -809,7 +808,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	protected int getPreviousElementIndex(int index)
 	{
 		if (index <= 0)
-			return this.elements.size() - 1;
+			return this.elements.length - 1;
 		else
 			return index - 1;
 	}
@@ -850,8 +849,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		}
 		
 		// Updates the current spell
-		this.currentspell = this.elements.get(this.elementindex1).getSpell(
-				this.elements.get(this.elementindex2));
+		this.currentspell = this.elements[this.elementindex1].getSpell(
+				this.elements[this.elementindex2]);
 		// Informs the hud about the change
 		this.huddrawer.callSpellUpdate();
 	}
