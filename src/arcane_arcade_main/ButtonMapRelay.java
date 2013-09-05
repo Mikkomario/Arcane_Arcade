@@ -8,7 +8,11 @@ import java.util.HashMap;
  *
  * @author Mikko Hilpinen.
  *         Created 1.9.2013.
+ * @deprecated This class is not needed anymore because the options class will 
+ * handle button mapping in the future. The class isn't removed yet however 
+ * since the button mappings are not saved anywhere yet.
  */
+@Deprecated
 public class ButtonMapRelay
 {
 	// ATTRIBUTES	------------------------------------------------------

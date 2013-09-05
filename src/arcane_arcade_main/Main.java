@@ -43,11 +43,15 @@ public class Main
 	 */
 	public Main()
 	{
+		// Reads the options from a file
+		// TODO: Add options reading
+		//Options.saveSettings();
+		
 		// Initializes attributes
 		this.mainpanel = new GamePanel(GameSettings.SCREENWIDTH, 
 				GameSettings.SCREENHEIGHT);
 		
-		boolean fullscreen = GameSettings.FULLSCREENON;
+		boolean fullscreen = Options.fullscreenon;
 		
 		this.window = new GameWindow(GameSettings.SCREENWIDTH, 
 				GameSettings.SCREENHEIGHT, "Arcane Arcade", !fullscreen);
@@ -72,11 +76,8 @@ public class Main
 				this.mainkeyhandler, this.mainmousehandler, 
 				new OpenSpriteBankHolder(GameSettings.SPRITEDATALOCATION));
 		
-		// Starts the game by starting the field
-		//this.navigator.startPhase(GamePhase.MAINMENU, null);
-		//VictorySetting victorysetting = new VictorySetting(7,5);
-		//this.navigator.startPhase(GamePhase.VICTORYSCREEN, victorysetting);
-		this.navigator.startPhase(GamePhase.BATTLESETTINGMENU, null);
+		// Starts the game by starting the main menu
+		this.navigator.startPhase(GamePhase.MAINMENU, null);
 	}
 	
 	

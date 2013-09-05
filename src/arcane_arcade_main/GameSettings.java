@@ -22,13 +22,13 @@ public class GameSettings
 	 */
 	public final static int SCREENHEIGHT = 576;
 	/**
-	 * Should the fullscreen be set on at the beginning of the game
-	 */
-	public final static boolean FULLSCREENON = false;
-	/**
 	 * The name of the file where the sprites are loaded from
 	 */
 	public final static String SPRITEDATALOCATION = "configure/spriteload.txt";
+	/**
+	 * The name of the file where the sprites are loaded from
+	 */
+	public final static String OPTIONSDATALOCATION = "configure/usersettings.txt";
 	/**
 	 * How fast the wizards should normally regenerate mana
 	 */

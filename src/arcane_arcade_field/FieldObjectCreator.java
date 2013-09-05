@@ -1,7 +1,7 @@
 package arcane_arcade_field;
 
-import arcane_arcade_main.ButtonMapRelay;
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_main.Options;
 import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.FieldSetting;
 import arcane_arcade_worlds.RoomObjectCreator;
@@ -67,8 +67,6 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 		// TODO: Use settings here!
 		// Creates the objects needed
 
-		// Creates the button maps
-		ButtonMapRelay buttonrelay = new ButtonMapRelay();
 		// Creates a ballrelay
 		BallRelay ballrelay = new BallRelay(room);
 		// And the wizardrelay
@@ -87,7 +85,7 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 				this.collisionhandler.getCollidableHandler(), 
 				this.collisionhandler, this.actorhandler, 
 				this.keylistenerhandler, room, scorekeeper, ballrelay, 
-				ScreenSide.LEFT, buttonrelay.getLeftWizardButtons(), 
+				ScreenSide.LEFT, Options.leftwizardbuttons, 
 				this.currentsetting.getElementsOnSide(ScreenSide.LEFT), 
 				this.currentsetting.getManaRegenerationModifier(), 
 				this.currentsetting.getSpellDelayModifier()));

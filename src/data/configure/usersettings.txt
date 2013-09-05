@@ -1,0 +1,19 @@
+* These are the user settings. It would be wise to adjust them from inside the game.
+
+
+* These are the button mappings for the left side player.
+&buttons1
+
+
+* These are the button mappings for the right side playe.
+buttons2
+
+
+* Here are the volume settings for sound and music.
+&soundvolume
+0
+&musicvolume
+0
+* This determines if the game will start in full screen mode or not.
+&fullscreen
+false
