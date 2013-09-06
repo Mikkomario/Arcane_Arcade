@@ -138,7 +138,7 @@ public class WavSound extends Sound
 	 */
 	public void play(float volume, float pan, SoundListener specificlistener)
 	{
-		startsound(volume, pan, false);
+		startsound(this.defaultvolume + volume, pan, false);
 		informSoundStart(specificlistener);
 	}
 	
