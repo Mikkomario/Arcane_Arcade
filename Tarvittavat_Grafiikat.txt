@@ -1,0 +1,113 @@
+Arcane Arcade - Tarvittava grafiikka
+
+Status
+	* Poisoned -efekti
+		- Pääkallo + vihreää savua tms. (animoitu?)
+	* Immunity
+		- Esimerkiksi läpinäkyvä jalkapallotsydeemi tai joku (animoitu?)
+Menut
+	* Nuoli (käytetään arvon kasvattamiseen / pienentämiseen)
+	* Sound volume mittari (Eri arvot eri frameina)
+	* Music volume mittari (Eri arvot eri frameina)
+	* On / Off -button (Ellen vaan photoshoppaa vanhan nappulan pohjalta)
+	* Spellbook-rinkula (johon elementit laitetaan päälle)
+	* Väriympyrä :)
+		- Jokaiselle elementille oma frame
+	* 1p ja 2p -ikonit
+		- 1p = forever alone
+		- 2p = super happy :)
+	* Save Settings -nappi
+	* Tekstitausta (ellei photoshoppaa pistetaustaa jotenkin)
+	* Tutorial ikonit
+		- Controlls
+		- Basics
+		- Advanced
+		- Perus tutoriaalikehykset
+		- Lukko ja V (check), jotka voi piirtää kehyksen päälle sitten kivasti
+	* Ruudun vaakatasossa täyttävä "Press Enter to Battle" (vähän niinku smash brossis)
+Hahmot
+	* Field versiot maageista (ylhäältä päin kuvattuna)
+		- Animaationa castaus, muuta ei tarvi
+Loitsut
+	* Flame Charge
+		- Pyöreä tulinen orb (animoitu)
+		- Maahan jäävä tulijälki (animoitu)
+	* Flame Leaves
+		- Tulinen lehtisprite (animoitu)
+		- Myös maski
+	* Flaming tar
+		- Lentävä pikikasa (animoitu)
+		- Palava tippunut pikikasa (animoitu)
+			* Käytä apuna flame chargen vanaa
+		- Myös maski
+	* Frost Barrier
+		- Uusi, paremmin teemaan sopiva sprite
+		- Myös maski, mikäli ei suorakulmion muitoinen
+	* Storm Cloud
+		- Sade, joka tulee pilvestä (animoitu)
+	* Dark Wave
+		- Pimeä / Violetti vesiaalto, joka kulkee ruudulla ylös / alas 
+		(Animoitu?)
+	* Bomb 'shroom
+		- Reaktiivinen sieni (animoitu)
+		- Sienen hajoaminen (animaatio)
+		- Sporepilvi
+	* Poison Wave
+		- Pieni lentävä poison kasa (animoitu)
+		- Myös mask
+	* Crystal Wave
+		- Kristallin syntyminen, oleminen ja hajoaminen (animoitu)
+			* Muista maa-elementin näkyminen
+		- Myös mask
+	* Root Rock
+		- Kivi, jota ympäröi juuret
+		- Juurten tarttuminen pisteeseen x ja häviäminen (animaatio)
+	* Earth Fumes
+		- Myrkkykaasun sprite (ei tarvitse olla kovin peittävä, vrt. pilvi)
+		- Maanrako tai mistä höyry tuleekaan
+	* Lightning Vortex
+		- Tornadospriten ja lightfieldin yhdistelmä (animoitu)
+	* Gust
+		- Pieni "tuulenpyörähdys" (animoitu)
+	* Petal Gust
+		- Kukkasprite
+		- Myös mask
+	* Miasma
+		- Pääkallopilvi
+	* Colour Sap
+		- Jonkinlainen kasvi? Joka imee väriä ympäristöstä (animoitu)
+	* Death
+		- Paha henki tai kuolemansäde tai joku (animoitu)
+			* Tulee vaeltamaan läpi ruudun
+		- Myös mask
+	* Colour Flower
+		- Kukka, joka tuottaa väriä ympäristöön (animoitu)
+		- Väripartikkeli?
+	* Crystal Shards
+		- Jääkristallo
+		- Sähkökristalli
+		- Maski
+	* Static pollen
+		- Sähköpurkaus sprite (animoitu)
+	* Plasma Beam
+		- Säde (animoitu?)
+	* Frost Seed Wall
+		- Siemen sprite
+		- Paikalleen jäätynyt siemen
+		- Maski(t)
+	* Poison Mine
+		- Myrkkykristalli (animoitu)
+		- Kristallin räjähdys
+		- Maski(t)
+	* Magic Tree
+		- Puun eri vaiheet (animaatio)
+			* Verso + Iso puu
+			* Puun ei tarvitse olla korkea, juuren (hit detection) tulee 
+			olla tärkeä elementti
+		- Maski
+	* Cannon Plant
+		- Kasvin versomuoto (animoitu)
+		- Ilkeän näköinen kasvi (animoitu)
+		- Kasvi ampuu pallon -animaatio
+	* Bug Swarm
+		- Lentävä myrkkyötökkä

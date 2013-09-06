@@ -245,6 +245,7 @@ Eteneminen:														Status
 		- Uudet loitsut / Elementit
 			* Tarvittavat graafiset resurssit					...
 			* Useamman statusefektin laittaminen kerralla
+			* Movementspeedin vähentyminen castaamisessa?
 		- Tutorial
 			* Tarvittavat valikot
 			* Tarvittavan interaktion luonti
