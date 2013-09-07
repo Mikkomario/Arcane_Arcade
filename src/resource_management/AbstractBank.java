@@ -1,6 +1,7 @@
-package common;
+package resource_management;
 
 import java.util.HashMap;
+
 
 /**
  * Abstractbank is the superclass of all the bank objects providing some 
@@ -9,7 +10,7 @@ import java.util.HashMap;
  *
  * @author Mikko Hilpinen.
  *         Created 17.8.2013.
- * @see common.BankObject
+ * @see resource_management.BankObject
  */
 public abstract class AbstractBank
 {

@@ -1,4 +1,4 @@
-package common;
+package resource_management;
 
 /**
  * Each object which implements this interface will be able to receive commands

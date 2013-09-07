@@ -1,6 +1,6 @@
 package sound;
 
-import common.AbstractBank;
+import resource_management.AbstractBank;
 
 /**
  * Soundbank is a bank that contains any types of sounds and can also provide 

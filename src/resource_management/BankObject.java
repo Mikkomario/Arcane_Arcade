@@ -1,4 +1,5 @@
-package common;
+package resource_management;
+
 
 /**
  * All of the bankobjects can be hold in a certain type of bank and each of the 

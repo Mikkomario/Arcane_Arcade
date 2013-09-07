@@ -1,7 +1,9 @@
-package common;
+package resource_management;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import common.FileReader;
 
 /**
  * OpenBankHolder is an abstract class which creates and stores various OpenBanks

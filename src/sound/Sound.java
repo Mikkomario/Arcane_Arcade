@@ -1,6 +1,6 @@
 package sound;
 
-import common.BankObject;
+import resource_management.BankObject;
 
 import handlers.SoundListenerHandler;
 import listeners.SoundListener;

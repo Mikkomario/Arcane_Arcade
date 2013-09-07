@@ -2,7 +2,8 @@ package sound;
 
 import java.util.LinkedList;
 
-import common.BankObject;
+import resource_management.BankObject;
+
 
 import listeners.SoundListener;
 

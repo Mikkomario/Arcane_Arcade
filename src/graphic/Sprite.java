@@ -7,7 +7,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import common.BankObject;
+import resource_management.BankObject;
+
 
 /**
  * This object represents a drawn image that can be animated. Sprites are

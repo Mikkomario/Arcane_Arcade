@@ -1,8 +1,9 @@
 package graphic;
 
 import java.util.ArrayList;
-import common.OpenBank;
-import common.OpenBankHolder;
+
+import resource_management.OpenBank;
+import resource_management.OpenBankHolder;
 
 /**
  * This class holds numerous OpenSpriteBanks and provides them to the objects 

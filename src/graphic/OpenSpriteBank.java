@@ -3,7 +3,8 @@ package graphic;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import common.OpenBank;
+import resource_management.OpenBank;
+
 
 /**
  * This SpriteBank, unlike other SpriteBanks can be put into a bank. Also, 

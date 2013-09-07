@@ -3,7 +3,8 @@ package graphic;
 
 import java.io.FileNotFoundException;
 
-import common.AbstractBank;
+import resource_management.AbstractBank;
+
 
 /**
  * This class creates a group of sprites used in a project and gives them to the 
