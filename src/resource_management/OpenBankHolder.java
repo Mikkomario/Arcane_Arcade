@@ -13,13 +13,15 @@ import common.FileReader;
  * 			Created 29.8.2013
  *
  */
-public abstract class OpenBankHolder extends FileReader {
+public abstract class OpenBankHolder extends FileReader
+{
 	// ATTRIBUTES -----------------------------------------------------
 
 	private HashMap<String, OpenBank> banks;
 	private String lastbankname;
 	private ArrayList<String> lastcommands;
 
+	
 	// CONSTRUCTOR -----------------------------------------------------
 
 	/**
@@ -58,19 +60,24 @@ public abstract class OpenBankHolder extends FileReader {
 		this.lastbankname = null;
 	}
 	
+	
 	// ABSTRACT METHODS -------------------------------------------------
-	/**Creates and returns a new OpenBank.
+	
+	/**
+	 * Creates and returns a new OpenBank.
 	 * 
 	 * @param commands	Commands given to the OpenBank.
 	 * @return	Returns the new OpenBank.
 	 */
 	protected abstract OpenBank createBank(ArrayList<String> commands);
 
+	
 	// IMPLEMENTED METHODS ----------------------------------------------
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void onLine(String line) {
+	protected void onLine(String line)
+	{
 		// If the line starts with '*', skips it
 		if (line.startsWith("*"))
 			return;
@@ -90,6 +97,7 @@ public abstract class OpenBankHolder extends FileReader {
 		this.lastcommands.add(line);
 	}
 
+	
 	// OTHER METHODS ---------------------------------------------------
 
 	/**
@@ -107,8 +115,6 @@ public abstract class OpenBankHolder extends FileReader {
 			return null;
 		}
 	}
-	
-	
 
 	/**
 	 * Uninitializes all the banks held by this object
@@ -119,5 +125,4 @@ public abstract class OpenBankHolder extends FileReader {
 			bank.uninitialize();
 		}
 	}
-
 }

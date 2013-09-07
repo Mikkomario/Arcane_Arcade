@@ -185,12 +185,12 @@ Eteneminen:														Status
 		- Perus nappula											Testaamatta
 			* Nappulan muuttuminen kun hiiri menee päälle		Testaamatta
 			* Nappulan funktion piirtäminen kun hiiri päällä	Testaamatta
-		- Voittovalikko											...
-			* Tiedon siirtäminen ympäristöjen välillä			Testaamatta
-				- Settings -luokka ja sen phasekohtaiset 		Testaamatta
+		- Voittovalikko											DONE
+			* Tiedon siirtäminen ympäristöjen välillä			DONE
+				- Settings -luokka ja sen phasekohtaiset 		DONE
 				alaluokat
-				- Settingsien eteenpäinviemisen implementtointi	Testaamatta
-			* Tarvittavat graafiset resurssit					...
+				- Settingsien eteenpäinviemisen implementtointi	DONE
+			* Tarvittavat graafiset resurssit					DONE
 		- Muut tarvittavat valikot								...
 			* Hahmovalikko (Sitten kun on hahmoja)
 			* Elementtivalikko									...
@@ -229,13 +229,18 @@ Eteneminen:														Status
 		- Äänet													...
 			* WavSoundien äänenvoimakkuuden säädön stackkaus	Testaamatta
 			* Tarvittavat resurssit								...
-			* Resurssien järkevä organisointi ja lukeminen		...
-				- SoundTrackien käyttö äänicomboissa			...
+			* Resurssien järkevä organisointi ja lukeminen		Testaamatta
+				- SoundTrackien käyttö äänicomboissa			Testaamatta
 					* WavSoundQueue -luokka						Testaamatta
 						- Abstrakti yläluokka					Testaamatta
-					* Sountrackien luonti / päivitys
-				- OpenWavSoundBank ja muuta
-			* Äänien lisäys
+				- OpenWavSoundBank ja muuta						Testaamatta
+					* OpenWavSoundBank							Testaamatta
+					* OpenWavSoundBankHolder					Testaamatta
+			* Äänien lisäys peliin
+				- Äänten soittaminen oikeassa kohdassa
+				- Äänten lataaminen oikeassa kontekstissa
+				- Äänten uninitializettaminen kun niitä ei 
+				tarvita
 		- Musiikki
 			* Tarvittavat resurssit
 			* Musiikkien järkevä organisointi ja lukeminen

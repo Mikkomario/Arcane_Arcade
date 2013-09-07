@@ -34,7 +34,6 @@ public class OpenSpriteBank extends SpriteBank implements OpenBank
 	public OpenSpriteBank(ArrayList<String> creationcommands)
 	{
 		// Initializes attributes
-		//System.out.println(creationcommands);
 		this.commands = creationcommands;
 	}
 	
@@ -44,8 +43,6 @@ public class OpenSpriteBank extends SpriteBank implements OpenBank
 	@Override
 	public void createSprites() throws FileNotFoundException
 	{
-		//System.out.println("Creates sprites using the " + 
-		//this.commands.size() + " commands");
 		// Creates the sprites by going through the commands
 		for (int i = 0; i < this.commands.size(); i++)
 		{
@@ -80,11 +77,4 @@ public class OpenSpriteBank extends SpriteBank implements OpenBank
 			createSprite(parts[1], imgnumber, originx, originy, parts[0]);
 		}
 	}
-
-	/*
-	@Override
-	public void setCommands(ArrayList<String> commands) {
-		this.commands = commands;
-	}
-	*/
 }

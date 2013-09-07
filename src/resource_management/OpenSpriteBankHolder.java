@@ -7,12 +7,11 @@ import java.util.ArrayList;
  * This class holds numerous OpenSpriteBanks and provides them to the objects 
  * that need them. The holder loads the banks using a specific file
  *
- * @author Mikko Hilpinen.
+ * @author Mikko Hilpinen & Unto Solala.
  *         Created 26.8.2013.
  */
 public class OpenSpriteBankHolder extends OpenBankHolder
 {
-	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
@@ -32,28 +31,32 @@ public class OpenSpriteBankHolder extends OpenBankHolder
 	 * ...<br>
 	 * * this is a comment
 	 */
-	public OpenSpriteBankHolder(String filename) {
+	public OpenSpriteBankHolder(String filename)
+	{
 		super(filename);
 	}
 
-	/**Looks for the OpenBank matching the given bankName and if it is found,
+	/**
+	 * Looks for the OpenBank matching the given bankName and if it is found,
 	 * casts it into OpenSpriteBank and returns it. If not found, returns null.
 	 * 
 	 * @param bankName	The OpenBank which is needed.
-	 * @return	Returns the needed OpenBank, if it is found and casts it into
+	 * @return Returns the needed OpenBank, if it is found and casts it into
 	 * OpenSpriteBank. If not found, return null.
 	 */
-	public OpenSpriteBank getOpenSpriteBank(String bankName){
+	public OpenSpriteBank getOpenSpriteBank(String bankName)
+	{
 		OpenBank maybeOpenSpriteBank = getBank(bankName);
-		if(maybeOpenSpriteBank instanceof OpenSpriteBank){
+		
+		if(maybeOpenSpriteBank instanceof OpenSpriteBank)
 			return (OpenSpriteBank) maybeOpenSpriteBank;
-		}else{
+		else
 			return null;
-		}
 	}
 	
 	@Override
-	protected OpenBank createBank(ArrayList<String> commands) {
+	protected OpenBank createBank(ArrayList<String> commands)
+	{
 		return new OpenSpriteBank(commands);
 	}
 }
