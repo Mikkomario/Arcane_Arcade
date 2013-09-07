@@ -1,9 +1,7 @@
-package graphic;
+package resource_management;
 
 import java.util.ArrayList;
 
-import resource_management.OpenBank;
-import resource_management.OpenBankHolder;
 
 /**
  * This class holds numerous OpenSpriteBanks and provides them to the objects 

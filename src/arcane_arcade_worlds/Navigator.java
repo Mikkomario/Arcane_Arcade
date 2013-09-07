@@ -3,8 +3,9 @@ package arcane_arcade_worlds;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import graphic.OpenSpriteBankHolder;
-import graphic.SpriteBank;
+import resource_management.OpenSpriteBankHolder;
+import resource_management.SpriteBank;
+
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;

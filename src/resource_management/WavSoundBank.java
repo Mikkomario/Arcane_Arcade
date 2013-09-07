@@ -1,4 +1,6 @@
-package sound;
+package resource_management;
+
+import sound.WavSound;
 
 /**
  * A wavsoundbank holds numerous wavsounds and gives them for the other objects 

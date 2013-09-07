@@ -1,5 +1,7 @@
 package sound;
 
+import resource_management.SoundBank;
+
 /**
  * SoundTrack is a class that plays multiple sounds in order, forming a 
  * track.

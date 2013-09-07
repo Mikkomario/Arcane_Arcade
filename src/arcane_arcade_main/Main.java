@@ -1,6 +1,5 @@
 package arcane_arcade_main;
 
-import graphic.OpenSpriteBankHolder;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
@@ -12,6 +11,7 @@ import java.awt.BorderLayout;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 
+import resource_management.OpenSpriteBankHolder;
 import tests.FpsApsTest;
 import video.GamePanel;
 import video.GameWindow;

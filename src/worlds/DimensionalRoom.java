@@ -1,6 +1,5 @@
 package worlds;
 
-import graphic.SpriteBank;
 import handleds.Collidable;
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
@@ -9,6 +8,8 @@ import helpAndEnums.HelpMath;
 
 import java.awt.Point;
 import java.util.ArrayList;
+
+import resource_management.SpriteBank;
 
 import backgrounds.Background;
 import backgrounds.TileMap;

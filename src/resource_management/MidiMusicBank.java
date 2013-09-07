@@ -1,6 +1,8 @@
-package sound;
+package resource_management;
 
 import java.io.FileNotFoundException;
+
+import sound.MidiMusic;
 
 /**
  * Midimusicbank contains a group of midimusics and provides them for the 

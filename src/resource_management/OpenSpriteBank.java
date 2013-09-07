@@ -1,9 +1,8 @@
-package graphic;
+package resource_management;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import resource_management.OpenBank;
 
 
 /**

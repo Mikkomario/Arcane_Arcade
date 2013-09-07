@@ -1,8 +1,9 @@
 package worlds;
 
-import graphic.SpriteBank;
 
 import java.util.ArrayList;
+
+import resource_management.SpriteBank;
 
 import backgrounds.Background;
 import backgrounds.TileMap;

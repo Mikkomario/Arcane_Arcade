@@ -3,7 +3,8 @@ package backgrounds;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import graphic.SpriteBank;
+import resource_management.SpriteBank;
+
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
 import handlers.DrawableHandler;

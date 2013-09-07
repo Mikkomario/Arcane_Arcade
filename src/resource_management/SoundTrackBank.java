@@ -1,4 +1,6 @@
-package sound;
+package resource_management;
+
+import sound.SoundTrack;
 
 /**
  * This class holds multiple soundtracks in it and offers them to those who 

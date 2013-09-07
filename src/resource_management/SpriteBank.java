@@ -1,9 +1,10 @@
-package graphic;
+package resource_management;
 
+
+import graphic.Sprite;
 
 import java.io.FileNotFoundException;
 
-import resource_management.AbstractBank;
 
 
 /**
