@@ -231,13 +231,15 @@ Eteneminen:														Status
 			* Tarvittavat resurssit								...
 			* Resurssien järkevä organisointi ja lukeminen		...
 				- SoundTrackien käyttö äänicomboissa			...
-					* WavSoundQueue -luokka						...
+					* WavSoundQueue -luokka						Testaamatta
 						- Abstrakti yläluokka					Testaamatta
 					* Sountrackien luonti / päivitys
+				- OpenWavSoundBank ja muuta
 			* Äänien lisäys
 		- Musiikki
 			* Tarvittavat resurssit
 			* Musiikkien järkevä organisointi ja lukeminen
+				- OpenMidiBank ja muuta
 			* Musiikin äänenvoimakkuuden säädön mahdollisaminen
 		- Pelin pysäyttäminen
 			* Pausen toiminnallisuus

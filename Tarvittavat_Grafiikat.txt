@@ -13,6 +13,8 @@ Menut
 	* Spellbook-rinkula (johon elementit laitetaan päälle)
 	* Väriympyrä :)
 		- Jokaiselle elementille oma frame
+		- Lisäksi tarvitaan "Valintaympyrä / eclipse", joka pyörii valinnan 
+		ympärillä kun hiiri on päällä / valittuna
 	* 1p ja 2p -ikonit
 		- 1p = forever alone
 		- 2p = super happy :)

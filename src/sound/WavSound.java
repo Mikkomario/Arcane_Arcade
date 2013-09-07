@@ -252,6 +252,12 @@ public class WavSound extends Sound
 	        this.paused = false;
 	        this.looping = loops;
 	        this.stopped = false;
+	        
+	        // Checks that the pan is within limits
+	        if (this.pan < -1)
+	        	this.pan = -1;
+	        else if (this.pan > 1)
+	        	this.pan = 1;
 	    }
 		
 		
