@@ -12,6 +12,7 @@ import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 
 import resource_management.OpenSpriteBankHolder;
+import resource_management.OpenWavSoundBankHolder;
 import tests.FpsApsTest;
 import video.GamePanel;
 import video.GameWindow;
@@ -73,7 +74,8 @@ public class Main
 		
 		this.navigator = new Navigator(this.maindrawer, this.mainactorhandler, 
 				this.mainkeyhandler, this.mainmousehandler, 
-				new OpenSpriteBankHolder(GameSettings.SPRITEDATALOCATION));
+				new OpenSpriteBankHolder(GameSettings.SPRITEDATALOCATION), 
+				new OpenWavSoundBankHolder(GameSettings.WAVDATALOCATION));
 		
 		// Starts the game by starting the main menu
 		this.navigator.startPhase(GamePhase.MAINMENU, null);

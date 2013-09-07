@@ -101,4 +101,20 @@ public enum GamePhase
 			default: return new String[0];
 		}
 	}
+	
+	/**
+	 * @return The WavSounds used during the phase
+	 */
+	public String[] getUsedWavSoundBanks()
+	{
+		switch (this)
+		{
+			case FIELD:
+			{
+				String[] returned = {"effects"};
+				return returned;
+			}
+			default: return new String[0];
+		}
+	}
 }

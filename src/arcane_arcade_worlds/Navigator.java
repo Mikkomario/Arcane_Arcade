@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import resource_management.OpenSpriteBankHolder;
+import resource_management.OpenWavSoundBankHolder;
 import resource_management.SpriteBank;
+import resource_management.WavSoundBank;
 
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
@@ -30,9 +32,12 @@ public class Navigator
 	
 	private static HashMap<String, SpriteBank> activeSpriteBanks 
 			= new HashMap<String, SpriteBank>();
+	private static HashMap<String, WavSoundBank> activeWavBanks = 
+			new HashMap<String, WavSoundBank>();
 	
 	private HashMap<GamePhase, SettingUsingRoom> rooms;
 	private OpenSpriteBankHolder spritebankholder;
+	private OpenWavSoundBankHolder wavbankholder;
 	private GamePhase activephase;
 	
 	
@@ -50,16 +55,20 @@ public class Navigator
 	 * the game's objects about mouse events
 	 * @param spritebankholder The spritebankholder that holds the data of 
 	 * the spritebanks used in the game
+	 * @param wavholder The WavSoundBankHolder that holds all the wavsoundbanks 
+	 * used in the game
 	 */
 	public Navigator(DrawableHandler drawer, ActorHandler actorhandler, 
 			KeyListenerHandler keylistenerhandler, 
 			MouseListenerHandler mouselistenerhandler,
-			OpenSpriteBankHolder spritebankholder)
+			OpenSpriteBankHolder spritebankholder, 
+			OpenWavSoundBankHolder wavholder)
 	{
 		// Initializes attributes
 		this.rooms = new HashMap<GamePhase, SettingUsingRoom>();
 		this.activephase = null;
 		this.spritebankholder = spritebankholder;
+		this.wavbankholder = wavholder;
 		
 		// Initializes the backgrounds for the rooms
 		addSpriteBank("background");
@@ -88,6 +97,10 @@ public class Navigator
 		
 		// Updates the loaded resources
 		updatePhaseSpriteBanks(phase);
+		updatePhaseWavSoundBanks(phase);
+		
+		// Remembers the new active phase
+		this.activephase = phase;
 		
 		// Updates the settings
 		this.rooms.get(phase).setSettings(setting);
@@ -109,6 +122,25 @@ public class Navigator
 		else
 		{
 			System.err.println("SpriteBank named " + spritebankname + 
+					" isn't currenly active!");
+			return null;
+		}
+	}
+	
+	/**
+	 * Returns an wavsoundbank if it has been initialized yet
+	 *
+	 * @param wavbankname The name of the needed wavbank
+	 * @return The wavbank with the given name or null if no such bank exists 
+	 * or if the bank is not active
+	 */
+	public static WavSoundBank getWavBank(String wavbankname)
+	{
+		if (activeWavBanks.containsKey(wavbankname))
+			return activeWavBanks.get(wavbankname);
+		else
+		{
+			System.err.println("WavBank named " + wavbankname + 
 					" isn't currenly active!");
 			return null;
 		}
@@ -147,9 +179,11 @@ public class Navigator
 		
 		// Creates the object creator
 		MainMenuObjectCreator creator = 
-				new MainMenuObjectCreator(drawer, actorhandler, mousehandler, this);
+				new MainMenuObjectCreator(drawer, actorhandler, mousehandler, 
+				this);
 		
-		SettingUsingRoom mainmenu = new SettingUsingRoom(creator, spacebacklist);
+		SettingUsingRoom mainmenu = new SettingUsingRoom(creator, 
+				spacebacklist);
 		
 		this.rooms.put(GamePhase.MAINMENU, mainmenu);
 	}
@@ -225,6 +259,39 @@ public class Navigator
 		}
 	}
 	
+	private void updatePhaseWavSoundBanks(GamePhase newphase)
+	{
+		String[] newbanknames = newphase.getUsedWavSoundBanks();
+		
+		// Skips the removal progres if there was no previous phase
+		if (this.activephase != null)
+		{
+			String[] oldbanknames = this.activephase.getUsedWavSoundBanks();
+			
+			// Takes all the new banknames into a list format
+			ArrayList<String> newbanknamelist = new ArrayList<String>();
+			for (int i = 0; i < newbanknames.length; i++)
+			{
+				newbanknamelist.add(newbanknames[i]);
+			}
+			
+			// Removes the old banks that aren't active in the new phase
+			for (int i = 0; i < oldbanknames.length; i++)
+			{
+				String oldbankname = oldbanknames[i];
+				if (!newbanknamelist.contains(oldbankname))
+					removeWavSoundBank(oldbankname);
+			}
+		}
+		
+		// Adds all the new banks that weren't active already
+		// (Checking done in the addWavSoundbank method)
+		for (int i = 0; i < newbanknames.length; i++)
+		{
+			addWavSoundBank(newbanknames[i]);
+		}
+	}
+	
 	private void addSpriteBank(String bankname)
 	{
 		// If the bank is already active, does nothing
@@ -237,6 +304,18 @@ public class Navigator
 		activeSpriteBanks.put(bankname, newbank);
 	}
 	
+	private void addWavSoundBank(String bankname)
+	{
+		// If the bank is already active, does nothing
+		if (activeWavBanks.containsKey(bankname))
+			return;
+		
+		// Adds the bank to the map and initializes it
+		WavSoundBank newbank = this.wavbankholder.getWavSoundBank(bankname);
+		newbank.initializeBank();
+		activeWavBanks.put(bankname, newbank);
+	}
+	
 	private void removeSpriteBank(String bankname)
 	{
 		// If the bank doesn't contain the bank, does nothing
@@ -246,5 +325,16 @@ public class Navigator
 		// Uninitializes the banks and then removes it
 		activeSpriteBanks.get(bankname).uninitialize();
 		activeSpriteBanks.remove(bankname);
+	}
+	
+	private void removeWavSoundBank(String bankname)
+	{
+		// If the bank doesn't contain the bank, does nothing
+		if (!activeWavBanks.containsKey(bankname))
+			return;
+		
+		// Uninitializes the banks and then removes it
+		activeWavBanks.get(bankname).uninitialize();
+		activeWavBanks.remove(bankname);
 	}
 }

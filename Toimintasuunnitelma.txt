@@ -236,11 +236,16 @@ Eteneminen:														Status
 				- OpenWavSoundBank ja muuta						Testaamatta
 					* OpenWavSoundBank							Testaamatta
 					* OpenWavSoundBankHolder					Testaamatta
-			* Äänien lisäys peliin
+			* Äänien lisäys peliin								...
 				- Äänten soittaminen oikeassa kohdassa
-				- Äänten lataaminen oikeassa kontekstissa
-				- Äänten uninitializettaminen kun niitä ei 
+				- Äänten lataaminen oikeassa kontekstissa		...
+					* Wizard -enumeraatio
+						- getSoundBank -metodi sinne?
+							* Mutta pitääkö tehdä oma holder?
+				- Äänten uninitializettaminen kun niitä ei		...
 				tarvita
+					* Efektiäänet								Testaamatta
+					* Wizardäänet
 		- Musiikki
 			* Tarvittavat resurssit
 			* Musiikkien järkevä organisointi ja lukeminen

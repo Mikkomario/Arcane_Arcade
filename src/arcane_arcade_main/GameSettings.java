@@ -26,6 +26,14 @@ public class GameSettings
 	 */
 	public final static String SPRITEDATALOCATION = "configure/spriteload.txt";
 	/**
+	 * The name of the file where the wav sound effects are loaded from
+	 */
+	public final static String WAVDATALOCATION = "configure/wavload.txt";
+	/**
+	 * The name of the file where the wizard voice wavs are loaded from
+	 */
+	public final static String WIZARDVOICEDATALOCATION = "configure/wizardvoiceload.txt";
+	/**
 	 * The name of the file where the sprites are loaded from
 	 */
 	public final static String OPTIONSDATALOCATION = "configure/usersettings.txt";
