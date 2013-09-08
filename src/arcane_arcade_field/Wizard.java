@@ -113,7 +113,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 * @param ballrelay The ballrelay that holds information about the balls 
 	 * in the field. That information will be forwarded to the casted spells.
 	 * @param screenside Which side of the room the wizard is created at
-	 * @param buttonmaps The buttons used to control the wizard
+	 * @param leftwizardbuttons The buttons used to control the wizard
 	 * @param usedelements Which elements the wizard uses in their spells
 	 * @param manaregenerationmodifier How fast the wizard regenerates mana 
 	 * (default 1)
@@ -124,7 +124,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			CollisionHandler collisionhandler, ActorHandler actorhandler, 
 			KeyListenerHandler keylistenerhandler, Room room, 
 			ScoreKeeper scorekeeper, BallRelay ballrelay, ScreenSide screenside, 
-			HashMap<Buttons, Character> buttonmaps, Element[] usedelements, 
+			HashMap<Buttons, Character> leftwizardbuttons, Element[] usedelements, 
 			double manaregenerationmodifier, double castdelaymodifier)
 	{
 		super(70, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
@@ -166,7 +166,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.castdelaymeterdrawer = new SpriteDrawer(
 				Navigator.getSpriteBank("field").getSprite(
 				"regeneration"), actorhandler);
-		this.buttonmaps = buttonmaps;
+		this.buttonmaps = leftwizardbuttons;
 		// Initializes element list with two elements
 		// TODO: Add elements
 		this.elements = usedelements;

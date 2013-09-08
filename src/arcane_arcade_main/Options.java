@@ -32,6 +32,11 @@ public class Options
 	 */
 	public static int soundvolumeadjustment = 0;
 	/**
+	 * How many desibels each voice effect's volume should be adjusted from 
+	 * the default value
+	 */
+	public static int voicevolumeadjustment = 0;
+	/**
 	 * How many desibels each music's volume should be adjusted from 
 	 * the default value
 	 */
@@ -124,10 +129,11 @@ public class Options
 					}
 					return buttonstring;
 				}
-				case 5: return "\n* Here are the volume settings for sound " +
+				case 5: return "\n* Here are the volume settings for sound, voice " +
 						"and music.\n&soundvolume";
 				case 6: return soundvolumeadjustment + "\n&musicvolume\n" + 
-						musicvolumeadjustment;
+						musicvolumeadjustment + "\n&voicevolume\n" + 
+						voicevolumeadjustment;
 				case 7: return "\n* This determines if the game will start " +
 						"in full screen mode or not.\n&fullscreen";
 				case 8: return fullscreenon + "";
@@ -160,7 +166,8 @@ public class Options
 		 * 2 = Reads right wizard buttons
 		 * 3 = Reads sound volume
 		 * 4 = Reads music volume
-		 * 5 = Reads the full screen effect
+		 * 5 = Reads voice volume
+		 * 6 = Reads the full screen effect
 		 */
 		private int loadphase = 0;
 		
@@ -186,7 +193,8 @@ public class Options
 					case "buttons2": this.loadphase = 2; break;
 					case "soundvolume": this.loadphase = 3; break;
 					case "musicvolume": this.loadphase = 4; break;
-					case "fullscreen": this.loadphase = 5; break;
+					case "fullscreen": this.loadphase = 6; break;
+					case "voicevolume": this.loadphase = 5; break;
 					default: System.err.println("An unknown command in the " +
 							"usersettings file!"); break;
 				}
@@ -224,8 +232,10 @@ public class Options
 					case 3: soundvolumeadjustment = readAsInt(line); break;
 					// Changes the music volume
 					case 4: musicvolumeadjustment = readAsInt(line); break;
+					// Changes the voice volume
+					case 5: voicevolumeadjustment = readAsInt(line); break;
 					// Changes the full screen modifier
-					case 5: fullscreenon = line.equals("true"); break;
+					case 6: fullscreenon = line.equals("true"); break;
 					default: System.err.println("The options reader doesn't " +
 							"know what to do to the line " + line);
 				}
