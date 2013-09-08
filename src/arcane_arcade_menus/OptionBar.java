@@ -33,7 +33,8 @@ public class OptionBar extends DrawnObject implements RoomListener {
 	private int maxValue;
 	private String description;
 	private DrawableHandler drawer;
-	private MouseListenerHandler mousehandler;
+	private OptionBarButton leftButton;
+	private OptionBarButton rightButton;
 	//CONSTRUCTOR-------------------------------------------------------
 	/**
 	 * Constructs an OptionBar based on the given parameters.
@@ -58,8 +59,13 @@ public class OptionBar extends DrawnObject implements RoomListener {
 		this.maxValue = maxValue;
 		this.description = description;
 		this.drawer = drawer;
-		this.mousehandler = mousehandler;
 		
+		this.leftButton = new OptionBarButton((int)this.getX(),
+				(int)this.getY(), this.drawer, mousehandler,
+				OptionBarButton.LEFT);
+		this.rightButton = new OptionBarButton((int)this.getX()+100,
+				(int)this.getY(), this.drawer, mousehandler,
+				OptionBarButton.RIGHT);
 	}
 	
 	//GETTERS & SETTERS ------------------------------------------------
@@ -84,14 +90,8 @@ public class OptionBar extends DrawnObject implements RoomListener {
 	public void drawSelfBasic(Graphics2D g2d) {
 		g2d.setFont(GameSettings.BASICFONT);
 		g2d.setColor(GameSettings.WHITETEXTCOLOR);
-		new OptionBarButton((int)this.getX(),
-				(int)this.getY(), this.drawer, this.mousehandler,
-				OptionBarButton.LEFT);
-		new OptionBarButton((int)this.getX()+100,
-				(int)this.getY(), this.drawer, this.mousehandler,
-				OptionBarButton.RIGHT);
-		g2d.drawString(""+this.value, (int)this.getX()+50, (int)this.getY());
-		g2d.drawString(this.description, (int)this.getX()+150, (int)this.getY());
+		g2d.drawString(""+this.value, 50, 0);
+		g2d.drawString(this.description, 150, 0);
 
 	}
 
@@ -214,6 +214,7 @@ public class OptionBar extends DrawnObject implements RoomListener {
 
 		@Override
 		public void onLeftPressed(int mouseX, int mouseY) {
+			//System.out.println("Left mouse button pressed");
 			if(this.direction == LEFT){
 				//The arrow points to the left
 				if(OptionBar.this.value>OptionBar.this.minValue)
@@ -258,6 +259,7 @@ public class OptionBar extends DrawnObject implements RoomListener {
 		@Override
 		public void onMouseEnter(int mouseX, int mouseY) {
 			// Changes image index
+			//System.out.println("You're hovering over the arrow.");
 			this.spritedrawer.setImageIndex(1);
 
 		}
@@ -271,6 +273,7 @@ public class OptionBar extends DrawnObject implements RoomListener {
 		@Override
 		public void onMouseExit(int mouseX, int mouseY) {
 			// Changes image index back
+			//System.out.println("You left the arrow alone.");
 			this.spritedrawer.setImageIndex(0);
 
 		}

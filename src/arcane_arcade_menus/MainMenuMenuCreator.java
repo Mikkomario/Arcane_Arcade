@@ -3,6 +3,8 @@ package arcane_arcade_menus;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import common.GameObject;
+
 import worlds.Room;
 
 import listeners.AdvancedMouseListener;
@@ -24,7 +26,9 @@ import helpAndEnums.DepthConstants;
  * @author Unto Solala
  * 			Created 3.9.2013
  */
-public class MainMenuMenuCreator {
+public class MainMenuMenuCreator extends GameObject implements RoomListener{
+	//ATTRIBUTES---------------------------------------------------
+	private MainMenuCenterPiece centerpiece;
 	
 	//CONSTRUCTOR---------------------------------------------------
 	/**Constructs and places the buttons to the center of the MainMenu.
@@ -44,8 +48,28 @@ public class MainMenuMenuCreator {
 		new MainMenuElement(MainMenuElement.DOWN, drawer, mousehandler, room, navigator);
 		new MainMenuElement(MainMenuElement.LEFT, drawer, mousehandler, room, navigator);
 		
-		new MainMenuCenterPiece(drawer);
+		this.centerpiece = new MainMenuCenterPiece(drawer);
 		
+		if(room != null)
+			room.addOnject(this);
+	}
+	//IMPLEMENTED METHODS-------------------------------------------------
+	@Override
+	public void onRoomStart(Room room) {
+		//Does nothing
+		
+	}
+
+	@Override
+	public void onRoomEnd(Room room) {
+		kill();
+		
+	}
+	
+	@Override
+	public void kill() {
+		this.centerpiece.kill();
+		super.kill();
 	}
 
 	
@@ -362,4 +386,5 @@ public class MainMenuMenuCreator {
 		}
 
 	}
+
 }
