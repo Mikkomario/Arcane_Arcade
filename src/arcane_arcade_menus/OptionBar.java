@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 
 import worlds.Room;
@@ -33,8 +32,8 @@ public class OptionBar extends DrawnObject implements RoomListener {
 	private int maxValue;
 	private String description;
 	private DrawableHandler drawer;
-	private OptionBarButton leftButton;
-	private OptionBarButton rightButton;
+
+	
 	//CONSTRUCTOR-------------------------------------------------------
 	/**
 	 * Constructs an OptionBar based on the given parameters.
@@ -60,10 +59,10 @@ public class OptionBar extends DrawnObject implements RoomListener {
 		this.description = description;
 		this.drawer = drawer;
 		
-		this.leftButton = new OptionBarButton((int)this.getX(),
+		new OptionBarButton((int)this.getX(),
 				(int)this.getY(), this.drawer, mousehandler,
 				OptionBarButton.LEFT);
-		this.rightButton = new OptionBarButton((int)this.getX()+100,
+		new OptionBarButton((int)this.getX()+100,
 				(int)this.getY(), this.drawer, mousehandler,
 				OptionBarButton.RIGHT);
 	}
