@@ -109,5 +109,22 @@ public class WizardSoundQueuePlayer
 		 * Nodialog event is played when no sound effect is needed
 		 */
 		NODIALOG;
+		
+		
+		// OTHER METHODS	----------------------------------------------
+		
+		private DialogEvent getOpposingEvent()
+		{
+			switch (this)
+			{
+				case VICTORY: return LOSS;
+				case LOSS: return VICTORY;
+				case DAMAGE: return STRIKE;
+				case STRIKE: return DAMAGE;
+				case CURSE: return CURSED;
+				case CURSED: return CURSE;
+				default: return NODIALOG;
+			}
+		}
 	}
 }
