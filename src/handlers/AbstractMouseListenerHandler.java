@@ -1,10 +1,8 @@
 package handlers;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import handleds.Actor;
-import handleds.Handled;
 import listeners.AdvancedMouseListener;
 
 /**
@@ -63,11 +61,9 @@ implements Actor
 		removeDeadHandleds();
 		
 		// Informs the listeners about the mouse's movements and buttons
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
+		for (int i = 0; i < getHandledNumber(); i++)
 		{
-			AdvancedMouseListener l = (AdvancedMouseListener) iterator.next();
+			AdvancedMouseListener l = (AdvancedMouseListener) getHandled(i);
 			
 			// Checks if informing is needed
 			if (!l.isActive())
@@ -176,12 +172,10 @@ implements Actor
 			// Removes any dead handleds
 			removeDeadHandleds();
 			
-			// Goes through all the listeners and informs them
-			Iterator<Handled> iterator = getIterator();
-			
-			while (iterator.hasNext())
+			// Goes through all the listeners and informs them	
+			for(int i = 0; i < getHandledNumber(); i++)
 			{
-				AdvancedMouseListener l = (AdvancedMouseListener) iterator.next();
+				AdvancedMouseListener l = (AdvancedMouseListener) getHandled(i);
 				
 				// Informs about the mouse's movement (if needed)
 				if (l.isActive())
