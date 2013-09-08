@@ -64,7 +64,6 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 	@Override
 	public void onRoomStart(Room room)
 	{
-		// TODO: Use settings here!
 		// Creates the objects needed
 
 		// Creates a ballrelay
@@ -88,7 +87,7 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 				ScreenSide.LEFT, Options.leftwizardbuttons, 
 				this.currentsetting.getElementsOnSide(ScreenSide.LEFT), 
 				this.currentsetting.getManaRegenerationModifier(), 
-				this.currentsetting.getSpellDelayModifier()));
+				this.currentsetting.getSpellDelayModifier(), Avatar.GANDALF));
 	}
 
 	@Override

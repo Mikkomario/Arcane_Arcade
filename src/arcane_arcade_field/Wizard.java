@@ -50,6 +50,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private static final int LEFT = -2;
 	private static final int RIGHT = 2;
 	
+	private Avatar avatar;
 	private double friction;
 	private double maxspeed;
 	private double accelration;
@@ -119,13 +120,16 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 * (default 1)
 	 * @param castdelaymodifier How fast / slow the wizard casts spells 
 	 * (default 1) 
+	 * @param avatar The avatar of the wizard that defines the wizard's voice 
+	 * and other stats.
 	 */
 	public Wizard(DrawableHandler drawer, CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, ActorHandler actorhandler, 
 			KeyListenerHandler keylistenerhandler, Room room, 
 			ScoreKeeper scorekeeper, BallRelay ballrelay, ScreenSide screenside, 
 			HashMap<Buttons, Character> leftwizardbuttons, Element[] usedelements, 
-			double manaregenerationmodifier, double castdelaymodifier)
+			double manaregenerationmodifier, double castdelaymodifier, 
+			Avatar avatar)
 	{
 		super(70, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
 				true, CollisionType.CIRCLE, drawer, collidablehandler,
@@ -133,6 +137,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		
 		// Initializes attributes
 		this.screenside = screenside;
+		this.avatar = avatar;
 		this.friction = 0.4;
 		this.maxspeed = 5;
 		this.accelration = 0.7;
@@ -168,7 +173,6 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				"regeneration"), actorhandler);
 		this.buttonmaps = leftwizardbuttons;
 		// Initializes element list with two elements
-		// TODO: Add elements
 		this.elements = usedelements;
 		
 		// Initializes current spell
@@ -569,6 +573,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	public ScreenSide getScreenSide()
 	{
 		return this.screenside;
+	}
+	
+	/**
+	 * @return The wizard's avatar
+	 */
+	public Avatar getAvatar()
+	{
+		return this.avatar;
 	}
 	
 	
