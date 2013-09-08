@@ -1,5 +1,6 @@
 package arcane_arcade_main;
 
+import arcane_arcade_field.Avatar;
 import arcane_arcade_worlds.Navigator;
 
 /**
@@ -23,5 +24,45 @@ public class SoundEffectPlayer
 		// Simply plays the sound with certain volume settings
 		Navigator.getWavBank("effects").getSound(effectname).play(
 				Options.soundvolumeadjustment, 0, null);
+	}
+	
+	/**
+	 * Plays a soundeffect panning it according to its position on the screen
+	 *
+	 * @param effectname The name of the sound played. Should be contained in 
+	 * the "effects" soundbank
+	 * @param x The x-coordinate of the sound's origin on screen
+	 */
+	public static void playSoundEffecWithEnvironmentalPan(String effectname, 
+			double x)
+	{
+		// Calculates the used pan
+		float pan = getEnvironmentalPan(x);
+		// Plays the sound effect
+		Navigator.getWavBank("effects").getSound(effectname).play(
+				Options.soundvolumeadjustment, pan, null);
+	}
+	
+	/**
+	 * Plays a certain voice for a wizard
+	 *
+	 * @param avatar The type of the wizard making the sound
+	 * @param voicename The name of the played sound. The sound should exist in 
+	 * the bank
+	 * @param x The x-coordinate of the sound's origin on the screen
+	 */
+	public static void playWizardVoice(Avatar avatar, String voicename, double x)
+	{
+		// Calculates the used pan
+		float pan = getEnvironmentalPan(x);
+		// Plays the voice
+		avatar.getVoiceBank().getSound(voicename).play(
+				Options.voicevolumeadjustment, pan, null);
+	}
+	
+	private static float getEnvironmentalPan(double x)
+	{
+		return (float) (((x - GameSettings.SCREENWIDTH / 2) / 
+				(GameSettings.SCREENWIDTH / 2)) * Options.maxenvironmentalpan);
 	}
 }
