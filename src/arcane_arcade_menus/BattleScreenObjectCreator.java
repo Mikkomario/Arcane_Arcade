@@ -61,6 +61,7 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
 		new MenuCornerCreator(this.drawer, this.mousehandler, room,
 				true);
+		new OptionBar(100, 200, this.drawer, 50, 0, 100, "Testi", this.mousehandler);
 	}
 
 	@Override

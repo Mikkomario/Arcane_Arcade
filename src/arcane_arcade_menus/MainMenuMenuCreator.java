@@ -76,9 +76,9 @@ public class MainMenuMenuCreator {
 		 * 
 		 * @param direction	Direction determines where the button is located.
 		 * There are four possible locations: UP, RIGHT, DOWN and LEFT.
-		 * @param drawer	The drawer that will draw the menu corner
+		 * @param drawer	The drawer that will draw the menuElement
 		 * @param mousehandler	The mouselistenerhandler that will inform the 
-		 * corner about mouse events
+		 * element about mouse events
 		 * @param room	The room where the corner is created at
 		 * @param navigator	Navigator is needed for moving between the gamePhases
 		 */
