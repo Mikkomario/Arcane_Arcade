@@ -142,11 +142,10 @@ public class DrawableHandler extends Handler implements Drawable
 			
 			int index = 0;
 			int newdepth = d.getDepth();
-			Iterator<Handled> iterator = getIterator();
 			
-			while (iterator.hasNext())
+			for (int i = 0; i < getHandledNumber(); i++)
 			{
-				Drawable other = (Drawable) iterator.next();
+				Drawable other = (Drawable) getHandled(i);
 				
 				//System.out.println(newdepth + " -> " + other.getDepth() + "?");
 				//System.out.println(index);
@@ -191,10 +190,10 @@ public class DrawableHandler extends Handler implements Drawable
 	private void checkDepthSorting()
 	{
 		int lastdepth = 900000;
-		Iterator<Handled> ite = getIterator();
-		while(ite.hasNext())
+
+		for (int i = 0; i < getHandledNumber(); i++)
 		{
-			Drawable drawable = (Drawable) ite.next();
+			Drawable drawable = (Drawable) getHandled(i);
 			if (drawable.getDepth() > lastdepth)
 			{
 				//System.out.println("ERROR IN DEPTH SORTING");
