@@ -45,6 +45,11 @@ public class Options
 	 * Should the game start in full screen mode or not
 	 */
 	public static boolean fullscreenon = false;
+	/**
+	 * How much panning there can be in the sound effects and voices at maximum. 
+	 * (High pan can be disturbing if the user wears headphones) [0, 1]
+	 */
+	public static double maxenvironmentalpan = 0.75;
 	
 	
 	// STATIC METHODS	-------------------------------------------------
@@ -85,8 +90,10 @@ public class Options
 		 * 4 = Rightwizardbuttons
 		 * 5 = Volume intro
 		 * 6 = Volumes
-		 * 7 = Fullscreen intro
-		 * 8 = Fullscreen
+		 * 7 = Panning intro
+		 * 8 = Panning
+		 * 9 = Fullscreen intro
+		 * 10 = Fullscreen
 		 */
 		private int writephase;
 		
@@ -134,9 +141,12 @@ public class Options
 				case 6: return soundvolumeadjustment + "\n&musicvolume\n" + 
 						musicvolumeadjustment + "\n&voicevolume\n" + 
 						voicevolumeadjustment;
-				case 7: return "\n* This determines if the game will start " +
+				case 7: return "\n* Here is the maximum pan the sound effects " +
+						"and voices can have [0,1]\n&maxpan";
+				case 8: return maxenvironmentalpan + "";
+				case 9: return "\n* This determines if the game will start " +
 						"in full screen mode or not.\n&fullscreen";
-				case 8: return fullscreenon + "";
+				case 10: return fullscreenon + "";
 				default: return END_OF_STREAM;
 			}
 		}
@@ -167,7 +177,8 @@ public class Options
 		 * 3 = Reads sound volume
 		 * 4 = Reads music volume
 		 * 5 = Reads voice volume
-		 * 6 = Reads the full screen effect
+		 * 6 = Reds maximum pan
+		 * 7 = Reads the full screen effect
 		 */
 		private int loadphase = 0;
 		
@@ -193,8 +204,9 @@ public class Options
 					case "buttons2": this.loadphase = 2; break;
 					case "soundvolume": this.loadphase = 3; break;
 					case "musicvolume": this.loadphase = 4; break;
-					case "fullscreen": this.loadphase = 6; break;
+					case "fullscreen": this.loadphase = 7; break;
 					case "voicevolume": this.loadphase = 5; break;
+					case "maxpan": this.loadphase = 6;
 					default: System.err.println("An unknown command in the " +
 							"usersettings file!"); break;
 				}
@@ -234,8 +246,10 @@ public class Options
 					case 4: musicvolumeadjustment = readAsInt(line); break;
 					// Changes the voice volume
 					case 5: voicevolumeadjustment = readAsInt(line); break;
+					// Changes the maximum pan
+					case 6: maxenvironmentalpan = readAsDouble(line); break;
 					// Changes the full screen modifier
-					case 6: fullscreenon = line.equals("true"); break;
+					case 7: fullscreenon = line.equals("true"); break;
 					default: System.err.println("The options reader doesn't " +
 							"know what to do to the line " + line);
 				}
@@ -263,6 +277,24 @@ public class Options
 			{
 				System.err.println("The options couldn't be read from a " +
 						"save file since " + intstring + " is not an integer!");
+				nfe.printStackTrace();
+			}
+			
+			return value;
+		}
+		
+		private double readAsDouble(String doublestring)
+		{
+			double value = 0;
+			
+			try
+			{
+				value = Double.parseDouble(doublestring);
+			}
+			catch (NumberFormatException nfe)
+			{
+				System.err.println("The options couldn't be read from a " +
+						"save file since " + doublestring + " is not an double!");
 				nfe.printStackTrace();
 			}
 			
