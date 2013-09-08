@@ -19,19 +19,19 @@ public enum Element
 {
 	// Elements
 	@SuppressWarnings("javadoc")
-	FIRE, 
+	BLAZE, 
 	@SuppressWarnings("javadoc")
-	WATER, 
+	TIDE, 
 	@SuppressWarnings("javadoc")
-	ICE, 
+	FROST, 
 	@SuppressWarnings("javadoc")
 	EARTH, 
 	@SuppressWarnings("javadoc")
-	WIND, 
+	GALE, 
 	@SuppressWarnings("javadoc")
-	LIGHTNING, 
+	VOLT, 
 	@SuppressWarnings("javadoc")
-	DARK, 
+	SOMBER, 
 	@SuppressWarnings("javadoc")
 	LIGHT,
 	@SuppressWarnings("javadoc")
@@ -96,13 +96,13 @@ public enum Element
 	{
 		switch(this)
 		{
-			case FIRE: return 0;
-			case WATER: return 1;
-			case ICE: return 2;
+			case BLAZE: return 0;
+			case TIDE: return 1;
+			case FROST: return 2;
 			case EARTH: return 3;
-			case WIND: return 4;
-			case LIGHTNING: return 5;
-			case DARK: return 6;
+			case GALE: return 4;
+			case VOLT: return 5;
+			case SOMBER: return 6;
 			case LIGHT: return 7;
 			
 			default: return 0;
@@ -125,7 +125,7 @@ public enum Element
 		switch(this)
 		{
 			// Fire is weak against water, ice and muddy
-			case FIRE:
+			case BLAZE:
 			{
 				if (status == BallStatus.WET || status == BallStatus.FROZEN 
 						|| status == BallStatus.MUDDY)
@@ -134,7 +134,7 @@ public enum Element
 					return 1;
 			}
 			// Water is weak against fire
-			case WATER:
+			case TIDE:
 			{
 				if (status == BallStatus.FLAMING)
 					return getWeakModifier(strength);
@@ -142,7 +142,7 @@ public enum Element
 					return 1;
 			}
 			// Ice is weak against fire, but strong against water
-			case ICE:
+			case FROST:
 			{
 				if (status == BallStatus.FLAMING)
 					return getWeakModifier(strength);
@@ -162,7 +162,7 @@ public enum Element
 					return 1;
 			}
 			// Wind is strong against earth but weak against fire
-			case WIND:
+			case GALE:
 			{
 				if (status ==  BallStatus.FLAMING)
 					return getWeakModifier(strength);
@@ -173,7 +173,7 @@ public enum Element
 			}
 			// Lightning is strong against lightning and water but weak 
 			// against earth
-			case LIGHTNING:
+			case VOLT:
 			{
 				if (status == BallStatus.MUDDY)
 					return getWeakModifier(strength);
@@ -221,6 +221,14 @@ public enum Element
 		System.err.println("Not enough spells in the element's spell list! " +
 				"Spells required " + (spellindex + 1));
 		return null;
+	}
+	
+	/**
+	 * @return The name of the element sound in the banks
+	 */
+	public String getSoundName()
+	{
+		return toString().toLowerCase();
 	}
 	
 	private double getWeakModifier(double strength)

@@ -100,7 +100,8 @@ public abstract class SoundQueue implements SoundListener, BankObject
 	public void onSoundEnd(Sound source)
 	{
 		// Removes the old sound from the queue
-		this.sounds.removeFirst();
+		if (this.sounds.size() > 0)
+			this.sounds.removeFirst();
 		
 		// Checks if there are any more sounds to play
 		if (this.sounds.size() == 0)
@@ -145,6 +146,14 @@ public abstract class SoundQueue implements SoundListener, BankObject
 	{
 		this.playing = false;
 		this.sounds.getFirst().stop();
+	}
+	
+	/**
+	 * Empties the queue without stopping any sounds.
+	 */
+	public void empty()
+	{
+		this.sounds.clear();
 	}
 	
 	/**

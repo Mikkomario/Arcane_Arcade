@@ -60,7 +60,13 @@ public class SoundEffectPlayer
 				Options.voicevolumeadjustment, pan, null);
 	}
 	
-	private static float getEnvironmentalPan(double x)
+	/**
+	 * Returns a pan calculated from the source's position on the screen
+	 *
+	 * @param x The sound source's x-coordinate on the screen
+	 * @return The pan the sound should use.
+	 */
+	public static float getEnvironmentalPan(double x)
 	{
 		return (float) (((x - GameSettings.SCREENWIDTH / 2) / 
 				(GameSettings.SCREENWIDTH / 2)) * Options.maxenvironmentalpan);
