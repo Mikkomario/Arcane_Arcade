@@ -42,7 +42,7 @@ public class ExplosionEffect extends MaskedSpellEffect
 	{
 		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, drawer, 
 				collidablehandler, null, actorhandler, room, "explosion", 
-				"explosionmask", false, true, false, Element.FIRE, 
+				"explosionmask", false, true, false, Element.BLAZE, 
 				Element.NOELEMENT, 25, true);
 		setRadius(100);
 		addAnimationEffect();
