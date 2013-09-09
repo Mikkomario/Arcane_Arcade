@@ -96,8 +96,8 @@ public class WizardSoundQueuePlayer
 			// Calculates the larges HP the other wizards have
 			int othermaxhp = getMaxOtherWizardHP(source);
 			// Adjusts the soundnames
-			// TODO: Check if this would be better with >=
-			if (source.getMaxHP() > othermaxhp)
+			// TODO: Check if this would be better with >
+			if (source.getMaxHP() >= othermaxhp)
 			{
 				firstvoicename += "win";
 				secondvoicename += "loss";

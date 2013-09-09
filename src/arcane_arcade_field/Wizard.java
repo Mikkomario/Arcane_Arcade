@@ -10,6 +10,7 @@ import worlds.Room;
 import listeners.AdvancedKeyListener;
 import listeners.RoomListener;
 
+import arcane_arcade_field.WizardSoundQueuePlayer.DialogEvent;
 import arcane_arcade_main.Buttons;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_spelleffects.ExplosionEffect;
@@ -66,6 +67,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private BallRelay ballrelay;
 	private CollisionHandler collisionhandler;
 	private ScoreKeeper scorekeeper;
+	private WizardSoundQueuePlayer voiceplayer;
 	
 	private SpriteDrawer spritedrawer;
 	private SpriteDrawer castdelaymeterdrawer;
@@ -122,6 +124,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 * (default 1) 
 	 * @param avatar The avatar of the wizard that defines the wizard's voice 
 	 * and other stats.
+	 * @param voiceplayer The soundqueueplayer that will play the wizard's 
+	 * punchlines
 	 */
 	public Wizard(DrawableHandler drawer, CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, ActorHandler actorhandler, 
@@ -129,7 +133,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			ScoreKeeper scorekeeper, BallRelay ballrelay, ScreenSide screenside, 
 			HashMap<Buttons, Character> leftwizardbuttons, Element[] usedelements, 
 			double manaregenerationmodifier, double castdelaymodifier, 
-			Avatar avatar)
+			Avatar avatar, WizardSoundQueuePlayer voiceplayer)
 	{
 		super(70, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
 				true, CollisionType.CIRCLE, drawer, collidablehandler,
@@ -138,6 +142,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		// Initializes attributes
 		this.screenside = screenside;
 		this.avatar = avatar;
+		this.voiceplayer = voiceplayer;
 		this.friction = 0.4;
 		this.maxspeed = 5;
 		this.accelration = 0.7;
@@ -658,7 +663,12 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		if (this.hp <= 0)
 			die();
 		else
+		{
 			this.invincibilitytime = this.invincibilitydelay;
+			
+			// If the wizard didn't die, plays a damage dialog
+			this.voiceplayer.playDialogEvent(DialogEvent.DAMAGE, this);
+		}
 	}
 	
 	/**
@@ -749,8 +759,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		if (getStatusStrength(WizardStatus.REBIRTH) > 0)
 		{
 			adjustStatus(WizardStatus.REBIRTH, -100);
+			
+			// Also shouts a special punchline
+			this.voiceplayer.playDialogEvent(DialogEvent.SPECIAL, this);
+			
 			respawn();
+			return;
 		}
+		
 		// The wizard disappears for a moment with an explosion
 		new ExplosionEffect((int) getX(), (int) getY(), this.drawer, 
 				this.collidablehandler, this.actorhandler, this.room);
@@ -763,6 +779,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		
 		// Informs the scorekeeper
 		this.scorekeeper.score(getScreenSide().getOppositeSide());
+		
+		// Also plays a dialog
+		this.voiceplayer.playDialogEvent(DialogEvent.LOSS, this);
 		
 		inactivate();
 		setInvisible();

@@ -74,6 +74,9 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 		BallRelay ballrelay = new BallRelay(room);
 		// And the wizardrelay
 		WizardRelay wizardrelay = new WizardRelay(room);
+		// Creates a wizardsoundqueueplayer
+		WizardSoundQueuePlayer wizardvoiceplayer = 
+				new WizardSoundQueuePlayer(wizardrelay);
 		// Creates the server
 		Server server = new Server(GameSettings.SCREENWIDTH / 2, 
 				GameSettings.SCREENHEIGHT / 2, this.drawer, this.actorhandler, 
@@ -91,7 +94,8 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 				ScreenSide.LEFT, Options.leftwizardbuttons, 
 				this.currentsetting.getElementsOnSide(ScreenSide.LEFT), 
 				this.currentsetting.getManaRegenerationModifier(), 
-				this.currentsetting.getSpellDelayModifier(), Avatar.GANDALF));
+				this.currentsetting.getSpellDelayModifier(), Avatar.GANDALF, 
+				wizardvoiceplayer));
 	}
 
 	@Override

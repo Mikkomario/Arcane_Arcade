@@ -69,7 +69,11 @@ public class OptionBar extends DrawnObject implements RoomListener {
 	
 	//GETTERS & SETTERS ------------------------------------------------
 	
-	public int getValue(){
+	/**
+	 * @return The value the user has chosen
+	 */
+	public int getValue()
+	{
 		return this.value;
 	}
 	

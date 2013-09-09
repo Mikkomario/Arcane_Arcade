@@ -4,6 +4,7 @@ import java.util.Random;
 
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
+import arcane_arcade_main.SoundEffectPlayer;
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
 import handlers.DrawableHandler;
@@ -27,7 +28,6 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 	private CollidableHandler collidablehandler;
 	private Room room;
 	private Random rand;
-	private int creations;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -53,7 +53,6 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 		this.collidablehandler = collidablehandler;
 		this.room = room;
 		this.rand = new Random();
-		this.creations = 0;
 	}
 	
 	
@@ -85,14 +84,14 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 			wave.addVelocity(0, caster.getMovement().getVSpeed());
 		// Changes the effects angle as well
 		wave.setAngle(wave.getMovement().getDirection());
-		
-		this.creations ++;
-		
+	}
+	
+	@Override
+	protected void onBurstEnd()
+	{
 		// Adjusts the burst size after each burst
-		if (this.creations == getBurstSize())
-		{
-			this.creations = 0;
 			this.adjustBurstSize(-2);
-		}
+		// Also plays a wave sound
+		SoundEffectPlayer.playSoundEffect("strongwave");
 	}
 }

@@ -61,6 +61,12 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 	 */
 	protected abstract void createEffect();
 	
+	/**
+	 * This method is called at the end of each burst since some creators 
+	 * might want to react to bursts.
+	 */
+	protected abstract void onBurstEnd();
+	
 	
 	// IMPLEMENTED METHODS	----------------------------------------------
 	

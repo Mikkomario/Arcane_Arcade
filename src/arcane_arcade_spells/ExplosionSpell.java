@@ -8,6 +8,7 @@ import worlds.Room;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
+import arcane_arcade_main.SoundEffectPlayer;
 import arcane_arcade_spelleffects.ExplosionEffect;
 
 /**
@@ -44,5 +45,8 @@ public class ExplosionSpell extends Spell
 		
 		new ExplosionEffect(x, (int) caster.getY(), 
 				drawer, collidablehandler, actorhandler, room); 
+		
+		// Also plays an explosion sound effect
+		SoundEffectPlayer.playSoundEffect("explosion");
 	}
 }

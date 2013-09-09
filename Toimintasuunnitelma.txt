@@ -236,8 +236,8 @@ Eteneminen:														Status
 				- OpenWavSoundBank ja muuta						Testaamatta
 					* OpenWavSoundBank							Testaamatta
 					* OpenWavSoundBankHolder					Testaamatta
-			* Äänien lisäys peliin								...
-				- Äänten soittaminen oikeassa kohdassa
+			* Äänien lisäys peliin								Testaamatta
+				- Äänten soittaminen oikeassa kohdassa			Testaamatta
 				- Äänten lataaminen oikeassa kontekstissa		Testaamatta
 					* Wizard -enumeraatio						DONE
 						- getSoundBank -metodi sinne?			DONE

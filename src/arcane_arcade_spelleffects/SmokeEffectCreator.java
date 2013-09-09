@@ -78,4 +78,9 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 		smokeScreen.setFriction(0.04);
 	}
 
+	@Override
+	protected void onBurstEnd()
+	{
+		// Does nothing
+	}
 }

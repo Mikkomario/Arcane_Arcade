@@ -9,6 +9,7 @@ import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_main.SoundEffectPlayer;
 import arcane_arcade_spelleffects.SmokeEffectCreator;
 
 /**
@@ -39,5 +40,8 @@ public class SmokeScreenSpell extends Spell{
 		
 		new SmokeEffectCreator(400, actorhandler, room, x, (int)caster.getY(), 
 				drawer, collidablehandler, collisionhandler);
+		
+		// Also plays an smokescreen sound effect
+		SoundEffectPlayer.playSoundEffect("smoke");
 	}
 }
