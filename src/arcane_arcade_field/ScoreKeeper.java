@@ -7,7 +7,9 @@ import worlds.Room;
 import listeners.RoomListener;
 
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
+import arcane_arcade_worlds.VictorySetting;
 
 import graphic.SpriteDrawer;
 import handleds.Actor;
@@ -31,10 +33,11 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 	private int scoreleft;
 	private int scoreright;
 	private int maxscore;
-	//private Font scorefont;
-	//private Color scorecolor;
+
 	private Server server;
 	private WizardRelay wizardrelay;
+	private Navigator navigator;
+	
 	private int respawntime;
 	private int respawntimeleft;
 	private boolean active;
@@ -52,16 +55,20 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 	 * @param server The server that serves the ball after each score
 	 * @param wizardrelay The wizards who need to be respawned after each 
 	 * score
+	 * @param navigator The navigator that will handle the transition to the 
+	 * victory screen
 	 * @param maxscore How many points are needed to win the game
 	 */
 	public ScoreKeeper(DrawableHandler drawer, ActorHandler actorhandler, 
-			Room room, Server server, WizardRelay wizardrelay, int maxscore)
+			Room room, Server server, WizardRelay wizardrelay, 
+			Navigator navigator, int maxscore)
 	{
 		super(GameSettings.SCREENWIDTH / 2, 20, DepthConstants.HUD, drawer);
 		
 		// Initializes attributes
 		this.spritedrawer = new SpriteDrawer(
 				Navigator.getSpriteBank("hud").getSprite("score"), null);
+		this.navigator = navigator;
 		this.scoreleft = 0;
 		this.scoreright = 0;
 		this.maxscore = maxscore;
@@ -197,7 +204,12 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 		}
 		
 		// If the game was won, goes to the victory screen
-		// TODO: Add victory screen
+		if (this.scoreleft >= this.maxscore || this.scoreright >= this.maxscore)
+		{
+			VictorySetting setting = new VictorySetting(this.scoreleft, 
+					this.scoreright);
+			this.navigator.startPhase(GamePhase.VICTORYSCREEN, setting);
+		}
 	}
 	
 	

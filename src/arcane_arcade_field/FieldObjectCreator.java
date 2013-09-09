@@ -4,6 +4,7 @@ import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Options;
 import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.FieldSetting;
+import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.RoomObjectCreator;
 import handlers.ActorHandler;
 import handlers.CollisionHandler;
@@ -31,6 +32,7 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 	private KeyListenerHandler keylistenerhandler;
 	private CollisionHandler collisionhandler;
 	private FieldSetting currentsetting;
+	private Navigator navigator;
 	
 	
 	// CONSTRCUTOR	-----------------------------------------------------
@@ -44,10 +46,11 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 	 * actor about the act event
 	 * @param superkeyhandler The keylistenerhandler that will inform created 
 	 * objects about the key events
-	 * @param room The room where the objects are created into
+	 * @param navigator The navigator that will handle the phase changing
 	 */
 	public FieldObjectCreator(DrawableHandler superdrawer, 
-			ActorHandler superactorhandler, KeyListenerHandler superkeyhandler)
+			ActorHandler superactorhandler, KeyListenerHandler superkeyhandler, 
+			Navigator navigator)
 	{
 		// Initializes attributes
 		this.drawer = new DrawableHandler(false, true, DepthConstants.NORMAL, 
@@ -56,6 +59,7 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 		this.keylistenerhandler = new KeyListenerHandler(false, superkeyhandler);
 		this.collisionhandler = new CollisionHandler(false, this.actorhandler);
 		this.currentsetting = null;
+		this.navigator = navigator;
 	}
 	
 	
@@ -77,7 +81,7 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 				this.collisionhandler, room, ballrelay, wizardrelay);
 		// Creates the scorekeeper
 		ScoreKeeper scorekeeper = new ScoreKeeper(this.drawer, 
-				this.actorhandler, room, server, wizardrelay, 
+				this.actorhandler, room, server, wizardrelay, this.navigator, 
 				this.currentsetting.getVictoryPoints());
 		// Creates wizard(s)
 		wizardrelay.addWizard(new Wizard(this.drawer, 

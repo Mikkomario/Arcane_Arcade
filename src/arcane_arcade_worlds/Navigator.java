@@ -159,7 +159,7 @@ public class Navigator
 		
 		// Creates the object creator
 		FieldObjectCreator creator = new FieldObjectCreator(drawer, actorhandler, 
-				keyhandler);
+				keyhandler, this);
 		
 		SettingUsingRoom field = new SettingUsingRoom(creator, mountainbacklist);
 		

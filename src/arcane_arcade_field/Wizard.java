@@ -172,8 +172,10 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				Navigator.getSpriteBank("field").getSprite(
 				"regeneration"), actorhandler);
 		this.buttonmaps = leftwizardbuttons;
-		// Initializes element list with two elements
 		this.elements = usedelements;
+		
+		// Initializes the used soundbank (if it isn't initialized already)
+		this.avatar.initializeVoiceBank();
 		
 		// Initializes current spell
 		this.currentspell = this.elements[this.elementindex1].getSpell(
@@ -187,6 +189,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		}
 		this.statusdepletionrate = 0.1;
 		this.statusdrawer = new WizardStatusDrawer(drawer, actorhandler, this);
+		
 		// Initializes HUD
 		this.huddrawer = new WizardHudDrawer(drawer, this);
 		
@@ -395,6 +398,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	{
 		// When the room ends, the wizard is killed
 		kill();
+		// Also uninitializes the used soundbank
+		this.avatar.uninitializeVoiceBank();
 	}
 	
 	@Override

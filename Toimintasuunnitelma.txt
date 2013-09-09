@@ -167,7 +167,7 @@ Eteneminen:														Status
 		- Toinen pelaaja										DONE
 			* Eri näppäinten käyttäminen						DONE
 		- Menu													Testaamatta
-			* Main-menun ympäristön luominen					Testaamatta
+			* Main-menun ympäristön luominen					DONE
 			* Ympäristöjen vaihtaminen							Testaamatta
 				- Muistin vapauttaminen välissä					Testaamatta
 					* Tarpeettomiksi tulleiden pankkien 		Testaamatta
@@ -238,14 +238,14 @@ Eteneminen:														Status
 					* OpenWavSoundBankHolder					Testaamatta
 			* Äänien lisäys peliin								...
 				- Äänten soittaminen oikeassa kohdassa
-				- Äänten lataaminen oikeassa kontekstissa		...
+				- Äänten lataaminen oikeassa kontekstissa		Testaamatta
 					* Wizard -enumeraatio						DONE
 						- getSoundBank -metodi sinne?			DONE
 							* Mutta pitääkö tehdä oma holder?	DONE
-				- Äänten uninitializettaminen kun niitä ei		...
+				- Äänten uninitializettaminen kun niitä ei		Testaamatta
 				tarvita
 					* Efektiäänet								Testaamatta
-					* Wizardäänet								...
+					* Wizardäänet								Testaamatta
 		- Musiikki
 			* Tarvittavat resurssit
 			* Musiikkien järkevä organisointi ja lukeminen
