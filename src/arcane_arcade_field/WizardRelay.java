@@ -70,6 +70,29 @@ public class WizardRelay extends Handler implements RoomListener
 	}
 	
 	/**
+	 * Returns a wizard from the relay
+	 *
+	 * @param index The index of the wizard
+	 * @return The wizard from the given index or null if no such wizard exists
+	 */
+	protected Wizard getWizard(int index)
+	{
+		Handled maybewizard = getHandled(index);
+		if (maybewizard instanceof Wizard)
+			return (Wizard) maybewizard;
+		else
+			return null;
+	}
+	
+	/**
+	 * @return How many wizards are stored into the relay
+	 */
+	protected int getWizardNumber()
+	{
+		return getHandledNumber();
+	}
+	
+	/**
 	 * Returns all wizards from a single side of the screen
 	 *
 	 * @param side The side of the screen where the wizards are looked for

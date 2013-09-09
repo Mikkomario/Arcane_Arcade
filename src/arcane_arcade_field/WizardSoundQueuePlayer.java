@@ -21,6 +21,7 @@ public class WizardSoundQueuePlayer
 	
 	private HashMap<Avatar, WavSoundQueue> elementqueues;
 	private WavSoundQueue dialogqueue;
+	private WizardRelay wizardrelay;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -28,12 +29,16 @@ public class WizardSoundQueuePlayer
 	/**
 	 * Creates a new wizardsoundqueueplayer ready to play wizard sounds as 
 	 * queues
+	 * 
+	 * @param wizardrelay The relay that contains information about all the 
+	 * wizards in the game
 	 */
-	public WizardSoundQueuePlayer()
+	public WizardSoundQueuePlayer(WizardRelay wizardrelay)
 	{
 		// Initializes attributes
 		this.dialogqueue = new WavSoundQueue(false);
 		this.elementqueues = new HashMap<Avatar, WavSoundQueue>();
+		this.wizardrelay = wizardrelay;
 	}
 	
 	
@@ -64,6 +69,64 @@ public class WizardSoundQueuePlayer
 				SoundEffectPlayer.getEnvironmentalPan(x), true);
 		// Adds the queue to the map
 		this.elementqueues.put(avatar, newqueue);
+	}
+	
+	/**
+	 * Plays a dialog where multiple mages shout a catchphrase depending on 
+	 * the situation.
+	 *
+	 * @param event The situation the wizard is in
+	 * @param source The wizard that will make the initial dialog voice.
+	 */
+	public void playDialogEvent(DialogEvent event, Wizard source)
+	{
+		// If the event is noevent, plays no dialog
+		if (event == DialogEvent.NODIALOG)
+			return;
+		
+		// Checks the soundnames used in the dialog
+		String firstvoicename = event.toString().toLowerCase();
+		String secondvoicename = 
+				event.getOpposingEvent().toString().toLowerCase();
+		
+		// For some dialog events, the remaining HP of the wizard affects the 
+		// played sounds
+		if (event == DialogEvent.DAMAGE || event == DialogEvent.STRIKE)
+		{
+			// Calculates the larges HP the other wizards have
+			int othermaxhp = getMaxOtherWizardHP(source);
+			// Adjusts the soundnames
+			// TODO: Check if this would be better with >=
+			if (source.getMaxHP() > othermaxhp)
+			{
+				firstvoicename += "win";
+				secondvoicename += "loss";
+			}
+			else
+			{
+				firstvoicename += "loss";
+				secondvoicename += "win";
+			}
+		}
+		
+		// Adds the dialog(s) to the queue
+		// TODO: Add firstsound by source to the gueue
+		// TODO: Add secondsound by other wizards to the queue (if needed)
+	}
+	
+	// Returns the largest HP the other wizards have
+	private int getMaxOtherWizardHP(Wizard wizard)
+	{
+		int maxhp = 0;
+		// Goes through all the (other) wizards
+		for (int i = 0; i < this.wizardrelay.getWizardNumber(); i++)
+		{
+			Wizard w = this.wizardrelay.getWizard(i);
+			if (w.getMaxHP() > maxhp && !w.equals(wizard))
+				maxhp = w.getMaxHP();
+		}
+		
+		return maxhp;
 	}
 	
 	
