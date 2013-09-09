@@ -110,8 +110,24 @@ public class WizardSoundQueuePlayer
 		}
 		
 		// Adds the dialog(s) to the queue
-		// TODO: Add firstsound by source to the gueue
-		// TODO: Add secondsound by other wizards to the queue (if needed)
+		// Adds firstsound by source to the gueue
+		this.dialogqueue.addWavSound(
+				source.getAvatar().getVoiceBank().getSound(firstvoicename), 
+				Options.voicevolumeadjustment, 
+				SoundEffectPlayer.getEnvironmentalPan(source.getX()), true);
+		// Adds secondsound by other wizards to the queue (if needed)
+		if (event.getOpposingEvent() != DialogEvent.NODIALOG)
+		{
+			for (int i = 0; i < this.wizardrelay.getWizardNumber(); i++)
+			{
+				Wizard opponent = this.wizardrelay.getWizard(i);
+				this.dialogqueue.addWavSound(opponent.getAvatar().getVoiceBank(
+						).getSound(secondvoicename), 
+						Options.voicevolumeadjustment, 
+						SoundEffectPlayer.getEnvironmentalPan(opponent.getX()), 
+						true);
+			}
+		}
 	}
 	
 	// Returns the largest HP the other wizards have
