@@ -113,3 +113,5 @@ Loitsut
 		- Kasvi ampuu pallon -animaatio
 	* Bug Swarm
 		- Lentävä myrkkyötökkä
+Muut
+	* Paused -ikoni (näkyvä)

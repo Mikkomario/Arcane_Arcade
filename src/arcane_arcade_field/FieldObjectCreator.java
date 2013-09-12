@@ -27,10 +27,10 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
-	private DrawableHandler drawer;
-	private ActorHandler actorhandler;
-	private KeyListenerHandler keylistenerhandler;
-	private CollisionHandler collisionhandler;
+	private DrawableHandler fielddrawer;
+	private ActorHandler fieldactorhandler;
+	private KeyListenerHandler fieldkeylistenerhandler;
+	private CollisionHandler fieldcollisionhandler;
 	private FieldSetting currentsetting;
 	private Navigator navigator;
 	
@@ -53,11 +53,11 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 			Navigator navigator)
 	{
 		// Initializes attributes
-		this.drawer = new DrawableHandler(false, true, DepthConstants.NORMAL, 
+		this.fielddrawer = new DrawableHandler(false, true, DepthConstants.NORMAL, 
 				superdrawer);
-		this.actorhandler = new ActorHandler(false, superactorhandler);
-		this.keylistenerhandler = new KeyListenerHandler(false, superkeyhandler);
-		this.collisionhandler = new CollisionHandler(false, this.actorhandler);
+		this.fieldactorhandler = new ActorHandler(false, superactorhandler);
+		this.fieldkeylistenerhandler = new KeyListenerHandler(false, superkeyhandler);
+		this.fieldcollisionhandler = new CollisionHandler(false, this.fieldactorhandler);
 		this.currentsetting = null;
 		this.navigator = navigator;
 	}
@@ -79,18 +79,18 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 				new WizardSoundQueuePlayer(wizardrelay);
 		// Creates the server
 		Server server = new Server(GameSettings.SCREENWIDTH / 2, 
-				GameSettings.SCREENHEIGHT / 2, this.drawer, this.actorhandler, 
-				this.collisionhandler.getCollidableHandler(), 
-				this.collisionhandler, room, ballrelay, wizardrelay);
+				GameSettings.SCREENHEIGHT / 2, this.fielddrawer, this.fieldactorhandler, 
+				this.fieldcollisionhandler.getCollidableHandler(), 
+				this.fieldcollisionhandler, room, ballrelay, wizardrelay);
 		// Creates the scorekeeper
-		ScoreKeeper scorekeeper = new ScoreKeeper(this.drawer, 
-				this.actorhandler, room, server, wizardrelay, this.navigator, 
+		ScoreKeeper scorekeeper = new ScoreKeeper(this.fielddrawer, 
+				this.fieldactorhandler, room, server, wizardrelay, this.navigator, 
 				this.currentsetting.getVictoryPoints());
 		// Creates wizard(s)
-		wizardrelay.addWizard(new Wizard(this.drawer, 
-				this.collisionhandler.getCollidableHandler(), 
-				this.collisionhandler, this.actorhandler, 
-				this.keylistenerhandler, room, scorekeeper, ballrelay, 
+		wizardrelay.addWizard(new Wizard(this.fielddrawer, 
+				this.fieldcollisionhandler.getCollidableHandler(), 
+				this.fieldcollisionhandler, this.fieldactorhandler, 
+				this.fieldkeylistenerhandler, room, scorekeeper, ballrelay, 
 				ScreenSide.LEFT, Options.leftwizardbuttons, 
 				this.currentsetting.getElementsOnSide(ScreenSide.LEFT), 
 				this.currentsetting.getManaRegenerationModifier(), 
@@ -113,5 +113,30 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 		else
 			System.err.println("FieldObjectCreator requires an " +
 					"FieldSetting -setting and will not function otherwise!");
+	}
+	
+	
+	// OTHER METHODS	--------------------------------------------------
+	
+	/**
+	 * Pauses all the objects (that can be inactivated) in the field
+	 */
+	public void pauseField()
+	{
+		// Inactivates the field handlers
+		this.fieldactorhandler.inactivate();
+		this.fieldcollisionhandler.inactivate();
+		this.fieldkeylistenerhandler.inactivate();
+	}
+	
+	/**
+	 * Reactivates all the objects in the field
+	 */
+	public void unpause()
+	{
+		// (Re)activates the field handlers
+		this.fieldactorhandler.activate();
+		this.fieldcollisionhandler.activate();
+		this.fieldkeylistenerhandler.activate();
 	}
 }
