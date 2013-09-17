@@ -2,7 +2,6 @@ package handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import listeners.CollisionListener;
 import handleds.Actor;
@@ -21,12 +20,6 @@ import helpAndEnums.DoublePoint;
  */
 public class CollisionHandler extends LogicalHandler implements Actor
 {
-	// TODO: Add separate collisionListenerHandler class (difficult to implement 
-	// since the class needs to access the listeners directly and not through 
-	// a handler)
-	// TODO: If the collidablehandler contains collidablehandlers there will 
-	// be problems
-	
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private CollidableHandler collidablehandler;
@@ -55,69 +48,52 @@ public class CollisionHandler extends LogicalHandler implements Actor
 	@Override
 	public void act()
 	{
-		// Removes the dead listeners
-		removeDeadHandleds();
-		// And dead collidables as well
-		getCollidableHandler().removeDeadHandleds();
-		
-		// Checks collisions between all the listeners and collidables
-		Iterator<Handled> listeneriterator = getIterator();
-		
-		while (listeneriterator.hasNext())
-		{
-			CollisionListener listener = (CollisionListener) listeneriterator.next();
-			
-			// Inactive listeners are not counted
-			if (!listener.isActive())
-				continue;
-			
-			DoublePoint[] colpoints = listener.getCollisionPoints();
-			HashMap<Collidable, ArrayList<DoublePoint>> collidedpoints = 
-					new HashMap<Collidable, ArrayList<DoublePoint>>();
-			
-			// Goes through all collidables and checks collisions
-			Iterator<Handled> collidableiterator = 
-					this.collidablehandler.getIterator();
-			
-			while (collidableiterator.hasNext())
-			{
-				Collidable c = (Collidable) collidableiterator.next();
-				
-				// Non-solid collidables cannot collide
-				if (!c.isSolid())
-					continue;
-				
-				// Listener cannot collide with itself
-				if (listener.equals(c))
-					continue;
-				
-				// Checks all points if they would collide
-				for (int pointi = 0; pointi < colpoints.length; pointi++)
-				{
-					Collidable collider = c.pointCollides((int) colpoints[pointi].getX(), 
-							(int) colpoints[pointi].getY());
-					
-					if (collider == null)
-						continue;
-
-					// The arraylist may need to be initialized
-					if (!collidedpoints.containsKey(collider))
-						collidedpoints.put(collider, new ArrayList<DoublePoint>());
-					// Remembers the point and the collided object
-					collidedpoints.get(collider).add(colpoints[pointi]);
-				}
-			}
-			
-			// Informs the listener about each object it collided with
-			for (Collidable c: collidedpoints.keySet())
-				listener.onCollision(collidedpoints.get(c), c);
-		}
+		// Handles the objects normally = checks collisions
+		handleObjects();
 	}
 	
 	@Override
 	protected Class<?> getSupportedClass()
 	{
 		return CollisionListener.class;
+	}
+	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		CollisionListener listener = (CollisionListener) h;
+		
+		// Inactive listeners are not counted
+		if (!listener.isActive())
+			return;
+		
+		DoublePoint[] colpoints = listener.getCollisionPoints();
+		HashMap<Collidable, ArrayList<DoublePoint>> collidedpoints = 
+				new HashMap<Collidable, ArrayList<DoublePoint>>();
+		
+		// Goes throug each point and checks collided objects
+		for (DoublePoint colpoint : colpoints)
+		{
+			ArrayList<Collidable> collided = 
+					this.collidablehandler.getCollidedObjectsAtPoint((int) 
+					colpoint.getX(), (int) colpoint.getY());
+			// If no collisions were detected, moves on
+			if (collided == null)
+				continue;
+			
+			// If collisions were detected, adds them to the map
+			for (Collidable c : collided)
+			{
+				if (!collidedpoints.containsKey(c))
+					collidedpoints.put(c, new ArrayList<DoublePoint>());
+				
+				collidedpoints.get(c).add(colpoint);
+			}
+		}
+		
+		// Informs the listener about each object it collided with
+		for (Collidable c: collidedpoints.keySet())
+			listener.onCollision(collidedpoints.get(c), c);
 	}
 	
 	@Override
