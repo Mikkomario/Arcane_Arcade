@@ -1,6 +1,6 @@
 package handlers;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 
 import handleds.Collidable;
 import handleds.Handled;
@@ -12,12 +12,13 @@ import handleds.Handled;
  * @author Mikko Hilpinen.
  *         Created 18.6.2013.
  */
-public class CollidableHandler extends Handler implements Collidable
+public class CollidableHandler extends Handler
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private int lasttestx, lasttesty;
-	private Collidable lastcollided;
+	private ArrayList<Collidable> collided;
+	private HandlingAction lastaction;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -35,54 +36,12 @@ public class CollidableHandler extends Handler implements Collidable
 		// Initializes attributes
 		this.lasttestx = 0;
 		this.lasttesty = 0;
-		this.lastcollided = null;
+		this.collided = null;
+		this.lastaction = null;
 	}
 	
 	
 	// IMPLEMENTED METHODS	----------------------------------------------
-
-	@Override
-	public boolean isSolid()
-	{
-		// Handler is solid if any of the objects are solid
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
-		{
-			Collidable c = (Collidable) iterator.next();
-			
-			if (c.isSolid())
-				return true;
-		}
-		
-		return false;
-	}
-
-	@Override
-	public void makeSolid()
-	{
-		// Tries to make all of the collidables solid
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
-		{
-			Collidable c = (Collidable) iterator.next();
-			c.makeSolid();
-		}
-	}
-
-	@Override
-	public void makeUnsolid()
-	{
-		// Tries to make all of the collidables solid
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
-		{
-			Collidable c = (Collidable) iterator.next();
-			c.makeUnsolid();
-		}
-	}
 	
 	@Override
 	protected Class<?> getSupportedClass()
@@ -93,17 +52,29 @@ public class CollidableHandler extends Handler implements Collidable
 	@Override
 	protected void handleObject(Handled h)
 	{
-		// Checks the collision for the object and updates the collided attribute
+		// Checks the collision for the object and updates the collided 
+		// attribute
 		Collidable c = (Collidable) h;
 		
-		// Non-solid objects can't collide
-		if (!c.isSolid())
-			return;
-		
-		// Checks the collision
-		Collidable c2 = c.pointCollides(this.lasttestx, this.lasttesty);
-		if (c2 != null && this.lastcollided == null)
-			this.lastcollided = c2;
+		// If the action is set to collision check, does that
+		if (this.lastaction == HandlingAction.COLLISIONCHECK)
+		{
+			// Non-solid objects can't collide
+			if (!c.isSolid())
+				return;
+			
+			// Checks the collision
+			if (!c.pointCollides(this.lasttestx, this.lasttesty))
+				return;
+				
+			// Adds the collided object to the list
+			this.collided.add(c);
+		}
+		// Otherwise solifies or unsolifies the object
+		else if (this.lastaction == HandlingAction.SOLID)
+			c.makeSolid();
+		else if (this.lastaction == HandlingAction.UNSOLID)
+			c.makeUnsolid();
 	}
 	
 	
@@ -119,20 +90,66 @@ public class CollidableHandler extends Handler implements Collidable
 		addHandled(c);
 	}
 
-	@Override
-	public Collidable pointCollides(int x, int y)
+	/**
+	 * Returns all the collided objects the collidablehandler handles that 
+	 * collide with the given point
+	 *
+	 * @param x The x-coordinate of the collision point
+	 * @param y The y-coordinate of the collision point
+	 * @return A list of objects colliding wiht the point or null if no object 
+	 * collided with the point
+	 */
+	public ArrayList<Collidable> getCollidedObjectsAtPoint(int x, int y)
 	{
 		this.lasttestx = 0;
 		this.lasttesty = 0;
-		this.lastcollided = null;
+		this.collided = new ArrayList<Collidable>();
+		this.lastaction = HandlingAction.COLLISIONCHECK;
 		
 		// Checks collisions through all collidables
 		handleObjects();
 		
+		// If there wasn't collided objects, forgets the data and returns null
+		if (this.collided.isEmpty())
+		{
+			this.collided = null;
+			return null;
+		}
+		
 		// Doesn't hold the object in an attribute anymore
-		Collidable returnvalue = this.lastcollided;
-		this.lastcollided = null;
+		@SuppressWarnings("unchecked")
+		ArrayList<Collidable> returnvalue = 
+				(ArrayList<Collidable>) this.collided.clone();
+		this.collided = null;
 		
 		return returnvalue;
+	}
+	
+	/**
+	 * Goes through the collidables and makes them solid
+	 */
+	public void makeCollidablesSolid()
+	{
+		// Tries to make all of the collidables solid
+		this.lastaction = HandlingAction.SOLID;
+		handleObjects();
+	}
+
+	/**
+	 * Goes through the collidables and makes the unsolid
+	 */
+	public void makeCollidablesUnsolid()
+	{
+		// Tries to make all of the collidables solid
+		this.lastaction = HandlingAction.UNSOLID;
+		handleObjects();
+	}
+	
+	
+	// ENUMERATIONS	------------------------------------------------------
+	
+	private enum HandlingAction
+	{
+		SOLID, UNSOLID, COLLISIONCHECK;
 	}
 }
