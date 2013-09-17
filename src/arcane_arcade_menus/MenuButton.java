@@ -158,7 +158,7 @@ public abstract class MenuButton extends DimensionalDrawnObject implements
 	@Override
 	public boolean listensPosition(int x, int y)
 	{
-		return (pointCollides(x, y) != null);
+		return (pointCollides(x, y));
 	}
 
 	@Override

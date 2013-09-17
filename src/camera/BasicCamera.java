@@ -187,7 +187,7 @@ public class BasicCamera extends BasicPhysicDrawnObject
 			for (int i = 0; i < collisionpoints.length; i++)
 			{
 				if (pointCollides((int) collisionpoints[i].getX(), 
-						(int) collisionpoints[i].getY()) != null)
+						(int) collisionpoints[i].getY()))
 					return true;
 			}
 			

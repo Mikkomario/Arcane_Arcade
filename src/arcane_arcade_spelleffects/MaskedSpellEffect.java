@@ -2,7 +2,6 @@ package arcane_arcade_spelleffects;
 
 import worlds.Room;
 import graphic.MaskChecker;
-import handleds.Collidable;
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
 import handlers.CollisionHandler;
@@ -82,23 +81,18 @@ public abstract class MaskedSpellEffect extends SpellEffect
 	// IMPLEMENTED METHODS	---------------------------------------------
 	
 	@Override
-	public Collidable pointCollides(int x, int y)
+	public boolean pointCollides(int x, int y)
 	{	
 		// Point only collides if it also collides the mask
-		Collidable collided = super.pointCollides(x, y);
-		
-		if (collided == null)
-			return null;
+		if (!super.pointCollides(x, y))
+			return false;
 		
 		// Calculates the imageindex used in the collision check
 		int maskindex = 0;
 		if (this.maskanimated)
 			maskindex = getSpriteDrawer().getImageIndex();
 		
-		if (this.maskchecker.maskContainsRelativePoint(
-				negateTransformations(x, y), maskindex))
-			return collided;
-		else
-			return null;
+		return (this.maskchecker.maskContainsRelativePoint(
+				negateTransformations(x, y), maskindex));
 	}
 }

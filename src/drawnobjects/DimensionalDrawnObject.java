@@ -92,7 +92,7 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 	}
 	
 	@Override
-	public Collidable pointCollides(int x, int y)
+	public boolean pointCollides(int x, int y)
 	{
 		// Negates the transformation
 		Point negatedPoint = negateTransformations(x, y);
@@ -101,29 +101,18 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 		// Circular objects react if the point is near enough
 		if (this.collisiontype == CollisionType.CIRCLE)
 		{
-			if (HelpMath.pointDistance(getOriginX(), getOriginY(), 
-					negatedPoint.x, negatedPoint.y) <= getRadius())
-				return this;
-			else
-				return null;
+			return (HelpMath.pointDistance(getOriginX(), getOriginY(), 
+					negatedPoint.x, negatedPoint.y) <= getRadius());
 		}
 		// Boxes collide if the point is within them
 		else if (this.collisiontype == CollisionType.BOX)
 		{
-			if (HelpMath.pointIsInRange(negatedPoint, 0, 
-					getWidth(), 0, getHeight()))
-				return this;
-			else
-				return null;
+			return (HelpMath.pointIsInRange(negatedPoint, 0, 
+					getWidth(), 0, getHeight()));
 		}
 		// Walls collide if the point is on their left side (relatively)
 		else
-		{
-			if (negatedPoint.x < 0)
-				return this;
-			else
-				return null;
-		}
+			return (negatedPoint.x < 0);
 	}
 	
 	

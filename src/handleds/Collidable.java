@@ -13,10 +13,9 @@ public interface Collidable extends Handled
 	 * Checks whether a point collides with the object
 	 * @param x The x-coordinate of the point (absolute pixel)
 	 * @param y The y-coordinate of the point (absolute pixel)
-	 * @return The collidable that collides with the object (null if no object 
-	 * collides)
+	 * @return Does the point collide with the object
 	 */
-	public Collidable pointCollides(int x, int y);
+	public boolean pointCollides(int x, int y);
 	
 	/**
 	 * @return Can the object be collided with at this time
