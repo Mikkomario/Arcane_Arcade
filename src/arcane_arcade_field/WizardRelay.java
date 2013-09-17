@@ -56,6 +56,13 @@ public class WizardRelay extends Handler implements RoomListener
 		kill();
 	}
 	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		// Handles the wizards in separate methods (not affecting the 
+		// data structures
+	}
+	
 	
 	// OTHER METHODS	-------------------------------------------------
 	
@@ -101,8 +108,8 @@ public class WizardRelay extends Handler implements RoomListener
 	 */
 	public ArrayList<Wizard> getWizardsFromSide(ScreenSide side)
 	{
-		// Removes dead balls
-		removeDeadHandleds();
+		// First handles the wizards normally
+		handleObjects();
 		
 		// Forms a table containing all wizards that reside on the given side
 		ArrayList<Wizard> wizards = new ArrayList<Wizard>();
@@ -124,6 +131,9 @@ public class WizardRelay extends Handler implements RoomListener
 	 */
 	public void respawnWizards()
 	{
+		// First handles the wizards normally
+		handleObjects();
+		
 		Iterator<Handled> iterator = getIterator();
 		
 		while (iterator.hasNext())

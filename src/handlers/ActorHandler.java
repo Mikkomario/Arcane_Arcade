@@ -1,6 +1,7 @@
 package handlers;
 
 import handleds.Actor;
+import handleds.Handled;
 
 
 /**
@@ -31,23 +32,22 @@ public class ActorHandler extends LogicalHandler implements Actor
 	@Override
 	public void act()
 	{
-		// Checks the liveliness of the actors
-		removeDeadHandleds();
-		
-		// This calls for all active actor's act method
-		for (int i = 0; i < getHandledNumber(); i++)
-		{
-			Actor a = (Actor) getHandled(i);
-			
-			if (a.isActive())
-				a.act();
-		}
+		handleObjects();
 	}
 	
 	@Override
 	protected Class<?> getSupportedClass()
 	{
 		return Actor.class;
+	}
+	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		// Calls the act method of active handleds
+		Actor a = (Actor) h;
+		if (a.isActive())
+			a.act();
 	}
 	
 	

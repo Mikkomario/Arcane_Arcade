@@ -14,6 +14,12 @@ import handleds.Handled;
  */
 public class CollidableHandler extends Handler implements Collidable
 {
+	// ATTRIBUTES	-----------------------------------------------------
+	
+	private int lasttestx, lasttesty;
+	private Collidable lastcollided;
+	
+	
 	// CONSTRUCTOR	------------------------------------------------------
 	
 	/**
@@ -25,6 +31,11 @@ public class CollidableHandler extends Handler implements Collidable
 	public CollidableHandler(boolean autodeath, CollidableHandler superhandler)
 	{
 		super(autodeath, superhandler);
+		
+		// Initializes attributes
+		this.lasttestx = 0;
+		this.lasttesty = 0;
+		this.lastcollided = null;
 	}
 	
 	
@@ -79,6 +90,22 @@ public class CollidableHandler extends Handler implements Collidable
 		return Collidable.class;
 	}
 	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		// Checks the collision for the object and updates the collided attribute
+		Collidable c = (Collidable) h;
+		
+		// Non-solid objects can't collide
+		if (!c.isSolid())
+			return;
+		
+		// Checks the collision
+		Collidable c2 = c.pointCollides(this.lasttestx, this.lasttesty);
+		if (c2 != null && this.lastcollided == null)
+			this.lastcollided = c2;
+	}
+	
 	
 	// OTHER METHODS	-----------------------------------------------------
 	
@@ -95,26 +122,17 @@ public class CollidableHandler extends Handler implements Collidable
 	@Override
 	public Collidable pointCollides(int x, int y)
 	{
-		// Removes dead collidables
-		removeDeadHandleds();
+		this.lasttestx = 0;
+		this.lasttesty = 0;
+		this.lastcollided = null;
 		
-		// Returns true if any object collides with the point
-		Iterator<Handled> iterator = getIterator();
+		// Checks collisions through all collidables
+		handleObjects();
 		
-		while (iterator.hasNext())
-		{
-			Collidable c = (Collidable) iterator.next();
-			
-			// Non-solid objects can't collide
-			if (!c.isSolid())
-				continue;
-			
-			// Checks the collision
-			Collidable c2 = c.pointCollides(x, y);
-			if (c2 != null)
-				return c2;
-		}
+		// Doesn't hold the object in an attribute anymore
+		Collidable returnvalue = this.lastcollided;
+		this.lastcollided = null;
 		
-		return null;
+		return returnvalue;
 	}
 }

@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
  * @see GameWindow
  */
 public class MainMouseListenerHandler extends AbstractMouseListenerHandler
-{
+{	
 	// CONSTRUCTOR	------------------------------------------------------
 	
 	/**

@@ -1,5 +1,6 @@
 package handlers;
 
+import handleds.Handled;
 import worlds.Room;
 import listeners.RoomListener;
 
@@ -12,6 +13,12 @@ import listeners.RoomListener;
  */
 public class RoomListenerHandler extends Handler implements RoomListener
 {
+	// ATTRIBUTES	------------------------------------------------------
+	
+	private RoomEvent lastevent;
+	private Room lastroom;
+	
+	
 	// CONSTRUCTOR	------------------------------------------------------
 	
 	/**
@@ -24,6 +31,10 @@ public class RoomListenerHandler extends Handler implements RoomListener
 	public RoomListenerHandler(boolean autodeath, RoomListenerHandler superhandler)
 	{
 		super(autodeath, superhandler);
+		
+		// Initializes attributes
+		this.lastevent = RoomEvent.START;
+		this.lastroom = null;
 	}
 	
 	
@@ -38,29 +49,23 @@ public class RoomListenerHandler extends Handler implements RoomListener
 	@Override
 	public void onRoomStart(Room room)
 	{
-		// Cleans unnecessary handleds
-		removeDeadHandleds();
-		
-		// Informs all the listeners about the event
-		for(int i = 0; i < getHandledNumber(); i++)
-		{
-			RoomListener listener = (RoomListener) getHandled(i);
-			listener.onRoomStart(room);
-		}
+		informRoomEvent(RoomEvent.START, room);
 	}
 
 	@Override
 	public void onRoomEnd(Room room)
 	{
-		// Cleans unnecessary handleds
-		removeDeadHandleds();
+		informRoomEvent(RoomEvent.END, room);
+	}
+	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		// Informs the listener about the active event
+		RoomListener listener = (RoomListener) h;
 		
-		// Informs all the listeners about the event
-		for(int i = 0; i < getHandledNumber(); i++)
-		{
-			RoomListener listener = (RoomListener) getHandled(i);
-			listener.onRoomEnd(room);
-		}
+		if (this.lastevent == RoomEvent.START)
+			listener.onRoomStart(this.lastroom);
 	}
 
 	
@@ -74,5 +79,26 @@ public class RoomListenerHandler extends Handler implements RoomListener
 	public void addRoomListener(RoomListener r)
 	{
 		addHandled(r);
+	}
+	
+	private void informRoomEvent(RoomEvent event, Room room)
+	{
+		// Updates the information
+		this.lastevent = event;
+		this.lastroom = room;
+		
+		// Informs the listener
+		handleObjects();
+		
+		// Releases the information
+		this.lastroom = null;
+	}
+	
+	
+	// ENUMERATIONS	------------------------------------------------------
+	
+	private enum RoomEvent
+	{
+		START, END;
 	}
 }

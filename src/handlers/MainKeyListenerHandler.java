@@ -4,7 +4,6 @@ import handleds.Actor;
 import handleds.Handled;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import listeners.AdvancedKeyListener;
 
@@ -56,57 +55,8 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 	@Override
 	public void act()
 	{
-		// Cleans unnecessary handleds
-		removeDeadHandleds();
-		
-		// Informs all listeners of the last changes
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
-		{
-			AdvancedKeyListener listener = (AdvancedKeyListener) iterator.next();
-			
-			if (listener == null)
-				continue;
-			
-			// Informs if a key was pressed
-			for (int ik = 0; ik < this.keysPressed.size(); ik++)
-			{
-				listener.onKeyPressed(this.keysPressed.get(ik), 0, false);
-			}
-			
-			// Informs if a coded key was pressed
-			for (int ik = 0; ik < this.codesPressed.size(); ik++)
-			{
-				listener.onKeyPressed((char) 0, this.codesPressed.get(ik), true);
-			}
-			
-			// Informs if a key was released
-			for (int ik = 0; ik < this.keysReleased.size(); ik++)
-			{
-				listener.onKeyReleased(this.keysReleased.get(ik), 0, false);
-			}
-			
-			// Informs if a coded key was released
-			for (int ik = 0; ik < this.codesReleased.size(); ik++)
-			{
-				listener.onKeyReleased((char) 0, this.codesReleased.get(ik), true);
-			}
-			
-			// Informs if a key is down
-			for (int ikd = 0; ikd < this.keysDown.size(); ikd++)
-			{
-				listener.onKeyDown(this.keysDown.get(ikd), 0, false);
-			}
-			
-			// Informs if a coded key is down
-			for (int icd = 0; icd < this.codesDown.size(); icd++)
-			{
-				// For some reason, this check is needed...?
-				if (icd < this.codesDown.size())
-					listener.onKeyDown((char) 0, this.codesDown.get(icd), true);
-			}
-		}
+		// Informs the objects
+		handleObjects();
 		
 		// Negates some of the changes (pressed & released)
 		this.keysPressed.clear();
@@ -119,6 +69,55 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 	protected Class<?> getSupportedClass()
 	{
 		return AdvancedKeyListener.class;
+	}
+	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		// Informs the object about the current event(s)
+		AdvancedKeyListener listener = (AdvancedKeyListener) h;
+		
+		// Only informs active objects
+		if (!listener.isActive())
+			return;
+		
+		// Informs if a key was pressed
+		for (int ik = 0; ik < this.keysPressed.size(); ik++)
+		{
+			listener.onKeyPressed(this.keysPressed.get(ik), 0, false);
+		}
+		
+		// Informs if a coded key was pressed
+		for (int ik = 0; ik < this.codesPressed.size(); ik++)
+		{
+			listener.onKeyPressed((char) 0, this.codesPressed.get(ik), true);
+		}
+		
+		// Informs if a key was released
+		for (int ik = 0; ik < this.keysReleased.size(); ik++)
+		{
+			listener.onKeyReleased(this.keysReleased.get(ik), 0, false);
+		}
+		
+		// Informs if a coded key was released
+		for (int ik = 0; ik < this.codesReleased.size(); ik++)
+		{
+			listener.onKeyReleased((char) 0, this.codesReleased.get(ik), true);
+		}
+		
+		// Informs if a key is down
+		for (int ikd = 0; ikd < this.keysDown.size(); ikd++)
+		{
+			listener.onKeyDown(this.keysDown.get(ikd), 0, false);
+		}
+		
+		// Informs if a coded key is down
+		for (int icd = 0; icd < this.codesDown.size(); icd++)
+		{
+			// For some reason, this check is needed...?
+			if (icd < this.codesDown.size())
+				listener.onKeyDown((char) 0, this.codesDown.get(icd), true);
+		}
 	}
 	
 	

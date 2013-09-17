@@ -19,6 +19,7 @@ public class DrawableHandler extends Handler implements Drawable
 	
 	private int depth;
 	private boolean usesDepth;
+	private Graphics2D lastg2d;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -40,6 +41,7 @@ public class DrawableHandler extends Handler implements Drawable
 		// Initializes attributes
 		this.depth = depth;
 		this.usesDepth = usesDepth;
+		this.lastg2d = null;
 	}
 	
 	
@@ -48,17 +50,8 @@ public class DrawableHandler extends Handler implements Drawable
 	@Override
 	public void drawSelf(Graphics2D g2d)
 	{
-		// Removes any dead handleds
-		removeDeadHandleds();
-		
-		// This calls for all active actor's act method
-		for(int i = 0; i < getHandledNumber(); i++)
-		{
-			Drawable d = (Drawable) getHandled(i);
-			
-			if (d.isVisible())
-				d.drawSelf(g2d);
-		}
+		this.lastg2d = g2d;
+		handleObjects();
 	}
 
 	@Override
@@ -127,16 +120,6 @@ public class DrawableHandler extends Handler implements Drawable
 		// If the depth sorting is on, finds the spot for the object
 		if (this.usesDepth)
 		{
-			// Prints all depths in order
-			/*
-			System.out.println("*************************************");
-			for (int i = 0; i < getHandledNumber(); i++)
-			{
-				System.out.println("Depth " + (i + 1) + "/" + getHandledNumber() + ": " + 
-						((Drawable) getHandled(i)).getDepth());
-			}
-			*/
-			
 			// Repairs any problems in the depth sorting
 			checkDepthSorting();
 			
@@ -147,13 +130,9 @@ public class DrawableHandler extends Handler implements Drawable
 			{
 				Drawable other = (Drawable) getHandled(i);
 				
-				//System.out.println(newdepth + " -> " + other.getDepth() + "?");
-				//System.out.println(index);
-				
 				// Checks if there's an object with a higher depth
 				if (other.getDepth() < newdepth)
 				{
-					//System.out.println("Yes");
 					insertHandled(d, index);
 					return;
 				}
@@ -173,6 +152,15 @@ public class DrawableHandler extends Handler implements Drawable
 		return Drawable.class;
 	}
 	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		// Draws the visible object
+		Drawable d = (Drawable) h;
+		if (d.isVisible())
+			d.drawSelf(this.lastg2d);
+	}
+	
 	
 	// OTHER METHODS	---------------------------------------------------
 	
@@ -189,14 +177,13 @@ public class DrawableHandler extends Handler implements Drawable
 	// Checks if there are errors in current depth sorting and tries to fix them
 	private void checkDepthSorting()
 	{
-		int lastdepth = 900000;
+		int lastdepth = 999999;
 
 		for (int i = 0; i < getHandledNumber(); i++)
 		{
 			Drawable drawable = (Drawable) getHandled(i);
 			if (drawable.getDepth() > lastdepth)
 			{
-				//System.out.println("ERROR IN DEPTH SORTING");
 				tryFixingDepthSorting(drawable);
 				break;
 			}
@@ -208,6 +195,8 @@ public class DrawableHandler extends Handler implements Drawable
 	private void tryFixingDepthSorting(Drawable mistake)
 	{
 		removeHandled(mistake);
+		
+		// TODO: Make sure the handled is added after it is removed!
 		addHandled(mistake);
 	}
 }

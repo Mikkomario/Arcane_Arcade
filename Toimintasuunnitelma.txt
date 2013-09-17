@@ -120,6 +120,12 @@ Eteneminen:														Status
 				(hiiren koordinaatit ei siis oo suhteessa 
 				ikkunaan)
 			* Ongelman korjaaminen								DONE
+		- Iterointiongelmien korjaaminen
+			* Automaattinen tappokoneisto, joka toimii 
+			irrallaan tavallisista iteraatioista
+				- Tämän järjestelmän kutsuminen iteraatioiden 
+				lopussa (ei sisällä)
+					* Säieturvallisuudesta huolehtiminen
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE
@@ -251,9 +257,9 @@ Eteneminen:														Status
 			* Musiikkien järkevä organisointi ja lukeminen
 				- OpenMidiBank ja muuta
 			* Musiikin äänenvoimakkuuden säädön mahdollisaminen
-		- Pelin pysäyttäminen
-			* Pausen toiminnallisuus
-				- Omat handlerit fieldille
+		- Pelin pysäyttäminen									...
+			* Pausen toiminnallisuus							Testaamatta
+				- Omat handlerit fieldille						DONE
 			* Pausen piirtäminen
 			* Pausen ääni
 		- Uudet loitsut / Elementit
@@ -263,6 +269,7 @@ Eteneminen:														Status
 		- Tutorial
 			* Tarvittavat valikot
 			* Tarvittavan interaktion luonti
+				- Messagen luonti
 			* Tarvittavien ympäristöjen luonti
 			* Tarvittavien ympäristöjen välillä siirtyminen
 		- Interaktiivinen hiiri valikoissa
@@ -287,12 +294,12 @@ Eteneminen:														Status
 			puolesta
 			* Käyttäjän syötteen lukeminen ja sen pohjalta 
 			kartan tekeminen
-			* Näppäinten tallentaminen							Testaamatta
-		- Erilaiset maagit
-			* Vaikutus peliin
+			* Näppäinten tallentaminen							DONE
+		- Erilaiset maagit										...
+			* Vaikutus peliin									...
 				- Attribuuttimuunnoksia
 				- Spriten vaihto
-				- Äänien muuttaminen
+				- Äänien muuttaminen							...
 			* Järkevä arkkitehtuuri vaaditaan, jotta maagien 	...
 			lisäys olisi helppoa
 		- Title screen
@@ -308,6 +315,7 @@ Eteneminen:														Status
 				- Break Out
 				- Space Invaders
 				- Beat 'em all
+			* Vaihtoehtoisesti kaksinpelin co-op / tarinamode
 		- Itemit
 			* Itemien saaminen
 			* Itemien tallentaminen

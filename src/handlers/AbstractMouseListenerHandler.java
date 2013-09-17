@@ -3,6 +3,7 @@ package handlers;
 import java.util.ArrayList;
 
 import handleds.Actor;
+import handleds.Handled;
 import listeners.AdvancedMouseListener;
 
 /**
@@ -24,6 +25,7 @@ implements Actor
 	private ArrayList<AdvancedMouseListener> over;
 	private ArrayList<AdvancedMouseListener> exited;
 	
+	private AdvancedMouseEvent lastevent;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -49,6 +51,7 @@ implements Actor
 		this.rpressed = false;
 		this.lreleased = false;
 		this.rreleased = false;
+		this.lastevent = AdvancedMouseEvent.OTHER;
 	}
 
 	
@@ -57,18 +60,66 @@ implements Actor
 	@Override
 	public void act()
 	{
-		// Removes the dead listeners
-		removeDeadHandleds();
+		// Informs the objects
+		this.lastevent = AdvancedMouseEvent.OTHER;
+		handleObjects();
 		
-		// Informs the listeners about the mouse's movements and buttons
-		for (int i = 0; i < getHandledNumber(); i++)
+		// Refreshes memory
+		if (this.entered.size() > 0)
 		{
-			AdvancedMouseListener l = (AdvancedMouseListener) getHandled(i);
-			
-			// Checks if informing is needed
-			if (!l.isActive())
-				continue;
-			
+			this.over.addAll(this.entered);
+			this.entered.clear();
+		}
+		
+		this.exited.clear();
+		this.lpressed = false;
+		this.rpressed = false;
+		this.lreleased = false;
+		this.rreleased = false;
+	}
+	
+	@Override
+	protected Class<?> getSupportedClass()
+	{
+		return AdvancedMouseListener.class;
+	}
+	
+	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		// Informs the object about the mouse's position
+		// Or button status
+		AdvancedMouseListener l = (AdvancedMouseListener) h;
+		
+		// Checks if informing is needed
+		if (!l.isActive())
+			return;
+		
+		// Mouse position update
+		if (this.lastevent == AdvancedMouseEvent.MOVE)
+		{
+			if (l.listensMouseEnterExit())
+			{		
+				// Checks if entered
+				if (!this.over.contains(l) && !this.entered.contains(l) 
+						&& l.listensPosition(this.mouseX, this.mouseY))
+				{
+					this.entered.add(l);
+					return;
+				}
+
+				// Checks if exited
+				if (this.over.contains(l) && !this.exited.contains(l) && 
+						!l.listensPosition(this.mouseX, this.mouseY))
+				{
+					this.over.remove(l);
+					this.exited.add(l);
+				}
+			}
+		}
+		else if (this.lastevent == AdvancedMouseEvent.OTHER)
+		{
 			// Only if the object cares about mouse movement
 			if (l.listensMouseEnterExit())
 			{
@@ -100,25 +151,6 @@ implements Actor
 					l.onRightReleased(getMouseX(), getMouseY());
 			}
 		}
-		
-		// Refreshes memory
-		if (this.entered.size() > 0)
-		{
-			this.over.addAll(this.entered);
-			this.entered.clear();
-		}
-		
-		this.exited.clear();
-		this.lpressed = false;
-		this.rpressed = false;
-		this.lreleased = false;
-		this.rreleased = false;
-	}
-	
-	@Override
-	protected Class<?> getSupportedClass()
-	{
-		return AdvancedMouseListener.class;
 	}
 	
 	
@@ -169,37 +201,9 @@ implements Actor
 			this.mouseX = x;
 			this.mouseY = y;
 			
-			// Removes any dead handleds
-			removeDeadHandleds();
-			
-			// Goes through all the listeners and informs them	
-			for(int i = 0; i < getHandledNumber(); i++)
-			{
-				AdvancedMouseListener l = (AdvancedMouseListener) getHandled(i);
-				
-				// Informs about the mouse's movement (if needed)
-				if (l.isActive())
-					l.onMouseMove(x, y);
-				
-				if (l.listensMouseEnterExit())
-				{		
-					// Checks if entered
-					if (!this.over.contains(l) && !this.entered.contains(l) 
-							&& l.listensPosition(x, y))
-					{
-						this.entered.add(l);
-						continue;
-					}
-
-					// Checks if exited
-					if (this.over.contains(l) && !this.exited.contains(l) && 
-							!l.listensPosition(x, y))
-					{
-						this.over.remove(l);
-						this.exited.add(l);
-					}
-				}
-			}
+			// Informs the objects
+			this.lastevent = AdvancedMouseEvent.MOVE;
+			handleObjects();
 		}
 	}
 	
@@ -250,5 +254,13 @@ implements Actor
 	public void addMouseListener(AdvancedMouseListener m)
 	{
 		addHandled(m);
+	}
+	
+	
+	// ENUMERATIONS	------------------------------------------------------
+	
+	private enum AdvancedMouseEvent
+	{
+		MOVE, OTHER;
 	}
 }

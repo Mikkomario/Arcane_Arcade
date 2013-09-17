@@ -57,6 +57,13 @@ public class BallRelay extends Handler implements RoomListener
 		kill();
 	}
 	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		// Doesn't do anything since ball handling is done in separate methods
+		// I know its not very cool
+	}
+	
 	
 	// OTHER METHODS	--------------------------------------------------
 	
@@ -76,8 +83,8 @@ public class BallRelay extends Handler implements RoomListener
 	 */
 	public Ball[] getBalls()
 	{
-		// Removes dead balls
-		removeDeadHandleds();
+		// Removes dead balls and handles them normally
+		handleObjects();
 		
 		// Forms a table containing all balls
 		Ball[] balls = new Ball[getHandledNumber()];
@@ -98,6 +105,9 @@ public class BallRelay extends Handler implements RoomListener
 	 */
 	public boolean thereAreBalls()
 	{
+		// Goes through the balls and removes unnecessary ones to be sure
+		handleObjects();
+		
 		return getHandledNumber() != 0;
 	}
 	
@@ -112,8 +122,8 @@ public class BallRelay extends Handler implements RoomListener
 	 */
 	public Ball getNearestBall(int x, int y)
 	{
-		// Removes dead balls
-		removeDeadHandleds();
+		// Goes through the balls normally at first
+		handleObjects();
 		
 		// If there are no balls, returns nothing
 		if (!thereAreBalls())

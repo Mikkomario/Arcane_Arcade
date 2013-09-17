@@ -1,7 +1,5 @@
 package handlers;
 
-import java.util.Iterator;
-
 import sound.Sound;
 import handleds.Handled;
 import listeners.SoundListener;
@@ -15,6 +13,12 @@ import listeners.SoundListener;
  */
 public class SoundListenerHandler extends LogicalHandler implements SoundListener
 {
+	// ATTRIBUTES	-----------------------------------------------------
+	
+	private SoundEvent lastevent;
+	private Sound lastsound;
+	
+	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
@@ -28,6 +32,10 @@ public class SoundListenerHandler extends LogicalHandler implements SoundListene
 	public SoundListenerHandler(boolean autodeath, SoundListenerHandler superhandler)
 	{
 		super(autodeath, superhandler);
+		
+		// Initializes attributes
+		this.lastevent = SoundEvent.START;
+		this.lastsound = null;
 	}
 	
 	
@@ -42,35 +50,28 @@ public class SoundListenerHandler extends LogicalHandler implements SoundListene
 	@Override
 	public void onSoundStart(Sound source)
 	{
-		// Cleans unnecessary handleds
-		removeDeadHandleds();
-		
-		// Informs all the listeners about the event
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
-		{
-			SoundListener s = (SoundListener) iterator.next();
-			if (s.isActive())
-				s.onSoundStart(source);
-		}
+		informListeners(SoundEvent.START, source);
 	}
 
 	@Override
 	public void onSoundEnd(Sound source)
 	{
-		// Cleans unnecessary handleds
-		removeDeadHandleds();
+		informListeners(SoundEvent.END, source);
+	}
+	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		// Informs all the listeners about a new event
+		SoundListener s = (SoundListener) h;
 		
-		// Informs all the listeners about the event
-		Iterator<Handled> iterator = getIterator();
+		if (!s.isActive())
+			return;
 		
-		while (iterator.hasNext())
-		{
-			SoundListener s = (SoundListener) iterator.next();
-			if (s.isActive())
-				s.onSoundEnd(source);
-		}
+		if (this.lastevent == SoundEvent.START)
+			s.onSoundStart(this.lastsound);
+		else if (this.lastevent == SoundEvent.END)
+			s.onSoundEnd(this.lastsound);
 	}
 	
 	
@@ -84,5 +85,24 @@ public class SoundListenerHandler extends LogicalHandler implements SoundListene
 	public void addListener(SoundListener s)
 	{
 		addHandled(s);
+	}
+	
+	private void informListeners(SoundEvent event, Sound source)
+	{
+		// Updates status
+		this.lastevent = event;
+		this.lastsound = source;
+		// Informs listeners
+		handleObjects();
+		// Forgets the sound
+		this.lastsound = null;
+	}
+	
+	
+	// ENUMERATIONS	-------------------------------------------------------
+	
+	private enum SoundEvent
+	{
+		START, END;
 	}
 }

@@ -7,7 +7,6 @@ import handlers.Handler;
 import handlers.RoomListenerHandler;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import listeners.RoomListener;
 
@@ -32,7 +31,7 @@ public class Room extends Handler
 	
 	private ArrayList<Background> backgrounds;
 	private RoomListenerHandler listenerhandler;
-	private boolean active;
+	private boolean active, isinitializing;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -55,6 +54,7 @@ public class Room extends Handler
 		this.backgrounds = backgrounds;
 		this.active = true;
 		this.listenerhandler = new RoomListenerHandler(false, null);
+		this.isinitializing = false;
 		
 		// Uninitializes the room
 		uninitialize();
@@ -114,6 +114,30 @@ public class Room extends Handler
 	public boolean isActive()
 	{
 		return this.active && !isDead();
+	}
+	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		// Either initializes or uninitializes the object (if possible)
+		if (h instanceof Drawable)
+		{
+			Drawable d = (Drawable) h;
+			
+			if (this.isinitializing)
+				d.setVisible();
+			else
+				d.setInvisible();
+		}
+		if (h instanceof LogicalHandled)
+		{
+			LogicalHandled l = (LogicalHandled) h;
+			
+			if (this.isinitializing)
+				l.activate();
+			else
+				l.inactivate();
+		}
 	}
 	
 	
@@ -226,20 +250,9 @@ public class Room extends Handler
 				b.getSpriteDrawer().activate();
 			}
 		}
-		// Removes dead handleds
-		removeDeadHandleds();
 		// Activates all the objects and sets them visible (if applicable)
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
-		{
-			Handled h = iterator.next();
-			
-			if (h instanceof Drawable)
-				((Drawable) h).setVisible();
-			if (h instanceof LogicalHandled)
-				((LogicalHandled) h).activate();
-		}
+		this.isinitializing = true;
+		handleObjects();
 	}
 	
 	/**
@@ -262,19 +275,8 @@ public class Room extends Handler
 					b.getSpriteDrawer().inactivate();
 			}
 		}
-		// Removes all dead handleds
-		removeDeadHandleds();
 		// InActivates all the objects and sets them invisible (if applicable)
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
-		{
-			Handled h = iterator.next();
-			
-			if (h instanceof Drawable)
-				((Drawable) h).setInvisible();
-			if (h instanceof LogicalHandled)
-				((LogicalHandled) h).inactivate();
-		}
+		this.isinitializing = false;
+		handleObjects();
 	}
 }

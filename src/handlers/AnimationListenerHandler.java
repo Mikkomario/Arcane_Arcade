@@ -1,7 +1,5 @@
 package handlers;
 
-import java.util.Iterator;
-
 import graphic.SpriteDrawer;
 import handleds.Handled;
 import listeners.AnimationListener;
@@ -17,6 +15,11 @@ import listeners.AnimationListener;
 public class AnimationListenerHandler extends LogicalHandler implements 
 		AnimationListener
 {
+	// ATTRIBUTES	----------------------------------------------------
+	
+	private SpriteDrawer lastdrawer;
+	
+	
 	// CONSTRUCTOR	----------------------------------------------------
 	
 	/**
@@ -30,6 +33,9 @@ public class AnimationListenerHandler extends LogicalHandler implements
 			AnimationListenerHandler superhandler)
 	{
 		super(autodeath, superhandler);
+		
+		// Initializes attributes
+		this.lastdrawer = null;
 	}
 	
 	
@@ -44,19 +50,20 @@ public class AnimationListenerHandler extends LogicalHandler implements
 	@Override
 	public void onAnimationEnd(SpriteDrawer spritedrawer)
 	{
-		// Kills all dead listeners
-		removeDeadHandleds();
+		// Remembers the data
+		this.lastdrawer = spritedrawer;
+		// Informs all listeners about the event
+		handleObjects();
+	}
+	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		// Informs active animationlisteners about the event
+		AnimationListener l = (AnimationListener) h;
 		
-		// Informs all active listeners
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
-		{
-			AnimationListener l = (AnimationListener) iterator.next();
-			
-			if (l.isActive())
-				l.onAnimationEnd(spritedrawer);
-		}
+		if (l.isActive())
+			l.onAnimationEnd(this.lastdrawer);
 	}
 	
 	

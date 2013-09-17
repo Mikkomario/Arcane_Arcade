@@ -1,7 +1,5 @@
 package handlers;
 
-import java.util.Iterator;
-
 import handleds.Handled;
 import listeners.CameraListener;
 
@@ -13,6 +11,11 @@ import listeners.CameraListener;
  */
 public class CameraListenerHandler extends LogicalHandler implements CameraListener
 {	
+	// ATTRIBUTES	------------------------------------------------------
+	
+	private int lastx, lasty, lastw, lasth, lastangle;
+	
+	
 	// CONSTRUCTOR	------------------------------------------------------
 	
 	/**
@@ -26,6 +29,13 @@ public class CameraListenerHandler extends LogicalHandler implements CameraListe
 	public CameraListenerHandler(boolean autodeath, CameraListenerHandler superhandler)
 	{
 		super(autodeath, superhandler);
+		
+		// Initializes attributes
+		this.lastx = 0;
+		this.lasty = 0;
+		this.lastw = 0;
+		this.lasth = 0;
+		this.lastangle = 0;
 	}
 	
 	
@@ -34,23 +44,31 @@ public class CameraListenerHandler extends LogicalHandler implements CameraListe
 	@Override
 	public void informCameraPosition(int posx, int posy, int w, int h, int angle)
 	{
-		// Cleans the unnecessary handleds
-		removeDeadHandleds();
+		// Remembers the data
+		this.lastx = posx;
+		this.lasty = posy;
+		this.lastw = w;
+		this.lasth = h;
+		this.lastangle = angle;
 		
-		// Informs all sublisteners about the change
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
-		{
-			CameraListener l = (CameraListener) iterator.next();
-			l.informCameraPosition(posx, posy, w, h, angle);
-		}	
+		// Goes through the listeners
+		handleObjects();
 	}
 	
 	@Override
 	protected Class<?> getSupportedClass()
 	{
 		return CameraListener.class;
+	}
+	
+	@Override
+	protected void handleObject(Handled h)
+	{
+		// Informs all cameralisteners about the event
+		CameraListener l = (CameraListener) h;
+		if (l.isActive())
+			l.informCameraPosition(this.lastx, this.lasty, this.lastw, 
+					this.lasth, this.lastangle);
 	}
 	
 	
