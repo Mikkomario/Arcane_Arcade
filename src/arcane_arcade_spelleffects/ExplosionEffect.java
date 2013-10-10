@@ -52,7 +52,7 @@ public class ExplosionEffect extends MaskedSpellEffect
 	// IMPLEMENTED METHODS	--------------------------------------------
 
 	@Override
-	public void onBallCollision(Ball ball, int x, int y)
+	public void onBallCollision(Ball ball, double x, double y)
 	{
 		// Causes impact to the ball
 		ball.impact(17 * getForceModifier(ball), 15, 
@@ -61,13 +61,13 @@ public class ExplosionEffect extends MaskedSpellEffect
 	}
 
 	@Override
-	public void onSpellCollision(SpellEffect spell, int x, int y)
+	public void onSpellCollision(SpellEffect spell, double x, double y)
 	{
 		// Doesn't collide with spells
 	}
 
 	@Override
-	public void onWizardCollision(Wizard wizard, int x, int y)
+	public void onWizardCollision(Wizard wizard, double x, double y)
 	{
 		// Doesn't collide with wizards
 	}

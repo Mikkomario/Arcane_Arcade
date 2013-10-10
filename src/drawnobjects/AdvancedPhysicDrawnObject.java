@@ -1,6 +1,6 @@
 package drawnobjects;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,7 +9,6 @@ import handlers.CollidableHandler;
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
-import helpAndEnums.DoublePoint;
 import helpAndEnums.HelpMath;
 import helpAndEnums.Movement;
 
@@ -25,7 +24,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	// ATTRIBUTES	------------------------------------------------------
 	
 	// Contains each moment affecting the object
-	private HashMap<Point, Double> moments;
+	private HashMap<Point2D.Double, Double> moments;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -55,7 +54,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 				collisionhandler, actorhandler);
 		
 		// Initializes attributes
-		this.moments = new HashMap<Point, Double>();
+		this.moments = new HashMap<Point2D.Double, Double>();
 	}
 	
 	
@@ -106,7 +105,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	 * @param origin The origin of the moment returned (relative pixel)
 	 * @return The amount of rotation around the point (degrees / step)
 	 */
-	protected double getMoment(Point origin)
+	protected double getMoment(Point2D.Double origin)
 	{
 		if (this.moments.containsKey(origin))
 			return this.moments.get(origin);
@@ -120,7 +119,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	 * @param origin The origin of the moment (relative pixel)
 	 * @param moment How much rotation the moment has (degrees / step)
 	 */
-	protected void setMoment(Point origin, double moment)
+	protected void setMoment(Point2D.Double origin, double moment)
 	{
 		this.moments.put(origin, moment);
 	}
@@ -134,7 +133,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	 * @param p The point around which the object will rotate (relative pixel)
 	 * @param force How much the object rotates around the point (degrees / step)
 	 */
-	public void addMoment(Point p, double force)
+	public void addMoment(Point2D.Double p, double force)
 	{
 		if (p == null)
 			return;
@@ -164,7 +163,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	 * @param bounciness How much the object bounces away from the given object (0+)
 	 * @param frictionmodifier How much energy is lost during the collision [0, 1]
 	 */
-	public void bounceFrom(DimensionalDrawnObject d, DoublePoint collisionpoint, 
+	public void bounceFrom(DimensionalDrawnObject d, Point2D.Double collisionpoint, 
 			double bounciness, double frictionmodifier)
 	{
 		Movement pixelmovement = getPixelRotationMovement(collisionpoint);
@@ -176,7 +175,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 			return;
 		
 		// Calculates the direction, towards which the force is applied
-		double forcedir = d.getCollisionForceDirection(collisionpoint.getAsPoint());
+		double forcedir = d.getCollisionForceDirection(collisionpoint);
 		
 		// Calculates the actual amount of force applied to the object
 		Movement oppmovement = 
@@ -188,7 +187,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 				opprotationforce, forcedir);
 	}
 	
-	private void bounce(DoublePoint collisionpoint, double bounciness, 
+	private void bounce(Point2D.Double collisionpoint, double bounciness, 
 			double frictionmodifier, Movement oppmovement, 
 			double opprotationspeed, double forcedir)
 	{
@@ -221,13 +220,13 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	 * each time this method is called. The repairs are in progress.
 	 */
 	protected void bounceInteractivelyFrom(AdvancedPhysicDrawnObject d, 
-			DoublePoint collisionpoint, double bounciness, 
+			Point2D.Double collisionpoint, double bounciness, 
 			double frictionmodifier)
 	{
 		// TODO: It seems like the speed lost isn't equal to the speed gained
 		
 		// Calculates the direction of the collision
-		double oppdir = d.getCollisionForceDirection(collisionpoint.getAsPoint());
+		double oppdir = d.getCollisionForceDirection(collisionpoint);
 		double forcedir = HelpMath.checkDirection(oppdir + 180);
 		
 		// Calculates the directional momentums of the objects
@@ -317,13 +316,13 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	 * @param pixel The pixel's relative coordinates
 	 * @return The pixel's x- and y-movement (absolute pixels / step)
 	 */
-	protected Movement getPixelMovement(DoublePoint pixel)
+	protected Movement getPixelMovement(Point2D.Double pixel)
 	{
 		return Movement.movementSum(getMovement(), 
 				getPixelRotationMovement(pixel));
 	}
 	
-	private Movement getPixelRotationMovement(DoublePoint pixel)
+	private Movement getPixelRotationMovement(Point2D.Double pixel)
 	{
 		// TODO: Check if this should be +90 or -90
 		
@@ -332,10 +331,10 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 						HelpMath.pointDirection(getX(), getY(), pixel.getX(), 
 								pixel.getY()) + 90, getRotation());
 		// Adds movement caused by the moments
-		for (Point relmomentorigin: this.moments.keySet())
+		for (Point2D.Double relmomentorigin: this.moments.keySet())
 		{
 			// Calculates the momentorigin's absolute position
-			DoublePoint absmomentorigin = transform(relmomentorigin.x, 
+			Point2D.Double absmomentorigin = transform(relmomentorigin.x, 
 					relmomentorigin.y);
 			// Adds the movement
 			pixelmovement = Movement.movementSum(pixelmovement, 
@@ -352,7 +351,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	private void implyMoments()
 	{
 		// TODO: Take rotationfriction into account somewhere?
-		for (Point p: this.moments.keySet())
+		for (Point2D.Double p: this.moments.keySet())
 			rotateAroundRelativePoint(this.moments.get(p), p);
 	}
 	
@@ -362,10 +361,10 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 		if (this.moments.isEmpty())
 			return;
 
-		ArrayList<Point> momentstobeended = new ArrayList<Point>();
+		ArrayList<Point2D.Double> momentstobeended = new ArrayList<Point2D.Double>();
 		
 		// Goes through all the moments
-		for (Point p: this.moments.keySet())
+		for (Point2D.Double p: this.moments.keySet())
 		{
 			double f = this.moments.get(p);
 			
@@ -396,7 +395,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 			return;
 		
 		// limits the moment(s) if needed
-		for (Point momentorigin: this.moments.keySet())
+		for (Point2D.Double momentorigin: this.moments.keySet())
 		{
 			double moment = this.moments.get(momentorigin);
 			
@@ -412,7 +411,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 		}
 	}
 	
-	private void addForce(double force, double forcedir, DoublePoint forcepixel)
+	private void addForce(double force, double forcedir, Point2D.Double forcepixel)
 	{
 		// TODO: Make addforce add as much force as is lost in the addOpposingForce method 
 		// to keep the momentums the same
@@ -422,21 +421,21 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 		// TODO: Make the relationship between force and rotationforce dependent 
 		// on the r?
 		addRotation(calculateMoment(forcedir, force*0.4, forcepixel, 
-				new DoublePoint(getX(), getY())));
+				new Point2D.Double(getX(), getY())));
 	}
 	
 	private void addOpposingForce(double movementforce, double rotationforce, 
-			double forcedir, DoublePoint colpixel)
+			double forcedir, Point2D.Double colpixel)
 	{
 		// Applies the force to the object (only movementforce counts)
 		addMotion(forcedir, movementforce);
 		
 		// Applies moment to all (the other) points in the object
-		DoublePoint[] colpoints = getCollisionPoints();
+		Point2D.Double[] colpoints = getCollisionPoints();
 		
 		for (int i = 0; i < colpoints.length; i++)
 		{
-			DoublePoint colpoint = colpoints[i];
+			Point2D.Double colpoint = colpoints[i];
 			// TODO: Try to come up with a way to always get nice numbers here
 			double moment = calculateMoment(forcedir, 
 					0.4*movementforce + 0.4*rotationforce, colpoint, colpixel);
@@ -446,7 +445,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	}
 	
 	private double calculateMoment(double forcedir, double force, 
-			DoublePoint forcepixel, DoublePoint rotationpixel)
+			Point2D.Double forcepixel, Point2D.Double rotationpixel)
 	{
 		// Calculates the range
 		double r = HelpMath.pointDistance(rotationpixel.getX(), rotationpixel.getY(), 

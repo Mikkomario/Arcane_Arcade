@@ -1,6 +1,7 @@
 package arcane_arcade_spelleffects;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import drawnobjects.BasicPhysicDrawnObject;
@@ -8,7 +9,6 @@ import handleds.Collidable;
 import handlers.ActorHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import helpAndEnums.DoublePoint;
 import helpAndEnums.Movement;
 import worlds.Room;
 
@@ -80,7 +80,7 @@ public abstract class MovingSpellEffectCreator extends FollowerSpellEffectCreato
 		// IMPLEMENTED METHODS	-----------------------------------------
 
 		@Override
-		public void onCollision(ArrayList<DoublePoint> colpoints,
+		public void onCollision(ArrayList<Point2D.Double> colpoints,
 				Collidable collided)
 		{
 			// Doesn't react to collisions

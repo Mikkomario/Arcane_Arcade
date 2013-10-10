@@ -2,15 +2,14 @@ package drawnobjects;
 
 import handleds.Drawable;
 import handlers.DrawableHandler;
-import helpAndEnums.DoublePoint;
 import helpAndEnums.HelpMath;
 import helpAndEnums.Movement;
 
 import java.awt.AlphaComposite;
 import java.awt.Composite;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 
 import common.GameObject;
 
@@ -275,9 +274,9 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	/**
 	 * @return The position of the object in a DoublePoint format
 	 */
-	public DoublePoint getPosition()
+	public Point2D.Double getPosition()
 	{
-		return new DoublePoint(this.x, this.y);
+		return new Point2D.Double(this.x, this.y);
 	}
 	
 	/**
@@ -401,7 +400,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * @param y The y-coordinate of the point to be negated
 	 * @return The point where all of the object's transformations are negated
 	 */
-	public Point negateTransformations(double x, double y)
+	public Point2D.Double negateTransformations(double x, double y)
 	{
 		// TODO: Continue using the transformation for these methods
 		
@@ -429,7 +428,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * transformation will be used for position transformation in the future
 	 */
 	@Deprecated
-	protected static Point negateTransformations(double px, double py, double x, 
+	protected static Point2D.Double negateTransformations(double px, double py, double x, 
 			double y, double xscale, double yscale, double angle, int originx, 
 			int originy)
 	{
@@ -467,7 +466,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		tempx += originx;
 		tempy += originy;
 		
-		return new Point((int) tempx, (int) tempy);
+		return new Point2D.Double(tempx, tempy);
 	}
 	
 	/**
@@ -477,7 +476,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * @param y Position's y-coordinate relative to the object's origin (relative pixel)
 	 * @return Absolute position with transformations added
 	 */
-	protected DoublePoint transform(double x, double y)
+	protected Point2D.Double transform(double x, double y)
 	{	
 		return transform(x, y, getX(), getY(), getXScale(), getYScale(), 
 				getAngle(), getOriginX(), getOriginY());
@@ -501,7 +500,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * transformation will be used for position transformation in the future
 	 */
 	@Deprecated
-	protected DoublePoint transform(double px, double py, double x, double y, 
+	protected Point2D.Double transform(double px, double py, double x, double y, 
 			double xscale, double yscale, double angle, int originx, int originy)
 	{	
 		double tempx = px;
@@ -536,7 +535,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		tempx += x;
 		tempy += y;
 		
-		return new DoublePoint(tempx, tempy);
+		return new Point2D.Double(tempx, tempy);
 	}
 	
 	/**
@@ -545,10 +544,10 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * @param angle The amount of degrees the object rotates
 	 * @param p The point around which the object rotates (absolute pixel)
 	 */
-	public void rotateAroundPoint(double angle, DoublePoint p)
+	public void rotateAroundPoint(double angle, Point2D.Double p)
 	{
 		// Moves the object around the point
-		DoublePoint newposition = 
+		Point2D.Double newposition = 
 				HelpMath.getRotatedPosition(p.getX(), p.getY(), getPosition(), angle);
 		setPosition(newposition.getX(), newposition.getY());
 		// Also rotates the object
@@ -562,9 +561,9 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * @param angle The amount of degrees the object is rotated
 	 * @param p The relative point around which the object is rotated
 	 */
-	public void rotateAroundRelativePoint(double angle, Point p)
+	public void rotateAroundRelativePoint(double angle, Point2D.Double p)
 	{
-		DoublePoint abspoint = transform(p.x, p.y);
+		Point2D.Double abspoint = transform(p.x, p.y);
 		rotateAroundPoint(angle, abspoint);
 	}
 	
@@ -576,7 +575,9 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 *
 	 * @param g2d The graphics object that draws the content of the object
 	 * @see DrawSelf
+	 * @deprecated This method is no longer supported
 	 */
+	@Deprecated
 	protected void drawSelfAsContainer(Graphics2D g2d)
 	{
 		AffineTransform trans = g2d.getTransform();

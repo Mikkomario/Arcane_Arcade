@@ -1,7 +1,7 @@
 package arcane_arcade_spelleffects;
 
 import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import worlds.Room;
@@ -21,7 +21,6 @@ import handlers.CollidableHandler;
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
-import helpAndEnums.DoublePoint;
 import helpAndEnums.HelpMath;
 import drawnobjects.BasicPhysicDrawnObject;
 
@@ -130,7 +129,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * @param y The average y-coordinate of the collision
 	 * @see #collidesWithBalls()
 	 */
-	public abstract void onBallCollision(Ball ball, int x, int y);
+	public abstract void onBallCollision(Ball ball, double x, double y);
 	
 	/**
 	 * This method is called when the spell collides with another spelleffect 
@@ -140,7 +139,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * @param x The average x-coordinate of the collision
 	 * @param y The average y-coordinate of the collision
 	 */
-	public abstract void onSpellCollision(SpellEffect spell, int x, int y);
+	public abstract void onSpellCollision(SpellEffect spell, double x, double y);
 	
 	/**
 	 * This method is called when the spell collides with a wizard (if it needs 
@@ -151,20 +150,20 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * @param y The average y-coordinate of the collision
 	 * @see #collidesWithWizards()
 	 */
-	public abstract void onWizardCollision(Wizard wizard, int x, int y);
+	public abstract void onWizardCollision(Wizard wizard, double x, double y);
 	
 	
 	// IMPLEMENTED METHODS	---------------------------------------------
 
 	@Override
-	public void onCollision(ArrayList<DoublePoint> colpoints,
+	public void onCollision(ArrayList<Point2D.Double> colpoints,
 			Collidable collided)
 	{
 		// If the spell collides with other spells, may react to them
 		if (this.spellcollision && collided instanceof SpellEffect)
 		{
-			Point averagepoint = 
-					HelpMath.getAverageDoublePoint(colpoints).getAsPoint();
+			Point2D.Double averagepoint = 
+					HelpMath.getAveragePoint(colpoints);
 			onSpellCollision((SpellEffect) collided, averagepoint.x, 
 					averagepoint.y);
 		}

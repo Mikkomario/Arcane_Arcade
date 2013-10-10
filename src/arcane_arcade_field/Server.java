@@ -1,6 +1,7 @@
 package arcane_arcade_field;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -18,7 +19,6 @@ import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import helpAndEnums.DoublePoint;
 import drawnobjects.BasicPhysicDrawnObject;
 
 /**
@@ -107,7 +107,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 	// IMPLEMENTED METHODS	---------------------------------------------
 
 	@Override
-	public void onCollision(ArrayList<DoublePoint> colpoints,
+	public void onCollision(ArrayList<Point2D.Double> colpoints,
 			Collidable collided)
 	{
 		// Servers don't collide with anything

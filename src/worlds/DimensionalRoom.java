@@ -6,7 +6,7 @@ import handlers.CollidableHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.HelpMath;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import resource_management.SpriteBank;
@@ -158,9 +158,9 @@ public class DimensionalRoom extends TiledRoom implements Collidable
 	 * @param y The y-coordinate from the top left corner of the room (in pixels)
 	 * @return The absolute position
 	 */
-	public Point getTransformedPosition(int x, int y)
+	public Point2D.Double getTransformedPosition(int x, int y)
 	{
-		return new Point((int) getX() + x, (int) getY() + y);
+		return new Point2D.Double(getX() + x, getY() + y);
 	}
 	
 	/**
@@ -170,9 +170,9 @@ public class DimensionalRoom extends TiledRoom implements Collidable
 	 * @param y The absolute y-coordinate to be transformed
 	 * @return A point relative to the room's coordinates
 	 */
-	public Point getNegatedPosition(int x, int y)
+	public Point2D.Double getNegatedPosition(int x, int y)
 	{
-		return new Point(x - (int) getX(), y - (int) getY());
+		return new Point2D.Double(x - getX(), y - getY());
 	}
 	
 	/**
@@ -181,7 +181,7 @@ public class DimensionalRoom extends TiledRoom implements Collidable
 	 * @param absp The absolute point to be tested
 	 * @return Is the point within the room borders
 	 */
-	public boolean absolutePointIsInRoom(Point absp)
+	public boolean absolutePointIsInRoom(Point2D.Double absp)
 	{
 		return HelpMath.pointIsInRange(absp, (int) getX(), 
 				(int) getX() + getWidth(), (int) getY(), 
@@ -194,7 +194,7 @@ public class DimensionalRoom extends TiledRoom implements Collidable
 	 * @param relp The relative point to be tested
 	 * @return Is the point within the room borders
 	 */
-	public boolean relativePointIsInRoom(Point relp)
+	public boolean relativePointIsInRoom(Point2D.Double relp)
 	{
 		return HelpMath.pointIsInRange(relp, 0, getWidth(), 0, getHeight());
 	}

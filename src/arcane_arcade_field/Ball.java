@@ -1,7 +1,7 @@
 package arcane_arcade_field;
 
 import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import worlds.Room;
@@ -22,7 +22,6 @@ import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import helpAndEnums.DoublePoint;
 import helpAndEnums.HelpMath;
 import drawnobjects.BouncingBasicPhysicDrawnObject;
 
@@ -104,7 +103,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	// IMPLEMENTED METHODS	--------------------------------------------
 
 	@Override
-	public void onCollision(ArrayList<DoublePoint> colpoints,
+	public void onCollision(ArrayList<Point2D.Double> colpoints,
 			Collidable collided)
 	{
 		// The ball collides with spells that need to collide with it
@@ -116,8 +115,8 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 				return;
 			
 			// Calculates the average collision point
-			Point averagepoint = 
-					HelpMath.getAverageDoublePoint(colpoints).getAsPoint();
+			Point2D.Double averagepoint = 
+					HelpMath.getAveragePoint(colpoints);
 			
 			// Informs the spell about the collision
 			effect.onBallCollision(this, averagepoint.x, averagepoint.y);

@@ -2,6 +2,7 @@ package camera;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import listeners.CameraListener;
@@ -12,7 +13,6 @@ import handlers.CameraListenerHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import helpAndEnums.DoublePoint;
 import helpAndEnums.HelpMath;
 import drawnobjects.CollidingDrawnObject;
 import drawnobjects.DimensionalDrawnObject;
@@ -123,7 +123,7 @@ public class BasicCamera extends BasicPhysicDrawnObject
 	}
 	
 	@Override
-	public void onCollision(ArrayList<DoublePoint> collisionpoints, 
+	public void onCollision(ArrayList<Point2D.Double> collisionpoints, 
 			Collidable collided)
 	{
 		// Doesn't do anything upon collision
@@ -175,7 +175,7 @@ public class BasicCamera extends BasicPhysicDrawnObject
 		{
 			CollidingDrawnObject cd = (CollidingDrawnObject) d;
 			
-			DoublePoint[] collisionpoints = cd.getCollisionPoints();
+			Point2D.Double[] collisionpoints = cd.getCollisionPoints();
 			
 			// Does NOT check if the object is solid or not! (used for drawing 
 			// so the visible-status is used instead)

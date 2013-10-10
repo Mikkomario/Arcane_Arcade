@@ -1,7 +1,7 @@
 package arcane_arcade_field;
 
 import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,7 +31,6 @@ import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import helpAndEnums.DoublePoint;
 import helpAndEnums.HelpMath;
 import drawnobjects.BasicPhysicDrawnObject;
 
@@ -233,7 +232,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	// IMPLEMENTED METHODS	---------------------------------------------
 
 	@Override
-	public void onCollision(ArrayList<DoublePoint> colpoints,
+	public void onCollision(ArrayList<Point2D.Double> colpoints,
 			Collidable collided)
 	{
 		// Collides with the ball (normally causes instant death)
@@ -254,8 +253,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			SpellEffect spell = (SpellEffect) collided;
 			if (spell.collidesWithWizards())
 			{
-				Point averagepoint = 
-						HelpMath.getAverageDoublePoint(colpoints).getAsPoint();
+				Point2D.Double averagepoint = 
+						HelpMath.getAveragePoint(colpoints);
 				spell.onWizardCollision(this, averagepoint.x, averagepoint.y);
 			}
 		}

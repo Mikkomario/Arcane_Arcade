@@ -4,12 +4,11 @@ import handlers.CollidableHandler;
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
-import helpAndEnums.DoublePoint;
 import helpAndEnums.HelpMath;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.geom.Point2D;
 
 import listeners.CollisionListener;
 
@@ -25,7 +24,7 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
-	private Point[] relativecollisionpoints;
+	private Point2D.Double[] relativecollisionpoints;
 	private boolean active;
 	
 	
@@ -58,7 +57,7 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 		
 		// Initializes attributes
 		this.active = true;
-		this.relativecollisionpoints = new Point[0];
+		this.relativecollisionpoints = new Point2D.Double[0];
 
 		// Adds the object to the handler
 		if (collisionhandler != null)
@@ -87,15 +86,15 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	}
 	
 	@Override
-	public DoublePoint[] getCollisionPoints()
+	public Point2D.Double[] getCollisionPoints()
 	{	
-		Point[] relativepoints = getRelativeCollisionPoints();
+		Point2D.Double[] relativepoints = getRelativeCollisionPoints();
 		
 		// if relativepoints don't exist, returns an empty table
 		if (relativepoints == null)
-			return new DoublePoint[0];
+			return new Point2D.Double[0];
 		
-		DoublePoint[] newpoints = new DoublePoint[relativepoints.length];
+		Point2D.Double[] newpoints = new Point2D.Double[relativepoints.length];
 		
 		// Transforms each of the points and adds them to the new table
 		for (int i = 0; i < relativepoints.length; i++)
@@ -113,7 +112,7 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	 * @return The relative collision coordinates from which the collisions 
 	 * are checked
 	 */
-	protected Point[] getRelativeCollisionPoints()
+	protected Point2D.Double[] getRelativeCollisionPoints()
 	{
 		/*
 		System.out.println("Relative collision points:");
@@ -132,12 +131,12 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	 * @param collisionpoints The new set of relative collisionpoints. Use 
 	 * null if you wan't no collision points.
 	 */
-	protected void setRelativeCollisionPoints(Point[] collisionpoints)
+	protected void setRelativeCollisionPoints(Point2D.Double[] collisionpoints)
 	{
 		if (collisionpoints != null)
 			this.relativecollisionpoints = collisionpoints;
 		else
-			this.relativecollisionpoints = new Point[0];
+			this.relativecollisionpoints = new Point2D.Double[0];
 	}
 	
 	/**
@@ -199,9 +198,9 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	{
 		g2d.setColor(new Color(255, 0, 0));
 		
-		for (Point p: getRelativeCollisionPoints())
+		for (Point2D.Double p: getRelativeCollisionPoints())
 		{
-			g2d.drawRect(p.x, p.y, 5, 5);
+			g2d.drawRect((int) p.x, (int) p.y, 5, 5);
 		}
 		
 		g2d.setColor(new Color(0, 0, 0));
@@ -214,7 +213,7 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 		
 		// Calculates the number of collisionpoints
 		int size = edgeprecision*4 + (int) Math.pow(insideprecision, 2);
-		this.relativecollisionpoints = new Point[size];
+		this.relativecollisionpoints = new Point2D.Double[size];
 		
 		int index = 0;
 		
@@ -230,7 +229,7 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 						continue;
 					
 					// Adds a point to the table
-					this.relativecollisionpoints[index] = new Point(
+					this.relativecollisionpoints[index] = new Point2D.Double(
 							(int) (ex / (double) edgeprecision *getWidth()), 
 							(int) (ey / (double) edgeprecision *getHeight()));
 					
@@ -246,7 +245,7 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 				for (int iy = 1; iy < insideprecision + 1; iy++)
 				{	
 					// Adds a point to the table
-					this.relativecollisionpoints[index] = new Point(
+					this.relativecollisionpoints[index] = new Point2D.Double(
 							(int) (ix / (double) (insideprecision + 1) *getWidth()), 
 							(int) (iy / (double) (insideprecision + 1) *getHeight()));
 					
@@ -275,7 +274,7 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 		
 		//System.out.println("There will be " + size + " points");
 		
-		this.relativecollisionpoints = new Point[size];
+		this.relativecollisionpoints = new Point2D.Double[size];
 		int index = 0;
 		
 		for (int i = 1; i <= layers; i++)
@@ -293,7 +292,7 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 			for (int a = 0; a < 360; a += 360 / pointsonlayer)
 			{
 				//System.out.println("Adds a point to the layer " + i);
-				this.relativecollisionpoints[index] = new Point(
+				this.relativecollisionpoints[index] = new Point2D.Double(
 						getOriginX() + (int) HelpMath.lendirX(layerradius, a), 
 						getOriginY() + (int) HelpMath.lendirY(layerradius, a));
 				//System.out.println("The new point was " + this.relativecollisionpoints[index]);

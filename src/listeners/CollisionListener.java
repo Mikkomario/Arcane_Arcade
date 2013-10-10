@@ -1,10 +1,10 @@
 package listeners;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import handleds.Collidable;
 import handleds.LogicalHandled;
-import helpAndEnums.DoublePoint;
 
 /**
  * Collisionlisteners are interested in collisions and react to them somehow. 
@@ -20,7 +20,7 @@ public interface CollisionListener extends LogicalHandled
 	 * are a lot more precise but also much slower. The points should be 
 	 * absolute in-game pixels
 	 */
-	public DoublePoint[] getCollisionPoints();
+	public Point2D.Double[] getCollisionPoints();
 	
 	/**
 	 * This method is called each time the listening object collides with 
@@ -28,5 +28,5 @@ public interface CollisionListener extends LogicalHandled
 	 * @param colpoints The points in which the collision(s) happened (absolute)
 	 * @param collided The object with which the collision(s) happened
 	 */
-	public void onCollision(ArrayList<DoublePoint> colpoints, Collidable collided);
+	public void onCollision(ArrayList<Point2D.Double> colpoints, Collidable collided);
 }

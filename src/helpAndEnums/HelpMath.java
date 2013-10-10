@@ -1,6 +1,6 @@
 package helpAndEnums;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
@@ -167,7 +167,7 @@ public class HelpMath
 	 * @param maxy The largest possible y
 	 * @return Is the point between the values
 	 */
-	public static boolean pointIsInRange(Point point, int minx, int maxx, 
+	public static boolean pointIsInRange(Point2D.Double point, int minx, int maxx, 
 			int miny, int maxy)
 	{
 		// If, for some reason, a null point is given, returns false
@@ -206,8 +206,8 @@ public class HelpMath
 	 * @param rotation How many degrees the point is rotated around the origin
 	 * @return The new position after the rotation
 	 */
-	public static DoublePoint getRotatedPosition(double originx, double originy, 
-			DoublePoint p, double rotation)
+	public static Point2D.Double getRotatedPosition(double originx, double originy, 
+			Point2D.Double p, double rotation)
 	{
 		// Calculates the old and the new directions (from the origin to the point)
 		double prevdir = pointDirection(originx, originy, p.getX(), p.getY());
@@ -216,7 +216,7 @@ public class HelpMath
 		// (which stays the same during the process)
 		double dist = pointDistance(originx, originy, p.getX(), p.getY());
 		// Returns the new position after the rotation
-		return new DoublePoint(originx + lendirX(dist, newdir), 
+		return new Point2D.Double(originx + lendirX(dist, newdir), 
 				originy + lendirY(dist, newdir));
 	}
 	
@@ -274,28 +274,28 @@ public class HelpMath
 	/**
 	 * Calculates an average doublepoint from multiple doublepoints
 	 *
-	 * @param doublepoints A list of doublepoints
+	 * @param points A list of doublepoints
 	 * @return The list's average doublepoint
 	 */
-	public static DoublePoint getAverageDoublePoint(ArrayList<DoublePoint> doublepoints)
+	public static Point2D.Double getAveragePoint(ArrayList<Point2D.Double> points)
 	{
 		// If there are not enought points, returns 0
-		if (doublepoints == null || doublepoints.isEmpty())
-			return new DoublePoint(0, 0);
+		if (points == null || points.isEmpty())
+			return new Point2D.Double(0, 0);
 		
 		// Calculates the center collision point
-		double x = doublepoints.get(0).getX();
-		double y = doublepoints.get(0).getY();
+		double x = points.get(0).getX();
+		double y = points.get(0).getY();
 		
-		for (int i = 1; i < doublepoints.size(); i++)
+		for (int i = 1; i < points.size(); i++)
 		{
-			x += doublepoints.get(i).getX();
-			y += doublepoints.get(i).getY();
+			x += points.get(i).getX();
+			y += points.get(i).getY();
 		}
 		
-		x /= doublepoints.size();
-		y /= doublepoints.size();
+		x /= points.size();
+		y /= points.size();
 		
-		return new DoublePoint(x, y);
+		return new Point2D.Double(x, y);
 	}
 }

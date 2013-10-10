@@ -56,20 +56,20 @@ public class SmokeEffect extends MaskedSpellEffect
 	// IMPLEMENTED METHODS	---------------------------------------------
 
 	@Override
-	public void onBallCollision(Ball ball, int x, int y)
+	public void onBallCollision(Ball ball, double x, double y)
 	{
 		// Doesn't collide with balls
 	}
 
 	@Override
-	public void onSpellCollision(SpellEffect spell, int x, int y)
+	public void onSpellCollision(SpellEffect spell, double x, double y)
 	{
 		//TODO: Add collision with hurricane and other wind type spells when 
 		// they appear
 	}
 
 	@Override
-	public void onWizardCollision(Wizard wizard, int x, int y)
+	public void onWizardCollision(Wizard wizard, double x, double y)
 	{
 		// Doesn't collide with wizards
 	}

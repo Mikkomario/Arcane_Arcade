@@ -1,11 +1,12 @@
 package drawnobjects;
 
+import java.awt.geom.Point2D;
+
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
-import helpAndEnums.DoublePoint;
 import helpAndEnums.HelpMath;
 import helpAndEnums.Movement;
 
@@ -79,7 +80,7 @@ public abstract class BouncingBasicPhysicDrawnObject extends BasicPhysicDrawnObj
 	 * directional to the opposing force (0+).
 	 */
 	public void bounceWithoutRotationFrom(DimensionalDrawnObject d, 
-			DoublePoint collisionpoint, double bounciness, 
+			Point2D.Double collisionpoint, double bounciness, 
 			double frictionmodifier)
 	{	
 		// If there's no speed, doesn't do anything
@@ -87,7 +88,7 @@ public abstract class BouncingBasicPhysicDrawnObject extends BasicPhysicDrawnObj
 			return;
 		
 		// Calculates the direction, towards which the force is applied
-		double forcedir = d.getCollisionForceDirection(collisionpoint.getAsPoint());
+		double forcedir = d.getCollisionForceDirection(collisionpoint);
 		
 		// Calculates the actual amount of force applied to the object
 		Movement oppmovement = 

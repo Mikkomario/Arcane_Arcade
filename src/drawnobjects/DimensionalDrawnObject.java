@@ -1,6 +1,6 @@
 package drawnobjects;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 
 import handleds.Collidable;
 import handlers.CollidableHandler;
@@ -95,7 +95,7 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 	public boolean pointCollides(int x, int y)
 	{
 		// Negates the transformation
-		Point negatedPoint = negateTransformations(x, y);
+		Point2D.Double negatedPoint = negateTransformations(x, y);
 		
 		// Returns the object if it collides with the point
 		// Circular objects react if the point is near enough
@@ -176,7 +176,7 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 	 * @param collisionpoint The point at which the collision happens
 	 * @return To which direction the force should apply
 	 */
-	public double getCollisionForceDirection(Point collisionpoint)
+	public double getCollisionForceDirection(Point2D.Double collisionpoint)
 	{
 		// Circles simply push the object away
 		if (this.collisiontype == CollisionType.CIRCLE)
@@ -189,10 +189,10 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 		else if (this.collisiontype == CollisionType.BOX)
 		{
 			// Calculates the side which the object touches
-			Point relativepoint = negateTransformations(collisionpoint.x, 
+			Point2D.Double relativepoint = negateTransformations(collisionpoint.x, 
 					collisionpoint.y);
-			double relxdiffer = -0.5 + relativepoint.x / (double) getWidth();
-			double relydiffer = -0.5 + relativepoint.y / (double) getHeight();
+			double relxdiffer = -0.5 + relativepoint.x / getWidth();
+			double relydiffer = -0.5 + relativepoint.y / getHeight();
 			
 			// Returns drection of one of the sides of the object
 			if (Math.abs(relxdiffer) >= Math.abs(relydiffer))

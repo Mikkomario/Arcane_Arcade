@@ -1,5 +1,6 @@
 package handlers;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,7 +8,6 @@ import listeners.CollisionListener;
 import handleds.Actor;
 import handleds.Collidable;
 import handleds.Handled;
-import helpAndEnums.DoublePoint;
 
 /**
  * A handler that checks collisions between multiple collisionlisteners and 
@@ -67,12 +67,12 @@ public class CollisionHandler extends LogicalHandler implements Actor
 		if (!listener.isActive())
 			return;
 		
-		DoublePoint[] colpoints = listener.getCollisionPoints();
-		HashMap<Collidable, ArrayList<DoublePoint>> collidedpoints = 
-				new HashMap<Collidable, ArrayList<DoublePoint>>();
+		Point2D.Double[] colpoints = listener.getCollisionPoints();
+		HashMap<Collidable, ArrayList<Point2D.Double>> collidedpoints = 
+				new HashMap<Collidable, ArrayList<Point2D.Double>>();
 		
 		// Goes throug each point and checks collided objects
-		for (DoublePoint colpoint : colpoints)
+		for (Point2D.Double colpoint : colpoints)
 		{
 			ArrayList<Collidable> collided = 
 					this.collidablehandler.getCollidedObjectsAtPoint((int) 
@@ -85,7 +85,7 @@ public class CollisionHandler extends LogicalHandler implements Actor
 			for (Collidable c : collided)
 			{
 				if (!collidedpoints.containsKey(c))
-					collidedpoints.put(c, new ArrayList<DoublePoint>());
+					collidedpoints.put(c, new ArrayList<Point2D.Double>());
 				
 				collidedpoints.get(c).add(colpoint);
 			}

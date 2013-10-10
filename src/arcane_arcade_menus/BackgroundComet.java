@@ -1,6 +1,7 @@
 package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import arcane_arcade_main.GameSettings;
@@ -16,7 +17,6 @@ import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import helpAndEnums.DoublePoint;
 import drawnobjects.BasicPhysicDrawnObject;
 
 /**
@@ -68,7 +68,7 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 	// IMPLEMENTED METHODS	---------------------------------------------
 
 	@Override
-	public void onCollision(ArrayList<DoublePoint> colpoints,
+	public void onCollision(ArrayList<Point2D.Double> colpoints,
 			Collidable collided)
 	{
 		// Doesn't collide with things

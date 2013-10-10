@@ -1,7 +1,7 @@
 package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.geom.Point2D;
 
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.Navigator;
@@ -153,7 +153,7 @@ public class QuitMenuCorner extends DrawnObject implements
 		if (this.maskchecker == null)
 			return false;
 		// Checks mask collision
-		Point relpoint = negateTransformations(x, y);
+		Point2D.Double relpoint = negateTransformations(x, y);
 		return this.maskchecker.maskContainsRelativePoint(relpoint, 0);
 	}
 
