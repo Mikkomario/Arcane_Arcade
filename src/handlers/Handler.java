@@ -28,6 +28,8 @@ public abstract class Handler implements Handled
 	private boolean killed;
 	private boolean started; // Have any objects been added to the handler yet
 	
+	private boolean addlistready, removelistready, insertlistready, handlingready;
+	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
@@ -49,6 +51,10 @@ public abstract class Handler implements Handled
 		this.handledstobeinserted = new HashMap<Handled, Integer>();
 		this.handledstoberemoved = new ArrayList<Handled>();
 		this.started = false;
+		this.addlistready = true;
+		this.removelistready = true;
+		this.insertlistready = true;
+		this.handlingready = true;
 		
 		// Tries to add itself to the superhandler
 		if (superhandler != null)
@@ -99,6 +105,8 @@ public abstract class Handler implements Handled
 	@Override
 	public void kill()
 	{
+		// TODO: Might cause problems if called during iterating
+		
 		// Tries to permanently inactivate all subhandleds and kill the handler
 		Iterator<Handled> iterator = getIterator();
 		
@@ -118,7 +126,16 @@ public abstract class Handler implements Handled
 	 */
 	public void killWithoutKillingHandleds()
 	{
+		// TODO: The program will break if the handler is killed during handling
+		// TODO: BREAK THE HANDLING WHEN THE HANDLER DIES
+		checkHandlingStatus();
 		this.handleds.clear();
+		checkAddStatus();
+		this.handledstobeadded.clear();
+		checkInsertStatus();
+		this.handledstobeinserted.clear();
+		checkRemoveStatus();
+		this.handledstoberemoved.clear();
 		this.killed = true;
 	}
 	
@@ -141,11 +158,13 @@ public abstract class Handler implements Handled
 		// needs to be stopped
 		
 		// Goes through all the handleds
+		this.handlingready = false;
 		Iterator<Handled> iterator = this.handleds.iterator();
 		
 		while (iterator.hasNext())
 		{
-			//System.out.println(getClass().getName() + " handles an object");
+			if (this.killed)
+				break;
 			
 			Handled h = iterator.next();
 			
@@ -156,6 +175,7 @@ public abstract class Handler implements Handled
 			else
 				removeHandled(h);
 		}
+		this.handlingready = true;
 	}
 	
 	/**
@@ -186,6 +206,7 @@ public abstract class Handler implements Handled
 		if (h != null && h != this && !this.handleds.contains(h) && 
 				!this.handledstobeadded.contains(h))
 		{
+			checkAddStatus();
 			this.handledstobeadded.add(h);
 			this.started = true;
 			//System.out.println(this + " adds a handled to queue (now " + 
@@ -205,6 +226,7 @@ public abstract class Handler implements Handled
 		if (!this.handledstobeinserted.containsKey(h))
 		{
 			this.started = true;
+			checkInsertStatus();
 			this.handledstobeinserted.put(h, index);
 		}
 	}
@@ -220,6 +242,7 @@ public abstract class Handler implements Handled
 				(this.handleds.contains(h) || this.handledstobeadded.contains(h) 
 				|| this.handledstobeinserted.containsKey(h)))
 		{
+			checkRemoveStatus();
 			this.handledstoberemoved.add(h);
 		}
 	}
@@ -229,12 +252,17 @@ public abstract class Handler implements Handled
 	 */
 	public void removeAllHandleds()
 	{
+		this.handlingready = false;
 		for (int i = 0; i < getHandledNumber(); i++)
 		{
+			checkRemoveStatus();
 			removeHandled(getHandled(i));
 		}
+		this.handlingready = true;
 		// Also cancels the adding of new handleds
+		checkAddStatus();
 		this.handledstobeadded.clear();
+		checkInsertStatus();
 		this.handledstobeinserted.clear();
 	}
 	
@@ -296,44 +324,45 @@ public abstract class Handler implements Handled
 		if (this.handledstoberemoved.isEmpty())
 			return;
 		
+		this.removelistready = false;
 		for (Handled h : this.handledstoberemoved)
 		{
 			if (this.handleds.contains(h))
+			{
+				checkHandlingStatus();
 				this.handleds.remove(h);
-			else if (this.handledstoberemoved.contains(h))
+			}
+			else if (this.handledstobeadded.contains(h))
+			{
+				checkAddStatus();
 				this.handledstobeadded.remove(h);
+			}
 			else if (this.handledstobeinserted.containsKey(h))
+			{
+				checkInsertStatus();
 				this.handledstobeinserted.remove(h);
+			}
 		}
 		
 		this.handledstoberemoved.clear();
+		this.removelistready = true;
 	}
 	
 	private void addNewHandleds()
 	{
 		// If the handler has no handleds to be added, does nothing
 		if (this.handledstobeadded.isEmpty())
-		{
-			//System.out.println(this + " skipped adding since queue is empty");
 			return;
-		}
 		
-		//System.out.println(this + ": Handleds to be added: " + 
-		//		this.handledstobeadded.size());
-		
-		// TODO: Another concurrentModificationException?
+		this.addlistready = false;
 		for (Handled h : this.handledstobeadded)
 		{
+			checkHandlingStatus();
 			this.handleds.add(h);
-			//System.out.println(this + " added a new handler. Now contains " 
-			//		+ this.handleds.size() + " elements");
-			
-			// Also starts the handler if it wasn't already
-			//if (!this.started)
-			//	this.started = true;
 		}
 		
 		this.handledstobeadded.clear();
+		this.addlistready = true;
 	}
 	
 	private void insertNewHandleds()
@@ -341,16 +370,81 @@ public abstract class Handler implements Handled
 		if (this.handledstobeinserted.isEmpty())
 			return;
 		
+		this.insertlistready = false;
 		for (Handled h : this.handledstobeinserted.keySet())
 		{
 			int index = this.handledstobeinserted.get(h);
+			checkHandlingStatus();
 			this.handleds.add(index, h);
-			
-			// Also starts the handler if it wasn't already
-			//if (!this.started)
-			//	this.started = true;
 		}
 		
 		this.handledstobeinserted.clear();
+		this.insertlistready = true;
+	}
+	
+	// TODO: Try DRY
+	// PS: This would be so much nicer with pointers
+	private void checkAddStatus()
+	{
+		while(!this.addlistready)
+		{
+			try
+			{
+				Thread.sleep(1);
+			}
+			catch (InterruptedException exception)
+			{
+				System.err.println("Handling status check was interupted");
+				exception.printStackTrace();
+			}
+		}
+	}
+	
+	private void checkInsertStatus()
+	{
+		while(!this.insertlistready)
+		{
+			try
+			{
+				Thread.sleep(1);
+			}
+			catch (InterruptedException exception)
+			{
+				System.err.println("Handling status check was interupted");
+				exception.printStackTrace();
+			}
+		}
+	}
+	
+	private void checkRemoveStatus()
+	{
+		while(!this.removelistready)
+		{
+			try
+			{
+				Thread.sleep(1);
+			}
+			catch (InterruptedException exception)
+			{
+				System.err.println("Handling status check was interupted");
+				exception.printStackTrace();
+			}
+		}
+	}
+	
+	private void checkHandlingStatus()
+	{
+		while(!this.handlingready)
+		{
+			try
+			{
+				Thread.sleep(1);
+			}
+			catch (InterruptedException exception)
+			{
+				System.err.println("Handling status check was interupted");
+				exception.printStackTrace();
+			}
+		}
 	}
 }
