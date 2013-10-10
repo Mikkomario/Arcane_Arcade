@@ -1,6 +1,7 @@
 package helpAndEnums;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 
 /**
  * DoublePoint is a point that holds the data in a double format. Doublepoint 
@@ -8,7 +9,11 @@ import java.awt.Point;
  *
  * @author Mikko Hilpinen.
  *         Created 30.6.2013.
+ *         
+ * @deprecated One should use Java's Point2D instead of this class. The class 
+ * won't be supported in the future.
  */
+@Deprecated
 public class DoublePoint
 {
 	// ATTRIBUTES	------------------------------------------------------
@@ -30,6 +35,20 @@ public class DoublePoint
 		// Initializes attributes
 		this.x = x;
 		this.y = y;
+	}
+	
+	/**
+	 * Converts a point2D to a doublepoint
+	 * 
+	 * @param p The point to be converted
+	 * @warning This is only a momentarily solution. It is adviced to use 
+	 * Point2D instead of the doublepoint where possible.
+	 */
+	public DoublePoint(Point2D p)
+	{
+		// Initializes attributes
+		this.x = p.getX();
+		this.y = p.getY();
 	}
 	
 	

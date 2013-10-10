@@ -30,6 +30,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	private float alpha;
 	private boolean visible;
 	private int depth;
+	private AffineTransform currenttransformation;
+	private boolean transformationneedsupdating;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -55,6 +57,9 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		this.angle = 0;
 		this.depth = depth;
 		this.alpha = 1;
+		
+		this.currenttransformation = new AffineTransform();
+		this.transformationneedsupdating = true;
 		
 		// Adds the object to the drawer (if possible)
 		if (drawer != null)
@@ -114,6 +119,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		int type = AlphaComposite.SRC_OVER; 
 		g2d.setComposite(AlphaComposite.getInstance(type, getAlpha()));
 		
+		/*
 		// Translates the sprite to the object's position
 		g2d.translate(getX(), getY());
 		// rotates it depending on its angle
@@ -122,6 +128,13 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		g2d.scale(getXScale(), getYScale());
 		// and translates the origin to the right position
 		g2d.translate(-getOriginX(), -getOriginY());
+		
+		this.currenttransformation = g2d.getTransform();
+		*/
+		
+		// Updates the transformation and uses it to transform the object
+		updateTransformation();
+		g2d.transform(this.currenttransformation);
 		
 		// Finally draws the object
 		drawSelfBasic(g2d);
@@ -176,6 +189,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	{
 		this.angle = angle;
 		checkAngle();
+		this.transformationneedsupdating = true;
 	}
 	
 	/**
@@ -214,6 +228,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	public void setXScale(double xscale)
 	{
 		this.xscale = xscale;
+		this.transformationneedsupdating = true;
 	}
 	
 	/**
@@ -224,6 +239,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	public void setYScale(double yscale)
 	{
 		this.yscale = yscale;
+		this.transformationneedsupdating = true;
 	}
 	
 	/**
@@ -237,6 +253,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	{
 		this.xscale = xscale;
 		this.yscale = yscale;
+		this.transformationneedsupdating = true;
 	}
 	
 	/**
@@ -273,6 +290,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	{
 		this.x = x;
 		this.y = y;
+		this.transformationneedsupdating = true;
 	}
 	
 	/**
@@ -283,6 +301,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	public void setX(double x)
 	{
 		this.x = x;
+		this.transformationneedsupdating = true;
 	}
 	
 	/**
@@ -293,6 +312,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	public void setY(double y)
 	{
 		this.y = y;
+		this.transformationneedsupdating = true;
 	}
 	
 	/**
@@ -383,6 +403,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public Point negateTransformations(double x, double y)
 	{
+		// TODO: Continue using the transformation for these methods
+		
 		return negateTransformations(x, y, getX(), getY(), getXScale(), 
 				getYScale(), getAngle(), getOriginX(), getOriginY());
 	}
@@ -402,7 +424,11 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * @param originy The y-coordinate of the transformation's origin
 	 * @return The point where all of the object's transformations have been 
 	 * negated
+	 * 
+	 * @deprecated This method won't be supported for long since the object's 
+	 * transformation will be used for position transformation in the future
 	 */
+	@Deprecated
 	protected static Point negateTransformations(double px, double py, double x, 
 			double y, double xscale, double yscale, double angle, int originx, 
 			int originy)
@@ -470,7 +496,11 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * @param originx The x-coordinate of the origin of the transformation (relative pixel)
 	 * @param originy The y-coordinate of the origin of the transformation (relative pixel)
 	 * @return Absolute position with transformations added
+	 * 
+	 * @deprecated This method won't be supported for long since the object's 
+	 * transformation will be used for position transformation in the future
 	 */
+	@Deprecated
 	protected DoublePoint transform(double px, double py, double x, double y, 
 			double xscale, double yscale, double angle, int originx, int originy)
 	{	
@@ -565,5 +595,26 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		
 		// Loads the previous transformation
 		g2d.setTransform(trans);
+	}
+	
+	// Updates the current transformation value
+	private void updateTransformation()
+	{
+		// Only updates the transformation if need be
+		if (!this.transformationneedsupdating)
+			return;
+		
+		this.currenttransformation = new AffineTransform();
+		
+		// Translates the sprite to the object's position
+		this.currenttransformation.translate(getX(), getY());
+		// rotates it depending on its angle
+		this.currenttransformation.rotate(Math.toRadians((360 - getAngle())));
+		// scales it depending on it's xscale and yscale
+		this.currenttransformation.scale(getXScale(), getYScale());
+		// and translates the origin to the right position
+		this.currenttransformation.translate(-getOriginX(), -getOriginY());
+		
+		this.transformationneedsupdating = false;
 	}
 }
