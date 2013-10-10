@@ -14,6 +14,7 @@ import arcane_arcade_worlds.Navigator;
 import resource_management.OpenSpriteBankHolder;
 import resource_management.OpenWavSoundBankHolder;
 import tests.FpsApsTest;
+import tests.MouseTest;
 import video.GamePanel;
 import video.GameWindow;
 

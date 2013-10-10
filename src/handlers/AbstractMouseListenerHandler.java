@@ -99,6 +99,7 @@ implements Actor
 		// Mouse position update
 		if (this.lastevent == AdvancedMouseEvent.MOVE)
 		{
+			// Updates mouse-enter and mouse-leave
 			if (l.listensMouseEnterExit())
 			{		
 				// Checks if entered
@@ -117,9 +118,13 @@ implements Actor
 					this.exited.add(l);
 				}
 			}
+			// Informs the listener about the move-event as well
+			l.onMouseMove(getMouseX(), getMouseY());
 		}
 		else if (this.lastevent == AdvancedMouseEvent.OTHER)
 		{
+			//System.out.println("other-event");
+			
 			// Only if the object cares about mouse movement
 			if (l.listensMouseEnterExit())
 			{
@@ -200,6 +205,8 @@ implements Actor
 		{		
 			this.mouseX = x;
 			this.mouseY = y;
+			
+			//System.out.println("AMLH Mouse x : " + x + ", mousey: " + y);
 			
 			// Informs the objects
 			this.lastevent = AdvancedMouseEvent.MOVE;

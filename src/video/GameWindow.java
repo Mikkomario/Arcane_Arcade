@@ -184,6 +184,9 @@ public class GameWindow extends JFrame
 				this.xscale) - getX();
 		int mousey = (int) ((mousePosition.y - this.toppaddingheight) / 
 				this.yscale) - getY();
+		
+		//System.out.println("GW Mouse x : " + mousex + ", mousey: " + mousey);
+		
 		this.mainmousehandler.setMousePosition(mousex, mousey);
 	}
 	

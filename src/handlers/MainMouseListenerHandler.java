@@ -40,6 +40,8 @@ public class MainMouseListenerHandler extends AbstractMouseListenerHandler
 	public void setMouseStatus(int mouseX, int mouseY, boolean mousePressed, 
 			int mouseButton)
 	{
+		//System.out.println("MMLH Mouse x : " + mouseX + ", mousey: " + mouseY);
+		
 		setMousePosition(mouseX, mouseY);
 		
 		if (mousePressed)
