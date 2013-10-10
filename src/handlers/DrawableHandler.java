@@ -57,6 +57,9 @@ public class DrawableHandler extends Handler implements Drawable
 	@Override
 	public boolean isVisible()
 	{
+		// Updates the handler status before checking it
+		updateStatus();
+		
 		// Returns false only if all the handleds are invisible
 		for (int i = 0; i < getHandledNumber(); i++)
 		{
@@ -195,8 +198,7 @@ public class DrawableHandler extends Handler implements Drawable
 	private void tryFixingDepthSorting(Drawable mistake)
 	{
 		removeHandled(mistake);
-		
-		// TODO: Make sure the handled is added after it is removed!
+		updateStatus();
 		addHandled(mistake);
 	}
 }

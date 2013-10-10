@@ -2,6 +2,7 @@ package handlers;
 
 import handleds.Handled;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -17,11 +18,12 @@ public abstract class Handler implements Handled
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
+	// TODO: Create status system for the new lists (so they are not modified 
+	// while iterating)
+	
 	private LinkedList<Handled> handleds;
-	private HashMap<Handled, Handler> handledstoberemoved;
-	private HashMap<Handled, Handler> handledstobeadded;
-	private HashMap<Handler, HashMap<Handled, Integer>> handledstobeinserted;
-	private Handler superhandler;
+	private volatile ArrayList<Handled> handledstoberemoved, handledstobeadded;
+	private volatile HashMap<Handled, Integer> handledstobeinserted;
 	private boolean autodeath;
 	private boolean killed;
 	private boolean started; // Have any objects been added to the handler yet
@@ -41,14 +43,11 @@ public abstract class Handler implements Handled
 	{
 		// Initializes attributes
 		this.autodeath = autodeath;
-		this.superhandler = superhandler;
 		this.killed = false;
 		this.handleds = new LinkedList<Handled>();
-		this.handledstoberemoved = new HashMap<Handled, Handler>();
-		this.handledstobeadded = new HashMap<Handled, Handler>();
-		this.handledstobeinserted = new HashMap<Handler, HashMap<Handled, 
-				Integer>>();
-		this.handledstobeinserted.put(this, new HashMap<Handled, Integer>());
+		this.handledstobeadded = new ArrayList<Handled>();
+		this.handledstobeinserted = new HashMap<Handled, Integer>();
+		this.handledstoberemoved = new ArrayList<Handled>();
 		this.started = false;
 		
 		// Tries to add itself to the superhandler
@@ -83,12 +82,13 @@ public abstract class Handler implements Handled
 		if (this.killed)
 			return true;
 		
-		// or if autodeath is on and it's empty (but has had an object in it previously)
+		// or if autodeath is on and it's empty (but has had an object in it 
+		// previously)
 		if (this.autodeath)
-		{
-			// Removes dead handleds to be sure
-			// TODO: Removed this part to not cause concurrentmodificationexceptions
-			
+		{	
+			updateStatus();
+			//System.out.println("Started: " + this.started + ", empty: " + 
+			//this.handleds.isEmpty());
 			if (this.started && this.handleds.isEmpty())
 				return true;
 		}
@@ -99,8 +99,7 @@ public abstract class Handler implements Handled
 	@Override
 	public void kill()
 	{
-		// Tries to permanently inactivate all subhandleds. If all were 
-		// successfully killed, this handldler is also killed in the process
+		// Tries to permanently inactivate all subhandleds and kill the handler
 		Iterator<Handled> iterator = getIterator();
 		
 		while (iterator.hasNext())
@@ -134,6 +133,10 @@ public abstract class Handler implements Handled
 	 */
 	protected void handleObjects()
 	{
+		//System.out.println(this+ " Starts handling objects");
+		
+		updateStatus();
+		
 		// TODO: Add stopHandlingException for some cases where the handling 
 		// needs to be stopped
 		
@@ -142,6 +145,8 @@ public abstract class Handler implements Handled
 		
 		while (iterator.hasNext())
 		{
+			//System.out.println(getClass().getName() + " handles an object");
+			
 			Handled h = iterator.next();
 			
 			// TODO: Uncomment the section if you want to (slows the speed but makes 
@@ -151,13 +156,6 @@ public abstract class Handler implements Handled
 			else
 				removeHandled(h);
 		}
-		
-		// Removes the dead handleds (if possible)
-		clearRemovedHandleds();
-		// Inserts new handleds (if possible)
-		insertNewHandleds();
-		// Adds the new handleds (if possible)
-		addNewHandleds();
 	}
 	
 	/**
@@ -175,18 +173,23 @@ public abstract class Handler implements Handled
 	 */
 	protected void addHandled(Handled h)
 	{	
+		//System.out.println(this + " tries to add a handled");
+		
 		// Handled must be of the supported class
 		if (!getSupportedClass().isInstance(h))
-			return;
-		
-		if (h != null && !this.handleds.contains(h) && 
-				!this.handledstobeadded.containsKey(h))
 		{
-			this.handledstobeadded.put(h, this);
-			
-			// Also starts the handler if it wasn't already
-			if (!this.started)
-				this.started = true;
+			System.err.println(getClass().getName() + 
+					" does not support given object's class");
+			return;
+		}
+		
+		if (h != null && h != this && !this.handleds.contains(h) && 
+				!this.handledstobeadded.contains(h))
+		{
+			this.handledstobeadded.add(h);
+			this.started = true;
+			//System.out.println(this + " adds a handled to queue (now " + 
+			//			this.handledstobeadded.size() + ")");
 		}
 	}
 	
@@ -199,8 +202,11 @@ public abstract class Handler implements Handled
 	protected void insertHandled(Handled h, int index)
 	{
 		//this.handleds.add(index, h);
-		if (!this.handledstobeinserted.get(this).containsKey(h))
-			this.handledstobeinserted.get(this).put(h, index);
+		if (!this.handledstobeinserted.containsKey(h))
+		{
+			this.started = true;
+			this.handledstobeinserted.put(h, index);
+		}
 	}
 	
 	/**
@@ -210,27 +216,26 @@ public abstract class Handler implements Handled
 	 */
 	public void removeHandled(Handled h)
 	{
-		// TODO: Changed this to use the new mehanic, might cause problems
-		if (h != null && this.handleds.contains(h) && 
-				!this.handledstoberemoved.containsKey(h))
+		if (h != null && !this.handledstoberemoved.contains(h) && 
+				(this.handleds.contains(h) || this.handledstobeadded.contains(h) 
+				|| this.handledstobeinserted.containsKey(h)))
 		{
-			//this.handleds.remove(h);
-			this.handledstoberemoved.put(h, this);
+			this.handledstoberemoved.add(h);
 		}
 	}
 	
 	/**
 	 * Removes all the handleds from the handler
 	 */
-	protected void removeAllHandleds()
+	public void removeAllHandleds()
 	{
-		// TODO: CHanged this to use the new deadhandlers mechanic, might 
-		// cause problems
-		//this.handleds.clear();
 		for (int i = 0; i < getHandledNumber(); i++)
 		{
 			removeHandled(getHandled(i));
 		}
+		// Also cancels the adding of new handleds
+		this.handledstobeadded.clear();
+		this.handledstobeinserted.clear();
 	}
 	
 	/**
@@ -266,105 +271,85 @@ public abstract class Handler implements Handled
 		return this.handleds.get(index);
 	}
 	
+	/**
+	 * Updates the handler list by adding new members and removing old ones. 
+	 * This method should not be called during an iteration but is useful before 
+	 * testsing the handler status.<br>
+	 * Status is automatically updated each time the handleds in the handler 
+	 * are handled.
+	 * 
+	 * @see #handleObjects()
+	 */
+	protected void updateStatus()
+	{
+		// Removes the dead handleds (if possible)
+		clearRemovedHandleds();
+		// Inserts new handleds (if possible)
+		insertNewHandleds();
+		// Adds the new handleds (if possible)
+		addNewHandleds();
+	}
+	
 	// This should be called at the end of the iteration
 	private void clearRemovedHandleds()
 	{
-		// If the handler is the top handler, removes the handleds
-		if (this.superhandler == null)
+		if (this.handledstoberemoved.isEmpty())
+			return;
+		
+		for (Handled h : this.handledstoberemoved)
 		{
-			for (Handled h : this.handledstoberemoved.keySet())
-			{
-				Handler handler = this.handledstoberemoved.get(h);
-				handler.handleds.remove(h);
-			}
-		}
-		// Otherwise delegates the removal progres for the superhandler
-		else
-		{
-			// TODO: Clone needed?
-			//delegateRemoval((HashMap<Handled, Handler>) 
-			//		this.handledstoberemoved.clone());
-			delegateRemoval(this.handledstoberemoved);
+			if (this.handleds.contains(h))
+				this.handleds.remove(h);
+			else if (this.handledstoberemoved.contains(h))
+				this.handledstobeadded.remove(h);
+			else if (this.handledstobeinserted.containsKey(h))
+				this.handledstobeinserted.remove(h);
 		}
 		
 		this.handledstoberemoved.clear();
 	}
 	
-	private void delegateRemoval(HashMap<Handled, Handler> removed)
-	{
-		/*
-		for (Handled h : removed.keySet())
-		{
-			this.handledstoberemoved.put(h, removed.get(h));
-		}
-		*/
-		this.superhandler.handledstoberemoved.putAll(removed);
-	}
-	
 	private void addNewHandleds()
 	{
-		// Adds the new handleds from the collected map or delegates the adding 
-		// progress
-		// If the handler is the top handler, removes the handleds
-		if (this.superhandler == null)
+		// If the handler has no handleds to be added, does nothing
+		if (this.handledstobeadded.isEmpty())
 		{
-			for (Handled h : this.handledstobeadded.keySet())
-			{
-				Handler handler = this.handledstobeadded.get(h);
-				handler.handleds.add(h);
-			}
+			//System.out.println(this + " skipped adding since queue is empty");
+			return;
 		}
-		// Otherwise delegates the removal progres for the superhandler
-		else
-			delegateAdding(this.handledstobeadded);
+		
+		//System.out.println(this + ": Handleds to be added: " + 
+		//		this.handledstobeadded.size());
+		
+		// TODO: Another concurrentModificationException?
+		for (Handled h : this.handledstobeadded)
+		{
+			this.handleds.add(h);
+			//System.out.println(this + " added a new handler. Now contains " 
+			//		+ this.handleds.size() + " elements");
+			
+			// Also starts the handler if it wasn't already
+			//if (!this.started)
+			//	this.started = true;
+		}
 		
 		this.handledstobeadded.clear();
 	}
 	
-	private void delegateAdding(HashMap<Handled, Handler> added)
-	{
-		/*
-		for (Handled h : added.keySet())
-		{
-			this.handledstobeadded.put(h, added.get(h));
-		}
-		*/
-		this.superhandler.handledstobeadded.putAll(added);
-	}
-	
-	private void delegateInsterting(HashMap<Handler, HashMap<Handled, 
-			Integer>> inserted)
-	{
-		// TODO: Test if addAll works, return this if not
-		/*
-		for (Handler handler : inserted.keySet())
-		{
-			this.handledstobeinserted.put(handler, inserted.get(handler));
-		}
-		*/
-		this.superhandler.handledstobeinserted.putAll(inserted);
-	}
-	
 	private void insertNewHandleds()
 	{
-		// Adds the new handleds from the collected map or delegates the adding 
-		// progress
-		// If the handler is the top handler, removes the handleds
-		if (this.superhandler == null)
+		if (this.handledstobeinserted.isEmpty())
+			return;
+		
+		for (Handled h : this.handledstobeinserted.keySet())
 		{
-			// Goes through all the handlers and handleds
-			for (Handler handler : this.handledstobeinserted.keySet())
-			{
-				for (Handled h : this.handledstobeinserted.get(handler).keySet())
-				{
-					int index = this.handledstobeinserted.get(handler).get(h);
-					handler.handleds.add(index, h);
-				}
-			}
+			int index = this.handledstobeinserted.get(h);
+			this.handleds.add(index, h);
+			
+			// Also starts the handler if it wasn't already
+			//if (!this.started)
+			//	this.started = true;
 		}
-		// Otherwise delegates the removal progress for the superhandler
-		else
-			delegateInsterting(this.handledstobeinserted);
 		
 		this.handledstobeinserted.clear();
 	}

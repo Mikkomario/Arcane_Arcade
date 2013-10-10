@@ -47,7 +47,9 @@ public class ActorHandler extends LogicalHandler implements Actor
 		// Calls the act method of active handleds
 		Actor a = (Actor) h;
 		if (a.isActive())
+		{
 			a.act();
+		}
 	}
 	
 	

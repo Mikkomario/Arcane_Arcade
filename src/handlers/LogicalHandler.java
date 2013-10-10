@@ -34,6 +34,9 @@ public abstract class LogicalHandler extends Handler implements LogicalHandled
 	@Override
 	public boolean isActive()
 	{
+		// Updates the handler status before checking it
+		updateStatus();
+		
 		// Returns false only if all the handleds are inactive
 		Iterator<Handled> iterator = getIterator();
 		
