@@ -6,7 +6,9 @@ package helpAndEnums;
  *
  * @author Mikko Hilpinen.
  *         Created 19.9.2013.
+ * @deprecated This class is no longer supported or updated.
  */
+@Deprecated
 public class DoubleMatrix
 {
 	// ATTRIBUTES	-----------------------------------------------------
@@ -37,14 +39,34 @@ public class DoubleMatrix
 		}
 	}
 	
+	/**
+	 * A copy constructor for the doublematrix class. Makes the new matrix a 
+	 * copy of the given matrix.
+	 *
+	 * @param other The doublematrix which will be copied
+	 */
+	public DoubleMatrix(DoubleMatrix other)
+	{
+		// Copies the values from the other matrix
+		this.matrix = new double[other.getXSize()][other.getYSize()];
+		
+		for (int x = 0; x < other.getXSize(); x++)
+		{
+			for (int y = 0; y < other.getYSize(); y++)
+			{
+				this.matrix[x][y] = other.getValue(x, y);
+			}
+		}
+	}
+	
 	
 	// GETTERS & SETTERS	----------------------------------------------
 	
 	/**
 	 * Changes the value in a certain position in the matrix
 	 *
-	 * @param xindex The horizontal index of the new value
-	 * @param yindex The vertical index of the new value
+	 * @param xindex The horizontal index of the new value (starts from 0)
+	 * @param yindex The vertical index of the new value (starts from 0)
 	 * @param value The new value in the matrix
 	 */
 	public void setValue(int xindex, int yindex, double value)
@@ -61,8 +83,8 @@ public class DoubleMatrix
 	/**
 	 * Returns a value from a certain position in the matrix
 	 *
-	 * @param xindex The horizontal index of the value
-	 * @param yindex The vertical index of the value
+	 * @param xindex The horizontal index of the value (starts from 0)
+	 * @param yindex The vertical index of the value (starts from 0)
 	 * @return The value from the given index
 	 */
 	public double getValue(int xindex, int yindex)
@@ -92,6 +114,25 @@ public class DoubleMatrix
 		if (getXSize() >= 0)
 			return this.matrix[0].length;
 		return 0;
+	}
+	
+	/**
+	 * Makes the matrix an identifier matrix. Doesn't change the values ofther 
+	 * than the ones in the center.
+	 * 
+	 * @warning The matrix needs to have equal width and height.
+	 */
+	protected void makeIdentifierMatrix()
+	{
+		// Doesn't work with matrices that don't have egual width and height
+		if (getXSize() != getYSize())
+			return;
+		
+		// Adds the identifier
+		for (int i = 0; i < getXSize(); i++)
+		{
+			setValue(i, i, 1);
+		}
 	}
 	
 	
@@ -156,10 +197,7 @@ public class DoubleMatrix
 		DoubleMatrix newmatrix = new DoubleMatrix(size, size);
 		
 		// Adds the identifier
-		for (int i = 0; i < size; i++)
-		{
-			newmatrix.setValue(i, i, 1);
-		}
+		newmatrix.makeIdentifierMatrix();
 		
 		return newmatrix;
 	}

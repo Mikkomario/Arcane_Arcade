@@ -22,8 +22,8 @@ public abstract class Handler implements Handled
 	// while iterating)
 	
 	private LinkedList<Handled> handleds;
-	private volatile ArrayList<Handled> handledstoberemoved, handledstobeadded;
-	private volatile HashMap<Handled, Integer> handledstobeinserted;
+	private ArrayList<Handled> handledstoberemoved, handledstobeadded;
+	private HashMap<Handled, Integer> handledstobeinserted;
 	private boolean autodeath;
 	private boolean killed;
 	private boolean started; // Have any objects been added to the handler yet
