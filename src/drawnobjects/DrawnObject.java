@@ -23,12 +23,10 @@ import common.GameObject;
  *         Created 26.11.2012.
  */
 public abstract class DrawnObject extends GameObject implements Drawable
-{	
-	// TODO: Add shearing
-	
+{
 	// ATTRIBUTES	-------------------------------------------------------
 	
-	private double xscale, yscale, x, y, angle;
+	private double xscale, yscale, x, y, angle, xshear, yshear;
 	private float alpha;
 	private boolean visible;
 	private int depth;
@@ -55,6 +53,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		this.y = y;
 		this.xscale = 1;
 		this.yscale = 1;
+		this.xshear = 1;
+		this.yshear = 1;
 		this.visible = true;
 		this.angle = 0;
 		this.depth = depth;
@@ -223,6 +223,46 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	}
 	
 	/**
+	 * Changes the object's shearing on the x-axis
+	 *
+	 * @param xshear The object's new horizontal shearing
+	 */
+	public void setXShear(double xshear)
+	{
+		this.xshear = xshear;
+		this.transformationneedsupdating = true;
+	}
+	
+	/**
+	 * Changes the object's shearing on the y-axis
+	 *
+	 * @param yshear The object's new vertical shearing
+	 */
+	public void setYShear(double yshear)
+	{
+		this.yshear = yshear;
+		this.transformationneedsupdating = true;
+	}
+	
+	/**
+	 * @return How much the sprite is sheared horizontally (from the original 
+	 * angle) (default at 1)
+	 */
+	public double getXShear()
+	{
+		return this.xshear;
+	}
+	
+	/**
+	 * @return How much the sprite is sheared vertically (from the original 
+	 * angle) (default at 1)
+	 */
+	public double getYShear()
+	{
+		return this.yshear;
+	}
+	
+	/**
 	 * Changes the object's scaling on the x-axis
 	 *
 	 * @param xscale The object's new horizontal scaling
@@ -248,13 +288,27 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * Changes how much the sprite is scaled horizontally and vertically
 	 * (from the original angle)
 	 *
-	 * @param xscale The new horizontal scale of the sprite (default at 1)
-	 * @param yscale The new vertical scale of the sprite (default at 1)
+	 * @param xscale The new horizontal scale of the object (default at 1)
+	 * @param yscale The new vertical scale of the object (default at 1)
 	 */
 	public void setScale(double xscale, double yscale)
 	{
 		this.xscale = xscale;
 		this.yscale = yscale;
+		this.transformationneedsupdating = true;
+	}
+	
+	/**
+	 * Changes how much the sprite is scaled horizontally and vertically
+	 * (from the original angle)
+	 *
+	 * @param xshear The new horizontal shear of the object (default at 1)
+	 * @param yshear The new vertical shear of the object (default at 1)
+	 */
+	public void setShear(double xshear, double yshear)
+	{
+		this.xshear = xshear;
+		this.yshear = yshear;
 		this.transformationneedsupdating = true;
 	}
 	
@@ -639,6 +693,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		this.currenttransformation.rotate(Math.toRadians((360 - getAngle())));
 		// scales it depending on it's xscale and yscale
 		this.currenttransformation.scale(getXScale(), getYScale());
+		// Shears the object depending on its xshear and yshear
+		this.currenttransformation.shear(getXShear(), getYShear());
 		// and translates the origin to the right position
 		this.currenttransformation.translate(-getOriginX(), -getOriginY());
 		
