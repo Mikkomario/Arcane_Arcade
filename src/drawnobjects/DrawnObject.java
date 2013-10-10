@@ -9,6 +9,7 @@ import java.awt.AlphaComposite;
 import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 
 import common.GameObject;
@@ -23,6 +24,8 @@ import common.GameObject;
  */
 public abstract class DrawnObject extends GameObject implements Drawable
 {	
+	// TODO: Add shearing
+	
 	// ATTRIBUTES	-------------------------------------------------------
 	
 	private double xscale, yscale, x, y, angle;
@@ -402,10 +405,24 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public Point2D.Double negateTransformations(double x, double y)
 	{
-		// TODO: Continue using the transformation for these methods
+		updateTransformation();
 		
-		return negateTransformations(x, y, getX(), getY(), getXScale(), 
-				getYScale(), getAngle(), getOriginX(), getOriginY());
+		Point2D.Double oldpoint = new Point2D.Double(x, y);
+		Point2D.Double newpoint = new Point2D.Double(0, 0);
+		
+		try
+		{
+			this.currenttransformation.inverseTransform(oldpoint, newpoint);
+		}
+		catch (NoninvertibleTransformException exception)
+		{
+			System.err.println("Failed to inverse transform a position");
+			exception.printStackTrace();
+		}
+		
+		return newpoint;
+		//return negateTransformations(x, y, getX(), getY(), getXScale(), 
+		//		getYScale(), getAngle(), getOriginX(), getOriginY());
 	}
 	
 	/**
@@ -478,8 +495,17 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	protected Point2D.Double transform(double x, double y)
 	{	
-		return transform(x, y, getX(), getY(), getXScale(), getYScale(), 
-				getAngle(), getOriginX(), getOriginY());
+		updateTransformation();
+		
+		Point2D.Double oldpoint = new Point2D.Double(x, y);
+		Point2D.Double newpoint = new Point2D.Double(0, 0);
+		
+		this.currenttransformation.transform(oldpoint, newpoint);
+		
+		return newpoint;
+		
+		//return transform(x, y, getX(), getY(), getXScale(), getYScale(), 
+		//		getAngle(), getOriginX(), getOriginY());
 	}
 	
 	/**

@@ -324,6 +324,7 @@ public abstract class Handler implements Handled
 		if (this.handledstoberemoved.isEmpty())
 			return;
 		
+		// TODO: Still throws an concurrentmodificationexception
 		this.removelistready = false;
 		for (Handled h : this.handledstoberemoved)
 		{
