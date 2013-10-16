@@ -11,9 +11,9 @@ public class ScreenDrawer implements Runnable
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private GameWindow window;
-	private long lastdraw;
-	private boolean needsupdating;
-	private int drawdelay;
+	//private long lastdraw;
+	//private boolean needsupdating;
+	//private int drawdelay;
 	private boolean running;
 	
 	
@@ -31,9 +31,9 @@ public class ScreenDrawer implements Runnable
 	{
 		// Initializes attributes
 		this.window = window;
-		this.lastdraw = 0;
-		this.needsupdating = true;
-		this.drawdelay = drawdelay;
+		//this.lastdraw = 0;
+		//this.needsupdating = true;
+		//this.drawdelay = drawdelay;
 		this.running = false;
 	}
 	
@@ -47,7 +47,7 @@ public class ScreenDrawer implements Runnable
 		this.running = true;
 		
 		// Draws the screen until stopped
-		while (this.running)
+		while (isRunning())
 			draw();
 	}
 	
@@ -59,7 +59,11 @@ public class ScreenDrawer implements Runnable
 	 */
 	public void callUpdate()
 	{
-		this.needsupdating = true;
+		//this.needsupdating = true;
+		synchronized (this)
+		{
+			notify();
+		}
 	}
 	
 	/**
@@ -70,18 +74,43 @@ public class ScreenDrawer implements Runnable
 		this.running = false;
 	}
 	
+	/**
+	 * @return Is the drawer currently trying to draw stuff
+	 */
+	public boolean isRunning()
+	{
+		return this.running;
+	}
+	
 	private void draw()
 	{
 		// Doesn't draw anything if it doesn't need to
+		/*
 		if (!this.needsupdating)
 			return;
 		
 		// Only draws the screen at certain intervals
 		if (System.currentTimeMillis() < this.lastdraw + this.drawdelay)
 			return;
+		 */
 			
-		this.needsupdating = false;
-		this.lastdraw = System.currentTimeMillis();
+		// TODO: Even without the window repaint, this method is way too heavy
+		
+		//this.needsupdating = false;
+		//this.lastdraw = System.currentTimeMillis();
+		// Draws the window and starts waiting for the next order
 		this.window.repaint();
+		try
+		{
+			synchronized (this)
+			{
+				wait();
+			}
+		}
+		catch (InterruptedException exception)
+		{
+			System.out.println("The drawing thread's wait was interrupted");
+			exception.printStackTrace();
+		}
 	}
 }

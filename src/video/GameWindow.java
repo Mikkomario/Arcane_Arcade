@@ -197,6 +197,8 @@ public class GameWindow extends JFrame
 	{
 		// Updates the screen drawer
 		this.screendrawer.callUpdate();
+		//if (this.screendrawer.isRunning())
+		//	this.screendrawer.notify();
 	}
 	
 	/**
