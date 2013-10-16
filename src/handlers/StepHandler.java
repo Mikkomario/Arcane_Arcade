@@ -18,7 +18,7 @@ public class StepHandler extends ActorHandler implements Runnable
 	// ATTRIBUTES	-------------------------------------------------------
 	
 	private int stepduration;
-	private long lastMillis;
+	private long nextupdatemillis;
 	private boolean running;
 	private GameWindow window;
 	//private double actionmodifier;
@@ -42,7 +42,7 @@ public class StepHandler extends ActorHandler implements Runnable
 		
 		// Initializes attributes
 		this.stepduration = stepDuration;
-		this.lastMillis = 0;
+		this.nextupdatemillis = 0;
 		this.running = false;
 		this.window = window;
 		//this.actionmodifier = 1;
@@ -78,25 +78,38 @@ public class StepHandler extends ActorHandler implements Runnable
 	// This method updates the actors and the window when needed
 	private void update()
 	{
-		// Checks the current millis and performs a "step" if needed
-		if (Math.abs(System.currentTimeMillis() - this.lastMillis) > 
-			this.stepduration)
+		// Remembers the time
+		this.nextupdatemillis = System.currentTimeMillis() + this.stepduration;
+		
+		// Calls all actors
+		if (!isDead())
 		{
-			// Calls all actors
-			if (!isDead())
-			{
-				act();
-				
-				// Updates the game according to the changes
-				this.window.callScreenUpdate();
-				this.window.callMousePositionUpdate();
-			}
-			// Stops running if dies
-			else
-				this.running = false;
+			act();
 			
-			// Remembers the time
-			this.lastMillis = System.currentTimeMillis();
+			// Updates the game according to the changes
+			this.window.callScreenUpdate();
+			this.window.callMousePositionUpdate();
+		}
+		// Stops running if dies
+		else
+			this.running = false;
+		
+		// If there is time, the thread will wait until another step is needed
+		if (System.currentTimeMillis() < this.nextupdatemillis)
+		{
+			synchronized (this)
+			{
+				try
+				{
+					wait(this.nextupdatemillis - System.currentTimeMillis());
+				}
+				catch (InterruptedException exception)
+				{
+					System.err.println("StepHandler's stepdelay was " +
+							"interupted unexpectedly");
+					exception.printStackTrace();
+				}
+			}
 		}
 	}
 	

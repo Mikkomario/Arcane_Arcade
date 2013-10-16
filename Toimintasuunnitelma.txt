@@ -125,8 +125,8 @@ Eteneminen:														Status
 			irrallaan tavallisista iteraatioista
 				- Tämän järjestelmän kutsuminen iteraatioiden 	DONE
 				lopussa (ei sisällä)
-					* Säieturvallisuudesta huolehtiminen		Testaamatta
-		- Pelimoottorin paranteleminen							...
+					* Säieturvallisuudesta huolehtiminen		...
+		- Pelimoottorin paranteleminen							DONE
 			* Kts: http://en.wikipedia.org/wiki/
 			Transformation_matrix
 			* Muunnosmatriisien käyttö 
@@ -141,9 +141,9 @@ Eteneminen:														Status
 				api/java/awt/Graphics2D.html
 				- Vaaditaan matriisit törmäystarkistusten		DONE
 				saamiseksi toimimaan?
-			* CPU-käytön optimointi								...
-				- CPU-käytön paikallistaminen					...
-				- CPU-käytön paikallinen vähentäminen
+			* CPU-käytön optimointi								DONE
+				- CPU-käytön paikallistaminen					DONE
+				- CPU-käytön paikallinen vähentäminen			DONE
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE

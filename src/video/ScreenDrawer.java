@@ -43,7 +43,6 @@ public class ScreenDrawer implements Runnable
 	@Override
 	public void run()
 	{
-		// TODO: It is this thread that causes very high CPU-usage!
 		this.running = true;
 		
 		// Draws the screen until stopped
@@ -84,20 +83,6 @@ public class ScreenDrawer implements Runnable
 	
 	private void draw()
 	{
-		// Doesn't draw anything if it doesn't need to
-		/*
-		if (!this.needsupdating)
-			return;
-		
-		// Only draws the screen at certain intervals
-		if (System.currentTimeMillis() < this.lastdraw + this.drawdelay)
-			return;
-		 */
-			
-		// TODO: Even without the window repaint, this method is way too heavy
-		
-		//this.needsupdating = false;
-		//this.lastdraw = System.currentTimeMillis();
 		// Draws the window and starts waiting for the next order
 		this.window.repaint();
 		try
