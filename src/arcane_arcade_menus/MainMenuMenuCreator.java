@@ -386,7 +386,8 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 		}
 
 		@Override
-		public void drawSelfBasic(Graphics2D g2d) {
+		public void drawSelfBasic(Graphics2D g2d)
+		{
 			// Draws the sprite
 			if (this.spritedrawer != null)
 				this.spritedrawer.drawSprite(g2d, 0, 0);

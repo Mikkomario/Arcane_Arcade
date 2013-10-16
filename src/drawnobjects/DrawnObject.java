@@ -26,7 +26,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 {
 	// ATTRIBUTES	-------------------------------------------------------
 	
-	private double xscale, yscale, x, y, angle, xshear, yshear, currentdeterminant;
+	private double xscale, yscale, x, y, angle, /*xshear, yshear,*/ currentdeterminant;
 	private float alpha;
 	private boolean visible;
 	private int depth;
@@ -53,8 +53,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		this.y = y;
 		this.xscale = 1;
 		this.yscale = 1;
-		this.xshear = 1;
-		this.yshear = 1;
+		//this.xshear = 1;
+		//this.yshear = 1;
 		this.visible = true;
 		this.angle = 0;
 		this.depth = depth;
@@ -67,6 +67,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		// Adds the object to the drawer (if possible)
 		if (drawer != null)
 			drawer.addDrawable(this);
+		
+		//this.updateTransformation();
 	}
 	
 	
@@ -228,40 +230,48 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 *
 	 * @param xshear The object's new horizontal shearing
 	 */
+	/*
 	public void setXShear(double xshear)
 	{
 		this.xshear = xshear;
 		this.transformationneedsupdating = true;
 	}
+	*/
 	
 	/**
 	 * Changes the object's shearing on the y-axis
 	 *
 	 * @param yshear The object's new vertical shearing
 	 */
+	/*
 	public void setYShear(double yshear)
 	{
 		this.yshear = yshear;
 		this.transformationneedsupdating = true;
 	}
+	*/
 	
 	/**
 	 * @return How much the sprite is sheared horizontally (from the original 
 	 * angle) (default at 1)
 	 */
+	/*
 	public double getXShear()
 	{
 		return this.xshear;
 	}
+	*/
 	
 	/**
 	 * @return How much the sprite is sheared vertically (from the original 
 	 * angle) (default at 1)
 	 */
+	/*
 	public double getYShear()
 	{
 		return this.yshear;
 	}
+	*/
 	
 	/**
 	 * Changes the object's scaling on the x-axis
@@ -306,12 +316,14 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * @param xshear The new horizontal shear of the object (default at 1)
 	 * @param yshear The new vertical shear of the object (default at 1)
 	 */
+	/*
 	public void setShear(double xshear, double yshear)
 	{
 		this.xshear = xshear;
 		this.yshear = yshear;
 		this.transformationneedsupdating = true;
 	}
+	*/
 	
 	/**
 	 * @return X-coordinate of the objects position in the game world (pxl)
@@ -691,7 +703,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	
 	// Updates the current transformation value
 	private void updateTransformation()
-	{
+	{		
 		// Only updates the transformation if need be
 		if (!this.transformationneedsupdating)
 			return;
@@ -705,7 +717,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		// scales it depending on it's xscale and yscale
 		this.currenttransformation.scale(getXScale(), getYScale());
 		// Shears the object depending on its xshear and yshear
-		this.currenttransformation.shear(getXShear(), getYShear());
+		//this.currenttransformation.shear(getXShear(), getYShear());
 		// and translates the origin to the right position
 		this.currenttransformation.translate(-getOriginX(), -getOriginY());
 		
