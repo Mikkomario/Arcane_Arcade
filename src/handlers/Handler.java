@@ -321,6 +321,7 @@ public abstract class Handler implements Handled
 			return;
 		
 		// TODO: Still throws an concurrentmodificationexception
+		// Though I can't figure out why...
 		this.removelistready = false;
 		for (Handled h : this.handledstoberemoved)
 		{
