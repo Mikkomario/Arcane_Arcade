@@ -307,6 +307,7 @@ public abstract class Handler implements Handled
 	protected void updateStatus()
 	{
 		// Removes the dead handleds (if possible)
+		// TODO: Concurrentmodification exception in the method
 		clearRemovedHandleds();
 		// Inserts new handleds (if possible)
 		insertNewHandleds();

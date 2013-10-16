@@ -124,6 +124,7 @@ public class DrawableHandler extends Handler implements Drawable
 		if (this.usesDepth)
 		{
 			// Repairs any problems in the depth sorting
+			// TODO: The process causes concurrentmodificationexceptions which is not good
 			checkDepthSorting();
 			
 			int index = 0;
@@ -187,6 +188,7 @@ public class DrawableHandler extends Handler implements Drawable
 			Drawable drawable = (Drawable) getHandled(i);
 			if (drawable.getDepth() > lastdepth)
 			{
+				//System.out.println("Fixes depth: " + drawable.getDepth() + " / " + lastdepth);
 				tryFixingDepthSorting(drawable);
 				break;
 			}
@@ -197,6 +199,8 @@ public class DrawableHandler extends Handler implements Drawable
 	// Tries to fix the depth sorting for the given object
 	private void tryFixingDepthSorting(Drawable mistake)
 	{
+		// TODO: Updatestatus causes concurrentmodification exception
+		// TODO: Besides, why do we have to do this so often in the first place?
 		removeHandled(mistake);
 		updateStatus();
 		addHandled(mistake);

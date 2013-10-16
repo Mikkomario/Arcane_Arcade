@@ -126,17 +126,24 @@ Eteneminen:														Status
 				- Tämän järjestelmän kutsuminen iteraatioiden 	DONE
 				lopussa (ei sisällä)
 					* Säieturvallisuudesta huolehtiminen		Testaamatta
-		- Pelimoottorin paranteleminen							DONE
-			* Kts: http://en.wikipedia.org/wiki/Transformation_matrix
-			* Muunnosmatriisien käyttö koordinaatistomuunnoksissa DONE
+		- Pelimoottorin paranteleminen							...
+			* Kts: http://en.wikipedia.org/wiki/
+			Transformation_matrix
+			* Muunnosmatriisien käyttö 
+			koordinaatistomuunnoksissa 							DONE
 				- Matriisi-tietorakenteen luominen				Plääh
-					* Kts: http://en.wikipedia.org/wiki/Matrix_multiplication
+					* Kts: http://en.wikipedia.org/wiki/
+					Matrix_multiplication
 					* Matriisien kertominen						Plääh
 				- Matriisien käyttöönotto						DONE
 			* Shearing											DONE
-				- Kts: http://docs.oracle.com/javase/7/docs/api/java/awt/Graphics2D.html
+				- Kts: http://docs.oracle.com/javase/7/docs/
+				api/java/awt/Graphics2D.html
 				- Vaaditaan matriisit törmäystarkistusten		DONE
 				saamiseksi toimimaan?
+			* CPU-käytön optimointi								...
+				- CPU-käytön paikallistaminen					...
+				- CPU-käytön paikallinen vähentäminen
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE

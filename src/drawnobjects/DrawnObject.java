@@ -473,7 +473,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 				this.currenttransformation.inverseTransform(oldpoint, newpoint);
 			else
 			{
-				//System.out.println("Non-invertible object: " + this);
+				if (getXScale() != 1)
+					System.out.println("Non-invertible object: " + this);
 				//newpoint = negateTransformations(x, y, getX(), getY(), 
 				//		getXScale(), getYScale(), getAngle(), getOriginX(), getOriginY());
 				// TODO: Check if this works in all cases (it seems like 

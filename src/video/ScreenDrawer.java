@@ -43,6 +43,7 @@ public class ScreenDrawer implements Runnable
 	@Override
 	public void run()
 	{
+		// TODO: It is this thread that causes very high CPU-usage!
 		this.running = true;
 		
 		// Draws the screen until stopped
