@@ -120,22 +120,22 @@ Eteneminen:														Status
 				(hiiren koordinaatit ei siis oo suhteessa 
 				ikkunaan)
 			* Ongelman korjaaminen								DONE
-		- Iterointiongelmien korjaaminen						DONE
+		- Iterointiongelmien korjaaminen						Testaamatta
 			* Automaattinen tappokoneisto, joka toimii 			DONE
 			irrallaan tavallisista iteraatioista
 				- Tämän järjestelmän kutsuminen iteraatioiden 	DONE
 				lopussa (ei sisällä)
-					* Säieturvallisuudesta huolehtiminen
-		- Pelimoottorin paranteleminen							...
+					* Säieturvallisuudesta huolehtiminen		Testaamatta
+		- Pelimoottorin paranteleminen							DONE
 			* Kts: http://en.wikipedia.org/wiki/Transformation_matrix
-			* Muunnosmatriisien käyttö koordinaatistomuunnoksissa
-				- Matriisi-tietorakenteen luominen
+			* Muunnosmatriisien käyttö koordinaatistomuunnoksissa DONE
+				- Matriisi-tietorakenteen luominen				Plääh
 					* Kts: http://en.wikipedia.org/wiki/Matrix_multiplication
-					* Matriisien kertominen						...
-				- Matriisien käyttöönotto
-			* Shearing
+					* Matriisien kertominen						Plääh
+				- Matriisien käyttöönotto						DONE
+			* Shearing											DONE
 				- Kts: http://docs.oracle.com/javase/7/docs/api/java/awt/Graphics2D.html
-				- Vaaditaan matriisit törmäystarkistusten		... 
+				- Vaaditaan matriisit törmäystarkistusten		DONE
 				saamiseksi toimimaan?
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE

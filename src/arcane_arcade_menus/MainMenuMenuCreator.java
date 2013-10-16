@@ -27,11 +27,15 @@ import helpAndEnums.DepthConstants;
  * @author Unto Solala
  * 			Created 3.9.2013
  */
-public class MainMenuMenuCreator extends GameObject implements RoomListener{
+public class MainMenuMenuCreator extends GameObject implements RoomListener
+{
 	//ATTRIBUTES---------------------------------------------------
+	
 	private MainMenuCenterPiece centerpiece;
 	
+	
 	//CONSTRUCTOR---------------------------------------------------
+	
 	/**Constructs and places the buttons to the center of the MainMenu.
 	 * 
 	 * @param drawer	The drawer that will draw the menu corner
@@ -62,13 +66,14 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener{
 	}
 
 	@Override
-	public void onRoomEnd(Room room) {
-		kill();
-		
+	public void onRoomEnd(Room room)
+	{
+		kill();	
 	}
 	
 	@Override
-	public void kill() {
+	public void kill()
+	{
 		this.centerpiece.kill();
 		super.kill();
 	}
@@ -80,7 +85,6 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener{
 	 * 
 	 * @author Unto Solala
 	 * 			Created 3.9.2013
-	 *
 	 */
 	private class MainMenuElement extends DrawnObject implements AdvancedMouseListener, RoomListener{
 		
@@ -343,13 +347,15 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener{
 	 * @author Unto Solala
 	 *			Created 4.9.2013
 	 */
-	private class MainMenuCenterPiece extends DrawnObject{
-		
+	private class MainMenuCenterPiece extends DrawnObject
+	{	
 		//ATTRIBUTES------------------------------------------------------
+		
 		private SpriteDrawer spritedrawer;
 		
 		
 		//CONSTRUCTOR------------------------------------------------------
+		
 		/**Draws the center emblem to the MainMenu.
 		 * 
 		 * @param drawer	The drawer that will draw the menu corner
@@ -385,7 +391,13 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener{
 			if (this.spritedrawer != null)
 				this.spritedrawer.drawSprite(g2d, 0, 0);
 		}
-
+		
+		@Override
+		public void kill()
+		{
+			// Also kills the spritedrawer when dies
+			this.spritedrawer.kill();
+			super.kill();
+		}
 	}
-
 }

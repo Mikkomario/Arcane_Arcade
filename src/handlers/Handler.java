@@ -18,9 +18,6 @@ public abstract class Handler implements Handled
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
-	// TODO: Create status system for the new lists (so they are not modified 
-	// while iterating)
-	
 	private LinkedList<Handled> handleds;
 	private ArrayList<Handled> handledstoberemoved, handledstobeadded;
 	private HashMap<Handled, Integer> handledstobeinserted;
@@ -126,8 +123,6 @@ public abstract class Handler implements Handled
 	 */
 	public void killWithoutKillingHandleds()
 	{
-		// TODO: The program will break if the handler is killed during handling
-		// TODO: BREAK THE HANDLING WHEN THE HANDLER DIES
 		checkHandlingStatus();
 		this.handleds.clear();
 		checkAddStatus();
@@ -203,7 +198,7 @@ public abstract class Handler implements Handled
 			return;
 		}
 		
-		if (h != null && h != this && !this.handleds.contains(h) && 
+		if (h != this && !this.handleds.contains(h) && 
 				!this.handledstobeadded.contains(h))
 		{
 			checkAddStatus();
@@ -296,6 +291,7 @@ public abstract class Handler implements Handled
 	{
 		if (index < 0 || index >= getHandledNumber())
 			return null;
+		// TODO: Throws nullpointer
 		return this.handleds.get(index);
 	}
 	
@@ -389,15 +385,7 @@ public abstract class Handler implements Handled
 	{
 		while(!this.addlistready)
 		{
-			try
-			{
-				Thread.sleep(1);
-			}
-			catch (InterruptedException exception)
-			{
-				System.err.println("Handling status check was interupted");
-				exception.printStackTrace();
-			}
+			wait(2);
 		}
 	}
 	
@@ -405,15 +393,7 @@ public abstract class Handler implements Handled
 	{
 		while(!this.insertlistready)
 		{
-			try
-			{
-				Thread.sleep(1);
-			}
-			catch (InterruptedException exception)
-			{
-				System.err.println("Handling status check was interupted");
-				exception.printStackTrace();
-			}
+			wait(2);
 		}
 	}
 	
@@ -421,15 +401,7 @@ public abstract class Handler implements Handled
 	{
 		while(!this.removelistready)
 		{
-			try
-			{
-				Thread.sleep(1);
-			}
-			catch (InterruptedException exception)
-			{
-				System.err.println("Handling status check was interupted");
-				exception.printStackTrace();
-			}
+			wait(2);
 		}
 	}
 	
@@ -437,15 +409,20 @@ public abstract class Handler implements Handled
 	{
 		while(!this.handlingready)
 		{
-			try
-			{
-				Thread.sleep(1);
-			}
-			catch (InterruptedException exception)
-			{
-				System.err.println("Handling status check was interupted");
-				exception.printStackTrace();
-			}
+			wait(2);
+		}
+	}
+	
+	private void wait(int millis)
+	{
+		try
+		{
+			Thread.sleep(millis);
+		}
+		catch (InterruptedException exception)
+		{
+			System.err.println("Handling status check was interupted");
+			exception.printStackTrace();
 		}
 	}
 }

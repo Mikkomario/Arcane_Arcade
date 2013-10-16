@@ -26,7 +26,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 {
 	// ATTRIBUTES	-------------------------------------------------------
 	
-	private double xscale, yscale, x, y, angle, xshear, yshear;
+	private double xscale, yscale, x, y, angle, xshear, yshear, currentdeterminant;
 	private float alpha;
 	private boolean visible;
 	private int depth;
@@ -61,6 +61,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		this.alpha = 1;
 		
 		this.currenttransformation = new AffineTransform();
+		this.currentdeterminant = 0;
 		this.transformationneedsupdating = true;
 		
 		// Adds the object to the drawer (if possible)
@@ -466,7 +467,17 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		
 		try
 		{
-			this.currenttransformation.inverseTransform(oldpoint, newpoint);
+			if (this.currentdeterminant != 0)
+				this.currenttransformation.inverseTransform(oldpoint, newpoint);
+			else
+			{
+				//System.out.println("Non-invertible object: " + this);
+				//newpoint = negateTransformations(x, y, getX(), getY(), 
+				//		getXScale(), getYScale(), getAngle(), getOriginX(), getOriginY());
+				// TODO: Check if this works in all cases (it seems like 
+				//everything else than translation is 0 when this happens)
+				newpoint = new Point2D.Double(x - getX(), y - getY());
+			}
 		}
 		catch (NoninvertibleTransformException exception)
 		{
@@ -697,6 +708,9 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		this.currenttransformation.shear(getXShear(), getYShear());
 		// and translates the origin to the right position
 		this.currenttransformation.translate(-getOriginX(), -getOriginY());
+		
+		// Also saves the determinant since it is used often
+		this.currentdeterminant = this.currenttransformation.getDeterminant();
 		
 		this.transformationneedsupdating = false;
 	}
