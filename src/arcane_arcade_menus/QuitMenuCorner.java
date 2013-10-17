@@ -61,7 +61,7 @@ public class QuitMenuCorner extends DrawnObject implements
 		if (mousehandler != null)
 			mousehandler.addMouseListener(this);
 		if (room != null)
-			room.addOnject(this);
+			room.addObject(this);
 	}
 	
 	

@@ -42,7 +42,7 @@ public class SettingUsingRoom extends Room
 		// Adds the creator to the room
 		addRoomListener(this.objectcreator);
 		if (objectcreator instanceof GameObject)
-			addOnject((GameObject) this.objectcreator);
+			addObject((GameObject) this.objectcreator);
 	}
 	
 	

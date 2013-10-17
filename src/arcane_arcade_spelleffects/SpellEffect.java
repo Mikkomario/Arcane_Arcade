@@ -114,7 +114,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		
 		// Adds the effect to the room
 		if (room != null)
-			room.addOnject(this);
+			room.addObject(this);
 	}
 	
 	

@@ -61,7 +61,7 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 		
 		// Adds the comet to the room
 		if (room != null)
-			room.addOnject(this);
+			room.addObject(this);
 	}
 	
 	

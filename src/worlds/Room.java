@@ -164,12 +164,15 @@ public class Room extends Handler
 	 *
 	 * @param g The object to be added
 	 */
-	public void addOnject(GameObject g)
+	public void addObject(GameObject g)
 	{
 		addHandled(g);
 		// If the object is a roomlistener, adds it to the listenerhandler as well
 		if (g instanceof RoomListener)
+		{
+			//System.out.println("Added " + g + " as an room listener");
 			this.listenerhandler.addRoomListener((RoomListener) g);
+		}
 	}
 	
 	/**
@@ -225,6 +228,7 @@ public class Room extends Handler
 			return;
 		
 		// Informs the listeners about the event
+		//System.out.println("informs about room end");
 		this.listenerhandler.onRoomEnd(this);
 		
 		this.active = false;

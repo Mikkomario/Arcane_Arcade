@@ -100,7 +100,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 		
 		// Adds the server to the room where it was created (if possible)
 		if (this.room != null)
-			this.room.addOnject(this);
+			this.room.addObject(this);
 	}
 	
 	

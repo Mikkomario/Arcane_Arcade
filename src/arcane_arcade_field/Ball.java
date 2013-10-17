@@ -96,7 +96,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 		
 		// Adds the ball to the room (if possible)
 		if (room != null)
-			room.addOnject(this);
+			room.addObject(this);
 	}
 	
 	

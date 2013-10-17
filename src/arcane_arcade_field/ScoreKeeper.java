@@ -80,7 +80,7 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 		
 		// Adds the object to the room (if possible)
 		if (room != null)
-			room.addOnject(this);
+			room.addObject(this);
 		// And to the actorhandler
 		if (actorhandler != null)
 			actorhandler.addActor(this);

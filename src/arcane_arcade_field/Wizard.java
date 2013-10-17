@@ -225,7 +225,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			keylistenerhandler.addKeyListener(this);
 		// Adds the object to the room (if possible)
 		if (room != null)
-			room.addOnject(this);
+			room.addObject(this);
 	}
 	
 	

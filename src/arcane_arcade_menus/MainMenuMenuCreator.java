@@ -56,7 +56,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 		this.centerpiece = new MainMenuCenterPiece(drawer);
 		
 		if(room != null)
-			room.addOnject(this);
+			room.addObject(this);
 	}
 	//IMPLEMENTED METHODS-------------------------------------------------
 	@Override
@@ -68,12 +68,14 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 	@Override
 	public void onRoomEnd(Room room)
 	{
+		//System.out.println("Main menu menu creator noticed room ending");
 		kill();	
 	}
 	
 	@Override
 	public void kill()
 	{
+		//System.out.println("main menu menu creator got killed");
 		this.centerpiece.kill();
 		super.kill();
 	}
@@ -169,7 +171,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 			if (mousehandler != null)
 				mousehandler.addMouseListener(this);
 			if (room != null)
-				room.addOnject(this);
+				room.addObject(this);
 		}
 
 		// IMPLEMENTENTED METHODS	------------------------------------------
@@ -396,7 +398,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 		@Override
 		public void kill()
 		{
-			System.out.println("Centerpiece died");
+			//System.out.println("Centerpiece died");
 			
 			// Also kills the spritedrawer when dies
 			this.spritedrawer.kill();

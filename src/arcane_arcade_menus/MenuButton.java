@@ -76,7 +76,7 @@ public abstract class MenuButton extends DimensionalDrawnObject implements
 		if (mouselistenerhandler != null)
 			mouselistenerhandler.addMouseListener(this);
 		if (room != null)
-			room.addOnject(this);
+			room.addObject(this);
 	}
 	
 	

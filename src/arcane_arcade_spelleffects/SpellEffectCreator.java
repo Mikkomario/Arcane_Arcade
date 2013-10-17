@@ -49,7 +49,7 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 		if (actorhandler != null)
 			actorhandler.addActor(this);
 		if (room != null)
-			room.addOnject(this);
+			room.addObject(this);
 	}
 	
 	

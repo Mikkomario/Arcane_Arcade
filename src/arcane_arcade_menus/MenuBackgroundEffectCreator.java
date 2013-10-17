@@ -67,7 +67,7 @@ public class MenuBackgroundEffectCreator extends GameObject implements Actor,
 		
 		// Adds the creator the room and actorhandler
 		if (room != null)
-			room.addOnject(this);
+			room.addObject(this);
 		if (actorhandler != null)
 			actorhandler.addActor(this);
 	}

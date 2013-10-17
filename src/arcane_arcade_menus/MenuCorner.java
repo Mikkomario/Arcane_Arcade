@@ -75,7 +75,7 @@ public class MenuCorner extends DrawnObject implements RoomListener
 		
 		// Adds the object to the room
 		if (room != null)
-			room.addOnject(this);
+			room.addObject(this);
 	}
 	
 	

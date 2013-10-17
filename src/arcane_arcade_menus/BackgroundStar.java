@@ -57,7 +57,7 @@ public class BackgroundStar extends DrawnObject implements RoomListener,
 		
 		// Adds the listener to the room
 		if (room != null)
-			room.addOnject(this);
+			room.addObject(this);
 	}
 	
 	
