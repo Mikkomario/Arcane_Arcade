@@ -125,7 +125,7 @@ Eteneminen:														Status
 			irrallaan tavallisista iteraatioista
 				- Tämän järjestelmän kutsuminen iteraatioiden 	DONE
 				lopussa (ei sisällä)
-					* Säieturvallisuudesta huolehtiminen		...
+					* Säieturvallisuudesta huolehtiminen		Testaamatta
 		- Pelimoottorin paranteleminen							DONE
 			* Kts: http://en.wikipedia.org/wiki/
 			Transformation_matrix

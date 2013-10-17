@@ -201,6 +201,7 @@ public class DrawableHandler extends Handler implements Drawable
 	{
 		// TODO: Updatestatus causes concurrentmodification exception
 		// TODO: Besides, why do we have to do this so often in the first place?
+		//System.out.println("Tries to fix an error in the depth sorting");
 		removeHandled(mistake);
 		updateStatus();
 		addHandled(mistake);

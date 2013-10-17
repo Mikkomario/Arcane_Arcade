@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Handlers specialize in handling certain types of objects. Each handler can 
@@ -25,7 +26,7 @@ public abstract class Handler implements Handled
 	private boolean killed;
 	private boolean started; // Have any objects been added to the handler yet
 	
-	private boolean addlistready, removelistready, insertlistready, handlingready;
+	private HashMap<HandlingOperation, ReentrantLock> locks;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -48,10 +49,11 @@ public abstract class Handler implements Handled
 		this.handledstobeinserted = new HashMap<Handled, Integer>();
 		this.handledstoberemoved = new ArrayList<Handled>();
 		this.started = false;
-		this.addlistready = true;
-		this.removelistready = true;
-		this.insertlistready = true;
-		this.handlingready = true;
+		this.locks = new HashMap<HandlingOperation, ReentrantLock>();
+		this.locks.put(HandlingOperation.HANDLE, new ReentrantLock());
+		this.locks.put(HandlingOperation.ADD, new ReentrantLock());
+		this.locks.put(HandlingOperation.REMOVE, new ReentrantLock());
+		this.locks.put(HandlingOperation.INSERT, new ReentrantLock());
 		
 		// Tries to add itself to the superhandler
 		if (superhandler != null)
@@ -102,8 +104,6 @@ public abstract class Handler implements Handled
 	@Override
 	public void kill()
 	{
-		// TODO: Might cause problems if called during iterating
-		
 		// Tries to permanently inactivate all subhandleds and kill the handler
 		Iterator<Handled> iterator = getIterator();
 		
@@ -123,14 +123,15 @@ public abstract class Handler implements Handled
 	 */
 	public void killWithoutKillingHandleds()
 	{
-		checkHandlingStatus();
-		this.handleds.clear();
-		checkAddStatus();
-		this.handledstobeadded.clear();
-		checkInsertStatus();
-		this.handledstobeinserted.clear();
-		checkRemoveStatus();
-		this.handledstoberemoved.clear();
+		// Safely clears the handleds
+		clearOperationList(HandlingOperation.HANDLE);
+		// Safely clears the added handleds
+		clearOperationList(HandlingOperation.ADD);
+		// Safely clears the inserted handleds
+		clearOperationList(HandlingOperation.INSERT);
+		// And finally clears the removed handleds
+		clearOperationList(HandlingOperation.REMOVE);
+		
 		this.killed = true;
 	}
 	
@@ -149,29 +150,29 @@ public abstract class Handler implements Handled
 		
 		updateStatus();
 		
-		// TODO: Add stopHandlingException for some cases where the handling 
-		// needs to be stopped
-		
 		// Goes through all the handleds
-		checkHandlingStatus();
-		this.handlingready = false;
-		Iterator<Handled> iterator = this.handleds.iterator();
-		
-		while (iterator.hasNext())
+		this.locks.get(HandlingOperation.HANDLE).lock();
+		try
 		{
-			if (this.killed)
-				break;
+			Iterator<Handled> iterator = this.handleds.iterator();
 			
-			Handled h = iterator.next();
-			
-			// TODO: Uncomment the section if you want to (slows the speed but makes 
-			// it more accurate
-			if (!h.isDead() /*&& !this.handledstoberemoved.containsKey(h)*/)
-				handleObject(h);
-			else
-				removeHandled(h);
+			while (iterator.hasNext())
+			{
+				if (this.killed)
+					break;
+				
+				Handled h = iterator.next();
+				
+				if (!h.isDead() /*&& !this.handledstoberemoved.containsKey(h)*/)
+					handleObject(h);
+				else
+					removeHandled(h);
+			}
 		}
-		this.handlingready = true;
+		finally
+		{
+			this.locks.get(HandlingOperation.HANDLE).unlock();
+		}
 	}
 	
 	/**
@@ -199,11 +200,12 @@ public abstract class Handler implements Handled
 			return;
 		}
 		
+		// Performs necessary checks
 		if (h != this && !this.handleds.contains(h) && 
 				!this.handledstobeadded.contains(h))
 		{
-			checkAddStatus();
-			this.handledstobeadded.add(h);
+			// Adds the handled to the queue
+			addToOperationList(HandlingOperation.ADD, h);
 			this.started = true;
 			//System.out.println(this + " adds a handled to queue (now " + 
 			//			this.handledstobeadded.size() + ")");
@@ -223,8 +225,7 @@ public abstract class Handler implements Handled
 				!this.handledstobeinserted.containsKey(h))
 		{
 			this.started = true;
-			checkInsertStatus();
-			this.handledstobeinserted.put(h, index);
+			addToOperationList(HandlingOperation.INSERT, h, index);
 		}
 	}
 	
@@ -236,11 +237,13 @@ public abstract class Handler implements Handled
 	public void removeHandled(Handled h)
 	{
 		if (h != null && !this.handledstoberemoved.contains(h) && 
-				(this.handleds.contains(h) || this.handledstobeadded.contains(h) 
-				|| this.handledstobeinserted.containsKey(h)))
+				(this.handleds.contains(h) /* TODO: uncomment if removal 
+				becomes the first operation || 
+				this.handledstobeadded.contains(h) 
+				|| this.handledstobeinserted.containsKey(h)*/
+				))
 		{
-			checkRemoveStatus();
-			this.handledstoberemoved.add(h);
+			addToOperationList(HandlingOperation.REMOVE, h);
 		}
 	}
 	
@@ -249,19 +252,21 @@ public abstract class Handler implements Handled
 	 */
 	public void removeAllHandleds()
 	{
-		checkHandlingStatus();
-		this.handlingready = false;
-		for (int i = 0; i < getHandledNumber(); i++)
+		this.locks.get(HandlingOperation.HANDLE).lock();
+		try
 		{
-			checkRemoveStatus();
-			removeHandled(getHandled(i));
+			Iterator<Handled> iter = getIterator();
+			
+			while (iter.hasNext())
+			{
+				removeHandled(iter.next());
+			}
 		}
-		this.handlingready = true;
+		finally { this.locks.get(HandlingOperation.HANDLE).unlock(); }
+		
 		// Also cancels the adding of new handleds
-		checkAddStatus();
-		this.handledstobeadded.clear();
-		checkInsertStatus();
-		this.handledstobeinserted.clear();
+		clearOperationList(HandlingOperation.ADD);
+		clearOperationList(HandlingOperation.INSERT);
 	}
 	
 	/**
@@ -309,13 +314,12 @@ public abstract class Handler implements Handled
 	 */
 	protected void updateStatus()
 	{
-		// Removes the dead handleds (if possible)
-		// TODO: Concurrentmodification exception in the method
-		clearRemovedHandleds();
 		// Inserts new handleds (if possible)
 		insertNewHandleds();
 		// Adds the new handleds (if possible)
 		addNewHandleds();
+		// Removes the dead handleds (if possible)
+		clearRemovedHandleds();
 	}
 	
 	// This should be called at the end of the iteration
@@ -324,31 +328,29 @@ public abstract class Handler implements Handled
 		if (this.handledstoberemoved.isEmpty())
 			return;
 		
-		// TODO: Still throws an concurrentmodificationexception
-		// Though I can't figure out why...
-		checkRemoveStatus();
-		this.removelistready = false;
-		for (Handled h : this.handledstoberemoved)
+		this.locks.get(HandlingOperation.REMOVE).lock();
+		try
 		{
-			if (this.handleds.contains(h))
+			// Removes all removed handleds from handleds or added or 
+			// inserted handleds
+			for (Handled h : this.handledstoberemoved)
 			{
-				checkHandlingStatus();
-				this.handleds.remove(h);
+				if (this.handleds.contains(h))
+					removeFromOperationList(HandlingOperation.HANDLE, h);
+				/* TODO: Readd them if you take the removal back as the first 
+				 * operation
+				else if (this.handledstobeadded.contains(h))
+					removeFromOperationList(HandlingOperation.ADD, h);
+				else if (this.handledstobeinserted.containsKey(h))
+					removeFromOperationList(HandlingOperation.INSERT, h);
+				*/
 			}
-			else if (this.handledstobeadded.contains(h))
-			{
-				checkAddStatus();
-				this.handledstobeadded.remove(h);
-			}
-			else if (this.handledstobeinserted.containsKey(h))
-			{
-				checkInsertStatus();
-				this.handledstobeinserted.remove(h);
-			}
+			
+			// Empties the removing list
+			// TODO: One might want to change these into clearoperationList(...)
+			this.handledstoberemoved.clear();
 		}
-		
-		this.handledstoberemoved.clear();
-		this.removelistready = true;
+		finally { this.locks.get(HandlingOperation.REMOVE).unlock(); }
 	}
 	
 	private void addNewHandleds()
@@ -357,15 +359,19 @@ public abstract class Handler implements Handled
 		if (this.handledstobeadded.isEmpty())
 			return;
 		
-		this.addlistready = false;
-		for (Handled h : this.handledstobeadded)
+		this.locks.get(HandlingOperation.ADD).lock();
+		try
 		{
-			checkHandlingStatus();
-			this.handleds.add(h);
+			// Adds all handleds from the addlist to the handleds
+			for (Handled h : this.handledstobeadded)
+			{
+				addToOperationList(HandlingOperation.HANDLE, h);
+			}
+			
+			// Clears the addlist
+			this.handledstobeadded.clear();
 		}
-		
-		this.handledstobeadded.clear();
-		this.addlistready = true;
+		finally { this.locks.get(HandlingOperation.ADD).unlock(); }
 	}
 	
 	private void insertNewHandleds()
@@ -373,62 +379,131 @@ public abstract class Handler implements Handled
 		if (this.handledstobeinserted.isEmpty())
 			return;
 		
-		this.insertlistready = false;
-		for (Handled h : this.handledstobeinserted.keySet())
-		{
-			int index = this.handledstobeinserted.get(h);
-			checkHandlingStatus();
-			this.handleds.add(index, h);
-		}
-		
-		this.handledstobeinserted.clear();
-		this.insertlistready = true;
-	}
-	
-	// TODO: Try DRY
-	// PS: This would be so much nicer with pointers
-	private void checkAddStatus()
-	{
-		while(!this.addlistready)
-		{
-			wait(2);
-		}
-	}
-	
-	private void checkInsertStatus()
-	{
-		while(!this.insertlistready)
-		{
-			wait(2);
-		}
-	}
-	
-	private void checkRemoveStatus()
-	{
-		while(!this.removelistready)
-		{
-			wait(2);
-		}
-	}
-	
-	private void checkHandlingStatus()
-	{
-		while(!this.handlingready)
-		{
-			wait(2);
-		}
-	}
-	
-	private void wait(int millis)
-	{
+		this.locks.get(HandlingOperation.INSERT).lock();
 		try
 		{
-			Thread.sleep(millis);
+			// Inserts all handleds to certain positions in the list
+			for (Handled h : this.handledstobeinserted.keySet())
+			{
+				int index = this.handledstobeinserted.get(h);
+				addToOperationList(HandlingOperation.HANDLE, h, index);
+			}
+			
+			// Clears the insert list
+			this.handledstobeinserted.clear();
 		}
-		catch (InterruptedException exception)
+		finally { this.locks.get(HandlingOperation.INSERT).unlock(); }
+	}
+	
+	// Thread-safely clears a data structure used with the given operation type
+	// TODO: Try to figure out a way to make this without copy-paste, though 
+	// it might be difficult since there are no function pointers in java
+	private void clearOperationList(HandlingOperation o)
+	{
+		// Checks the argument
+		if (o == null)
+			return;
+		
+		// Locks the correct lock
+		this.locks.get(o).lock();
+		
+		try
 		{
-			System.err.println("Handling status check was interupted");
-			exception.printStackTrace();
+			switch (o)
+			{
+				// I really wish I had function pointers in use now...
+				case HANDLE: this.handleds.clear(); break;
+				case ADD: this.handledstobeadded.clear(); break;
+				case REMOVE: this.handledstoberemoved.clear(); break;
+				case INSERT: this.handledstobeinserted.clear(); break;
+			}
 		}
+		finally
+		{
+			this.locks.get(o).unlock();
+		}
+	}
+	
+	// Thread safely adds an handled to an operation list
+	private void addToOperationList(HandlingOperation o, Handled h)
+	{
+		// Checks the argument
+		if (o == null || h == null)
+			return;
+		
+		// Locks the correct lock
+		this.locks.get(o).lock();
+		
+		try
+		{
+			switch (o)
+			{
+				case HANDLE: this.handleds.add(h); break;
+				case ADD: this.handledstobeadded.add(h); break;
+				case REMOVE: this.handledstoberemoved.add(h); break;
+				case INSERT: System.err.println("Index must be given if " +
+						"something needs to be added to the insertlist"); break;
+			}
+		}
+		finally
+		{
+			this.locks.get(o).unlock();
+		}
+	}
+	
+	// Thread safely adds an handled to the insertion list with the given index
+	private void addToOperationList(HandlingOperation o, Handled h, int index)
+	{	
+		// Locks the correct lock
+		this.locks.get(o).lock();
+		
+		try
+		{
+			switch (o)
+			{
+				case INSERT: this.handledstobeinserted.put(h, index); break;
+				case HANDLE: this.handleds.add(index, h); break;
+				case ADD: this.handledstobeadded.add(index, h); break;
+				case REMOVE: this.handledstoberemoved.add(index, h); break;
+			}
+		}
+		finally
+		{
+			this.locks.get(o).unlock();
+		}
+	}
+	
+	// Thread safely removes an handled from an operation list
+	private void removeFromOperationList(HandlingOperation o, Handled h)
+	{
+		// Checks the argument
+		if (o == null || h == null)
+			return;
+		
+		// Locks the correct lock
+		this.locks.get(o).lock();
+		
+		try
+		{
+			switch (o)
+			{
+				case HANDLE: this.handleds.remove(h); break;
+				case ADD: this.handledstobeadded.remove(h); break;
+				case REMOVE: this.handledstoberemoved.remove(h); break;
+				case INSERT: this.handledstobeinserted.remove(h); break;
+			}
+		}
+		finally
+		{
+			this.locks.get(o).unlock();
+		}
+	}
+	
+	
+	// ENUMERATIONS	------------------------------------------------------
+	
+	private enum HandlingOperation
+	{
+		HANDLE, ADD, REMOVE, INSERT;
 	}
 }
