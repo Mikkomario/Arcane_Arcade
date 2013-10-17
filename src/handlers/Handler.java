@@ -153,6 +153,7 @@ public abstract class Handler implements Handled
 		// needs to be stopped
 		
 		// Goes through all the handleds
+		checkHandlingStatus();
 		this.handlingready = false;
 		Iterator<Handled> iterator = this.handleds.iterator();
 		
@@ -218,7 +219,8 @@ public abstract class Handler implements Handled
 	protected void insertHandled(Handled h, int index)
 	{
 		//this.handleds.add(index, h);
-		if (!this.handledstobeinserted.containsKey(h))
+		if (h != this && !this.handleds.contains(h) && 
+				!this.handledstobeinserted.containsKey(h))
 		{
 			this.started = true;
 			checkInsertStatus();
@@ -247,6 +249,7 @@ public abstract class Handler implements Handled
 	 */
 	public void removeAllHandleds()
 	{
+		checkHandlingStatus();
 		this.handlingready = false;
 		for (int i = 0; i < getHandledNumber(); i++)
 		{
@@ -323,6 +326,7 @@ public abstract class Handler implements Handled
 		
 		// TODO: Still throws an concurrentmodificationexception
 		// Though I can't figure out why...
+		checkRemoveStatus();
 		this.removelistready = false;
 		for (Handled h : this.handledstoberemoved)
 		{

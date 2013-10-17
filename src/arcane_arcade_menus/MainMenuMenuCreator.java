@@ -396,6 +396,8 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 		@Override
 		public void kill()
 		{
+			System.out.println("Centerpiece died");
+			
 			// Also kills the spritedrawer when dies
 			this.spritedrawer.kill();
 			super.kill();
