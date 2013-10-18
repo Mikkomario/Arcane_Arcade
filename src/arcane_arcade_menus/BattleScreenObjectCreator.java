@@ -58,7 +58,8 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 	@Override
 	public void onRoomStart(Room room) {
 		// Creates the objects
-		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
+		// TODO: This causes an endless loop
+		//new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
 		new MenuCornerCreator(this.drawer, this.mousehandler, room,
 				true);
 		new OptionBar(100, 200, this.drawer, 50, 0, 100, "Testi", this.mousehandler);

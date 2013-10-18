@@ -168,9 +168,21 @@ public abstract class Handler implements Handled
 				Handled h = iterator.next();
 				
 				if (!h.isDead() /*&& !this.handledstoberemoved.containsKey(h)*/)
+				{
+					if (this instanceof ActorHandler)
+						System.out.println("..." + this + " handles " + h);
 					handleObject(h);
+					if (this instanceof ActorHandler)
+						System.out.println("......done");
+				}
 				else
+				{
+					if (this instanceof ActorHandler)
+						System.out.println("..." + this + " removes a dead " + h);
 					removeHandled(h);
+					if (this instanceof ActorHandler)
+						System.out.println("......done");
+				}
 			}
 		}
 		finally
