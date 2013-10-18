@@ -21,6 +21,7 @@ public class DrawableHandler extends Handler implements Drawable
 	private Graphics2D lastg2d;
 	private HandlingOperation currentoperation;
 	private int insertindex, insertdepth;
+	private boolean currentlyvisible;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -46,6 +47,7 @@ public class DrawableHandler extends Handler implements Drawable
 		this.currentoperation = null;
 		this.insertdepth = 0;
 		this.insertindex = 0;
+		this.currentlyvisible = true;
 	}
 	
 	
@@ -62,7 +64,15 @@ public class DrawableHandler extends Handler implements Drawable
 	@Override
 	public boolean isVisible()
 	{
+		// Checks the visibility of all handleds (until finds an visible one)
+		this.currentlyvisible = false;
+		this.currentoperation = HandlingOperation.VISIBILITYCHECK;
+		handleObjects();
+		
+		return this.currentlyvisible;
+		
 		// Updates the handler status before checking it
+		/*
 		updateStatus();
 		
 		// Returns false only if all the handleds are invisible
@@ -75,6 +85,7 @@ public class DrawableHandler extends Handler implements Drawable
 		}
 		
 		return false;
+		*/
 	}
 
 	@Override
@@ -136,6 +147,19 @@ public class DrawableHandler extends Handler implements Drawable
 		// If the depth sorting is on, finds the spot for the object
 		if (this.usesDepth)
 		{
+			this.insertindex = 0;
+			this.insertdepth = d.getDepth();
+			this.currentoperation = HandlingOperation.DEPTHSORT;
+			
+			handleObjects();
+			
+			// If a good spot was found, inserts the handled
+			if (this.insertindex < getHandledNumber())
+				insertHandled(d, this.insertindex);
+			// Otherwise just adds it to the end of the list
+			
+			
+			/*
 			// Repairs any problems in the depth sorting
 			checkDepthSorting();
 			
@@ -159,6 +183,7 @@ public class DrawableHandler extends Handler implements Drawable
 			}
 			// If no object with a higher depth was found, simply adds the 
 			// drawable to the end of the list as usual
+		*/
 		}
 		
 		super.addHandled(d);
@@ -173,10 +198,52 @@ public class DrawableHandler extends Handler implements Drawable
 	@Override
 	protected boolean handleObject(Handled h)
 	{
-		// Draws the visible object
 		Drawable d = (Drawable) h;
-		if (d.isVisible())
-			d.drawSelf(this.lastg2d);
+		
+		// Does different things depending on the current operation
+		switch (this.currentoperation)
+		{
+			case DRAW:
+			{
+				// Draws the visible object
+				if (d.isVisible())
+					d.drawSelf(this.lastg2d);
+				
+				return true;
+			}
+			case VISIBILITYCHECK:
+			{
+				// Checks the visibility of the object (breaks if a single 
+				// visible drawable is found)
+				if (d.isVisible())
+				{
+					this.currentlyvisible = true;
+					return false;
+				}
+				else
+					return true;
+			}
+			case VISIBILITY:
+			{
+				// Turns the object visible
+				d.setVisible();
+				return true;
+			}
+			case INVISIBILITY:
+			{
+				// Turns the object invisible
+				d.setInvisible();
+				return true;
+			}
+			case DEPTHSORT:
+			{
+				// Increases the insertindex until a good spot is found
+				if (d.getDepth() < this.insertdepth)
+					return false;
+				else
+					this.insertindex ++;
+			}
+		}
 		
 		return true;
 	}
@@ -229,6 +296,6 @@ public class DrawableHandler extends Handler implements Drawable
 	// Handlingoperations represent a way to handle a drawable
 	private enum HandlingOperation
 	{
-		DRAW, DEPTHSORT, VISIBILITY, INVISIBILITY;
+		DRAW, DEPTHSORT, VISIBILITY, INVISIBILITY, VISIBILITYCHECK;
 	}
 }
