@@ -151,7 +151,11 @@ public abstract class Handler implements Handled
 		updateStatus();
 		
 		// Goes through all the handleds
+		// TODO: There's an deadlock here that occurs randomly when the room 
+		// end is informed
+		System.out.println(this + " tries to open handling lock");
 		this.locks.get(HandlingOperation.HANDLE).lock();
+		System.out.println(this + " opened handling lock");
 		try
 		{
 			Iterator<Handled> iterator = this.handleds.iterator();
@@ -172,7 +176,10 @@ public abstract class Handler implements Handled
 		finally
 		{
 			this.locks.get(HandlingOperation.HANDLE).unlock();
+			System.out.println(this + " closed the handling lock");
 		}
+		
+		updateStatus();
 	}
 	
 	/**

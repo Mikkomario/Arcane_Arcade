@@ -123,7 +123,6 @@ public class MenuCorner extends DrawnObject implements RoomListener
 	{
 		// Also kills the spritedrawer
 		this.spritedrawer.kill();
-		this.spritedrawer = null;
 		super.kill();
 	}
 }

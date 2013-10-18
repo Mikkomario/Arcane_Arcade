@@ -114,7 +114,6 @@ public abstract class MenuButton extends DimensionalDrawnObject implements
 	{
 		// Also kills the spritedrawer
 		this.spritedrawer.kill();
-		this.spritedrawer = null;
 		super.kill();
 	}
 

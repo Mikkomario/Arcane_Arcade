@@ -207,7 +207,6 @@ public class QuitMenuCorner extends DrawnObject implements
 	{
 		// Kills the spritedrawer and maskchecker
 		this.spritedrawer.kill();
-		this.spritedrawer = null;
 		this.maskchecker = null;
 		super.kill();
 	}

@@ -338,8 +338,6 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 		{
 			// Kills the spritedrawer and maskchecker
 			this.spritedrawer.kill();
-			this.spritedrawer = null;
-			this.maskchecker = null;
 			super.kill();
 		}
 	}

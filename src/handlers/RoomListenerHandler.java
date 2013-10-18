@@ -68,7 +68,11 @@ public class RoomListenerHandler extends Handler implements RoomListener
 			listener.onRoomStart(this.lastroom);
 		// TODO: Room end can cause the game to freeze?
 		else if (this.lastevent == RoomEvent.END)
+		{
+			System.out.println("Informs " + h.getClass().getName() + " about room end.");
 			listener.onRoomEnd(this.lastroom);
+			System.out.println("...Ok");
+		}
 	}
 
 	
