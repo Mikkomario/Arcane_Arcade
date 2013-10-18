@@ -59,13 +59,13 @@ public class CollisionHandler extends LogicalHandler implements Actor
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		CollisionListener listener = (CollisionListener) h;
 		
 		// Inactive listeners are not counted
 		if (!listener.isActive())
-			return;
+			return true;
 		
 		Point2D.Double[] colpoints = listener.getCollisionPoints();
 		HashMap<Collidable, ArrayList<Point2D.Double>> collidedpoints = 
@@ -94,6 +94,8 @@ public class CollisionHandler extends LogicalHandler implements Actor
 		// Informs the listener about each object it collided with
 		for (Collidable c: collidedpoints.keySet())
 			listener.onCollision(collidedpoints.get(c), c);
+		
+		return true;
 	}
 	
 	@Override

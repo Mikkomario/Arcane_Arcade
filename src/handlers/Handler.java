@@ -74,8 +74,10 @@ public abstract class Handler implements Handled
 	 * a part of the handleObjects method.
 	 *
 	 * @param h The handler that may need handling
+	 * @return Should object handling be continued (true) or skipped for the 
+	 * remaining handleds (false)
 	 */
-	protected abstract void handleObject(Handled h);
+	protected abstract boolean handleObject(Handled h);
 	
 	
 	// IMPLEMENTED METHODS	-----------------------------------------------
@@ -150,12 +152,16 @@ public abstract class Handler implements Handled
 		
 		updateStatus();
 		
+		// TODO: Add a return value to the handleObject() -method that tells 
+		// if the loop should be continued
+		
 		// Goes through all the handleds
 		// TODO: There's an deadlock here that occurs randomly when the room 
 		// end is informed
-		System.out.println(this + " tries to open handling lock");
+		//System.out.println(this + " tries to open handling lock");
+		boolean handlingskipped = false;
 		this.locks.get(HandlingOperation.HANDLE).lock();
-		System.out.println(this + " opened handling lock");
+		//System.out.println(this + " opened handling lock");
 		try
 		{
 			Iterator<Handled> iterator = this.handleds.iterator();
@@ -169,9 +175,16 @@ public abstract class Handler implements Handled
 				
 				if (!h.isDead() /*&& !this.handledstoberemoved.containsKey(h)*/)
 				{
+					// TODO: REmove this test prints
 					if (this instanceof ActorHandler)
 						System.out.println("..." + this + " handles " + h);
-					handleObject(h);
+					
+					// Doesn't handle objects after handleobjects has returned 
+					// false. Continues through the cycle though to remove dead 
+					// handleds
+					if (!handlingskipped && !handleObject(h))
+						handlingskipped = true;
+					
 					if (this instanceof ActorHandler)
 						System.out.println("......done");
 				}
@@ -188,7 +201,7 @@ public abstract class Handler implements Handled
 		finally
 		{
 			this.locks.get(HandlingOperation.HANDLE).unlock();
-			System.out.println(this + " closed the handling lock");
+			//System.out.println(this + " closed the handling lock");
 		}
 		
 		updateStatus();

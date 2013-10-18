@@ -57,10 +57,11 @@ public class WizardRelay extends Handler implements RoomListener
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		// Handles the wizards in separate methods (not affecting the 
 		// data structures
+		return false;
 	}
 	
 	

@@ -86,7 +86,7 @@ implements Actor
 	
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		// Informs the object about the mouse's position
 		// Or button status
@@ -94,7 +94,7 @@ implements Actor
 		
 		// Checks if informing is needed
 		if (!l.isActive())
-			return;
+			return true;
 		
 		// Mouse position update
 		if (this.lastevent == AdvancedMouseEvent.MOVE)
@@ -107,7 +107,7 @@ implements Actor
 						&& l.listensPosition(this.mouseX, this.mouseY))
 				{
 					this.entered.add(l);
-					return;
+					return true;
 				}
 
 				// Checks if exited
@@ -156,6 +156,8 @@ implements Actor
 					l.onRightReleased(getMouseX(), getMouseY());
 			}
 		}
+		
+		return true;
 	}
 	
 	

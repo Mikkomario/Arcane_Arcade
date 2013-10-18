@@ -50,7 +50,7 @@ public class CollidableHandler extends Handler
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		// Checks the collision for the object and updates the collided 
 		// attribute
@@ -61,11 +61,11 @@ public class CollidableHandler extends Handler
 		{
 			// Non-solid objects can't collide
 			if (!c.isSolid())
-				return;
+				return true;
 			
 			// Checks the collision
 			if (!c.pointCollides(this.lasttestx, this.lasttesty))
-				return;
+				return true;
 				
 			// Adds the collided object to the list
 			this.collided.add(c);
@@ -75,6 +75,8 @@ public class CollidableHandler extends Handler
 			c.makeSolid();
 		else if (this.lastaction == HandlingAction.UNSOLID)
 			c.makeUnsolid();
+		
+		return true;
 	}
 	
 	

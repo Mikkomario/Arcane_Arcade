@@ -62,13 +62,15 @@ public class CameraListenerHandler extends LogicalHandler implements CameraListe
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		// Informs all cameralisteners about the event
 		CameraListener l = (CameraListener) h;
 		if (l.isActive())
 			l.informCameraPosition(this.lastx, this.lasty, this.lastw, 
 					this.lasth, this.lastangle);
+		
+		return true;
 	}
 	
 	

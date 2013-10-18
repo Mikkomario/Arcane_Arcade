@@ -117,7 +117,7 @@ public class Room extends Handler
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		// Either initializes or uninitializes the object (if possible)
 		if (h instanceof Drawable)
@@ -138,6 +138,8 @@ public class Room extends Handler
 			else
 				l.inactivate();
 		}
+		
+		return true;
 	}
 	
 	

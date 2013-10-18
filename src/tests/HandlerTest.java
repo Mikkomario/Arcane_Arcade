@@ -189,9 +189,11 @@ public class HandlerTest
 		}
 
 		@Override
-		protected void handleObject(Handled h)
+		protected boolean handleObject(Handled h)
 		{
 			((Testable) h).test();
+			
+			return true;
 		}
 		
 		

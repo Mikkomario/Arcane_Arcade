@@ -58,10 +58,11 @@ public class BallRelay extends Handler implements RoomListener
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		// Doesn't do anything since ball handling is done in separate methods
 		// I know its not very cool
+		return false;
 	}
 	
 	

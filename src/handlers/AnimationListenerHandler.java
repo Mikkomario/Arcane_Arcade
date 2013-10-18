@@ -57,13 +57,15 @@ public class AnimationListenerHandler extends LogicalHandler implements
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		// Informs active animationlisteners about the event
 		AnimationListener l = (AnimationListener) h;
 		
 		if (l.isActive())
 			l.onAnimationEnd(this.lastdrawer);
+		
+		return true;
 	}
 	
 	

@@ -48,6 +48,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public DrawnObject(int x, int y, int depth, DrawableHandler drawer)
 	{
+		System.out.println("Started creating drawnobject");
+		
 		// Initializes the attributes
 		this.x = x;
 		this.y = y;
@@ -64,11 +66,16 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		this.currentdeterminant = 0;
 		this.transformationneedsupdating = true;
 		
+		System.out.println("Drawnobject initialized attributes. Now adds it to " +
+				"the drawer");
+		
 		// Adds the object to the drawer (if possible)
+		// TODO: May cause deadlock
 		if (drawer != null)
 			drawer.addDrawable(this);
 		
 		//this.updateTransformation();
+		System.out.println("Finished creating drawnobject");
 	}
 	
 	

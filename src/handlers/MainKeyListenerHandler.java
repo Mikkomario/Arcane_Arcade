@@ -72,14 +72,14 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		// Informs the object about the current event(s)
 		AdvancedKeyListener listener = (AdvancedKeyListener) h;
 		
 		// Only informs active objects
 		if (!listener.isActive())
-			return;
+			return true;
 		
 		// Informs if a key was pressed
 		for (int ik = 0; ik < this.keysPressed.size(); ik++)
@@ -118,6 +118,8 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 			if (icd < this.codesDown.size())
 				listener.onKeyDown((char) 0, this.codesDown.get(icd), true);
 		}
+		
+		return true;
 	}
 	
 	

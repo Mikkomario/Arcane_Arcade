@@ -59,7 +59,7 @@ public class RoomListenerHandler extends Handler implements RoomListener
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{	
 		// Informs the listener about the active event
 		RoomListener listener = (RoomListener) h;
@@ -73,6 +73,8 @@ public class RoomListenerHandler extends Handler implements RoomListener
 			listener.onRoomEnd(this.lastroom);
 			System.out.println("...Ok");
 		}
+		
+		return true;
 	}
 
 	

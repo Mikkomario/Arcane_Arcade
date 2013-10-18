@@ -60,18 +60,20 @@ public class SoundListenerHandler extends LogicalHandler implements SoundListene
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		// Informs all the listeners about a new event
 		SoundListener s = (SoundListener) h;
 		
 		if (!s.isActive())
-			return;
+			return true;
 		
 		if (this.lastevent == SoundEvent.START)
 			s.onSoundStart(this.lastsound);
 		else if (this.lastevent == SoundEvent.END)
 			s.onSoundEnd(this.lastsound);
+		
+		return true;
 	}
 	
 	

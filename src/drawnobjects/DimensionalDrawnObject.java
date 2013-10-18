@@ -45,6 +45,8 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 	{
 		super(x, y, depth, drawer);
 		
+		System.out.println(">>>DimensionalDrawnObject called superconstructor");
+		
 		// Initializes attributes
 		this.solid = isSolid;
 		this.collisiontype = collisiontype;
@@ -55,6 +57,8 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 		// Adds the object to the handler, if possible
 		if (collidablehandler != null)
 			collidablehandler.addCollidable(this);
+		
+		System.out.println(">>>DimensionalDrawnObject finished creating");
 	}
 	
 	

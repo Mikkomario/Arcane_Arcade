@@ -1,7 +1,6 @@
 package handlers;
 
 import java.awt.Graphics2D;
-import java.util.Iterator;
 
 import handleds.Drawable;
 import handleds.Handled;
@@ -20,6 +19,8 @@ public class DrawableHandler extends Handler implements Drawable
 	private int depth;
 	private boolean usesDepth;
 	private Graphics2D lastg2d;
+	private HandlingOperation currentoperation;
+	private int insertindex, insertdepth;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -42,6 +43,9 @@ public class DrawableHandler extends Handler implements Drawable
 		this.depth = depth;
 		this.usesDepth = usesDepth;
 		this.lastg2d = null;
+		this.currentoperation = null;
+		this.insertdepth = 0;
+		this.insertindex = 0;
 	}
 	
 	
@@ -51,6 +55,7 @@ public class DrawableHandler extends Handler implements Drawable
 	public void drawSelf(Graphics2D g2d)
 	{
 		this.lastg2d = g2d;
+		this.currentoperation = HandlingOperation.DRAW;
 		handleObjects();
 	}
 
@@ -76,6 +81,9 @@ public class DrawableHandler extends Handler implements Drawable
 	public void setVisible()
 	{
 		// tries to set all the drawables visible
+		this.currentoperation = HandlingOperation.VISIBILITY;
+		handleObjects();
+		/*
 		Iterator<Handled> iterator = getIterator();
 		
 		while (iterator.hasNext())
@@ -83,12 +91,16 @@ public class DrawableHandler extends Handler implements Drawable
 			Drawable d = (Drawable) iterator.next();
 			d.setVisible();
 		}
+		*/
 	}
 
 	@Override
 	public void setInvisible()
 	{
 		// tries to set all the drawables invisible
+		this.currentoperation = HandlingOperation.INVISIBILITY;
+		handleObjects();
+		/*
 		Iterator<Handled> iterator = getIterator();
 		
 		while (iterator.hasNext())
@@ -96,6 +108,7 @@ public class DrawableHandler extends Handler implements Drawable
 			Drawable d = (Drawable) iterator.next();
 			d.setInvisible();
 		}
+		*/
 	}
 	
 	@Override
@@ -124,12 +137,13 @@ public class DrawableHandler extends Handler implements Drawable
 		if (this.usesDepth)
 		{
 			// Repairs any problems in the depth sorting
-			// TODO: The process causes concurrentmodificationexceptions which is not good
 			checkDepthSorting();
 			
 			int index = 0;
 			int newdepth = d.getDepth();
 			
+			// TODO: This is not safe and not valid if the list changes 
+			// during the process
 			for (int i = 0; i < getHandledNumber(); i++)
 			{
 				Drawable other = (Drawable) getHandled(i);
@@ -157,12 +171,14 @@ public class DrawableHandler extends Handler implements Drawable
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		// Draws the visible object
 		Drawable d = (Drawable) h;
 		if (d.isVisible())
 			d.drawSelf(this.lastg2d);
+		
+		return true;
 	}
 	
 	
@@ -205,5 +221,14 @@ public class DrawableHandler extends Handler implements Drawable
 		removeHandled(mistake);
 		updateStatus();
 		addHandled(mistake);
+	}
+	
+	
+	// ENUMERATIONS	------------------------------------------------------
+	
+	// Handlingoperations represent a way to handle a drawable
+	private enum HandlingOperation
+	{
+		DRAW, DEPTHSORT, VISIBILITY, INVISIBILITY;
 	}
 }

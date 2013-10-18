@@ -70,14 +70,14 @@ public class KeyListenerHandler extends LogicalHandler implements
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		// Informs the handled about the last event
 		AdvancedKeyListener l = (AdvancedKeyListener) h;
 		
 		// Only if the handled is active
 		if (!l.isActive())
-			return;
+			return true;
 		
 		switch (this.lastevent)
 		{
@@ -88,6 +88,8 @@ public class KeyListenerHandler extends LogicalHandler implements
 			case KEYRELEASED: l.onKeyReleased(this.lastkey, this.lastkeycode, 
 					this.lastcoded); break;
 		}
+		
+		return true;
 	}
 	
 	

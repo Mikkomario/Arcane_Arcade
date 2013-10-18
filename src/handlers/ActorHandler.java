@@ -42,7 +42,7 @@ public class ActorHandler extends LogicalHandler implements Actor
 	}
 	
 	@Override
-	protected void handleObject(Handled h)
+	protected boolean handleObject(Handled h)
 	{
 		// Calls the act method of active handleds
 		Actor a = (Actor) h;
@@ -50,6 +50,8 @@ public class ActorHandler extends LogicalHandler implements Actor
 		{
 			a.act();
 		}
+		
+		return true;
 	}
 	
 	
