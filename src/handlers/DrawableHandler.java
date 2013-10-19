@@ -1,6 +1,7 @@
 package handlers;
 
 import java.awt.Graphics2D;
+import java.util.Comparator;
 
 import handleds.Drawable;
 import handleds.Handled;
@@ -20,8 +21,8 @@ public class DrawableHandler extends Handler implements Drawable
 	private boolean usesDepth;
 	private Graphics2D lastg2d;
 	private HandlingOperation currentoperation;
-	private int insertindex, insertdepth;
 	private boolean currentlyvisible;
+	private boolean needsSorting;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -45,9 +46,8 @@ public class DrawableHandler extends Handler implements Drawable
 		this.usesDepth = usesDepth;
 		this.lastg2d = null;
 		this.currentoperation = null;
-		this.insertdepth = 0;
-		this.insertindex = 0;
 		this.currentlyvisible = true;
+		this.needsSorting = false;
 	}
 	
 	
@@ -147,6 +147,11 @@ public class DrawableHandler extends Handler implements Drawable
 		// If the depth sorting is on, finds the spot for the object
 		if (this.usesDepth)
 		{
+			// If the handler uses depth sorting, the handling list needs to 
+			// be sorted after this addition
+			this.needsSorting = true;
+			
+			/*
 			this.insertindex = 0;
 			this.insertdepth = d.getDepth();
 			this.currentoperation = HandlingOperation.DEPTHSORT;
@@ -157,7 +162,7 @@ public class DrawableHandler extends Handler implements Drawable
 			if (this.insertindex < getHandledNumber())
 				insertHandled(d, this.insertindex);
 			// Otherwise just adds it to the end of the list
-			
+			*/
 			
 			/*
 			// Repairs any problems in the depth sorting
@@ -235,6 +240,7 @@ public class DrawableHandler extends Handler implements Drawable
 				d.setInvisible();
 				return true;
 			}
+			/*
 			case DEPTHSORT:
 			{
 				// Increases the insertindex until a good spot is found
@@ -243,9 +249,23 @@ public class DrawableHandler extends Handler implements Drawable
 				else
 					this.insertindex ++;
 			}
+			*/
 		}
 		
 		return true;
+	}
+	
+	@Override
+	protected void updateStatus()
+	{
+		// In addition to normal update, sorts the handling list if needed
+		super.updateStatus();
+		
+		if (this.needsSorting)
+		{
+			sortHandleds(new DepthSorter());
+			this.needsSorting = false;
+		}
 	}
 	
 	
@@ -261,6 +281,7 @@ public class DrawableHandler extends Handler implements Drawable
 		addHandled(d);
 	}
 	
+	/*
 	// Checks if there are errors in current depth sorting and tries to fix them
 	private void checkDepthSorting()
 	{
@@ -289,6 +310,7 @@ public class DrawableHandler extends Handler implements Drawable
 		updateStatus();
 		addHandled(mistake);
 	}
+	*/
 	
 	
 	// ENUMERATIONS	------------------------------------------------------
@@ -296,6 +318,25 @@ public class DrawableHandler extends Handler implements Drawable
 	// Handlingoperations represent a way to handle a drawable
 	private enum HandlingOperation
 	{
-		DRAW, DEPTHSORT, VISIBILITY, INVISIBILITY, VISIBILITYCHECK;
+		DRAW, VISIBILITY, INVISIBILITY, VISIBILITYCHECK;
+	}
+	
+	
+	// SUBCLASSES	------------------------------------------------------
+	
+	private class DepthSorter implements Comparator<Handled>
+	{
+		@Override
+		public int compare(Handled h1, Handled h2)
+		{
+			// Actually only works with drawables but is used in "handled" list
+			if (h1 instanceof Drawable && h2 instanceof Drawable)
+			{
+				// Drawables with more depth are put to the front of the list
+				return ((Drawable) h2).getDepth() - ((Drawable) h1).getDepth();
+			}
+			
+			return 0;
+		}	
 	}
 }

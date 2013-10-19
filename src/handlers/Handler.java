@@ -3,6 +3,8 @@ package handlers;
 import handleds.Handled;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -352,6 +354,16 @@ public abstract class Handler implements Handled
 		addNewHandleds();
 		// Removes the dead handleds (if possible)
 		clearRemovedHandleds();
+	}
+	
+	/**
+	 * Sorts the list of handleds using the given comparator
+	 *
+	 * @param c The comparator used to sort the handleds
+	 */
+	protected void sortHandleds(Comparator<Handled> c)
+	{
+		Collections.sort(this.handleds, c);
 	}
 	
 	// This should be called at the end of the iteration

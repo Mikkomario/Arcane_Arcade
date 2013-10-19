@@ -53,8 +53,6 @@ public abstract class BasicPhysicDrawnObject extends CollidingDrawnObject
 		super(x, y, depth, isSolid, collisiontype, drawer, collidablehandler, 
 				collisionhandler);
 		
-		System.out.println(">>>BasicPhysicDrawnObject called super constructor");
-		
 		// Initializes attributes
 		this.movement = new Movement(0, 0);
 		this.rotation = 0;
@@ -66,8 +64,6 @@ public abstract class BasicPhysicDrawnObject extends CollidingDrawnObject
 		// Adds the object to the actorhandler if possible
 		if (actorhandler != null)
 			actorhandler.addActor(this);
-		
-		System.out.println("<<<BasicPhysicObject creation complete");
 	}
 	
 	

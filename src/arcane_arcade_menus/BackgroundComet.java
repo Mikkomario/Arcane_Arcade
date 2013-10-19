@@ -51,8 +51,6 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 		super(x, y, DepthConstants.BOTTOM - 15 - (int) (scale * 10), false, 
 				CollisionType.CIRCLE, drawer, null, null, actorhandler);
 		
-		System.out.println(">>>BackgroundComet called superconstructor");
-		
 		// Initializes attributes
 		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
 				"menu").getSprite("comet"), actorhandler);
@@ -61,13 +59,9 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 		setScale(scale, scale);
 		setMotion(240, scale * 15);
 		
-		System.out.println(">>>BackgroundComet initialized attributes");
-		
 		// Adds the comet to the room
 		if (room != null)
 			room.addObject(this);
-		
-		System.out.println("<<<BackgroundComet creation complete called superconstructor");
 	}
 	
 	

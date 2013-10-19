@@ -55,8 +55,6 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	{
 		super(x, y, depth, isSolid, collisiontype, drawer, collidablehandler);
 		
-		System.out.println(">>>CollidingDrawnObject called superconstructor");
-		
 		// Initializes attributes
 		this.active = true;
 		this.relativecollisionpoints = new Point2D.Double[0];
@@ -64,8 +62,6 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 		// Adds the object to the handler
 		if (collisionhandler != null)
 			collisionhandler.addCollisionListener(this);
-		
-		System.out.println("<<<CollidingDrawnObject creation complete");
 	}
 	
 	
