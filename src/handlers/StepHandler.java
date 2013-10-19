@@ -21,7 +21,6 @@ public class StepHandler extends ActorHandler implements Runnable
 	private long nextupdatemillis;
 	private boolean running;
 	private GameWindow window;
-	//private double actionmodifier;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -45,7 +44,6 @@ public class StepHandler extends ActorHandler implements Runnable
 		this.nextupdatemillis = 0;
 		this.running = false;
 		this.window = window;
-		//this.actionmodifier = 1;
 		
 		// Creates an ApsOptimizer and adds it to the actors
 		addActor(new ApsOptimizer(this.stepduration, 8, 4000, 20000, 6));

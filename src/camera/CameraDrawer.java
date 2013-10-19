@@ -1,8 +1,5 @@
 package camera;
 
-import java.awt.Graphics2D;
-import java.util.Iterator;
-
 import drawnobjects.DrawnObject;
 import handleds.Handled;
 import handlers.DrawnObjectHandler;
@@ -47,17 +44,14 @@ public class CameraDrawer extends DrawnObjectHandler
 	// IMPLEMENTED METHODS	--------------------------------------------
 	
 	@Override
-	public void drawSelf(Graphics2D g2d)
+	public boolean handleObject(Handled h)
 	{
-		// Only draws objects that are within the camera's range
-		Iterator<Handled> iterator = getIterator();
+		// Only handles (draws) objects that camera says should be drawn
+		if (!this.camera.objectShouldBeDrawn((DrawnObject) h))
+			return true;
 		
-		while (iterator.hasNext())
-		{
-			DrawnObject d = (DrawnObject) iterator.next();
-			// Only draws object inside the camera's vision
-			if (this.camera.objectShouldBeDrawn(d))
-				d.drawSelf(g2d);
-		}
+		super.handleObject(h);
+		
+		return true;
 	}
 }

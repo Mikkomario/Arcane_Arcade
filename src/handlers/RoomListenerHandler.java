@@ -15,6 +15,8 @@ public class RoomListenerHandler extends Handler implements RoomListener
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
+	// TODO: Might want to use handlingoperators instead though its not 
+	// necessary in this simple a situation
 	private RoomEvent lastevent;
 	private Room lastroom;
 	
@@ -66,13 +68,8 @@ public class RoomListenerHandler extends Handler implements RoomListener
 		
 		if (this.lastevent == RoomEvent.START)
 			listener.onRoomStart(this.lastroom);
-		// TODO: Room end can cause the game to freeze?
 		else if (this.lastevent == RoomEvent.END)
-		{
-			System.out.println("Informs " + h.getClass().getName() + " about room end.");
 			listener.onRoomEnd(this.lastroom);
-			System.out.println("...Ok");
-		}
 		
 		return true;
 	}
@@ -96,7 +93,6 @@ public class RoomListenerHandler extends Handler implements RoomListener
 		this.lastevent = event;
 		this.lastroom = room;
 		
-		//System.out.println("Informs room event " + event.toString());
 		// Informs the listener
 		handleObjects();
 		

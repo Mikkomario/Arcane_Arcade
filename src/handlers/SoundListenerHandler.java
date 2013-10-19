@@ -15,6 +15,7 @@ public class SoundListenerHandler extends LogicalHandler implements SoundListene
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
+	// TODO: Update to handlingoperators?
 	private SoundEvent lastevent;
 	private Sound lastsound;
 	
