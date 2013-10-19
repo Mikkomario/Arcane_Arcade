@@ -70,22 +70,6 @@ public class DrawableHandler extends Handler implements Drawable
 		handleObjects();
 		
 		return this.currentlyvisible;
-		
-		// Updates the handler status before checking it
-		/*
-		updateStatus();
-		
-		// Returns false only if all the handleds are invisible
-		for (int i = 0; i < getHandledNumber(); i++)
-		{
-			Drawable d = (Drawable) getHandled(i);
-			
-			if (d.isVisible())
-				return true;
-		}
-		
-		return false;
-		*/
 	}
 
 	@Override
@@ -94,15 +78,6 @@ public class DrawableHandler extends Handler implements Drawable
 		// tries to set all the drawables visible
 		this.currentoperation = HandlingOperation.VISIBILITY;
 		handleObjects();
-		/*
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
-		{
-			Drawable d = (Drawable) iterator.next();
-			d.setVisible();
-		}
-		*/
 	}
 
 	@Override
@@ -111,15 +86,6 @@ public class DrawableHandler extends Handler implements Drawable
 		// tries to set all the drawables invisible
 		this.currentoperation = HandlingOperation.INVISIBILITY;
 		handleObjects();
-		/*
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
-		{
-			Drawable d = (Drawable) iterator.next();
-			d.setInvisible();
-		}
-		*/
 	}
 	
 	@Override
@@ -150,45 +116,6 @@ public class DrawableHandler extends Handler implements Drawable
 			// If the handler uses depth sorting, the handling list needs to 
 			// be sorted after this addition
 			this.needsSorting = true;
-			
-			/*
-			this.insertindex = 0;
-			this.insertdepth = d.getDepth();
-			this.currentoperation = HandlingOperation.DEPTHSORT;
-			
-			handleObjects();
-			
-			// If a good spot was found, inserts the handled
-			if (this.insertindex < getHandledNumber())
-				insertHandled(d, this.insertindex);
-			// Otherwise just adds it to the end of the list
-			*/
-			
-			/*
-			// Repairs any problems in the depth sorting
-			checkDepthSorting();
-			
-			int index = 0;
-			int newdepth = d.getDepth();
-			
-			// TODO: This is not safe and not valid if the list changes 
-			// during the process
-			for (int i = 0; i < getHandledNumber(); i++)
-			{
-				Drawable other = (Drawable) getHandled(i);
-				
-				// Checks if there's an object with a higher depth
-				if (other.getDepth() < newdepth)
-				{
-					insertHandled(d, index);
-					return;
-				}
-				else
-					index ++;
-			}
-			// If no object with a higher depth was found, simply adds the 
-			// drawable to the end of the list as usual
-		*/
 		}
 		
 		super.addHandled(d);
@@ -240,16 +167,6 @@ public class DrawableHandler extends Handler implements Drawable
 				d.setInvisible();
 				return true;
 			}
-			/*
-			case DEPTHSORT:
-			{
-				// Increases the insertindex until a good spot is found
-				if (d.getDepth() < this.insertdepth)
-					return false;
-				else
-					this.insertindex ++;
-			}
-			*/
 		}
 		
 		return true;
@@ -280,37 +197,6 @@ public class DrawableHandler extends Handler implements Drawable
 	{
 		addHandled(d);
 	}
-	
-	/*
-	// Checks if there are errors in current depth sorting and tries to fix them
-	private void checkDepthSorting()
-	{
-		int lastdepth = 999999;
-
-		for (int i = 0; i < getHandledNumber(); i++)
-		{
-			Drawable drawable = (Drawable) getHandled(i);
-			if (drawable.getDepth() > lastdepth)
-			{
-				//System.out.println("Fixes depth: " + drawable.getDepth() + " / " + lastdepth);
-				tryFixingDepthSorting(drawable);
-				break;
-			}
-			lastdepth = drawable.getDepth();
-		}
-	}
-	
-	// Tries to fix the depth sorting for the given object
-	private void tryFixingDepthSorting(Drawable mistake)
-	{
-		// TODO: Updatestatus causes concurrentmodification exception
-		// TODO: Besides, why do we have to do this so often in the first place?
-		//System.out.println("Tries to fix an error in the depth sorting");
-		removeHandled(mistake);
-		updateStatus();
-		addHandled(mistake);
-	}
-	*/
 	
 	
 	// ENUMERATIONS	------------------------------------------------------
