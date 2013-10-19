@@ -138,13 +138,16 @@ public abstract class Handler implements Handled
 	// OTHER METHODS	---------------------------------------------------
 	
 	/**
-	 * Goes through all the handleds and calls handleObject -method for those 
-	 * objects
+	 * Goes through all the handleds and calls the operator's handleObject() 
+	 * -method for the objects
+	 * @param operator The operation done for each handled. Null if the default 
+	 * handleObject(Handled) should be used
 	 * 
 	 * @see #handleObject(Handled)
+	 * @see HandlingOperator
 	 */
 	// TODO: Add boolean parameter performUpdate is needed
-	protected void handleObjects()
+	protected void handleObjects(HandlingOperator operator)
 	{
 		//System.out.println(this+ " Starts handling objects");
 		
@@ -170,8 +173,17 @@ public abstract class Handler implements Handled
 					// Doesn't handle objects after handleobjects has returned 
 					// false. Continues through the cycle though to remove dead 
 					// handleds
-					if (!handlingskipped && !handleObject(h))
-						handlingskipped = true;
+					if (!handlingskipped)
+					{
+						if (operator == null)
+						{
+							if (!handleObject(h))
+								handlingskipped = true;
+							
+						}
+						else if (!operator.handleObject(h))
+							handlingskipped = true;
+					}
 				}
 				else
 					removeHandled(h);
@@ -183,7 +195,21 @@ public abstract class Handler implements Handled
 	}
 	
 	/**
+	 * Goes through all the handleds and calls handleObject -method for those 
+	 * objects
+	 * 
+	 * @see #handleObject(Handled)
+	 */
+	protected void handleObjects()
+	{
+		handleObjects(null);
+	}
+	
+	/**
 	 * @return The iterator of the handled list
+	 * @see #handleObjects()
+	 * @warning This method is not very safe and should not be used if 
+	 * handleObjects() can be used instead
 	 */
 	protected Iterator<Handled> getIterator()
 	{
@@ -279,6 +305,7 @@ public abstract class Handler implements Handled
 	 * handleds but if the caller modifies the list during the iteration, this 
 	 * method should be used instead
 	 * @see #getIterator()
+	 * @see #handleObjects(Handled)
 	 */
 	protected Handled getHandled(int index)
 	{
@@ -443,5 +470,31 @@ public abstract class Handler implements Handled
 	private enum HandlingOperation
 	{
 		HANDLE, ADD, REMOVE;
+	}
+	
+	
+	// SUBCLASSES	-------------------------------------------------------
+	
+	/**
+	 * HandlingOperator is a function object that does a specific operation 
+	 * for a single handled. The subclasses of this class will define the 
+	 * nature of the operation.<br>
+	 * HandlingOperators are used in handleObjects() -method and are usually 
+	 * used with multiple handleds in succession.
+	 *
+	 * @author Mikko Hilpinen.
+	 *         Created 19.10.2013.
+	 */
+	protected abstract class HandlingOperator
+	{
+		// ABSTRACT METHODS	---------------------------------------------
+		
+		/**
+		 * In this method the operator affects the handled in some way.
+		 *
+		 * @param h The handled that needs to be done something with
+		 * @return Should the operation be done for the remaining handleds as well
+		 */
+		protected abstract boolean handleObject(Handled h);
 	}
 }

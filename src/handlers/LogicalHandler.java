@@ -31,6 +31,8 @@ public abstract class LogicalHandler extends Handler implements LogicalHandled
 	
 	// IMPLEMENTED METHODS	-----------------------------------------------
 
+	// TODO: Consider using handleObjects() here instead of iterator since the 
+	// latter is not very safe...
 	@Override
 	public boolean isActive()
 	{

@@ -13,14 +13,7 @@ import handleds.Handled;
  *         Created 18.6.2013.
  */
 public class CollidableHandler extends Handler
-{
-	// ATTRIBUTES	-----------------------------------------------------
-	
-	private int lasttestx, lasttesty;
-	private ArrayList<Collidable> collided;
-	private HandlingAction lastaction;
-	
-	
+{	
 	// CONSTRUCTOR	------------------------------------------------------
 	
 	/**
@@ -32,12 +25,6 @@ public class CollidableHandler extends Handler
 	public CollidableHandler(boolean autodeath, CollidableHandler superhandler)
 	{
 		super(autodeath, superhandler);
-		
-		// Initializes attributes
-		this.lasttestx = 0;
-		this.lasttesty = 0;
-		this.collided = null;
-		this.lastaction = null;
 	}
 	
 	
@@ -52,31 +39,8 @@ public class CollidableHandler extends Handler
 	@Override
 	protected boolean handleObject(Handled h)
 	{
-		// Checks the collision for the object and updates the collided 
-		// attribute
-		Collidable c = (Collidable) h;
-		
-		// If the action is set to collision check, does that
-		if (this.lastaction == HandlingAction.COLLISIONCHECK)
-		{
-			// Non-solid objects can't collide
-			if (!c.isSolid())
-				return true;
-			
-			// Checks the collision
-			if (!c.pointCollides(this.lasttestx, this.lasttesty))
-				return true;
-				
-			// Adds the collided object to the list
-			this.collided.add(c);
-		}
-		// Otherwise solifies or unsolifies the object
-		else if (this.lastaction == HandlingAction.SOLID)
-			c.makeSolid();
-		else if (this.lastaction == HandlingAction.UNSOLID)
-			c.makeUnsolid();
-		
-		return true;
+		// All handling is done via operators
+		return false;
 	}
 	
 	
@@ -103,28 +67,19 @@ public class CollidableHandler extends Handler
 	 */
 	public ArrayList<Collidable> getCollidedObjectsAtPoint(int x, int y)
 	{
-		this.lasttestx = 0;
-		this.lasttesty = 0;
-		this.collided = new ArrayList<Collidable>();
-		this.lastaction = HandlingAction.COLLISIONCHECK;
+		// Initializes the operator
+		CollisionCheckOperator checkoperator = new CollisionCheckOperator(x, y);
 		
 		// Checks collisions through all collidables
-		handleObjects();
+		handleObjects(checkoperator);
 		
 		// If there wasn't collided objects, forgets the data and returns null
-		if (this.collided.isEmpty())
-		{
-			this.collided = null;
+		if (checkoperator.getCollidedObjects() == null)
 			return null;
-		}
 		
-		// Doesn't hold the object in an attribute anymore
-		@SuppressWarnings("unchecked")
-		ArrayList<Collidable> returnvalue = 
-				(ArrayList<Collidable>) this.collided.clone();
-		this.collided = null;
-		
-		return returnvalue;
+		// Returns a list of collided objects (no need for cloning since 
+		// operator is not an attribute)
+		return checkoperator.getCollidedObjects();
 	}
 	
 	/**
@@ -133,8 +88,7 @@ public class CollidableHandler extends Handler
 	public void makeCollidablesSolid()
 	{
 		// Tries to make all of the collidables solid
-		this.lastaction = HandlingAction.SOLID;
-		handleObjects();
+		handleObjects(new MakeSolidOperator());
 	}
 
 	/**
@@ -143,15 +97,77 @@ public class CollidableHandler extends Handler
 	public void makeCollidablesUnsolid()
 	{
 		// Tries to make all of the collidables solid
-		this.lastaction = HandlingAction.UNSOLID;
-		handleObjects();
+		handleObjects(new MakeUnsolidOperator());
 	}
 	
 	
-	// ENUMERATIONS	------------------------------------------------------
+	// SUBCLASSES	------------------------------------------------------
 	
-	private enum HandlingAction
+	private class MakeSolidOperator extends HandlingOperator
 	{
-		SOLID, UNSOLID, COLLISIONCHECK;
+		@Override
+		protected boolean handleObject(Handled h)
+		{
+			((Collidable) h).makeSolid();
+			return true;
+		}
+	}
+	
+	private class MakeUnsolidOperator extends HandlingOperator
+	{
+		@Override
+		protected boolean handleObject(Handled h)
+		{
+			((Collidable) h).makeUnsolid();
+			return true;
+		}	
+	}
+	
+	private class CollisionCheckOperator extends HandlingOperator
+	{
+		// ATTRIBUTES	-------------------------------------------------
+		
+		private ArrayList<Collidable> collided;
+		private int checkx, checky;
+		
+		
+		// CONSTRUCTOR	-------------------------------------------------
+		
+		public CollisionCheckOperator(int x, int y)
+		{
+			this.checkx = x;
+			this.checky = y;
+			this.collided = new ArrayList<Collidable>();
+		}
+		
+		
+		// IMPLEMENTED METHODS	-----------------------------------------
+		
+		@Override
+		protected boolean handleObject(Handled h)
+		{	
+			Collidable c = (Collidable) h;
+			
+			// Non-solid objects can't collide
+			if (!c.isSolid())
+				return true;
+			
+			// Checks the collision
+			if (!c.pointCollides(this.checkx, this.checky))
+				return true;
+				
+			// Adds the collided object to the list
+			this.collided.add(c);
+			
+			return false;
+		}
+		
+		
+		// GETTERS & SETTERS	-----------------------------------------
+		
+		public ArrayList<Collidable> getCollidedObjects()
+		{
+			return this.collided;
+		}
 	}
 }

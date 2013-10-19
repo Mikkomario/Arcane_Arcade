@@ -12,14 +12,6 @@ import listeners.AdvancedKeyListener;
 public class KeyListenerHandler extends LogicalHandler implements 
 		AdvancedKeyListener
 {
-	// ATTRIBUTES	-----------------------------------------------------
-	
-	private AdvancedKeyEvent lastevent;
-	private char lastkey;
-	private int lastkeycode;
-	private boolean lastcoded;
-	
-	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
@@ -31,12 +23,6 @@ public class KeyListenerHandler extends LogicalHandler implements
 	public KeyListenerHandler(boolean autodeath, KeyListenerHandler superhandler)
 	{
 		super(autodeath, superhandler);
-		
-		// Initializes attributes
-		this.lastevent = null;
-		this.lastkey = ' ';
-		this.lastkeycode = 0;
-		this.lastcoded = false;
 	}
 	
 	
@@ -45,22 +31,22 @@ public class KeyListenerHandler extends LogicalHandler implements
 	@Override
 	public void onKeyDown(char key, int keyCode, boolean coded)
 	{
-		informListenersAboutEvent(AdvancedKeyEvent.KEYDOWN, key, keyCode, 
-				coded);
+		handleObjects(new AdvancedKeyEventOperator(AdvancedKeyEvent.KEYDOWN, 
+				key, keyCode, coded));
 	}
 
 	@Override
 	public void onKeyPressed(char key, int keyCode, boolean coded)
 	{
-		informListenersAboutEvent(AdvancedKeyEvent.KEYPRESSED, key, keyCode, 
-				coded);
+		handleObjects(new AdvancedKeyEventOperator(AdvancedKeyEvent.KEYPRESSED, 
+				key, keyCode, coded));
 	}
 
 	@Override
 	public void onKeyReleased(char key, int keyCode, boolean coded)
 	{
-		informListenersAboutEvent(AdvancedKeyEvent.KEYRELEASED, key, keyCode, 
-				coded);
+		handleObjects(new AdvancedKeyEventOperator(AdvancedKeyEvent.KEYRELEASED, 
+				key, keyCode, coded));
 	}
 	
 	@Override
@@ -72,24 +58,8 @@ public class KeyListenerHandler extends LogicalHandler implements
 	@Override
 	protected boolean handleObject(Handled h)
 	{
-		// Informs the handled about the last event
-		AdvancedKeyListener l = (AdvancedKeyListener) h;
-		
-		// Only if the handled is active
-		if (!l.isActive())
-			return true;
-		
-		switch (this.lastevent)
-		{
-			case KEYDOWN: l.onKeyDown(this.lastkey, this.lastkeycode, 
-					this.lastcoded); break;
-			case KEYPRESSED: l.onKeyPressed(this.lastkey, this.lastkeycode, 
-					this.lastcoded); break;
-			case KEYRELEASED: l.onKeyReleased(this.lastkey, this.lastkeycode, 
-					this.lastcoded); break;
-		}
-		
-		return true;
+		// Handling is done via operators
+		return false;
 	}
 	
 	
@@ -105,24 +75,62 @@ public class KeyListenerHandler extends LogicalHandler implements
 		addHandled(k);
 	}
 	
-	private void informListenersAboutEvent(AdvancedKeyEvent event, char key, 
-			int keyCode, boolean coded)
-	{
-		// Remembers the data
-		this.lastkey = key;
-		this.lastkeycode = keyCode;
-		this.lastcoded = coded;
-		this.lastevent = event;
-		
-		// Informs all the listeners
-		handleObjects();
-	}
-	
 	
 	// ENUMERATIONS	-------------------------------------------------------
 	
 	private enum AdvancedKeyEvent
 	{
 		KEYDOWN, KEYPRESSED, KEYRELEASED;
+	}
+	
+	
+	// SUBCLASSES	-------------------------------------------------------
+	
+	private class AdvancedKeyEventOperator extends HandlingOperator
+	{
+		// ATTRIBUTES	---------------------------------------------------
+		
+		private char key;
+		private int keycode;
+		private boolean coded;
+		private AdvancedKeyEvent event;
+		
+		
+		// CONSTRUCTOR	---------------------------------------------------
+		
+		public AdvancedKeyEventOperator(AdvancedKeyEvent event, char key, 
+				int keycode, boolean coded)
+		{
+			this.key = key;
+			this.keycode = keycode;
+			this.coded = coded;
+			this.event = event;
+		}
+		
+		
+		// IMPLEMENTED METHODS	-------------------------------------------
+		
+		@Override
+		protected boolean handleObject(Handled h)
+		{
+			AdvancedKeyListener l = (AdvancedKeyListener) h;
+			
+			// Only informs active handleds
+			if (!l.isActive())
+				return true;
+			
+			// Calls an event for the handled
+			switch (this.event)
+			{
+				case KEYDOWN: l.onKeyDown(this.key, this.keycode, this.coded); 
+						break;
+				case KEYPRESSED: l.onKeyPressed(this.key, this.keycode, 
+						this.coded); break;
+				case KEYRELEASED: l.onKeyReleased(this.key, this.keycode, 
+						this.coded); break;
+			}
+			
+			return true;
+		}
 	}
 }
