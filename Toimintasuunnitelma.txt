@@ -103,15 +103,16 @@ Eteneminen:														Status
 			* Pelinopeuden seuraaminen							DONE
 			* Steplengthin muuttaminen sopivaksi				DONE
 			* Pelinopeuskorjauksen laskeminen					DONE
-			* Pelinopeuskorjauksen käyttöönotto					Plääh
-				- act -metodin muokkaus							Plääh
+			* Pelinopeuskorjauksen käyttöönotto					
+				- act -metodin muokkaus							
+					* Steps -parametrin lisäys (1 step = 16ms)
 		- Piirtosyvyyden korjaaminen							DONE
 			* Ongelma: Piirtosyvyys vaihtelee jaksollisesti, 	DONE
 			mutta on säännöllisesti väärä 
 			(mutta toimii 1/2 aikaa oikein)
 			* Ongelman syyn etsiminen							Plääh
 			* Ongelman ratkaiseminen							DONE
-			* Ratkaisun seurausten kartoittaminen ja 			Plääh :)
+			* Ratkaisun seurausten kartoittaminen ja 			DONE
 			korjaaminen
 		- Mouse Enter & Mouse Exitin korjaaminen ei-fullscreen 	DONE
 		modessa
@@ -120,12 +121,12 @@ Eteneminen:														Status
 				(hiiren koordinaatit ei siis oo suhteessa 
 				ikkunaan)
 			* Ongelman korjaaminen								DONE
-		- Iterointiongelmien korjaaminen						Testaamatta
+		- Iterointiongelmien korjaaminen						DONE
 			* Automaattinen tappokoneisto, joka toimii 			DONE
 			irrallaan tavallisista iteraatioista
 				- Tämän järjestelmän kutsuminen iteraatioiden 	DONE
 				lopussa (ei sisällä)
-					* Säieturvallisuudesta huolehtiminen		Testaamatta
+					* Säieturvallisuudesta huolehtiminen		DONE
 		- Pelimoottorin paranteleminen							DONE
 			* Kts: http://en.wikipedia.org/wiki/
 			Transformation_matrix
@@ -144,6 +145,12 @@ Eteneminen:														Status
 			* CPU-käytön optimointi								DONE
 				- CPU-käytön paikallistaminen					DONE
 				- CPU-käytön paikallinen vähentäminen			DONE
+			* Ajastin -luokka, jota voidaan käyttää 
+			ajastetuissa eventeissä
+				- (Abstract)Timer
+				- SingularTimer
+				- ConinuousTimer
+				- RandomContinuousTimer
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE
@@ -192,7 +199,7 @@ Eteneminen:														Status
 			* Eri näppäinten käyttäminen						DONE
 		- Menu													Testaamatta
 			* Main-menun ympäristön luominen					DONE
-			* Ympäristöjen vaihtaminen							Testaamatta
+			* Ympäristöjen vaihtaminen							DONE
 				- Muistin vapauttaminen välissä					Testaamatta
 					* Tarpeettomiksi tulleiden pankkien 		Testaamatta
 					tyhjentäminen
@@ -308,7 +315,7 @@ Eteneminen:														Status
 		- Useamman pallon asettaminen peliin					...
 			* Serverrelay usean serverin ylläpitämiseen
 		- Näppäinten remappaaminen optionsseissa				...
-			* Remappauksen mahdollistaminen tietorakenteen		Testaamatta 
+			* Remappauksen mahdollistaminen tietorakenteen		DONE 
 			puolesta
 			* Käyttäjän syötteen lukeminen ja sen pohjalta 
 			kartan tekeminen

@@ -11,7 +11,7 @@ import handlers.ActorHandler;
  * @author Mikko Hilpinen.
  *         Created 30.11.2013.
  */
-public abstract class AbstractTimer implements Actor, TimerEventListener
+public abstract class AbstractTimer implements Actor
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
@@ -43,6 +43,16 @@ public abstract class AbstractTimer implements Actor, TimerEventListener
 		if (actorhandler != null)
 			actorhandler.addActor(this);
 	}
+	
+	
+	// ABSTRACT METHODS	-------------------------------------------------
+	
+	/**
+	 * This method is called when the timer informs the user about an timer 
+	 * event. The subclass should react to this event either by resetting or 
+	 * stopping the timer
+	 */
+	protected abstract void onTimerEvent();
 	
 	
 	// IMPELENTED METHODS	---------------------------------------------
@@ -104,5 +114,15 @@ public abstract class AbstractTimer implements Actor, TimerEventListener
 	protected void delay(int delay)
 	{
 		this.timeleft += delay;
+	}
+	
+	/**
+	 * Sets the event to be caused after <i>delay</i> steps
+	 *
+	 * @param delay How many steps there will be before an event is thrown
+	 */
+	protected void setDelay(int delay)
+	{
+		this.timeleft = delay;
 	}
 }
