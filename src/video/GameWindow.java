@@ -184,10 +184,10 @@ public class GameWindow extends JFrame
 	{
 		Point mousePosition = MouseInfo.getPointerInfo().getLocation();
 		// (scaling affects the mouse coordinates)
-		int mousex = (int) ((mousePosition.x - this.leftpaddingwidth) / 
-				this.xscale) - getX();
-		int mousey = (int) ((mousePosition.y - this.toppaddingheight) / 
-				this.yscale) - getY();
+		int mousex = (int) ((mousePosition.x - this.leftpaddingwidth - 
+				getInsets().left) / this.xscale) - getX();
+		int mousey = (int) ((mousePosition.y - this.toppaddingheight - 
+				getInsets().top) / this.yscale) - getY();
 		
 		//System.out.println("GW Mouse x : " + mousex + ", mousey: " + mousey);
 		
