@@ -117,7 +117,7 @@ public class FpsApsTest implements Actor, Drawable
 	}
 
 	@Override
-	public void act()
+	public void act(double steps)
 	{
 		// Calculates the aps and fps
 		this.actions ++;

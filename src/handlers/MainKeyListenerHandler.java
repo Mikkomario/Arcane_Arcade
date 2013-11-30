@@ -53,7 +53,7 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 	// IMPLEMENTED METHODS	----------------------------------------------
 
 	@Override
-	public void act()
+	public void act(double steps)
 	{
 		// Informs the objects
 		handleObjects();

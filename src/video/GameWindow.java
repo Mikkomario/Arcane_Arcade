@@ -67,8 +67,11 @@ public class GameWindow extends JFrame
 	 * @param title The title shown in the window's border
 	 * @param hastoolbar Should the window have an toolbar (usually false if 
 	 * fullscreen is used)
+	 * @param fpslimit What is the maximum amount of frames / actions per second. 
+	 * The larger fpslimit, the higher CPU-usage. arounf 60 fps is recommended.
 	 */
-	public GameWindow(int width, int height, String title, boolean hastoolbar)
+	public GameWindow(int width, int height, String title, boolean hastoolbar, 
+			int fpslimit)
 	{
 		// Sets the decorations off if needed
 		if (!hastoolbar)
@@ -96,9 +99,9 @@ public class GameWindow extends JFrame
 		addKeyListener(new BasicKeyListener());
 		
 		// Creates and initializes important handlers
-		this.stephandler = new StepHandler(15, this);
+		this.stephandler = new StepHandler(1000 / fpslimit, this);
 		// And the screen drawer
-		this.screendrawer = new ScreenDrawer(this, 15);
+		this.screendrawer = new ScreenDrawer(this, 1000 / fpslimit);
 		
 		this.listeneractorhandler = new ActorHandler(false, this.stephandler);
 		this.mainkeyhandler = new MainKeyListenerHandler(this.listeneractorhandler);

@@ -13,6 +13,7 @@ public interface TimerEventListener extends LogicalHandled
 {
 	/**
 	 * This method is called by a Timer at certain periods.
+	 * @param timerid The identifier of the timer that caused the event
 	 */
-	public void onTimerEvent();
+	public void onTimerEvent(int timerid);
 }

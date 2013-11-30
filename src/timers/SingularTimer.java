@@ -19,13 +19,16 @@ public class SingularTimer extends AbstractTimer
 	 *
 	 * @param user The timer listener that will be informed about the timerevent
 	 * @param delay How many steps will pass before the event is thrown
+	 * @param id The identifier of the timer, this will be given with the 
+	 * thrown event. The user can differentiate events caused by this 
+	 * particular timer using this id.
 	 * @param actorhandler The actorhandler that will inform the object about 
 	 * steps
 	 */
-	public SingularTimer(TimerEventListener user, int delay,
+	public SingularTimer(TimerEventListener user, int delay, int id, 
 			ActorHandler actorhandler)
 	{
-		super(user, delay, actorhandler);
+		super(user, delay, id, actorhandler);
 	}
 	
 	

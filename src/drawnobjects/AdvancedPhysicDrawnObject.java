@@ -87,12 +87,12 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	// IMPLEMENTED METHODS	----------------------------------------------
 	
 	@Override
-	public void act()
+	public void act(double steps)
 	{
-		super.act();
+		super.act(steps);
 		
-		implyMoments();
-		implyRotationFrictionToMoments();
+		implyMoments(steps);
+		implyRotationFrictionToMoments(steps);
 		checkMaxRotationForMoments();
 	}
 	
@@ -348,20 +348,21 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	}
 	
 	// Rotates the object according to the moments affecting the object
-	private void implyMoments()
+	private void implyMoments(double steps)
 	{
 		// TODO: Take rotationfriction into account somewhere?
 		for (Point2D.Double p: this.moments.keySet())
-			rotateAroundRelativePoint(this.moments.get(p), p);
+			rotateAroundRelativePoint(this.moments.get(p) * steps, p);
 	}
 	
-	private void implyRotationFrictionToMoments()
+	private void implyRotationFrictionToMoments(double steps)
 	{
 		// If there are no moments, doesn't do anything
 		if (this.moments.isEmpty())
 			return;
 
-		ArrayList<Point2D.Double> momentstobeended = new ArrayList<Point2D.Double>();
+		ArrayList<Point2D.Double> momentstobeended = 
+				new ArrayList<Point2D.Double>();
 		
 		// Goes through all the moments
 		for (Point2D.Double p: this.moments.keySet())
@@ -369,15 +370,15 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 			double f = this.moments.get(p);
 			
 			// If the moment has run out it is no longer recognised
-			if (Math.abs(f) < getRotationFriction())
+			if (Math.abs(f) < getRotationFriction() * steps)
 			{
 				momentstobeended.add(p);
 				continue;
 			}
 			else if (f > 0)
-				f -= getRotationFriction();
+				f -= getRotationFriction() * steps;
 			else
-				f += getRotationFriction();
+				f += getRotationFriction() * steps;
 			
 			// Changes the moment
 			this.moments.put(p, f);

@@ -27,11 +27,14 @@ public class ContinuousTimer extends AbstractTimer
 	 * @param interval How many steps there are between each timer event
 	 * @param actorhandler The actorhandler that will inform the timer about 
 	 * steps (optional)
+	 * @param id The identifier of the timer, this will be given with the 
+	 * thrown event. The user can differentiate events caused by this 
+	 * particular timer using this id.
 	 */
-	public ContinuousTimer(TimerEventListener user, int interval,
+	public ContinuousTimer(TimerEventListener user, int interval, int id, 
 			ActorHandler actorhandler)
 	{
-		super(user, interval, actorhandler);
+		super(user, interval, id, actorhandler);
 		
 		// Initializes attributes
 		this.interval = interval;

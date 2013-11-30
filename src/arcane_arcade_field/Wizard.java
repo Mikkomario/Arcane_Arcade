@@ -74,15 +74,15 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private Element[] elements;
 	private int elementindex1;
 	private int elementindex2;
-	private int castdelay;
-	private int doubletaptime;
+	private double castdelay;
+	private double doubletaptime;
 	private double mana;
 	private int manabeforecasting;
 	private int lastcastdelay;
 	private Spell currentspell;
 	private int hp;
 	private int maxhp;
-	private int invincibilitytime;
+	private double invincibilitytime;
 	private int invincibilitydelay;
 	
 	private WizardStatusDrawer statusdrawer;
@@ -402,22 +402,22 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	}
 	
 	@Override
-	public void act()
+	public void act(double steps)
 	{
 		// Does all normal functions
-		super.act();
+		super.act(steps);
 		
 		// Checks doubletaptimer
 		if (this.doubletaptime > 0)
-			this.doubletaptime --;
+			this.doubletaptime -= steps;
 		
 		// Checks castdelay
 		if (this.castdelay > 0)
 		{
-			this.castdelay --;
+			this.castdelay -= steps;
 			
 			// If the casting ended, stops the sprite
-			if (this.castdelay == 0)
+			if (this.castdelay <= 0)
 			{
 				this.spritedrawer.inactivate();
 				this.spritedrawer.setImageIndex(0);
@@ -433,16 +433,16 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			setY(GameSettings.SCREENHEIGHT - getHeight() + getOriginY());
 		
 		// Adjusts the status effects
-		depleteStatusses();
+		depleteStatusses(steps);
 		
 		// Regenerates mana
-		regenerateMana();
+		regenerateMana(steps);
 		
 		// Checks invincibility
 		if (this.invincibilitytime > 0)
 		{
-			this.invincibilitytime --;
-			if (this.invincibilitytime / 5 % 2 == 0)
+			this.invincibilitytime -= steps;
+			if ((int) this.invincibilitytime / 5 % 2 == 0)
 				setVisible();
 			else
 				setInvisible();
@@ -688,7 +688,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		if (!isCasting())
 			return 1;
 		else
-			return 1 - (this.castdelay / (double) this.lastcastdelay);
+			return 1 - (this.castdelay / this.lastcastdelay);
 	}
 	
 	private void move(int movementsign)
@@ -739,11 +739,11 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		}
 	}
 	
-	private void regenerateMana()
+	private void regenerateMana(double steps)
 	{
 		// Only regenerates mana while not casting
 		if (!isCasting())
-			adjustMana(this.manaregeneration);
+			adjustMana(this.manaregeneration * steps);
 	}
 	
 	private void die()
@@ -843,14 +843,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			return index - 1;
 	}
 	
-	private void depleteStatusses()
+	private void depleteStatusses(double steps)
 	{
 		// Doesn't deplete statusses if they haven't been initialized yet
 		if (this.statusses == null)
 			return;
 		
 		for (WizardStatus status: this.statusses.keySet())
-			adjustStatus(status, -this.statusdepletionrate);
+			adjustStatus(status, -this.statusdepletionrate * steps);
 	}
 	
 	private void changeElement(int elementside, int direction)

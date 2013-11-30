@@ -5,9 +5,11 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Random;
 
+import timers.SingularTimer;
 import worlds.Room;
 
 import listeners.RoomListener;
+import listeners.TimerEventListener;
 
 import arcane_arcade_worlds.Navigator;
 
@@ -27,7 +29,8 @@ import drawnobjects.BasicPhysicDrawnObject;
  * @author Mikko Hilpinen.
  *         Created 27.8.2013.
  */
-public class Server extends BasicPhysicDrawnObject implements RoomListener
+public class Server extends BasicPhysicDrawnObject implements RoomListener, 
+		TimerEventListener
 {
 	// ATTRIBUTES	----------------------------------------------------
 	
@@ -42,7 +45,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 	
 	private boolean serving;
 	private double rotationfriction;
-	private int shootdelay, minrotation, maxrotation, minshootforce, 
+	private int minrotation, maxrotation, minshootforce, 
 			maxshootforce;
 	private Random rand;
 	
@@ -78,7 +81,6 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 		// Initializes attributes
 		this.serving = false;
 		this.rotationfriction = 0.5;
-		this.shootdelay = 0;
 		this.minrotation = 15;
 		this.maxrotation = 30;
 		this.minshootforce = 10;
@@ -173,23 +175,22 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 	}
 	
 	@Override
-	public void act()
+	public void act(double steps)
 	{
-		super.act();
+		super.act(steps);
 		
 		// Slows the rotation and shortens shoot time if serving
 		if (this.serving)
 		{
-			slowrotation();
-			
-			if (getRotation() == 0)
-			{
-				if (this.shootdelay > 0)
-					this.shootdelay --;
-				else
-					shootBall();
-			}
+			slowrotation(steps);
 		}
+	}
+	
+	@Override
+	public void onTimerEvent(int timeridentifier)
+	{
+		// Shoots the ball on timer event(s)
+		shootBall();
 	}
 	
 	
@@ -214,7 +215,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 		this.serving = true;
 	}
 	
-	private void slowrotation()
+	private void slowrotation(double steps)
 	{
 		// Slows down the rotation
 		if (getRotation() == 0)
@@ -228,16 +229,16 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener
 		    
 		// Slows down extra if the angle is about 22.5*n
 		if (getAngle() % 22.5 < 5)
-		    addRotation(-this.rotationfriction);
+		    addRotation(-this.rotationfriction * steps);
 		    
-		addRotation(-this.rotationfriction);
+		addRotation(-this.rotationfriction * steps);
 
 		// Checks if the server has stopped spinning
 		// And shoots balls soon if it has
 		if (getRotation() <= 0)
 		{
 		    setRotation(0);
-		    this.shootdelay = 45;
+		    new SingularTimer(this, 45, 0, this.actorhandler);
 		}
 	}
 	

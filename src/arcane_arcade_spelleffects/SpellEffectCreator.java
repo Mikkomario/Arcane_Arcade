@@ -1,7 +1,9 @@
 package arcane_arcade_spelleffects;
 
+import timers.ContinuousTimer;
 import worlds.Room;
 import listeners.RoomListener;
+import listeners.TimerEventListener;
 import common.GameObject;
 
 import handleds.Actor;
@@ -15,12 +17,13 @@ import handlers.ActorHandler;
  *         Created 28.8.2013.
  */
 public abstract class SpellEffectCreator extends GameObject implements Actor, 
-		RoomListener
+		RoomListener, TimerEventListener
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private boolean active;
-	private int lifeleft, tillcreation, creationdelay, burstsize;
+	private double lifeleft;
+	private int burstsize;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -41,15 +44,19 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 		// Initializes attributes
 		this.active = true;
 		this.lifeleft = duration;
-		this.creationdelay = creationdelay;
-		this.tillcreation = 1;
 		this.burstsize = burstsize;
+		
+		// Sets up the creation timer
+		new ContinuousTimer(this, creationdelay, 0, actorhandler);
 		
 		// Adds the object to the handler(s)
 		if (actorhandler != null)
 			actorhandler.addActor(this);
 		if (room != null)
 			room.addObject(this);
+		
+		// Creates new spelleffects at the start
+		createSpellEffects();
 	}
 	
 	
@@ -89,24 +96,14 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 	}
 
 	@Override
-	public void act()
+	public void act(double steps)
 	{
-		// Adjusts the timers
-		this.lifeleft --;
-		this.tillcreation --;
+		// Adjusts the timer
+		this.lifeleft -= steps;
 		
 		// Checks whether the object should die
 		if (this.lifeleft <= 0)
 			kill();
-		// Or if the object should create a new bunch of effects
-		else if (this.tillcreation <= 0)
-		{
-			this.tillcreation = this.creationdelay;
-			for (int i = 0; i < this.burstsize; i++)
-			{
-				createEffect();
-			}
-		}
 	}
 
 	@Override
@@ -120,6 +117,13 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 	{
 		// Dies at the end of the room
 		kill();
+	}
+	
+	@Override
+	public void onTimerEvent(int timerid)
+	{
+		// Creates a new burst of spelleffects at each event
+		createSpellEffects();
 	}
 	
 	
@@ -141,5 +145,13 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 	protected int getBurstSize()
 	{
 		return this.burstsize;
+	}
+	
+	private void createSpellEffects()
+	{
+		for (int i = 0; i < this.burstsize; i++)
+		{
+			createEffect();
+		}
 	}
 }

@@ -31,6 +31,17 @@ public class Movement
 	}
 	
 	/**
+	 * A copy constructor for the class movement
+	 *
+	 * @param other The movement which will be copied
+	 */
+	public Movement(Movement other)
+	{
+		this.hspeed = other.getHSpeed();
+		this.vspeed = other.getVSpeed();
+	}
+	
+	/**
 	 * Alternate method for creating a movement. Uses direction and speed.
 	 *
 	 * @param direction The direction of the movement (degrees) [0, 360[
@@ -245,6 +256,39 @@ public class Movement
 		double vspeed = movement1.getVSpeed() + movement2.getVSpeed();
 		// Returns the sum of the movements
 		return new Movement(hspeed, vspeed);
+	}
+	
+	/**
+	 * Multiplies the two movements and returns their multiplication
+	 *
+	 * @param movement1 The first movement
+	 * @param movement2 The second movement
+	 * @return The multiplication of the two movements
+	 */
+	public static Movement movementMultiplication(Movement movement1, 
+			Movement movement2)
+	{
+		// Multiplies the movements
+		double hspeed = movement1.getHSpeed() * movement2.getHSpeed();
+		double vspeed = movement1.getVSpeed() * movement2.getVSpeed();
+		// Returns the multiplication
+		return new Movement(hspeed, vspeed);
+	}
+	
+	/**
+	 * Returns a multiplication of the movement as a new movement
+	 *
+	 * @param movement The movement which is used in the multiplication, the 
+	 * movement isn't affected by this method
+	 * @param multiplier The multiplier which is used in the multiplication
+	 * @return A new movement which is created by multiplying the given movement
+	 */
+	public static Movement getMultipliedMovement(Movement movement, 
+			double multiplier)
+	{
+		Movement returnvalue = new Movement(movement);
+		returnvalue.multiplySPeed(multiplier);
+		return returnvalue;
 	}
 	
 	private void setDirSpeed(double direction, double speed)

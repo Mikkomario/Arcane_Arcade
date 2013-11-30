@@ -17,8 +17,11 @@ public class StepHandler extends ActorHandler implements Runnable
 {
 	// ATTRIBUTES	-------------------------------------------------------
 	
+	// How long is a single step in milliseconds
+	private static final int STEPLENGTH = 15;
+	
 	private int stepduration;
-	private long nextupdatemillis;
+	private long nextupdatemillis, lastactmillis;
 	private boolean running;
 	private GameWindow window;
 	
@@ -42,6 +45,7 @@ public class StepHandler extends ActorHandler implements Runnable
 		// Initializes attributes
 		this.stepduration = stepDuration;
 		this.nextupdatemillis = 0;
+		this.lastactmillis = System.currentTimeMillis();
 		this.running = false;
 		this.window = window;
 		
@@ -82,11 +86,15 @@ public class StepHandler extends ActorHandler implements Runnable
 		// Calls all actors
 		if (!isDead())
 		{
-			act();
+			act((System.currentTimeMillis() - this.lastactmillis) / 
+					(double) STEPLENGTH);
 			
 			// Updates the game according to the changes
 			this.window.callScreenUpdate();
 			this.window.callMousePositionUpdate();
+			
+			// Updates the stepmillis
+			this.lastactmillis = System.currentTimeMillis();
 		}
 		// Stops running if dies
 		else
@@ -217,7 +225,7 @@ public class StepHandler extends ActorHandler implements Runnable
 		}
 
 		@Override
-		public void act()
+		public void act(double steps)
 		{
 			// Calculates the aps
 			this.actions ++;

@@ -199,6 +199,7 @@ public abstract class Handler implements Handled
 	 * objects
 	 * 
 	 * @see #handleObject(Handled)
+	 * @see #handleObjects(HandlingOperator)
 	 */
 	protected void handleObjects()
 	{

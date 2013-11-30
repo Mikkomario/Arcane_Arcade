@@ -43,10 +43,10 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	private SpriteDrawer spritedrawer;
 	private boolean spellcollision, ballcollision, wizardcollision;
 	private Element element1, element2;
-	private int lifeleft, lifetime;
+	private int lifetime;
 	private boolean fadesin, fadesout, sizeeffect, scalesin, scalesout;
 	private int fadein, fadeout, scalein, scaleout;
-	private double minscale;
+	private double minscale, lifeleft;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -226,28 +226,28 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	}
 	
 	@Override
-	public void act()
+	public void act(double steps)
 	{
-		super.act();
+		super.act(steps);
 		
 		// Lifetime decreases
-		this.lifeleft --;
+		this.lifeleft -= steps;
 		// Checks if the object should die
-		if (this.lifeleft == 0)
+		if (this.lifeleft <= 0)
 			kill();
 		else
 		{
 			// Changes the object's size if needed
 			if (this.sizeeffect)
 			{
-				double scale = Math.sin((this.lifeleft / (double) this.lifetime) 
+				double scale = Math.sin((this.lifeleft / this.lifetime) 
 						* Math.PI);
 				setScale(scale, scale);
 			}
 			// Changes the alpha if needed
 			if (this.fadesout && this.lifeleft < this.fadeout)
 			{
-				setAlpha(1 - (this.fadeout - this.lifeleft) / (float) this.fadeout);
+				setAlpha(1 - (this.fadeout - (float) this.lifeleft) / this.fadeout);
 			}
 			if (this.fadesin && this.lifetime - this.lifeleft < this.fadein && 
 					getAlpha() < 1)
@@ -290,7 +290,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	protected void addAnimationEffect()
 	{
 		this.spritedrawer.setImageIndex(0);
-		this.spritedrawer.setAnimationDuration(this.lifeleft);
+		this.spritedrawer.setAnimationDuration((int) this.lifeleft);
 		//this.spritedrawer.getAnimationListenerHandler().addAnimationListener(this);
 	}
 	

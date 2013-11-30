@@ -12,7 +12,12 @@ import handleds.Handled;
  *         Created 27.11.2012.
  */
 public class ActorHandler extends LogicalHandler implements Actor
-{	
+{
+	// ATTRIBUTES	------------------------------------------------------
+	
+	private double laststeplength;
+	
+	
 	// CONSTRUCTOR	------------------------------------------------------
 	
 	/**
@@ -24,14 +29,19 @@ public class ActorHandler extends LogicalHandler implements Actor
 	public ActorHandler(boolean autodeath, ActorHandler superhandler)
 	{
 		super(autodeath, superhandler);
+		
+		// Initializes attributes
+		this.laststeplength = 0;
 	}
 	
 	
 	// IMPLEMENTED METHODS	----------------------------------------------
 
 	@Override
-	public void act()
+	public void act(double steps)
 	{
+		// Updates the steplength and informs objects
+		this.laststeplength = steps;
 		handleObjects();
 	}
 	
@@ -48,7 +58,7 @@ public class ActorHandler extends LogicalHandler implements Actor
 		Actor a = (Actor) h;
 		
 		if (a.isActive())
-			a.act();
+			a.act(this.laststeplength);
 		
 		return true;
 	}

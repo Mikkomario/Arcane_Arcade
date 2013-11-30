@@ -70,11 +70,11 @@ public abstract class BasicPhysicDrawnObject extends CollidingDrawnObject
 	// IMPLEMENTED METHODS	-----------------------------------------------
 	
 	@Override
-	public void act()
+	public void act(double steps)
 	{
 		// Handles the movement of the object
-		move();
-		rotate();
+		move(steps);
+		rotate(steps);
 	}
 	
 	
@@ -253,13 +253,13 @@ public abstract class BasicPhysicDrawnObject extends CollidingDrawnObject
 	// OTHER METHODS	----------------------------------------------------
 	
 	// Moves the object and handles the friction
-	private void move()
+	private void move(double steps)
 	{
-		addPosition(getMovement());
+		addPosition(Movement.getMultipliedMovement(getMovement(), steps));
 		
 		// Checks the friction
 		if (getFriction() != 0)
-			implyFriction();
+			implyFriction(steps);
 		
 		// Also checks the maximum speed and rotation
 		checkMaxSpeed();
@@ -267,32 +267,32 @@ public abstract class BasicPhysicDrawnObject extends CollidingDrawnObject
 	}
 	
 	// Rotates teh object and handles the rotation friction
-	private void rotate()
+	private void rotate(double steps)
 	{
-		addAngle(getRotation());
+		addAngle(getRotation() * steps);
 		
 		if (getRotationFriction() == 0)
 			return;
 		
-		implyRotationFriction();
+		implyRotationFriction(steps);
 	}
 	
 	// Slows the speed the amount of given friction
-	private void implyFriction()
+	private void implyFriction(double steps)
 	{
-		getMovement().diminishSpeed(getFriction());
+		getMovement().diminishSpeed(getFriction() * steps);
 	}
 	
 	// Slows the rotation speed the amount of given friction
-	private void implyRotationFriction()
+	private void implyRotationFriction(double steps)
 	{	
 		// Slows down the object's rotation
-		if (Math.abs(getRotation()) <= getRotationFriction())
+		if (Math.abs(getRotation()) <= getRotationFriction() * steps)
 			this.rotation = 0;
 		else if (getRotation() > 0)
-			this.rotation -= getRotationFriction();
+			this.rotation -= getRotationFriction() * steps;
 		else
-			this.rotation += getRotationFriction();
+			this.rotation += getRotationFriction() * steps;
 	}
 	
 	private void checkMaxSpeed()

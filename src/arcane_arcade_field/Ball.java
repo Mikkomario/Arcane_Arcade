@@ -180,27 +180,27 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	}
 	
 	@Override
-	public void act()
+	public void act(double steps)
 	{
 		// Does all normal functions
-		super.act();
+		super.act(steps);
 		
 		// Snaps back to the field
 		bounceFromScreenBorders();
 		
 		// Each step slows the ball a bit
 		if (getMovement().getSpeed() > this.minspeed)
-			getMovement().multiplySPeed(1 - this.airfriction);
+			getMovement().multiplySPeed(Math.pow(1 - this.airfriction, steps));
 		
 		// Rotates the ball depending on the current speed
-		addAngle(getMovement().getSpeed());
+		addAngle(getMovement().getSpeed() * steps);
 		
 		// Updates the force delay
 		if (this.forcedelay > 0)
-			this.forcedelay --;
+			this.forcedelay -= steps;
 		
 		// Updates the ball's status effects
-		adjustStatusses();
+		adjustStatusses(steps);
 	}
 	
 	@Override
@@ -344,52 +344,55 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 		}
 	}
 	
-	private void adjustStatusses()
+	private void adjustStatusses(double steps)
 	{
 		// Makes changes according to each status
 		if (this.flaming > 0)
 		{
-		    this.flaming -= this.statusdepletionrate;
+		    this.flaming -= this.statusdepletionrate * steps;
 		    if (this.frozen > 0)
-		        this.frozen -= this.statusdepletionrate;
+		        this.frozen -= this.statusdepletionrate * steps;
 		    if (this.wet > 0)
-		        this.wet -= this.statusdepletionrate * 2;
+		        this.wet -= this.statusdepletionrate * 2 * steps;
 		}
 		if (this.frozen > 0)
 		{
-		    this.frozen -= this.statusdepletionrate;
+		    this.frozen -= this.statusdepletionrate * steps;
 		    if (this.flaming > 0)
-		    	this.flaming -= this.statusdepletionrate * 1.5;
+		    	this.flaming -= this.statusdepletionrate * 1.5 * steps;
 		    if (getMovement().getSpeed() > this.minspeed * 0.75)
-		        getMovement().multiplySPeed(1 - 0.01 * (this.frozen / 100));
+		        getMovement().multiplySPeed(Math.pow(1 - 0.01 * (this.frozen / 
+		        		100), steps));
 		}
 		if (this.wet > 0)
 		{
-		    this.wet -= this.statusdepletionrate;
+		    this.wet -= this.statusdepletionrate * steps;
 		    if (this.flaming > 0)
-		        this.flaming -= this.statusdepletionrate;
+		        this.flaming -= this.statusdepletionrate * steps;
 		    if (this.muddy > 0)
-		        this.muddy -= this.statusdepletionrate * 2;
+		        this.muddy -= this.statusdepletionrate * 2 * steps;
 		    if (this.charged > 0)
-		        this.charged += this.statusdepletionrate * 2;
+		        this.charged += this.statusdepletionrate * 2 * steps;
 		}
 		if (this.muddy > 0)
 		{
-		    this.muddy -= this.statusdepletionrate;
+		    this.muddy -= this.statusdepletionrate * steps;
 		    if (this.flaming > 0)
-		        this.flaming -= this.statusdepletionrate * 1.5;
+		        this.flaming -= this.statusdepletionrate * 1.5 * steps;
 		    if (this.charged > 0)
-		        this.charged -= this.statusdepletionrate * 2;
+		        this.charged -= this.statusdepletionrate * 2 * steps;
 		    if (getMovement().getSpeed() > this.minspeed * 0.75)
-		    	getMovement().multiplySPeed(1 - 0.01 * (this.muddy / 100));
+		    	getMovement().multiplySPeed(Math.pow(1 - 0.01 * (this.muddy / 
+		    			100), steps));
 		}
 		if (this.charged > 0)
 		{
-		    this.charged -= this.statusdepletionrate;
+		    this.charged -= this.statusdepletionrate * steps;
 		    if (this.wet > 0)
-		        this.wet -= this.statusdepletionrate;
+		        this.wet -= this.statusdepletionrate * steps;
 		    if (getMovement().getSpeed() < getMaxSpeed())
-		        getMovement().multiplySPeed(1 + 0.005 * (this.charged / 100));
+		        getMovement().multiplySPeed(Math.pow(1 + 0.005 * (this.charged 
+		        		/ 100), steps));
 		}
 		// takes the effects back to the limits
 		if (this.flaming < 0)

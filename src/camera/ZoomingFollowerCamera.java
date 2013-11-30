@@ -58,10 +58,10 @@ public class ZoomingFollowerCamera extends FollowerCamera
 	// IMPLEMENTED METHODS	----------------------------------------------
 	
 	@Override
-	public void act()
+	public void act(double steps)
 	{
 		// In addition to normal acting, zooms the camera in and out
-		super.act();
+		super.act(steps);
 		
 		// Zooms out
 		double scale = 1;

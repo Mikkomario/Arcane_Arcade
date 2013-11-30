@@ -6,12 +6,13 @@ import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.Navigator;
 
 import listeners.RoomListener;
+import listeners.TimerEventListener;
 
+import timers.RandomTimer;
 import worlds.Room;
 
 import common.GameObject;
 
-import handleds.Actor;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 
@@ -22,17 +23,18 @@ import handlers.DrawableHandler;
  * @author Mikko Hilpinen.
  *         Created 1.9.2013.
  */
-public class MenuBackgroundEffectCreator extends GameObject implements Actor, 
-		RoomListener
+public class MenuBackgroundEffectCreator extends GameObject implements 
+		RoomListener, TimerEventListener
 {
 	// ATTRIBUTES	------------------------------------------------------
+	
+	private static final int STARTIMERID = 1;
+	private static final int COMETTIMERID = 2;
 	
 	private boolean active;
 	private DrawableHandler drawer;
 	private ActorHandler actorhandler;
 	private Room room;
-	private int timetillnextstar;
-	private int timetillnextcomet;
 	private int cometoriginx;
 	private int cometoriginy;
 	private Random random;
@@ -52,28 +54,24 @@ public class MenuBackgroundEffectCreator extends GameObject implements Actor,
 	public MenuBackgroundEffectCreator(DrawableHandler drawer, 
 			ActorHandler actorhandler, Room room)
 	{
-		System.out.println(">>>MenuEffectcreator being created");
-		
 		// Initializes attributes
 		this.drawer = drawer;
 		this.actorhandler = actorhandler;
 		this.room = room;
 		this.random = new Random();
-		this.timetillnextcomet = 0;
-		this.timetillnextstar = 0;
 		this.cometoriginx = Navigator.getSpriteBank("menu").getSprite(
 				"comet").getOriginX();
 		this.cometoriginy = Navigator.getSpriteBank("menu").getSprite(
 				"comet").getOriginY();
 		this.active = true;
 		
+		// Setups timers
+		new RandomTimer(this, 1, 100, STARTIMERID, actorhandler);
+		new RandomTimer(this, 1, 70, COMETTIMERID, actorhandler);
+		
 		// Adds the creator the room and actorhandler
 		if (room != null)
 			room.addObject(this);
-		if (actorhandler != null)
-			actorhandler.addActor(this);
-		
-		System.out.println("<<<MenuEffectcreator creation complete");
 	}
 	
 	
@@ -98,28 +96,27 @@ public class MenuBackgroundEffectCreator extends GameObject implements Actor,
 	}
 
 	@Override
-	public void act()
+	public void onRoomStart(Room room)
 	{
-		System.out.println("MenuEffectcreator starts acting");
-		
-		// Creates the stars and comets at certain intervals
-		this.timetillnextcomet --;
-		this.timetillnextstar --;
-		
-		if (this.timetillnextcomet < 0)
+		// Does nothing on room start
+	}
+
+	@Override
+	public void onRoomEnd(Room room)
+	{
+		// Dies at the end of the room
+		kill();
+	}
+
+	@Override
+	public void onTimerEvent(int timerid)
+	{
+		if (timerid == COMETTIMERID)
 		{
-			System.out.println("...MenuEffectcreator creates comet");
-			
-			this.timetillnextcomet = this.random.nextInt(70);
-			
-			System.out.println("......MenueffectCreator randomized delay");
-			
 			// Randomizes the starting position (along the screen border) and scale
 			int startposition = (int) (this.random.nextInt(GameSettings.SCREENWIDTH + 
 					GameSettings.SCREENHEIGHT) * 0.8);
 			double scale = 0.1 + this.random.nextDouble() * 0.9;
-			
-			System.out.println("......MenueffectCreator randomized position and scale");
 			
 			int x = 0;
 			int y = 0;
@@ -127,28 +124,19 @@ public class MenuBackgroundEffectCreator extends GameObject implements Actor,
 			{
 				x = (int) (GameSettings.SCREENWIDTH * 0.3) + startposition;
 				y = (int) (-this.cometoriginy * scale);
-				
-				System.out.println("......Comet will be placed on top");
 			}
 			else
 			{
 				x = GameSettings.SCREENWIDTH + this.cometoriginx;
 				y = (int) (startposition - GameSettings.SCREENWIDTH * 0.7 - 
 						this.cometoriginy * scale);
-				System.out.println("......Comet will be placed on side");
 			}
 			
-			System.out.println("BackgroundComet new stats: X: " + x + ", Y: " + 
-					y + ", Drawer: " + this.drawer + ", AHandler: " + this.actorhandler);
 			new BackgroundComet(x, y, this.drawer, this.actorhandler, 
 					this.room, scale);
-			System.out.println("......Created new comet");
 		}
-		if (this.timetillnextstar < 0)
+		else if (timerid == STARTIMERID)
 		{
-			System.out.println("...MenuEffectcreator creates star");
-			
-			this.timetillnextstar = this.random.nextInt(100);
 			int stars = 1 + this.random.nextInt(10);
 			
 			// Creates a random amount of stars to random positions with random 
@@ -164,20 +152,5 @@ public class MenuBackgroundEffectCreator extends GameObject implements Actor,
 						this.room, scale, duration);
 			}
 		}
-		
-		System.out.println("MenuEffectcreator stops acting");
-	}
-
-	@Override
-	public void onRoomStart(Room room)
-	{
-		// Does nothing on room start
-	}
-
-	@Override
-	public void onRoomEnd(Room room)
-	{
-		// Dies at the end of the room
-		kill();
 	}
 }

@@ -141,9 +141,9 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 	}
 	
 	@Override
-	public void act()
+	public void act(double steps)
 	{
-		super.act();
+		super.act(steps);
 		
 		// In addition to normal acting, comets check if they should die
 		if (getY() > GameSettings.SCREENHEIGHT + getOriginY() * getYScale() || 

@@ -39,7 +39,7 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 	private Navigator navigator;
 	
 	private int respawntime;
-	private int respawntimeleft;
+	private double respawntimeleft;
 	private boolean active;
 	
 	
@@ -162,15 +162,15 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 	}
 
 	@Override
-	public void act()
+	public void act(double steps)
 	{
 		// Checks the respawn timer
 		if (this.respawntimeleft > 0)
 		{
-			this.respawntimeleft --;
+			this.respawntimeleft -= steps;
 			
 			// Respawns the wizards and serves the ball
-			if (this.respawntimeleft == 0)
+			if (this.respawntimeleft <= 0)
 			{
 				this.server.serve();
 				this.wizardrelay.respawnWizards();

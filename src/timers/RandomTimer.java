@@ -32,13 +32,16 @@ public class RandomTimer extends AbstractTimer
 	 * is thrown (in steps)
 	 * @param maxdelay How long is the longest possible delay before an event 
 	 * is thrown (in steps)
+	 * @param id The identifier of the timer, this will be given with the 
+	 * thrown event. The user can differentiate events caused by this 
+	 * particular timer using this id.
 	 * @param actorhandler The actorhandler that will inform the timer about 
 	 * steps
 	 */
-	public RandomTimer(TimerEventListener user, int mindelay, int maxdelay,
-			ActorHandler actorhandler)
+	public RandomTimer(TimerEventListener user, int mindelay, int maxdelay, 
+			int id, ActorHandler actorhandler)
 	{
-		super(user, 100, actorhandler);
+		super(user, 100, id, actorhandler);
 
 		// Initializes attributes
 		this.rand = new Random();

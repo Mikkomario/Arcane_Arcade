@@ -327,18 +327,18 @@ public abstract class MenuButton extends DimensionalDrawnObject implements
 		}
 
 		@Override
-		public void act()
+		public void act(double steps)
 		{
 			// Adjusts the alpha value of the text
 			if (MenuButton.this.mouseon)
 			{
 				if (getAlpha() < 1)
-					adjustAlpha(0.1f);
+					adjustAlpha((float) (0.1 * steps));
 			}
 			else
 			{
 				if (getAlpha() > 0)
-					adjustAlpha(-0.1f);
+					adjustAlpha((float) (-0.1 * steps));
 			}
 		}
 		

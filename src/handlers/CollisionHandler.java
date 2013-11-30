@@ -46,7 +46,7 @@ public class CollisionHandler extends LogicalHandler implements Actor
 	// IMPLEMENTED METHODS	--------------------------------------------
 
 	@Override
-	public void act()
+	public void act(double steps)
 	{
 		// Handles the objects normally = checks collisions
 		handleObjects();

@@ -46,10 +46,10 @@ public class FollowerCamera extends BasicCamera
 	// IMPLEMENTED METHODS --------------------------------------------
 
 	@Override
-	public void act()
+	public void act(double steps)
 	{
 		// In addition to normal acting, the camera follows the object
-		super.act();
+		super.act(steps);
 
 		if (this.followed == null)
 			return;

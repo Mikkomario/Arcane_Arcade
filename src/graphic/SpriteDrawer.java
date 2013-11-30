@@ -82,10 +82,10 @@ public class SpriteDrawer implements Actor
 	}
 
 	@Override
-	public void act()
+	public void act(double steps)
 	{
 		// Animates the sprite
-		animate();
+		animate(steps);
 	}
 	
 	
@@ -216,9 +216,9 @@ public class SpriteDrawer implements Actor
 	}
 	
 	// Handles the change of the image index
-	private void animate()
+	private void animate(double steps)
 	{
-		this.imageIndex += getImageSpeed();
+		this.imageIndex += getImageSpeed() * steps;
 		checkImageIndex();
 	}
 	

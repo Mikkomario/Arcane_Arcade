@@ -18,6 +18,7 @@ public abstract class AbstractTimer implements Actor
 	private TimerEventListener user;
 	private double timeleft;
 	private boolean dead, active;
+	private int id;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -29,8 +30,11 @@ public abstract class AbstractTimer implements Actor
 	 * @param delay The delay before the event
 	 * @param actorhandler The handler which will inform the timer about 
 	 * act-events, null if the timer will be handled manually
+	 * @param id The identifier of the timer, this will be given with the 
+	 * thrown event. The user can differentiate events caused by this 
+	 * particular timer using this id.
 	 */
-	public AbstractTimer(TimerEventListener user, int delay, 
+	public AbstractTimer(TimerEventListener user, int delay, int id,
 			ActorHandler actorhandler)
 	{
 		// Initializes attributes
@@ -38,6 +42,7 @@ public abstract class AbstractTimer implements Actor
 		this.timeleft = delay;
 		this.dead = false;
 		this.active = true;
+		this.id = id;
 		
 		// Adds the object to the handler
 		if (actorhandler != null)
@@ -90,14 +95,14 @@ public abstract class AbstractTimer implements Actor
 	}
 
 	@Override
-	public void act()
+	public void act(double steps)
 	{
 		// Depletes the timer and may inform the user if the delay has passed
-		this.timeleft -= 1;
+		this.timeleft -= steps;
 		
 		if (this.timeleft <= 0)
 		{
-			this.user.onTimerEvent();
+			this.user.onTimerEvent(this.id);
 			// Also informs the subclass if it wants to react somehow
 			onTimerEvent();
 		}

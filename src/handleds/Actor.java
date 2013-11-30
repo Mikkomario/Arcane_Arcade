@@ -18,6 +18,10 @@ public interface Actor extends LogicalHandled
 {	
 	/**
 	 * This is the actors action, which will be called at each step
+	 * 
+	 * @param steps How many steps passed before the last update.<br>
+	 * Under normal circumstances this should be 1 but in programs that run 
+	 * slower or faster than usual it might vary
 	 */
-	public void act();
+	public void act(double steps);
 }

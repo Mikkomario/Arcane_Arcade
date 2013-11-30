@@ -58,7 +58,7 @@ implements Actor
 	// IMPLEMENTED METHODS	-----------------------------------------------
 	
 	@Override
-	public void act()
+	public void act(double steps)
 	{
 		// Informs the objects
 		this.lastevent = AdvancedMouseEvent.OTHER;
