@@ -17,7 +17,8 @@ import arcane_arcade_worlds.RoomObjectCreator;
  * @author Unto Solala
  *			Created 4.9.2013
  */
-public class BattleScreenObjectCreator extends GameObject implements RoomObjectCreator{
+public class BattleScreenObjectCreator extends GameObject implements RoomObjectCreator
+{
 	
 	// ATTRIBUTES-----------------------------------------------------------
 	
@@ -25,7 +26,8 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 	private ActorHandler actorhandler;
 	private MouseListenerHandler mousehandler;
 	private Navigator navigator;
-	private AreaSetting fieldsetting;
+	private BattleSettingScreenInterface barhandler;
+	
 	
 	// CONSTRUCTOR---------------------------------------------------------
 	/**
@@ -50,28 +52,31 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 		this.actorhandler = actorhandler;
 		this.mousehandler = mousehandler;
 		this.navigator = navigator;
-		this.fieldsetting = null;
+		this.barhandler = null;
 	}
 
 	// IMPLMENTED METHODS ---------------------------------------------
 
 	@Override
-	public void onRoomStart(Room room) {
+	public void onRoomStart(Room room)
+	{
 		// Creates the objects
-		// TODO: This causes an endless loop
 		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
 		new MenuCornerCreator(this.drawer, this.mousehandler, room,
 				true);
-		new OptionBar(100, 200, this.drawer, 50, 0, 100, "Testi", this.mousehandler);
+		this.barhandler = new BattleSettingScreenInterface(this.drawer, 
+				this.mousehandler, room);
 	}
 
 	@Override
-	public void onRoomEnd(Room room) {
+	public void onRoomEnd(Room room)
+	{
 		// Does nothing
 	}
 
 	@Override
-	public void setSettings(AreaSetting setting) {
+	public void setSettings(AreaSetting setting)
+	{
 		// Does nothing
 	}
 }

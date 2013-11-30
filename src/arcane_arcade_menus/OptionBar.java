@@ -47,10 +47,11 @@ public class OptionBar extends DrawnObject implements RoomListener
 	 * @param description The description shown in the bar
 	 * @param mousehandler The mouseHandler that will inform the bar about 
 	 * mouse events
+	 * @param room The room that holds the option bar (optional)
 	 */
 	public OptionBar(int x, int y, DrawableHandler drawer, int defaultValue,
 			int minValue, int maxValue, String description, 
-			MouseListenerHandler mousehandler)
+			MouseListenerHandler mousehandler, Room room)
 	{
 		super(x, y, DepthConstants.NORMAL, drawer);
 
@@ -67,6 +68,10 @@ public class OptionBar extends DrawnObject implements RoomListener
 		this.rightbutton = new OptionBarButton((int)this.getX()+100,
 				(int)this.getY(), this.drawer, mousehandler,
 				OptionBarButton.RIGHT);
+		
+		// Adds the object to the handler(s)
+		if (room != null)
+			room.addObject(this);
 	}
 	
 	
@@ -100,8 +105,8 @@ public class OptionBar extends DrawnObject implements RoomListener
 	{
 		g2d.setFont(GameSettings.BASICFONT);
 		g2d.setColor(GameSettings.WHITETEXTCOLOR);
-		g2d.drawString(""+this.value, 50, 0);
-		g2d.drawString(this.description, 150, 0);
+		g2d.drawString(""+this.value, 30, 15);
+		g2d.drawString(this.description, 150, 15);
 	}
 
 	@Override
