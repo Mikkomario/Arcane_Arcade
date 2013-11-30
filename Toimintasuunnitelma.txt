@@ -103,9 +103,9 @@ Eteneminen:														Status
 			* Pelinopeuden seuraaminen							DONE
 			* Steplengthin muuttaminen sopivaksi				DONE
 			* Pelinopeuskorjauksen laskeminen					DONE
-			* Pelinopeuskorjauksen käyttöönotto					
-				- act -metodin muokkaus							
-					* Steps -parametrin lisäys (1 step = 16ms)
+			* Pelinopeuskorjauksen käyttöönotto					DONE
+				- act -metodin muokkaus							DONE
+					* Steps -parametrin lisäys (1 step = 16ms)	DONE
 		- Piirtosyvyyden korjaaminen							DONE
 			* Ongelma: Piirtosyvyys vaihtelee jaksollisesti, 	DONE
 			mutta on säännöllisesti väärä 
@@ -205,7 +205,8 @@ Eteneminen:														Status
 					tyhjentäminen
 				- Ainoastaan alustettujen pankkien jakaminen 	DONE
 				eteenpäin
-			* Nappulat ja valikot								DONE
+			* Nappulat ja valikot								...
+				- Yleinen nappulayläluokka
 			* Tausta											DONE
 				- Tähdet										DONE
 				- Komeetat										DONE

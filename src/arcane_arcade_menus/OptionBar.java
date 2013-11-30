@@ -1,18 +1,14 @@
 package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
 
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.Navigator;
 
 import worlds.Room;
 
-import listeners.AdvancedMouseListener;
 import listeners.RoomListener;
 
-import graphic.MaskChecker;
-import graphic.SpriteDrawer;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.DepthConstants;
@@ -21,35 +17,41 @@ import drawnobjects.DrawnObject;
 /**
  * Creates an OptionBar for one of the game's options.
  * 
- * @author Unto Solala
+ * @author Unto Solala & Mikko Hilpinen
  * 			Created 8.9.2013
  */
-public class OptionBar extends DrawnObject implements RoomListener {
+public class OptionBar extends DrawnObject implements RoomListener
+{
 	// ATTRIBUTES-------------------------------------------------------
+	
 	private boolean active;
 	private int value;
 	private int minValue;
 	private int maxValue;
 	private String description;
 	private DrawableHandler drawer;
+	private OptionBarButton leftbutton, rightbutton;
 
 	
 	//CONSTRUCTOR-------------------------------------------------------
+	
 	/**
 	 * Constructs an OptionBar based on the given parameters.
 	 * 
-	 * @param x
-	 * @param y
-	 * @param drawer
-	 * @param defaultValue
-	 * @param minValue
-	 * @param maxValue
-	 * @param description
-	 * @param mousehandler
+	 * @param x The x-coordinate of the bar's left side (in pixels)
+	 * @param y The y-coordinate of the bar's top (in pixels)
+	 * @param drawer The drawablehandler that will draw the bar (optional)
+	 * @param defaultValue The value the bar will have as default
+	 * @param minValue The minimum value the bar can have
+	 * @param maxValue The maximum value the bar can have
+	 * @param description The description shown in the bar
+	 * @param mousehandler The mouseHandler that will inform the bar about 
+	 * mouse events
 	 */
 	public OptionBar(int x, int y, DrawableHandler drawer, int defaultValue,
 			int minValue, int maxValue, String description, 
-			MouseListenerHandler mousehandler) {
+			MouseListenerHandler mousehandler)
+	{
 		super(x, y, DepthConstants.NORMAL, drawer);
 
 		this.active = true;
@@ -59,13 +61,14 @@ public class OptionBar extends DrawnObject implements RoomListener {
 		this.description = description;
 		this.drawer = drawer;
 		
-		new OptionBarButton((int)this.getX(),
+		this.leftbutton = new OptionBarButton((int)this.getX(),
 				(int)this.getY(), this.drawer, mousehandler,
 				OptionBarButton.LEFT);
-		new OptionBarButton((int)this.getX()+100,
+		this.rightbutton = new OptionBarButton((int)this.getX()+100,
 				(int)this.getY(), this.drawer, mousehandler,
 				OptionBarButton.RIGHT);
 	}
+	
 	
 	//GETTERS & SETTERS ------------------------------------------------
 	
@@ -77,65 +80,73 @@ public class OptionBar extends DrawnObject implements RoomListener {
 		return this.value;
 	}
 	
+	
 	//IMPLEMENTED METHODS ----------------------------------------------
 	
 	@Override
-	public int getOriginX() {
+	public int getOriginX()
+	{
 		return 0;
 	}
 
 	@Override
-	public int getOriginY() {
+	public int getOriginY()
+	{
 		return 0;
 	}
 
 	@Override
-	public void drawSelfBasic(Graphics2D g2d) {
+	public void drawSelfBasic(Graphics2D g2d)
+	{
 		g2d.setFont(GameSettings.BASICFONT);
 		g2d.setColor(GameSettings.WHITETEXTCOLOR);
 		g2d.drawString(""+this.value, 50, 0);
 		g2d.drawString(this.description, 150, 0);
-
 	}
 
 	@Override
-	public void onRoomStart(Room room) {
+	public void onRoomStart(Room room)
+	{
 		// Does nothing
-
 	}
 
 	@Override
-	public void onRoomEnd(Room room) {
-		//Death approaches
+	public void onRoomEnd(Room room)
+	{
+		// Death approaches
 		kill();
 	}
 	
 	@Override
-	public void kill(){
+	public void kill()
+	{
 		super.kill();
-		//TODO: Kill ze buttonz
+		this.leftbutton.kill();
+		this.rightbutton.kill();
 	}
 
 	/**
 	 * OptionBarButtons are buttons used to change the OptionBar's
 	 * values.
 	 * 
-	 * @author Unto Solala
+	 * @author Unto Solala & Mikko Hilpinen
 	 * 			Created 8.9.2013
 	 */
-	private class OptionBarButton extends DrawnObject implements
-			AdvancedMouseListener {
-		
+	private class OptionBarButton extends AbstractMaskButton
+	{
 		private static final int RIGHT = 0;
 		private static final int LEFT = 1;
 		
+		
 		// ATTRIBUTES-------------------------------------------------------
-		private SpriteDrawer spritedrawer;
-		private MaskChecker maskchecker;
+		
 		private int direction;
 		
+		
 		//CONSTRUCTOR-------------------------------------------------------
-		/**Creates the OptionBarButtons, which are used to change the values
+		
+		/**
+		 * Creates the OptionBarButtons, which are used to change the values
 		 * of various options in the game.
 		 * 
 		 * @param x	The x-coordinate of the button
@@ -148,81 +159,52 @@ public class OptionBar extends DrawnObject implements RoomListener {
 		 * RIGHT, the button will increase the value.
 		 */
 		public OptionBarButton(int x, int y, DrawableHandler drawer,
-				MouseListenerHandler mousehandler, int direction) {
-			super(x, y, DepthConstants.NORMAL, drawer);
+				MouseListenerHandler mousehandler, int direction)
+		{
+			super(x, y, DepthConstants.NORMAL, 
+					Navigator.getSpriteBank("menu").getSprite("arrow"), 
+					Navigator.getSpriteBank("menu").getSprite("arrowmask"), 
+					drawer, mousehandler, null);
+			
 			this.direction = direction;
-			this.spritedrawer = new SpriteDrawer(Navigator
-					.getSpriteBank("menu").getSprite("arrow"), null);
 			
-			if (this.direction == LEFT) {
+			if (this.direction == LEFT)
 				this.setXScale(-1);
-			}
-			
-			this.spritedrawer.inactivate();
-			this.maskchecker = new MaskChecker(Navigator.getSpriteBank("menu")
-					.getSprite("arrowmask"));
-			// Adds the object to the handlers
-			if (mousehandler != null)
-				mousehandler.addMouseListener(this);
-
 		}
 
+		
 		// IMPLEMENTENTED METHODS ------------------------------------------
 
 		@Override
-		public int getOriginX() {
-			if (this.spritedrawer == null)
-				return 0;
-			return this.spritedrawer.getSprite().getOriginX();
-		}
-
-		@Override
-		public int getOriginY() {
-			if (this.spritedrawer == null)
-				return 0;
-			return this.spritedrawer.getSprite().getOriginY();
-		}
-
-		@Override
-		public void drawSelfBasic(Graphics2D g2d) {
-			// Draws the sprite
-			if (this.spritedrawer != null)
-				this.spritedrawer.drawSprite(g2d, 0, 0);
-		}
-
-		@Override
-		public boolean isActive() {
+		public boolean isActive()
+		{
 			return OptionBar.this.active;
 		}
 
 		@Override
-		public void activate() {
+		public void activate()
+		{
 			OptionBar.this.active = true;
 		}
 
 		@Override
-		public void inactivate() {
+		public void inactivate()
+		{
 			OptionBar.this.active = false;
 		}
 
 		@Override
-		public void onLeftDown(int mouseX, int mouseY) {
-			// Does nothing
-		}
-
-		@Override
-		public void onRightDown(int mouseX, int mouseY) {
-			// Does nothing
-		}
-
-		@Override
-		public void onLeftPressed(int mouseX, int mouseY) {
+		public void onLeftPressed(int mouseX, int mouseY)
+		{
 			//System.out.println("Left mouse button pressed");
-			if(this.direction == LEFT){
+			if(this.direction == LEFT)
+			{
 				//The arrow points to the left
 				if(OptionBar.this.value>OptionBar.this.minValue)
 					OptionBar.this.value = OptionBar.this.value -1;
-			}else{
+			}
+			else
+			{
 				//The arrow points to the right
 				if(OptionBar.this.value<OptionBar.this.maxValue)
 					OptionBar.this.value = OptionBar.this.value +1;
@@ -230,72 +212,31 @@ public class OptionBar extends DrawnObject implements RoomListener {
 		}
 
 		@Override
-		public void onRightPressed(int mouseX, int mouseY) {
-			// Does nothing
-		}
-
-		@Override
-		public void onLeftReleased(int mouseX, int mouseY) {
-			// Does nothing
-		}
-
-		@Override
-		public void onRightReleased(int mouseX, int mouseY) {
-			// Does nothing
-		}
-
-		@Override
-		public boolean listensPosition(int x, int y) {
-			// If currently has no mask, doesn't listen to the mouse
-			if (this.maskchecker == null)
-				return false;
-			// Checks mask collision
-			Point2D.Double relpoint = negateTransformations(x, y);
-			return this.maskchecker.maskContainsRelativePoint(relpoint, 0);
-		}
-
-		@Override
-		public boolean listensMouseEnterExit() {
+		public boolean listensMouseEnterExit()
+		{
 			return true;
 		}
 
 		@Override
-		public void onMouseEnter(int mouseX, int mouseY) {
+		public void onMouseEnter(int mouseX, int mouseY)
+		{
 			// Changes image index
 			//System.out.println("You're hovering over the arrow.");
-			this.spritedrawer.setImageIndex(1);
-
+			getSpriteDrawer().setImageIndex(1);
 		}
 
 		@Override
-		public void onMouseOver(int mouseX, int mouseY) {
+		public void onMouseOver(int mouseX, int mouseY)
+		{
 			// Does nothing
-
 		}
 
 		@Override
-		public void onMouseExit(int mouseX, int mouseY) {
+		public void onMouseExit(int mouseX, int mouseY)
+		{
 			// Changes image index back
 			//System.out.println("You left the arrow alone.");
-			this.spritedrawer.setImageIndex(0);
-
+			getSpriteDrawer().setImageIndex(0);
 		}
-
-		@Override
-		public void onMouseMove(int mouseX, int mouseY) {
-			// Does nothing
-
-		}
-
-		@Override
-		public void kill() {
-			// Kills the spritedrawer and maskchecker
-			this.spritedrawer.kill();
-			this.spritedrawer = null;
-			this.maskchecker = null;
-			super.kill();
-		}
-
 	}
-
 }

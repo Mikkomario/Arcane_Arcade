@@ -7,31 +7,27 @@ import arcane_arcade_worlds.Navigator;
 
 import worlds.Room;
 
-import graphic.SpriteDrawer;
 import handleds.Actor;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import drawnobjects.DimensionalDrawnObject;
 import drawnobjects.DrawnObject;
-import listeners.AdvancedMouseListener;
-import listeners.RoomListener;
 
 /**
- * Menubuttons have different functions and can be clicked
+ * Menubuttons have different functions and can be clicked. MenuButtons also 
+ * draw their description near them and change sprite index when mouse goes 
+ * over them.
  *
  * @author Mikko Hilpinen.
  *         Created 4.9.2013.
  */
-public abstract class MenuButton extends DimensionalDrawnObject implements 
-		AdvancedMouseListener, RoomListener
+public abstract class MenuButton extends AbstractButton
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
-	private SpriteDrawer spritedrawer;
-	private boolean active, mouseon;
+	private boolean mouseon;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -56,109 +52,24 @@ public abstract class MenuButton extends DimensionalDrawnObject implements
 			MouseListenerHandler mouselistenerhandler, Room room, 
 			String message)
 	{
-		super(x, y, DepthConstants.FOREGROUND, false, CollisionType.CIRCLE, 
-				drawer, null);
+		super(x, y, DepthConstants.FOREGROUND, 
+				Navigator.getSpriteBank("menu").getSprite("button"), 
+				drawer, mouselistenerhandler, room);
 		
 		// Initializes attributes
-		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
-				"menu").getSprite("button"), null);
-		this.active = true;
 		this.mouseon = false;
 		
-		// Sets the radius
-		setRadius(this.spritedrawer.getSprite().getOriginX());
+		// Sets the radius and collision type
+		setCollisionType(CollisionType.CIRCLE);
+		setRadius(getSpriteDrawer().getSprite().getOriginX());
 		
 		// Creates the textdrawer
 		new ButtonTextDrawer((int) getX() - getOriginX(), (int) getY() - 
 				getOriginY() - 50, drawer, actorhandler, message);
-		
-		// Adds the object to the handlers
-		if (mouselistenerhandler != null)
-			mouselistenerhandler.addMouseListener(this);
-		if (room != null)
-			room.addObject(this);
 	}
-	
-	
-	// ABSTRACT METHODS	------------------------------------------------
-	
-	/**
-	 * This method is called when the button is pressed and it should do 
-	 * something
-	 */
-	protected abstract void doButtonFunction();
 	
 	
 	// IMPLEMENTED METHODS	--------------------------------------------
-
-	@Override
-	public boolean isActive()
-	{
-		return this.active;
-	}
-
-	@Override
-	public void activate()
-	{
-		this.active = true;
-	}
-
-	@Override
-	public void inactivate()
-	{
-		this.active = false;
-	}
-
-	@Override
-	public void kill()
-	{
-		// Also kills the spritedrawer
-		this.spritedrawer.kill();
-		super.kill();
-	}
-
-	@Override
-	public void onLeftDown(int mouseX, int mouseY)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onRightDown(int mouseX, int mouseY)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onLeftPressed(int mouseX, int mouseY)
-	{
-		// Does something
-		doButtonFunction();
-	}
-
-	@Override
-	public void onRightPressed(int mouseX, int mouseY)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onLeftReleased(int mouseX, int mouseY)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onRightReleased(int mouseX, int mouseY)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public boolean listensPosition(int x, int y)
-	{
-		return (pointCollides(x, y));
-	}
 
 	@Override
 	public boolean listensMouseEnterExit()
@@ -170,85 +81,16 @@ public abstract class MenuButton extends DimensionalDrawnObject implements
 	public void onMouseEnter(int mouseX, int mouseY)
 	{
 		// Changes image index
-		this.spritedrawer.setImageIndex(1);
+		getSpriteDrawer().setImageIndex(1);
 		this.mouseon = true;
-	}
-
-	@Override
-	public void onMouseOver(int mouseX, int mouseY)
-	{
-		// Does nothing
 	}
 
 	@Override
 	public void onMouseExit(int mouseX, int mouseY)
 	{
 		// Changes image index back
-		this.spritedrawer.setImageIndex(0);
+		getSpriteDrawer().setImageIndex(0);
 		this.mouseon = false;
-	}
-
-	@Override
-	public void onMouseMove(int mouseX, int mouseY)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public int getWidth()
-	{
-		if (this.spritedrawer == null)
-			return 0;
-		else
-			return this.spritedrawer.getSprite().getWidth();
-	}
-
-	@Override
-	public int getHeight()
-	{
-		if (this.spritedrawer == null)
-			return 0;
-		else
-			return this.spritedrawer.getSprite().getHeight();
-	}
-
-	@Override
-	public int getOriginX()
-	{
-		if (this.spritedrawer == null)
-			return 0;
-		else
-			return this.spritedrawer.getSprite().getOriginX();
-	}
-
-	@Override
-	public int getOriginY()
-	{
-		if (this.spritedrawer == null)
-			return 0;
-		else
-			return this.spritedrawer.getSprite().getOriginY();
-	}
-
-	@Override
-	public void drawSelfBasic(Graphics2D g2d)
-	{
-		// Draws the sprite
-		if (this.spritedrawer != null)
-			this.spritedrawer.drawSprite(g2d, 0, 0);
-	}
-
-	@Override
-	public void onRoomStart(Room room)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onRoomEnd(Room room)
-	{
-		// Dies
-		kill();
 	}
 	
 	

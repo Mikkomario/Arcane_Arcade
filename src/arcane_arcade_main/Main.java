@@ -14,6 +14,7 @@ import arcane_arcade_worlds.Navigator;
 import resource_management.OpenSpriteBankHolder;
 import resource_management.OpenWavSoundBankHolder;
 import tests.FpsApsTest;
+import tests.GraphicalMousePositionTest;
 import video.GamePanel;
 import video.GameWindow;
 
@@ -136,5 +137,7 @@ public class Main
 		
 		// Runs some tests
 		new FpsApsTest(main.getActorHandler(), main.getDrawableHandler());
+		new GraphicalMousePositionTest(main.getDrawableHandler(), 
+				main.getMouseListenerHandler());
 	}
 }
