@@ -73,8 +73,8 @@ public class GraphicalMousePositionTest extends DrawnObject implements AdvancedM
 	public void onLeftDown(int mouseX, int mouseY)
 	{
 		// Prints the difference between the given values
-		System.out.println("Mouse position difference: " + (getX() - mouseX) + 
-				", " + (getY() - mouseY));
+		//System.out.println("Mouse position difference: " + (getX() - mouseX) + 
+		//		", " + (getY() - mouseY));
 	}
 
 	@Override
@@ -86,7 +86,9 @@ public class GraphicalMousePositionTest extends DrawnObject implements AdvancedM
 	@Override
 	public void onLeftPressed(int mouseX, int mouseY)
 	{
-		// Unnecessary in this context
+		// Prints the difference between the given values
+		//System.out.println("Mouse position difference: " + (getX() - mouseX) + 
+		//		", " + (getY() - mouseY));
 	}
 
 	@Override

@@ -30,4 +30,4 @@ CAST#b
 0
 * This determines if the game will start in full screen mode or not.
 &fullscreen
-false
+true

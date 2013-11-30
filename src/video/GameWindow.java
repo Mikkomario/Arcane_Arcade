@@ -137,6 +137,7 @@ public class GameWindow extends JFrame
 		this.gamepanel.setLayout(new BorderLayout());
 		add(this.gamepanel, BorderLayout.CENTER);
 		//setLocationRelativeTo(null);
+		getContentPane().setBackground(Color.BLACK);
 	}
 	
 	
@@ -334,7 +335,8 @@ public class GameWindow extends JFrame
 		double screenwidth = screenSize.getWidth();
 		double screenheight = screenSize.getHeight();
 		
-		scaleToSize((int) screenwidth, (int) screenheight, keepaspectratio, true);
+		scaleToSize((int) screenwidth, (int) screenheight, keepaspectratio, 
+				true);
 	}
 	
 	private void addPadding(int w, int h, String direction)
@@ -346,8 +348,9 @@ public class GameWindow extends JFrame
 		padding.setPreferredSize(size);
 		padding.setMaximumSize(size);
 		padding.setMinimumSize(size);
-		// TODO: For some reason, background color doesn't seem to work
-		padding.setBackground(new Color(255, 255, 255));
+		padding.setOpaque(true);
+		padding.setVisible(true);
+		padding.setBackground(Color.BLACK);
 		add(padding, direction);
 		this.paddings.add(padding);
 	}
