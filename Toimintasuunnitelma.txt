@@ -151,6 +151,10 @@ Eteneminen:														Status
 				- SingularTimer
 				- ConinuousTimer
 				- RandomContinuousTimer
+		- Debuggaus												...
+			* Törmäystarkistusten korjaus						...
+				- Ongelman paikantaminen						...
+				- Ongelman korjaaminen
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE
