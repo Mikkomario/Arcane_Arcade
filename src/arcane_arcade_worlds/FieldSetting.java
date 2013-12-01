@@ -51,6 +51,13 @@ public class FieldSetting implements AreaSetting
 		this.maximumElementNumber = elementnumber;
 		this.currentleftelementnumber = 0;
 		this.currentrightelementnumber = 0;
+		
+		// Initializes the element lists with NOELEMENT elements
+		for (int i = 0; i < elementnumber; i++)
+		{
+			this.usedelementsleft[i] = Element.NOELEMENT;
+			this.usedelementsright[i] = Element.NOELEMENT;
+		}
 	}
 	
 	
@@ -122,6 +129,10 @@ public class FieldSetting implements AreaSetting
 	 */
 	public void addElementOnSide(Element element, ScreenSide side)
 	{
+		// Only works if the element isn't on the side yet
+		if (elementsContainElement(side, element))
+			return;
+		
 		switch (side)
 		{
 			case LEFT: 
@@ -187,5 +198,28 @@ public class FieldSetting implements AreaSetting
 	{
 		return (this.currentleftelementnumber == this.usedelementsleft.length 
 				&& this.currentrightelementnumber == this.usedelementsright.length);
+	}
+	
+	private boolean elementsContainElement(ScreenSide side, Element element)
+	{
+		// Checks if the element is already in the list
+		if (side == ScreenSide.LEFT)
+		{
+			for (int i = 0; i < this.currentleftelementnumber; i++)
+			{
+				if (this.usedelementsleft[i] == element)
+					return true;
+			}
+		}
+		else
+		{
+			for (int i = 0; i < this.currentrightelementnumber; i++)
+			{
+				if (this.usedelementsright[i] == element)
+					return true;
+			}
+		}
+		
+		return false;
 	}
 }

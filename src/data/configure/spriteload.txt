@@ -23,6 +23,7 @@ star#images/status/freeze_strip6.png#6#38#37
 winner#images/menu/winner.png#1#284#111
 arrow#images/menu/arrow_button.png#2#22#22
 arrowmask#images/menu/arrow_button_mask.png#1#22#22
+chosen#images/menu/chosen_strip2.png#2#50#50
 
 &field
 ball#images/game/ball_strip8.png#8#65#76

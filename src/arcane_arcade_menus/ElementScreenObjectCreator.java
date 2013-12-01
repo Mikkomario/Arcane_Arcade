@@ -2,6 +2,7 @@ package arcane_arcade_menus;
 
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
+import handlers.KeyListenerHandler;
 import handlers.MouseListenerHandler;
 import common.GameObject;
 
@@ -30,6 +31,7 @@ public class ElementScreenObjectCreator extends GameObject implements
 	private DrawableHandler drawer;
 	private ActorHandler actorhandler;
 	private MouseListenerHandler mousehandler;
+	private KeyListenerHandler keyhandler;
 	private Navigator navigator;
 	
 	
@@ -43,16 +45,19 @@ public class ElementScreenObjectCreator extends GameObject implements
 	 * steps
 	 * @param mousehandler The mouseListenerHandler that will inform the objects 
 	 * about mouse events
+	 * @param keyhandler The keylistenerhandler that will inform the objects 
+	 * about key events
 	 */
 	public ElementScreenObjectCreator(Navigator navigator, 
 			DrawableHandler drawer, ActorHandler actorhandler, 
-			MouseListenerHandler mousehandler)
+			MouseListenerHandler mousehandler, KeyListenerHandler keyhandler)
 	{
 		// Initializes attributes
 		this.settings = null;
 		this.drawer = drawer;
 		this.actorhandler = actorhandler;
 		this.mousehandler = mousehandler;
+		this.keyhandler = keyhandler;
 		this.navigator = navigator;
 	}
 		
@@ -67,6 +72,7 @@ public class ElementScreenObjectCreator extends GameObject implements
 				GamePhase.BATTLESETTINGMENU, this.navigator, this.drawer, 
 				this.actorhandler, this.mousehandler, room).setXScale(-1);
 		new ToFieldButton(room);
+		new ElementSelectionInterface(this, this.drawer, this.keyhandler, room);
 	}
 
 	@Override

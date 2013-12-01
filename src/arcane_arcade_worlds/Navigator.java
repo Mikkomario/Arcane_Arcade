@@ -79,7 +79,8 @@ public class Navigator
 		initializeField(drawer, actorhandler, keylistenerhandler);
 		initializeVictoryScreen(drawer, actorhandler, mouselistenerhandler);
 		initializeBattleScreen(drawer, actorhandler, mouselistenerhandler);
-		initializeElementScreen(drawer, actorhandler, mouselistenerhandler);
+		initializeElementScreen(drawer, actorhandler, mouselistenerhandler, 
+				keylistenerhandler);
 	}
 	
 	
@@ -202,11 +203,12 @@ public class Navigator
 	}
 	
 	private void initializeElementScreen(DrawableHandler drawer, 
-			ActorHandler actorhandler, MouseListenerHandler mousehandler)
+			ActorHandler actorhandler, MouseListenerHandler mousehandler, 
+			KeyListenerHandler keyhandler)
 	{
 		// Creates the object creator
 		ElementScreenObjectCreator creator = new ElementScreenObjectCreator(
-				this, drawer, actorhandler, mousehandler);
+				this, drawer, actorhandler, mousehandler, keyhandler);
 		
 		SettingUsingRoom elementscreen = new SettingUsingRoom(creator, 
 				getSimpleBackgroundList("space", drawer));

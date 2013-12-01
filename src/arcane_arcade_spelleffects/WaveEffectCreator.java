@@ -61,6 +61,13 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 	@Override
 	protected void createEffect()
 	{
+		// Only works if there's an object to follow
+		if (getFollowedObject() == null)
+		{
+			System.err.println("WaveEffectCreator can't find object to follow!");
+			return;
+		}
+		
 		// Creates a wave effect
 		WaveEffect wave = new WaveEffect((int) getFollowedObject().getX(), 
 				(int) getFollowedObject().getY(), this.drawer, 

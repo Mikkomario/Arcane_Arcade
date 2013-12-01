@@ -20,7 +20,7 @@ LEFT_ELEMENT_UP#u
 LEFT_ELEMENT_DOWN#j
 RIGHT_ELEMENT_UP#o
 RIGHT_ELEMENT_DOWN#l
-CAST#b
+CAST#n
 
 
 * Here are the volume settings for sound and music.

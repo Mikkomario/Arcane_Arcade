@@ -205,8 +205,8 @@ Eteneminen:														Status
 					tyhjent‰minen
 				- Ainoastaan alustettujen pankkien jakaminen 	DONE
 				eteenp‰in
-			* Nappulat ja valikot								...
-				- Yleinen nappulayl‰luokka
+			* Nappulat ja valikot								DONE
+				- Yleinen nappulayl‰luokka						DONE
 			* Tausta											DONE
 				- T‰hdet										DONE
 				- Komeetat										DONE
@@ -214,9 +214,9 @@ Eteneminen:														Status
 			* Kulmat											DONE
 				- Normikulmat									DONE
 				- Quit -kulma									DONE
-		- Perus nappula											Testaamatta
-			* Nappulan muuttuminen kun hiiri menee p‰‰lle		Testaamatta
-			* Nappulan funktion piirt‰minen kun hiiri p‰‰ll‰	Testaamatta
+		- Perus nappula											DONE
+			* Nappulan muuttuminen kun hiiri menee p‰‰lle		DONE
+			* Nappulan funktion piirt‰minen kun hiiri p‰‰ll‰	DONE
 		- Voittovalikko											DONE
 			* Tiedon siirt‰minen ymp‰ristˆjen v‰lill‰			DONE
 				- Settings -luokka ja sen phasekohtaiset 		DONE
@@ -235,10 +235,10 @@ Eteneminen:														Status
 				- Fieldiin siirtyminen							...
 					* Valittujen elementtien tarkistaminen		...
 			* Battle Setting Screen								...
-				- Tarvittavat pisteet							...
-				- Manaregeneraatio								...
-				- Cast delay modifier							...
-				- Elementtien m‰‰r‰								...
+				- Tarvittavat pisteet							Testaamatta
+				- Manaregeneraatio								Testaamatta
+				- Cast delay modifier							Testaamatta
+				- Elementtien m‰‰r‰								Testaamatta
 				- Valittujen elementtien n‰ytt‰minen
 			* Optionssit										...
 				- Asetukset										...
