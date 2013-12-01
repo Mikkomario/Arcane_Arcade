@@ -96,14 +96,14 @@ public enum Element
 	{
 		switch(this)
 		{
-			case BLAZE: return 0;
-			case TIDE: return 1;
-			case FROST: return 2;
-			case EARTH: return 3;
-			case GALE: return 4;
-			case VOLT: return 5;
-			case SOMBER: return 6;
-			case LIGHT: return 7;
+			case BLAZE: return 1;
+			case TIDE: return 2;
+			case FROST: return 3;
+			case EARTH: return 4;
+			case GALE: return 5;
+			case VOLT: return 6;
+			case SOMBER: return 7;
+			case LIGHT: return 8;
 			
 			default: return 0;
 		}

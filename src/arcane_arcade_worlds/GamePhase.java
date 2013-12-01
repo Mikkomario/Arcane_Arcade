@@ -90,7 +90,7 @@ public enum GamePhase
 			}
 			case ELEMENTMENU:
 			{
-				String[] returned = {"menu"};
+				String[] returned = {"menu", "hud"};
 				return returned;
 			}
 			case VICTORYSCREEN:
@@ -116,5 +116,24 @@ public enum GamePhase
 			}
 			default: return new String[0];
 		}
+	}
+	
+	@Override
+	public String toString()
+	{
+		switch (this)
+		{
+			case FIELD: return "game";
+			case MAINMENU: return "main menu";
+			case TUTORIALMENU: return "tutorials";
+			case OPTIONSMENU: return "options";
+			case SPELLBOOKMENU: return "spellbook";
+			case BATTLESETTINGMENU: return "battle settings";
+			case ELEMENTMENU: return "element selection";
+			case VICTORYSCREEN: return "victory screen";
+			
+			default: return "???";
+		}
+
 	}
 }

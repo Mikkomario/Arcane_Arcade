@@ -16,6 +16,7 @@ import backgrounds.Background;
 import arcane_arcade_field.FieldObjectCreator;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_menus.BattleScreenObjectCreator;
+import arcane_arcade_menus.ElementScreenObjectCreator;
 import arcane_arcade_menus.MainMenuObjectCreator;
 import arcane_arcade_menus.VictoryScreenObjectCreator;
 
@@ -78,6 +79,7 @@ public class Navigator
 		initializeField(drawer, actorhandler, keylistenerhandler);
 		initializeVictoryScreen(drawer, actorhandler, mouselistenerhandler);
 		initializeBattleScreen(drawer, actorhandler, mouselistenerhandler);
+		initializeElementScreen(drawer);
 	}
 	
 	
@@ -148,20 +150,13 @@ public class Navigator
 	
 	private void initializeField(DrawableHandler drawer, 
 			ActorHandler actorhandler, KeyListenerHandler keyhandler)
-	{
-		// Initializes field
-		Background mountainback = new Background(0, 0, drawer, null, 
-				getSpriteBank("background"), "mountains");
-		mountainback.setDimensions(GameSettings.SCREENWIDTH, 
-				GameSettings.SCREENHEIGHT);
-		ArrayList<Background> mountainbacklist = new ArrayList<Background>();
-		mountainbacklist.add(mountainback);
-		
+	{	
 		// Creates the object creator
 		FieldObjectCreator creator = new FieldObjectCreator(drawer, actorhandler, 
 				keyhandler, this);
 		
-		SettingUsingRoom field = new SettingUsingRoom(creator, mountainbacklist);
+		SettingUsingRoom field = new SettingUsingRoom(creator, 
+				getSimpleBackgroundList("mountains", drawer));
 		
 		this.rooms.put(GamePhase.FIELD, field);
 	}
@@ -169,61 +164,52 @@ public class Navigator
 	private void initializeMainMenu(DrawableHandler drawer, 
 			ActorHandler actorhandler, MouseListenerHandler mousehandler)
 	{
-		// Initializes mainmenu
-		Background spaceback = new Background(0, 0, drawer, null, 
-				getSpriteBank("background"), "space");
-		spaceback.setDimensions(GameSettings.SCREENWIDTH, 
-				GameSettings.SCREENHEIGHT);
-		ArrayList<Background> spacebacklist = new ArrayList<Background>();
-		spacebacklist.add(spaceback);
-		
 		// Creates the object creator
 		MainMenuObjectCreator creator = 
 				new MainMenuObjectCreator(drawer, actorhandler, mousehandler, 
 				this);
 		
 		SettingUsingRoom mainmenu = new SettingUsingRoom(creator, 
-				spacebacklist);
+				getSimpleBackgroundList("space", drawer));
 		
 		this.rooms.put(GamePhase.MAINMENU, mainmenu);
 	}
 	
 	private void initializeVictoryScreen(DrawableHandler drawer,
-			ActorHandler actorhandler, MouseListenerHandler mousehandler) {
-		// Initializes mainmenu
-		Background spaceback = new Background(0, 0, drawer, null,
-				getSpriteBank("background"), "space");
-		spaceback.setDimensions(GameSettings.SCREENWIDTH,
-				GameSettings.SCREENHEIGHT);
-		ArrayList<Background> spacebacklist = new ArrayList<Background>();
-		spacebacklist.add(spaceback);
-		
+			ActorHandler actorhandler, MouseListenerHandler mousehandler)
+	{	
 		// Creates the object creator
 		VictoryScreenObjectCreator creator = new VictoryScreenObjectCreator(drawer,
 				actorhandler, mousehandler, this);
 		
-		SettingUsingRoom victoryscreen = new SettingUsingRoom(creator, spacebacklist);
+		SettingUsingRoom victoryscreen = new SettingUsingRoom(creator, 
+				getSimpleBackgroundList("space", drawer));
 		
 		this.rooms.put(GamePhase.VICTORYSCREEN, victoryscreen);
 	}
 	
 	private void initializeBattleScreen(DrawableHandler drawer,
-			ActorHandler actorhandler, MouseListenerHandler mousehandler) {
-		// Initializes mainmenu
-		Background spaceback = new Background(0, 0, drawer, null,
-				getSpriteBank("background"), "space");
-		spaceback.setDimensions(GameSettings.SCREENWIDTH,
-				GameSettings.SCREENHEIGHT);
-		ArrayList<Background> spacebacklist = new ArrayList<Background>();
-		spacebacklist.add(spaceback);
-		
+			ActorHandler actorhandler, MouseListenerHandler mousehandler)
+	{
 		// Creates the object creator
 		BattleScreenObjectCreator creator = new BattleScreenObjectCreator(drawer,
 				actorhandler, mousehandler, this);
 		
-		SettingUsingRoom battlescreen = new SettingUsingRoom(creator, spacebacklist);
+		SettingUsingRoom battlescreen = new SettingUsingRoom(creator, 
+				getSimpleBackgroundList("space", drawer));
 		
 		this.rooms.put(GamePhase.BATTLESETTINGMENU, battlescreen);
+	}
+	
+	private void initializeElementScreen(DrawableHandler drawer)
+	{
+		// Creates the object creator
+		ElementScreenObjectCreator creator = new ElementScreenObjectCreator();
+		
+		SettingUsingRoom elementscreen = new SettingUsingRoom(creator, 
+				getSimpleBackgroundList("space", drawer));
+		
+		this.rooms.put(GamePhase.ELEMENTMENU, elementscreen);
 	}
 	
 	private void updatePhaseSpriteBanks(GamePhase newphase)
@@ -336,5 +322,18 @@ public class Navigator
 		// Uninitializes the banks and then removes it
 		activeWavBanks.get(bankname).uninitialize();
 		activeWavBanks.remove(bankname);
+	}
+	
+	private ArrayList<Background> getSimpleBackgroundList(String backname, 
+			DrawableHandler drawer)
+	{
+		Background back = new Background(0, 0, drawer, null, 
+				getSpriteBank("background"), backname);
+		back.setDimensions(GameSettings.SCREENWIDTH, 
+				GameSettings.SCREENHEIGHT);
+		ArrayList<Background> backlist = new ArrayList<Background>();
+		backlist.add(back);
+		
+		return backlist;
 	}
 }

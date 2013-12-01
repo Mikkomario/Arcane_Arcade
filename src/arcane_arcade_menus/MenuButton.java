@@ -64,8 +64,8 @@ public abstract class MenuButton extends AbstractButton
 		setRadius(getSpriteDrawer().getSprite().getOriginX());
 		
 		// Creates the textdrawer
-		new ButtonTextDrawer((int) getX() - getOriginX(), (int) getY() - 
-				getOriginY() - 50, drawer, actorhandler, message);
+		new ButtonTextDrawer((int) getX(), (int) getY(), drawer, actorhandler, 
+				message);
 	}
 	
 	
@@ -100,7 +100,7 @@ public abstract class MenuButton extends AbstractButton
 	{
 		// ATTRIBUTES	-------------------------------------------------
 		
-		private String message;
+		private char[] message;
 		
 		
 		// CONSTRUCTOR	-------------------------------------------------
@@ -122,7 +122,7 @@ public abstract class MenuButton extends AbstractButton
 			super(x, y, DepthConstants.FOREGROUND, drawer);
 			
 			// Initializes attributes
-			this.message = text;
+			this.message = text.toCharArray();
 			
 			// Adds the object to the handler
 			if (actorhandler != null)
@@ -147,7 +147,15 @@ public abstract class MenuButton extends AbstractButton
 			// Draws the text with the basic font and white colour
 			g2d.setFont(GameSettings.BASICFONT);
 			g2d.setColor(GameSettings.WHITETEXTCOLOR);
-			g2d.drawString(this.message, 0, 0);
+			
+			g2d.rotate(Math.toRadians(-15 * this.message.length / 2 + 7));
+			
+			for (int i = 0; i < this.message.length; i++)
+			{
+				g2d.drawChars(this.message, i, 1, -10, 
+						- MenuButton.this.getWidth() / 2 - 20);
+				g2d.rotate(Math.toRadians(15));
+			}
 		}
 
 		@Override
@@ -175,12 +183,12 @@ public abstract class MenuButton extends AbstractButton
 			if (MenuButton.this.mouseon)
 			{
 				if (getAlpha() < 1)
-					adjustAlpha((float) (0.1 * steps));
+					adjustAlpha((float) (0.05 * steps));
 			}
 			else
 			{
 				if (getAlpha() > 0)
-					adjustAlpha((float) (-0.1 * steps));
+					adjustAlpha((float) (-0.05 * steps));
 			}
 		}
 		

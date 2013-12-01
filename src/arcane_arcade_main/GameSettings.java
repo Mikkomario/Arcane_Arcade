@@ -45,7 +45,7 @@ public class GameSettings
 	 * The basic font used in the game
 	 */
 	public final static Font BASICFONT = new Font("Old English Text MT", 
-			Font.BOLD, 40);
+			Font.BOLD, 30);
 	/**
 	 * The basic white colour used in the basic texts of the game
 	 */
