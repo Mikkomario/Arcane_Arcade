@@ -164,7 +164,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	{
 		// Draws the sprite
 		this.spritedrawer.drawSprite(g2d, 0, 0);
-		//drawCollisionPoints(g2d);
+		drawCollisionPoints(g2d);
 	}
 	
 	@Override

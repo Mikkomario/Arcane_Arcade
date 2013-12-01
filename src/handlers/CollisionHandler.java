@@ -84,6 +84,12 @@ public class CollisionHandler extends LogicalHandler implements Actor
 			// If collisions were detected, adds them to the map
 			for (Collidable c : collided)
 			{
+				//TODO: Still informs about collisions with self?
+				
+				// Objects can't collide with themselves
+				if (c.equals(listener))
+					continue;
+				
 				if (!collidedpoints.containsKey(c))
 					collidedpoints.put(c, new ArrayList<Point2D.Double>());
 				

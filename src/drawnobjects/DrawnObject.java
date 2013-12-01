@@ -693,6 +693,15 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		g2d.setTransform(trans);
 	}
 	
+	/**
+	 * Tells the object that it needs to update its transformations. This 
+	 * should be used by object that depend on other objects' transformations
+	 */
+	protected void forceTransformationUpdate()
+	{
+		this.transformationneedsupdating = true;
+	}
+	
 	// Updates the current transformation value
 	private void updateTransformation()
 	{		
