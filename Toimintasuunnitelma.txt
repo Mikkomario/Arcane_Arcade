@@ -373,3 +373,5 @@ Eteneminen:														Status
 		- HD Edition
 			* Parempiresoluutioisten spritejen valmistaminen
 			* Tilanteeseen sopivan spriteympäristön luominen
+			
+Commit testii...
