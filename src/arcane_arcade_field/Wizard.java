@@ -309,6 +309,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 					this.castdelaymeterdrawer.getSprite().getOriginX(), 
 					getSpriteDrawer().getSprite().getOriginY() - 
 					this.castdelaymeterdrawer.getSprite().getOriginY());
+		drawCollisionArea(g2d);
 		drawCollisionPoints(g2d);
 	}
 	

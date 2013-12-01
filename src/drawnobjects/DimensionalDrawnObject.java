@@ -1,5 +1,7 @@
 package drawnobjects;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import handleds.Collidable;
@@ -236,6 +238,32 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 		
 		// Calculates the length from origin to the corner of those sides
 		return HelpMath.pointDistance(0, 0, maxXDist, maxYDist);
+	}
+	
+	/**
+	 * This method draws the area of collision detection of the object, though 
+	 * it doesn't take any modifcations made by subclasses into account. 
+	 * This method meant for debugging.
+	 * 
+	 * @param g2d The graphics object used for drawing the collision area
+	 */
+	protected void drawCollisionArea(Graphics2D g2d)
+	{
+		g2d.setColor(new Color(255, 0, 0));
+		
+		switch (getCollisionType())
+		{
+			case BOX:
+				g2d.drawRect(0, 0, getWidth(), getHeight()); break;
+			case CIRCLE:
+				g2d.drawArc(getOriginX() - getRadius(), 
+						getOriginY() - getRadius(), getRadius() * 2, 
+						getRadius() * 2, 0, 360); break;
+			default:
+				System.out.println(
+						"DimensionalDrawnObject::drawCollisionArea " +
+						"doesn't support " + getCollisionType()); break;
+		}
 	}
 	
 	private void initializeRadius()

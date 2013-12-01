@@ -235,10 +235,10 @@ Eteneminen:														Status
 				- Fieldiin siirtyminen							...
 					* Valittujen elementtien tarkistaminen		...
 			* Battle Setting Screen								...
-				- Tarvittavat pisteet							Testaamatta
+				- Tarvittavat pisteet							DONE
 				- Manaregeneraatio								Testaamatta
 				- Cast delay modifier							Testaamatta
-				- Elementtien määrä								Testaamatta
+				- Elementtien määrä								DONE
 				- Valittujen elementtien näyttäminen
 			* Optionssit										...
 				- Asetukset										...
@@ -261,16 +261,16 @@ Eteneminen:														Status
 		- Äänet													...
 			* WavSoundien äänenvoimakkuuden säädön stackkaus	Testaamatta
 			* Tarvittavat resurssit								...
-			* Resurssien järkevä organisointi ja lukeminen		Testaamatta
-				- SoundTrackien käyttö äänicomboissa			Testaamatta
-					* WavSoundQueue -luokka						Testaamatta
-						- Abstrakti yläluokka					Testaamatta
-				- OpenWavSoundBank ja muuta						Testaamatta
-					* OpenWavSoundBank							Testaamatta
-					* OpenWavSoundBankHolder					Testaamatta
-			* Äänien lisäys peliin								Testaamatta
-				- Äänten soittaminen oikeassa kohdassa			Testaamatta
-				- Äänten lataaminen oikeassa kontekstissa		Testaamatta
+			* Resurssien järkevä organisointi ja lukeminen		DONE
+				- SoundTrackien käyttö äänicomboissa			DONE
+					* WavSoundQueue -luokka						DONE
+						- Abstrakti yläluokka					DONE
+				- OpenWavSoundBank ja muuta						DONE
+					* OpenWavSoundBank							DONE
+					* OpenWavSoundBankHolder					DONE
+			* Äänien lisäys peliin								DONE
+				- Äänten soittaminen oikeassa kohdassa			DONE
+				- Äänten lataaminen oikeassa kontekstissa		DONE
 					* Wizard -enumeraatio						DONE
 						- getSoundBank -metodi sinne?			DONE
 							* Mutta pitääkö tehdä oma holder?	DONE
