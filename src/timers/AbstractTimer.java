@@ -126,7 +126,7 @@ public abstract class AbstractTimer implements Actor
 	 *
 	 * @param delay How many steps there will be before an event is thrown
 	 */
-	protected void setDelay(int delay)
+	public void setDelay(int delay)
 	{
 		this.timeleft = delay;
 	}

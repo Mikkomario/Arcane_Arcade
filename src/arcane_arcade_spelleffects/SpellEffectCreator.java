@@ -47,16 +47,13 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 		this.burstsize = burstsize;
 		
 		// Sets up the creation timer
-		new ContinuousTimer(this, creationdelay, 0, actorhandler);
+		new ContinuousTimer(this, creationdelay, 0, actorhandler).setDelay(1);
 		
 		// Adds the object to the handler(s)
 		if (actorhandler != null)
 			actorhandler.addActor(this);
 		if (room != null)
 			room.addObject(this);
-		
-		// Creates new spelleffects at the start
-		createSpellEffects();
 	}
 	
 	

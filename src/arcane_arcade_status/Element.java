@@ -201,10 +201,10 @@ public enum Element
 		
 		// Adds a spell from the list
 		// Uses the indexes in a certain order
-		int index1 = Math.min(getElementIconIndex(), 
-				element2.getElementIconIndex());
-		int index2 = Math.max(getElementIconIndex(), 
-				element2.getElementIconIndex());
+		int index1 = Math.min(getElementIconIndex() - 1, 
+				element2.getElementIconIndex() - 1);
+		int index2 = Math.max(getElementIconIndex() - 1, 
+				element2.getElementIconIndex() - 1);
 		int spellindex = 0;
 		
 		// Finds the corrent index in the list by using element indexes

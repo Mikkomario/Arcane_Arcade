@@ -171,9 +171,11 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	public void kill()
 	{
 		// Kills the spritedrawer as well
-		this.spritedrawer.kill();
+		if (this.spritedrawer != null)
+			this.spritedrawer.kill();
 		this.spritedrawer = null;
-		this.statusdrawer.kill();
+		if (this.statusdrawer != null)
+			this.statusdrawer.kill();
 		this.statusdrawer = null;
 		
 		super.kill();

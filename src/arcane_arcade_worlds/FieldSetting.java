@@ -174,7 +174,8 @@ public class FieldSetting implements AreaSetting
 					return;
 				// Removes the element and remembers the new amount of elements
 				this.currentleftelementnumber --;
-				this.usedelementsleft[this.currentleftelementnumber] = null;
+				this.usedelementsleft[this.currentleftelementnumber] = 
+						Element.NOELEMENT;
 				break;
 			}
 			case RIGHT:
@@ -184,7 +185,8 @@ public class FieldSetting implements AreaSetting
 					return;
 				// Removes the element and remembers the new amount of elements
 				this.currentrightelementnumber --;
-				this.usedelementsright[this.currentrightelementnumber] = null;
+				this.usedelementsright[this.currentrightelementnumber] = 
+						Element.NOELEMENT;
 				break;
 			}
 		}

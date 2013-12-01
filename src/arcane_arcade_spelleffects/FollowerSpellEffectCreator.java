@@ -39,6 +39,7 @@ public abstract class FollowerSpellEffectCreator extends SpellEffectCreator
 		super(duration, creationdelay, burstsize, actorhandler, room);
 		
 		this.followedobject = followedobject;
+		//System.out.println("Created a creator that follows " + followedobject);
 	}
 	
 	

@@ -77,7 +77,7 @@ public class ElementSelectionInterface
 					GameSettings.SCREENWIDTH / 2 + (int) HelpMath.lendirX(120, 
 					angle), GameSettings.SCREENHEIGHT / 2 + 
 					(int) HelpMath.lendirY(120, angle), DepthConstants.NORMAL, 
-					element, drawer);
+					element, drawer, room);
 			newelement.scale(1.25, 1.25);
 			this.elements.add(newelement);
 			
@@ -404,6 +404,10 @@ public class ElementSelectionInterface
 				case LEFT: setX(100); break;
 				case RIGHT: setX(GameSettings.SCREENWIDTH - 100); break;
 			}
+			
+			// Adds the object to the handler(s)
+			if (room != null)
+				room.addObject(this);
 		}
 		
 		
@@ -457,7 +461,6 @@ public class ElementSelectionInterface
 		{
 			// Also kills the spritedrawer
 			this.spritedrawer.kill();
-			this.spritedrawer = null;
 		}
 	}
 }

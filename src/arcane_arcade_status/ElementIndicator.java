@@ -5,6 +5,10 @@ import handlers.DrawableHandler;
 
 import java.awt.Graphics2D;
 
+import worlds.Room;
+
+import listeners.RoomListener;
+
 import arcane_arcade_worlds.Navigator;
 
 import drawnobjects.DrawnObject;
@@ -16,7 +20,7 @@ import drawnobjects.DrawnObject;
  * @author Mikko Hilpinen.
  *         Created 1.12.2013.
  */
-public class ElementIndicator extends DrawnObject
+public class ElementIndicator extends DrawnObject implements RoomListener
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
@@ -35,9 +39,10 @@ public class ElementIndicator extends DrawnObject
 	 * @param depth The drawing depth of the indicator
 	 * @param element The element the indicator shows
 	 * @param drawer The drawer that will draw the object (optional)
+	 * @param room The room that holds the object
 	 */
 	public ElementIndicator(int x, int y, int depth, Element element, 
-			DrawableHandler drawer)
+			DrawableHandler drawer, Room room)
 	{
 		super(x, y, depth, drawer);
 		
@@ -46,6 +51,10 @@ public class ElementIndicator extends DrawnObject
 		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
 				"hud").getSprite("elements"), null);
 		this.spritedrawer.setImageIndex(this.element.getElementIconIndex());
+		
+		// Adds the object to the handler(s)
+		if (room != null)
+			room.addObject(this);
 	}
 	
 	
@@ -85,6 +94,19 @@ public class ElementIndicator extends DrawnObject
 		this.spritedrawer = null;
 		
 		super.kill();
+	}
+	
+	@Override
+	public void onRoomStart(Room room)
+	{
+		// Does nothing
+	}
+
+	@Override
+	public void onRoomEnd(Room room)
+	{
+		// Dies
+		kill();
 	}
 	
 	
