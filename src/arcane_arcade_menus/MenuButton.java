@@ -188,7 +188,7 @@ public abstract class MenuButton extends AbstractButton
 			else
 			{
 				if (getAlpha() > 0)
-					adjustAlpha((float) (-0.05 * steps));
+					adjustAlpha((float) (-0.01 * steps));
 			}
 		}
 		

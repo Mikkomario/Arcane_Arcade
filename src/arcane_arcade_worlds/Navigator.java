@@ -79,7 +79,7 @@ public class Navigator
 		initializeField(drawer, actorhandler, keylistenerhandler);
 		initializeVictoryScreen(drawer, actorhandler, mouselistenerhandler);
 		initializeBattleScreen(drawer, actorhandler, mouselistenerhandler);
-		initializeElementScreen(drawer);
+		initializeElementScreen(drawer, actorhandler, mouselistenerhandler);
 	}
 	
 	
@@ -201,10 +201,12 @@ public class Navigator
 		this.rooms.put(GamePhase.BATTLESETTINGMENU, battlescreen);
 	}
 	
-	private void initializeElementScreen(DrawableHandler drawer)
+	private void initializeElementScreen(DrawableHandler drawer, 
+			ActorHandler actorhandler, MouseListenerHandler mousehandler)
 	{
 		// Creates the object creator
-		ElementScreenObjectCreator creator = new ElementScreenObjectCreator();
+		ElementScreenObjectCreator creator = new ElementScreenObjectCreator(
+				this, drawer, actorhandler, mousehandler);
 		
 		SettingUsingRoom elementscreen = new SettingUsingRoom(creator, 
 				getSimpleBackgroundList("space", drawer));
