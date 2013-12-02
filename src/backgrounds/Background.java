@@ -45,8 +45,8 @@ public class Background extends DrawnObject
 		super(x, y, DepthConstants.BOTTOM, drawer);
 
 		// Initializes attributes
-		this.texturedrawer = 
-				new SpriteDrawer(bank.getSprite(texturename), actorhandler);
+		this.texturedrawer = new SpriteDrawer(bank.getSprite(texturename), 
+				actorhandler, this);
 	}
 	
 	

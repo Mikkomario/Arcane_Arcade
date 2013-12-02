@@ -2,13 +2,18 @@ package graphic;
 
 import java.awt.Graphics2D;
 
+import drawnobjects.DrawnObject;
+
 import handleds.Actor;
 import handlers.ActorHandler;
 import handlers.AnimationListenerHandler;
 
 /**
  * Spritedrawer is able to draw animated sprites for an object. Object's can 
- * draw the sprite calling the drawSprite method.
+ * draw the sprite calling the drawSprite method.<p>
+ * 
+ * The spriteDrawer can be tied into a single object, making it 
+ * when that object does.
  *
  * @author Mikko Hilpinen.
  *         Created 2.7.2013.
@@ -21,6 +26,7 @@ public class SpriteDrawer implements Actor
 	private double imageSpeed, imageIndex;
 	private boolean alive, active;
 	private AnimationListenerHandler listenerhandler;
+	private DrawnObject user;
 		
 		
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -31,12 +37,15 @@ public class SpriteDrawer implements Actor
 	 * @param sprite The sprite which the drawer will draw
 	 * @param animator The actorhandler that calls the drawer's animation 
 	 * (optional)
+	 * @param user The object the drawer is tied into. The spritedrawer will 
+	 * automatically die when the user dies. (Optional)
 	 */
-	public SpriteDrawer(Sprite sprite, ActorHandler animator)
+	public SpriteDrawer(Sprite sprite, ActorHandler animator, DrawnObject user)
 	{
 		// Initializes the attributes
 		this.sprite = sprite;
 		this.listenerhandler = new AnimationListenerHandler(false, null);
+		this.user = user;
 		
 		this.imageSpeed = 0.1;
 		this.imageIndex = 0;
@@ -72,7 +81,7 @@ public class SpriteDrawer implements Actor
 	@Override
 	public boolean isDead()
 	{
-		return !this.alive;
+		return (!this.alive || (this.user != null && this.user.isDead()));
 	}
 
 	@Override
@@ -191,6 +200,10 @@ public class SpriteDrawer implements Actor
 	 */
 	public void drawSprite(Graphics2D g2d, int xtranslation, int ytranslation)
 	{
+		// Only works if alive
+		if (isDead())
+			return;
+		
 		// Draws the sprite
 		drawSprite(g2d, xtranslation, ytranslation, getImageIndex());
 	}

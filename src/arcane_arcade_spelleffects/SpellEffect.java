@@ -102,7 +102,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.lifeleft = lifetime;
 		this.lifetime = lifetime;
 		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
-				"spells").getSprite(spritename), actorhandler);
+				"spells").getSprite(spritename), actorhandler, this);
 		this.fadesin = false;
 		this.fadesout = false;
 		this.sizeeffect = false;
@@ -205,14 +205,6 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		
 		// Testing
 		drawCollisionArea(g2d);
-	}
-	
-	@Override
-	public void kill()
-	{
-		// Also kills the spritedrawer
-		this.spritedrawer.kill();
-		super.kill();
 	}
 	
 	@Override

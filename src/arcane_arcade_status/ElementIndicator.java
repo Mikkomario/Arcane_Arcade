@@ -49,7 +49,7 @@ public class ElementIndicator extends DrawnObject implements RoomListener
 		// Initializes attributes
 		this.element = element;
 		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
-				"hud").getSprite("elements"), null);
+				"hud").getSprite("elements"), null, this);
 		this.spritedrawer.setImageIndex(this.element.getElementIconIndex());
 		
 		// Adds the object to the handler(s)
@@ -84,16 +84,6 @@ public class ElementIndicator extends DrawnObject implements RoomListener
 		// Draws the sprite
 		if (this.spritedrawer != null)
 			this.spritedrawer.drawSprite(g2d, 0, 0);
-	}
-	
-	@Override
-	public void kill()
-	{
-		// Also kills the spritedrawer
-		this.spritedrawer.kill();
-		this.spritedrawer = null;
-		
-		super.kill();
 	}
 	
 	@Override

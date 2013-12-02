@@ -57,7 +57,7 @@ public abstract class AbstractButton extends DimensionalDrawnObject implements
 		this.active = true;
 		
 		// Initializes spritedrawer
-		this.spritedrawer = new SpriteDrawer(sprite, null);
+		this.spritedrawer = new SpriteDrawer(sprite, null, this);
 		
 		// Adds the button to the handlers
 		if (room != null)
@@ -192,16 +192,6 @@ public abstract class AbstractButton extends DimensionalDrawnObject implements
 	public void onMouseMove(int mouseX, int mouseY)
 	{
 		// Does nothing
-	}
-
-	@Override
-	public void kill()
-	{
-		// Also kills the spritedrawer
-		this.spritedrawer.kill();
-		this.spritedrawer = null;
-		
-		super.kill();
 	}
 	
 	

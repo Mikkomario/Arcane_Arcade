@@ -82,7 +82,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 		this.charged = 0;
 		this.spritedrawer = new SpriteDrawer(
 				Navigator.getSpriteBank("field").getSprite("ball"), 
-				actorhandler);
+				actorhandler, this);
 		this.statusdrawer = new BallStatusDrawer(drawer, actorhandler, this);
 		this.statusdepletionrate = 0.15;
 		this.wizardrelay = wizardrelay;
@@ -171,10 +171,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	@Override
 	public void kill()
 	{
-		// Kills the spritedrawer as well
-		if (this.spritedrawer != null)
-			this.spritedrawer.kill();
-		this.spritedrawer = null;
+		// Kills the status drawer as well
 		if (this.statusdrawer != null)
 			this.statusdrawer.kill();
 		this.statusdrawer = null;

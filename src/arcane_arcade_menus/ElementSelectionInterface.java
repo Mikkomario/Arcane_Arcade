@@ -172,7 +172,7 @@ public class ElementSelectionInterface
 			
 			// Initializes attributes
 			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
-					"menu").getSprite("chosen"), null);
+					"menu").getSprite("chosen"), null, this);
 			this.playernumber = playernumber;
 			
 			setAlpha(0.65f);
@@ -209,16 +209,6 @@ public class ElementSelectionInterface
 		{
 			if (this.spritedrawer != null)
 				this.spritedrawer.drawSprite(g2d, 0, 0, this.playernumber - 1);
-		}
-		
-		@Override
-		public void kill()
-		{
-			// Also kills the spritedrawer
-			this.spritedrawer.kill();
-			this.spritedrawer = null;
-			
-			super.kill();
 		}
 		
 		@Override
@@ -395,7 +385,7 @@ public class ElementSelectionInterface
 			
 			// Initializes attributes
 			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
-					"hud").getSprite("elements"), null);
+					"hud").getSprite("elements"), null, this);
 			this.side = side;
 
 			// Sets up the position
@@ -454,13 +444,6 @@ public class ElementSelectionInterface
 				this.spritedrawer.drawSprite(g2d, 0, i * 50, 
 						elementlist[i].getElementIconIndex());
 			}
-		}
-		
-		@Override
-		public void kill()
-		{
-			// Also kills the spritedrawer
-			this.spritedrawer.kill();
 		}
 	}
 }

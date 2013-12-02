@@ -169,12 +169,12 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.invincibilitytime = 0;
 		this.invincibilitydelay = 60;
 		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
-				"creatures").getSprite("redwizard"), actorhandler);
+				"creatures").getSprite("redwizard"), actorhandler, this);
 		this.maskchecker = new MaskChecker(Navigator.getSpriteBank(
 				"creatures").getSprite("wizardmask"));
 		this.castdelaymeterdrawer = new SpriteDrawer(
 				Navigator.getSpriteBank("field").getSprite(
-				"regeneration"), actorhandler);
+				"regeneration"), actorhandler, this);
 		this.buttonmaps = leftwizardbuttons;
 		this.elements = usedelements;
 		
@@ -316,11 +316,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	@Override
 	public void kill()
 	{
-		// Kills the spritedrawer as well
-		this.spritedrawer.kill();
-		this.spritedrawer = null;
-		this.maskchecker = null;
-		// And the statusdrawer too
+		// Kills the statusdrawer too
 		this.statusdrawer.kill();
 		this.statusdrawer = null;
 		// And the huddrawer

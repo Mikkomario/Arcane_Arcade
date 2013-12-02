@@ -90,7 +90,7 @@ public class WizardStatusDrawer extends DrawableHandler
 			// Initializes attributes
 			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
 					"status").getSprite(statusspritename), 
-					WizardStatusDrawer.this.animator);
+					WizardStatusDrawer.this.animator, this);
 			this.status = status;
 		}
 		
@@ -112,15 +112,12 @@ public class WizardStatusDrawer extends DrawableHandler
 		@Override
 		public void drawSelfBasic(Graphics2D g2d)
 		{
+			// Forces transformation update (since wizard's transformations 
+			// are used)
+			forceTransformationUpdate();
+			
 			// Draws the sprite
 			this.spritedrawer.drawSprite(g2d, 0, 0);
-		}
-		
-		@Override
-		public void kill()
-		{
-			this.spritedrawer.kill();
-			super.kill();
 		}
 		
 		@Override

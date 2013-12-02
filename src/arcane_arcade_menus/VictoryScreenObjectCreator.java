@@ -135,7 +135,7 @@ public class VictoryScreenObjectCreator extends GameObject implements RoomObject
 			//Let's set the position for our WinnerText
 			this.setPosition(x, y);
 			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
-					"menu").getSprite("winner"), null);
+					"menu").getSprite("winner"), null, this);
 			this.spritedrawer.inactivate();
 			this.setScale(0.5, 0.5);
 		}

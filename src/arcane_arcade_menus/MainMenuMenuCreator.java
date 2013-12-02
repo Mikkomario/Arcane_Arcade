@@ -258,7 +258,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 					DepthConstants.FOREGROUND, drawer);
 			
 			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
-					"menu").getSprite("center"), null);
+					"menu").getSprite("center"), null, this);
 			this.spritedrawer.inactivate();
 		}
 
@@ -284,16 +284,6 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 			// Draws the sprite
 			if (this.spritedrawer != null)
 				this.spritedrawer.drawSprite(g2d, 0, 0);
-		}
-		
-		@Override
-		public void kill()
-		{
-			//System.out.println("Centerpiece died");
-			
-			// Also kills the spritedrawer when dies
-			this.spritedrawer.kill();
-			super.kill();
 		}
 	}
 }

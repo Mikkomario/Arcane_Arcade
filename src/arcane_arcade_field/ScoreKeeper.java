@@ -67,7 +67,7 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 		
 		// Initializes attributes
 		this.spritedrawer = new SpriteDrawer(
-				Navigator.getSpriteBank("hud").getSprite("score"), null);
+				Navigator.getSpriteBank("hud").getSprite("score"), null, this);
 		this.navigator = navigator;
 		this.scoreleft = 0;
 		this.scoreright = 0;
@@ -118,16 +118,6 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 		g2d.setColor(GameSettings.WHITETEXTCOLOR);
 		g2d.drawString(this.scoreleft + "", 35, 40);
 		g2d.drawString(this.scoreright + "", 130, 40);
-	}
-	
-	@Override
-	public void kill()
-	{
-		// Also kills the spritedrawer
-		this.spritedrawer.kill();
-		this.spritedrawer = null;
-		
-		super.kill();
 	}
 
 	@Override

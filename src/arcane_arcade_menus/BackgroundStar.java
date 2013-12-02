@@ -48,7 +48,7 @@ public class BackgroundStar extends DrawnObject implements RoomListener,
 		
 		// Initializes attributes
 		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
-				"menu").getSprite("star"), animator);
+				"menu").getSprite("star"), animator, this);
 		this.spritedrawer.getAnimationListenerHandler().addAnimationListener(this);
 		this.spritedrawer.setAnimationDuration(duration);
 		
@@ -126,13 +126,5 @@ public class BackgroundStar extends DrawnObject implements RoomListener,
 	{
 		// Dies
 		kill();
-	}
-	
-	@Override
-	public void kill()
-	{
-		// Also kills the spritedrawer
-		this.spritedrawer.kill();
-		super.kill();
 	}
 }

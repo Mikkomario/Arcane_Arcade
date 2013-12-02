@@ -58,7 +58,7 @@ public class MenuCorner extends DrawnObject implements RoomListener
 		
 		// Initializes attributes
 		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
-				"menu").getSprite("corner"), null);
+				"menu").getSprite("corner"), null, this);
 		
 		// Changes the position and angle
 		if (position == LEFT_BOTTOM)
@@ -116,13 +116,5 @@ public class MenuCorner extends DrawnObject implements RoomListener
 		// Draws the corner sprite
 		if (this.spritedrawer != null)
 			this.spritedrawer.drawSprite(g2d, 0, 0);
-	}
-	
-	@Override
-	public void kill()
-	{
-		// Also kills the spritedrawer
-		this.spritedrawer.kill();
-		super.kill();
 	}
 }

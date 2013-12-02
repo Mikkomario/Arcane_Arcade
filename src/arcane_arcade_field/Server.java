@@ -87,7 +87,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener,
 		this.maxshootforce = 15;
 		this.spritedrawer = new SpriteDrawer(
 				Navigator.getSpriteBank("field").getSprite("server"), 
-				actorhandler);
+				actorhandler, this);
 		this.actorhandler = actorhandler;
 		this.collidablehandler = collidablehandler;
 		this.collisionhandler = collisionhandler;
@@ -150,15 +150,6 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener,
 		if (this.spritedrawer == null)
 			return;
 		this.spritedrawer.drawSprite(g2d, 0, 0);
-	}
-	
-	@Override
-	public void kill()
-	{
-		// Also kills the spritedrawer when dies
-		this.spritedrawer.kill();
-		
-		super.kill();
 	}
 
 	@Override

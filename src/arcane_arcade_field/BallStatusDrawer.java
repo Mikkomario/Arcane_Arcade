@@ -89,7 +89,7 @@ public class BallStatusDrawer extends DrawableHandler
 			// Initializes attributes
 			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
 					"status").getSprite(statusspritename), 
-					BallStatusDrawer.this.animator);
+					BallStatusDrawer.this.animator, this);
 			this.status = status;
 		}
 		
@@ -116,13 +116,6 @@ public class BallStatusDrawer extends DrawableHandler
 			
 			// Draws the sprite
 			this.spritedrawer.drawSprite(g2d, 0, 0);
-		}
-		
-		@Override
-		public void kill()
-		{
-			this.spritedrawer.kill();
-			super.kill();
 		}
 		
 		@Override

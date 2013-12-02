@@ -188,7 +188,7 @@ public class WizardHudDrawer extends DrawableHandler
 			// Initializes attributes
 			this.spritedrawer = new SpriteDrawer(
 					Navigator.getSpriteBank("hud").getSprite(
-					"elements"), null);
+					"elements"), null, this);
 			this.elementindex = elementindex;
 			this.elementspriteindex = 0;
 			
@@ -305,7 +305,7 @@ public class WizardHudDrawer extends DrawableHandler
 			// Initializes attributes
 			this.spritedrawer = new SpriteDrawer(
 					Navigator.getSpriteBank("hud").getSprite(
-					"mp"), null);
+					"mp"), null, this);
 			this.spritedrawer.setImageIndex(meterimageindex);
 			this.length = 10;
 		}
@@ -334,14 +334,6 @@ public class WizardHudDrawer extends DrawableHandler
 				this.spritedrawer.drawSprite(g2d, 
 						i * WizardHudDrawer.mpblockwidth, 0);
 			}
-		}
-		
-		@Override
-		public void kill()
-		{
-			// Also kills the spritedrawer
-			this.spritedrawer.kill();
-			super.kill();
 		}
 		
 		@Override
@@ -479,7 +471,7 @@ public class WizardHudDrawer extends DrawableHandler
 			// Initializes attributes
 			this.spritedrawer = new SpriteDrawer(
 					Navigator.getSpriteBank("hud").getSprite(
-					"mpuse"), null);
+					"mpuse"), null, this);
 			this.meterwidth = this.spritedrawer.getSprite().getWidth() - 
 					this.spritedrawer.getSprite().getOriginX();
 			this.mpuse = 0;
@@ -559,7 +551,7 @@ public class WizardHudDrawer extends DrawableHandler
 			// Initializes attributes
 			this.spritedrawer = new SpriteDrawer(
 					Navigator.getSpriteBank("hud").getSprite(
-					"hp"), null);
+					"hp"), null, this);
 		}
 		
 		
@@ -594,14 +586,6 @@ public class WizardHudDrawer extends DrawableHandler
 				this.spritedrawer.drawSprite(g2d, 
 						empty * WizardHudDrawer.hpblockwidth, 0, 0);
 			}
-		}
-		
-		@Override
-		public void kill()
-		{
-			// Also kills the spritedrawer
-			this.spritedrawer.kill();
-			super.kill();
 		}
 
 		@Override

@@ -53,7 +53,7 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 		
 		// Initializes attributes
 		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
-				"menu").getSprite("comet"), actorhandler);
+				"menu").getSprite("comet"), actorhandler, this);
 		
 		// Changes the scaling and speed
 		setScale(scale, scale);
@@ -129,15 +129,6 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 	{
 		// Dies at the end of the room
 		kill();
-	}
-
-	@Override
-	public void kill()
-	{
-		// Also kills the spritedrawer
-		this.spritedrawer.kill();
-		
-		super.kill();
 	}
 	
 	@Override
