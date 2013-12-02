@@ -56,17 +56,25 @@ public class WizardSoundQueuePlayer
 			Avatar avatar, double x)
 	{
 		// If there is already an element queue playing, ends it
-		if (this.elementqueues.containsKey(avatar))
+		if (this.elementqueues.containsKey(avatar) && 
+				!this.elementqueues.get(avatar).isDead())
 			this.elementqueues.get(avatar).stop();
+		
 		// Creates the new queue
 		WavSoundQueue newqueue = new WavSoundQueue(true);
 		// Adds the sounds to the queue and plays it
-		newqueue.addWavSound(avatar.getVoiceBank().getSound(
-				element1.getSoundName()), Options.voicevolumeadjustment, 
+		String soundname1 = element1.getSoundName() + "1";
+		String soundname2 = element2.getSoundName() + "2";
+		
+		//System.out.println("Plays sounds: " + soundname1 + ", " + soundname2);
+		
+		newqueue.addWavSound(avatar.getVoiceBank().getSound(soundname1), 
+				Options.voicevolumeadjustment, 
 				SoundEffectPlayer.getEnvironmentalPan(x), false);
-		newqueue.addWavSound(avatar.getVoiceBank().getSound(
-				element2.getSoundName()), Options.voicevolumeadjustment, 
+		newqueue.addWavSound(avatar.getVoiceBank().getSound(soundname2), 
+				Options.voicevolumeadjustment, 
 				SoundEffectPlayer.getEnvironmentalPan(x), true);
+		
 		// Adds the queue to the map
 		this.elementqueues.put(avatar, newqueue);
 	}

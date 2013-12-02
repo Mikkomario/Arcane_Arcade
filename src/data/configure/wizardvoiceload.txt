@@ -68,8 +68,8 @@ special#wavs/whitewizardsounds/wht_master_commander.wav#0#0
 &gandalf
 blaze1#wavs/gandalfsounds/roihu.wav#0#0
 blaze2#wavs/gandalfsounds/lieska.wav#0#0
-tide1#wavs/gandalfsounds/hyoky.wav#0#0
-tide2#wavs/gandalfsounds/tyrsky.wav#0#0
+tide1#wavs/gandalfsounds/gan_hyoky.wav#0#0
+tide2#wavs/gandalfsounds/tyrske.wav#0#0
 frost1#wavs/gandalfsounds/hyinen.wav#0#0
 frost2#wavs/gandalfsounds/riite.wav#0#0
 earth1#wavs/gandalfsounds/rapa.wav#0#0

@@ -84,6 +84,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private int maxhp;
 	private double invincibilitytime;
 	private int invincibilitydelay;
+	private double elementsoundtime;
+	private boolean elementsoundactivated;
 	
 	private WizardStatusDrawer statusdrawer;
 	private HashMap<WizardStatus, Double> statusses;
@@ -177,6 +179,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				"regeneration"), actorhandler, this);
 		this.buttonmaps = leftwizardbuttons;
 		this.elements = usedelements;
+		this.elementsoundactivated = false;
+		this.elementsoundtime = 0;
 		
 		// Initializes the used soundbank (if it isn't initialized already)
 		this.avatar.initializeVoiceBank();
@@ -420,6 +424,27 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				this.spritedrawer.setImageIndex(0);
 				// Also stops the regen meter
 				this.castdelaymeterdrawer.inactivate();
+			}
+		}
+		
+		// Checks element sound time
+		if (this.elementsoundactivated)
+		{
+			this.elementsoundtime -= steps;
+			
+			if (this.elementsoundtime <= 0)
+			{
+				/*
+				System.out.println("Plays sound with elements " + 
+						getElement(getFirstElementIndex()) + " and " + 
+						getElement(getSecondElementIndex()));
+				*/
+				
+				// Plays a sound for the current elements
+				this.voiceplayer.playElementSoundCombo(getElement(
+						getFirstElementIndex()), getElement(
+						getSecondElementIndex()), this.avatar, getX());
+				this.elementsoundactivated = false;
 			}
 		}
 		
@@ -880,5 +905,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				this.elements[this.elementindex2]);
 		// Informs the hud about the change
 		this.huddrawer.callSpellUpdate();
+		
+		// Prepares to play a sound combo
+		this.elementsoundtime = 40;
+		this.elementsoundactivated = true;
 	}
 }

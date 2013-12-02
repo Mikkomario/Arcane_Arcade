@@ -229,19 +229,19 @@ Eteneminen:														Status
 			* Tarvittavat graafiset resurssit					DONE
 		- Muut tarvittavat valikot								...
 			* Hahmovalikko (Sitten kun on hahmoja)
-			* Elementtivalikko									...
-				- Elementtikuvakkeiden asettaminen valikkoon
-				- Valitsimen piirtäminen
-				- Valitsimen liikuttaminen näppäimillä
-				- Elementtien valitseminen
-				- Elementtien valinnan kumoaminen
-				- Valittujen elementtien piirtäminen
-				- Fieldiin siirtyminen							...
-					* Valittujen elementtien tarkistaminen		...
+			* Elementtivalikko									DONE
+				- Elementtikuvakkeiden asettaminen valikkoon	DONE
+				- Valitsimen piirtäminen						DONE
+				- Valitsimen liikuttaminen näppäimillä			DONE
+				- Elementtien valitseminen						DONE
+				- Elementtien valinnan kumoaminen				DONE
+				- Valittujen elementtien piirtäminen			DONE
+				- Fieldiin siirtyminen							DONE
+					* Valittujen elementtien tarkistaminen		DONE
 			* Battle Setting Screen								...
 				- Tarvittavat pisteet							DONE
-				- Manaregeneraatio								Testaamatta
-				- Cast delay modifier							Testaamatta
+				- Manaregeneraatio								DONE
+				- Cast delay modifier							DONE
 				- Elementtien määrä								DONE
 				- Valittujen elementtien näyttäminen
 			* Optionssit										...
@@ -272,8 +272,8 @@ Eteneminen:														Status
 				- OpenWavSoundBank ja muuta						DONE
 					* OpenWavSoundBank							DONE
 					* OpenWavSoundBankHolder					DONE
-			* Äänien lisäys peliin								DONE
-				- Äänten soittaminen oikeassa kohdassa			DONE
+			* Äänien lisäys peliin								...
+				- Äänten soittaminen oikeassa kohdassa			...
 				- Äänten lataaminen oikeassa kontekstissa		DONE
 					* Wizard -enumeraatio						DONE
 						- getSoundBank -metodi sinne?			DONE

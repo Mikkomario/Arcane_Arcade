@@ -87,7 +87,8 @@ public abstract class SoundQueue implements SoundListener, BankObject
 		this.dead = true;
 		
 		// Also clears the sound list
-		this.sounds = null;
+		//this.sounds = null;
+		this.sounds.clear();
 	}
 
 	@Override
@@ -175,7 +176,7 @@ public abstract class SoundQueue implements SoundListener, BankObject
 		// Plays the sound if needed & not playing another sound
 		if (playiffree && !this.playing)
 		{
-			playSound(sound);
+			playSound(this.sounds.getFirst());
 			this.playing = true;
 		}
 	}
