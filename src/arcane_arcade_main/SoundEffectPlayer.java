@@ -68,7 +68,13 @@ public class SoundEffectPlayer
 	 */
 	public static float getEnvironmentalPan(double x)
 	{
-		return (float) (((x - GameSettings.SCREENWIDTH / 2) / 
-				(GameSettings.SCREENWIDTH / 2)) * Options.maxenvironmentalpan);
+		/*
+		float returned = (float) (((x - GameSettings.SCREENWIDTH / 2.0) / 
+				(GameSettings.SCREENWIDTH / 2.0)) * Options.maxenvironmentalpan);
+		
+		System.out.println("Panning sound: " + returned);
+		*/
+		return (float) (((x - GameSettings.SCREENWIDTH / 2.0) / 
+				(GameSettings.SCREENWIDTH / 2.0)) * Options.maxenvironmentalpan);
 	}
 }

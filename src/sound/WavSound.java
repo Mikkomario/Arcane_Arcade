@@ -1,5 +1,6 @@
 package sound;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -29,7 +30,8 @@ public class WavSound extends Sound
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private LinkedList<WavPlayer> players;
-	private String filename;
+	//private String filename;
+	private File soundfile;
 	private float defaultvolume, defaultpan;
 	
 	
@@ -51,7 +53,8 @@ public class WavSound extends Sound
 		super(name);
 		
 		// Initializes attributes
-		this.filename = "/data/" + filename;
+		//this.filename = "/data/" + filename;
+		this.soundfile = new File("src/data/" + filename);
 		this.defaultvolume = defaultvolume;
 		this.defaultpan = defaultpan;
 		this.players = new LinkedList<WavPlayer>();
@@ -123,6 +126,8 @@ public class WavSound extends Sound
 	
 	private void startsound(float volume, float pan, boolean loops)
 	{
+		//System.out.println("Playing a sound using pan: " + pan);
+		
 		WavPlayer newplayer = new WavPlayer(pan, volume, loops);
 		newplayer.start();
 		this.players.add(newplayer);
@@ -270,12 +275,14 @@ public class WavSound extends Sound
 	        AudioInputStream audioInputStream = null;
 	        try
 	        {
+	        	// TODO: WHY U NO READ IN STEREO FORMAT?!?
 	        	audioInputStream = AudioSystem.getAudioInputStream(
-	            		this.getClass().getResourceAsStream(WavSound.this.filename));
+	        			WavSound.this.soundfile);
+	        			//this.getClass().getResourceAsStream(WavSound.this.filename));
 	        }
 	        catch (UnsupportedAudioFileException e1)
 	        {
-	        	System.err.println("Audiofile " + WavSound.this.filename + 
+	        	System.err.println("Audiofile " + //WavSound.this.filename + 
 	        			" not supported!");
 	            e1.printStackTrace();
 	            return;
@@ -288,7 +295,7 @@ public class WavSound extends Sound
 	        } 
 	        catch (NullPointerException npe)
 	        {
-	        	System.err.println("Could not find the file " + WavSound.this.filename);
+	        	System.err.println("Could not find the file " /*+ WavSound.this.filename*/);
 	        	npe.printStackTrace();
 	        	return;
 	        }
@@ -297,6 +304,8 @@ public class WavSound extends Sound
 	        AudioFormat format = audioInputStream.getFormat();
 	        SourceDataLine auline = null;
 	        DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+	        
+	        //System.out.println(format);
 	 
 	        try
 	        { 
@@ -309,13 +318,33 @@ public class WavSound extends Sound
 	            e.printStackTrace();
 	            return;
 	        }
-	 
+	       
+	        // Prints the possible controls
+	        /*
+	        Control[] controls = auline.getControls();
+	        for (int i = 0; i < controls.length; i++)
+	        {
+	        	System.out.println(controls[i]);
+		    }
+	        */
+	        
 	        // Tries to set the correct pan (if needed)
 	        if (this.pan != 0 && auline.isControlSupported(FloatControl.Type.PAN))
 	        { 
+	        	// TODO: Pan is nor supported?
+	        	
 	            FloatControl pancontrol = (FloatControl) auline.getControl(
 	            		FloatControl.Type.PAN);
-	                pancontrol.setValue(this.pan);
+	            pancontrol.setValue(this.pan);
+	        }
+	     	// Tries to set the correct pan #2 (if needed)
+	        if (this.pan != 0 && auline.isControlSupported(FloatControl.Type.BALANCE))
+	        { 
+	        	// TODO: Pan is nor supported?
+	        	
+	            FloatControl pancontrol = (FloatControl) auline.getControl(
+	            		FloatControl.Type.BALANCE);
+	            pancontrol.setValue(this.pan);
 	        }
 	        // Tries to set the correct volume (if needed)
 	        if (this.volume != 0 && auline.isControlSupported(FloatControl.Type.VOLUME))
@@ -346,8 +375,8 @@ public class WavSound extends Sound
 	        }
 	        catch (IOException e)
 	        {
-	        	System.err.println("Error in playing the soundfile " + 
-	        			WavSound.this.filename);
+	        	System.err.println("Error in playing the soundfile "/* + 
+	        			WavSound.this.filename*/);
 	            e.printStackTrace();
 	            return;
 	        }

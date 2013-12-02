@@ -151,10 +151,19 @@ Eteneminen:														Status
 				- SingularTimer
 				- ConinuousTimer
 				- RandomContinuousTimer
-		- Debuggaus												DONE
+		- Debuggaus												...
 			* Törmäystarkistusten korjaus						DONE
 				- Ongelman paikantaminen						DONE
 				- Ongelman korjaaminen							DONE
+			* Panning -efektin korjaus							...
+				- Ongelman varmistaminen						DONE
+				- Ongelman paikantaminen						DONE
+					* Ongelma: audioline ei tue pannia
+						- @WavSound.WavPlayer
+					* Päivitys: Wav ei tue stereota
+						- Itse asiassa tukee
+				- Ongelman korjaaminen							...
+					* Kaikkien wavien muuttaminen stereoksi		...
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE
@@ -255,11 +264,11 @@ Eteneminen:														Status
 					* Filewriter								DONE
 				- Asetusten lukeminen pelin alussa				DONE
 			* Kenttävalikko (Sitten kun on kenttiä)
-			* SpellBook
+			* SpellBook											...
 				- Ohjeresurssien rakenteen määrittäminen
 				- Ohjeresurssien valmistaminen
 				- Oikean ohjeresurssin lukeminen
-				- Elementtien valinta graafisten tsydeemien 
+				- Elementtien valinta graafisten tsydeemien 	...
 				avulla
 				- Ohjeen piirtäminen
 		- Äänet													...
@@ -319,6 +328,8 @@ Eteneminen:														Status
 				- Kts. Dokumentti jossain
 		- Useamman pallon asettaminen peliin					...
 			* Serverrelay usean serverin ylläpitämiseen
+			* Vai yhden serverin käyttäminen useaan kertaan?
+				- Moniosainen server (ampuu moneen suuntaan kerralla)
 		- Näppäinten remappaaminen optionsseissa				...
 			* Remappauksen mahdollistaminen tietorakenteen		DONE 
 			puolesta
@@ -368,8 +379,9 @@ Eteneminen:														Status
 			* Kokemuksen hankkiminen
 			* Uusien ominaisuuksien unlockkaaminen
 		- Visuaaliset erikoisefektit
-		- Mikrotransaktiot
+		- Mikrotransaktiot (:D)
 			* Mahdollisuuksien ja toteutuksen kartoittaminen
 		- HD Edition
 			* Parempiresoluutioisten spritejen valmistaminen
 			* Tilanteeseen sopivan spriteympäristön luominen
+				- Objektien skaalaus resurssikoon mukaan

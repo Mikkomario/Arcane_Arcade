@@ -49,7 +49,7 @@ public class Options
 	 * How much panning there can be in the sound effects and voices at maximum. 
 	 * (High pan can be disturbing if the user wears headphones) [0, 1]
 	 */
-	public static double maxenvironmentalpan = 0.75;
+	public static double maxenvironmentalpan = 1;
 	
 	
 	// STATIC METHODS	-------------------------------------------------
