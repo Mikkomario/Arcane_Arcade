@@ -159,7 +159,8 @@ public class CollidableHandler extends Handler
 			// Adds the collided object to the list
 			this.collided.add(c);
 			
-			return false;
+			// Goes through all the objects
+			return true;
 		}
 		
 		
