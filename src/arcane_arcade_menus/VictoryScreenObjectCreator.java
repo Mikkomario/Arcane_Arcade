@@ -2,6 +2,8 @@ package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
 
+import listeners.RoomListener;
+
 import graphic.SpriteDrawer;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
@@ -13,6 +15,7 @@ import drawnobjects.DrawnObject;
 
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;
+import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.RoomObjectCreator;
 import arcane_arcade_worlds.VictorySetting;
@@ -67,6 +70,12 @@ public class VictoryScreenObjectCreator extends GameObject implements RoomObject
 		// Creates the objects
 		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
 		new MenuCornerCreator(this.drawer, this.mouselistenerhandler, room, true);
+		
+		new SimplePhaseChangeButton(GameSettings.SCREENWIDTH - 100, 
+				GameSettings.SCREENHEIGHT / 2, GamePhase.MAINMENU, 
+				this.navigator, this.drawer, this.actorhandler, 
+				this.mouselistenerhandler, room);
+		
 		//Let's try to solve our victor and create the WinnerText
 		if (this.victorysetting != null) {
 			int winner = 0;
@@ -77,7 +86,7 @@ public class VictoryScreenObjectCreator extends GameObject implements RoomObject
 				winner = WinnerText.WINNERRIGHT;
 			}
 			// Let's place the WinnerText
-			new WinnerText(winner, this.drawer);
+			new WinnerText(winner, this.drawer, room);
 		}
 	}
 
@@ -102,7 +111,8 @@ public class VictoryScreenObjectCreator extends GameObject implements RoomObject
 	 * @author Unto Solala
 	 *			4.9-2013
 	 */
-	private class WinnerText extends DrawnObject{
+	private class WinnerText extends DrawnObject implements RoomListener
+	{
 		
 		private static final int WINNERLEFT = 1;
 		private static final int WINNERRIGHT = 2;
@@ -112,7 +122,8 @@ public class VictoryScreenObjectCreator extends GameObject implements RoomObject
 		private SpriteDrawer spritedrawer;
 		private int winner;
 		
-		public WinnerText(int winner, DrawableHandler drawer) {
+		public WinnerText(int winner, DrawableHandler drawer, Room room)
+		{
 			super(0, 0, DepthConstants.NORMAL, drawer);
 			this.winner = winner;
 			int x = GameSettings.SCREENWIDTH/2;
@@ -138,30 +149,49 @@ public class VictoryScreenObjectCreator extends GameObject implements RoomObject
 					"menu").getSprite("winner"), null, this);
 			this.spritedrawer.inactivate();
 			this.setScale(0.5, 0.5);
+			
+			// Adds the object to a handler
+			if (room != null)
+				room.addObject(this);
 		}
 
 		// IMPLEMENTENTED METHODS ------------------------------------------
 
 		@Override
-		public int getOriginX() {
+		public int getOriginX()
+		{
 			if (this.spritedrawer == null)
 				return 0;
 			return this.spritedrawer.getSprite().getOriginX();
 		}
 
 		@Override
-		public int getOriginY() {
+		public int getOriginY()
+		{
 			if (this.spritedrawer == null)
 				return 0;
 			return this.spritedrawer.getSprite().getOriginY();
 		}
 
 		@Override
-		public void drawSelfBasic(Graphics2D g2d) {
+		public void drawSelfBasic(Graphics2D g2d)
+		{
 			// Draws the sprite
 			if (this.spritedrawer != null)
 				this.spritedrawer.drawSprite(g2d, 0, 0);
 		}
 
+		@Override
+		public void onRoomStart(Room room)
+		{
+			// Does nothing
+		}
+
+		@Override
+		public void onRoomEnd(Room room)
+		{
+			// Dies
+			kill();
+		}
 	}
 }

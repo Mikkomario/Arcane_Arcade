@@ -331,15 +331,15 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	}
 
 	@Override
-	public void onKeyDown(char key, int keyCode, boolean coded)
+	public void onKeyDown(char key, int keyCode, boolean coded, double steps)
 	{
 		// If UP or DOWN buttons were pressed, moves up / down
 		if (!coded)
 		{
 			if (key == this.buttonmaps.get(Buttons.UP))
-				move(-1);
+				move(-1, steps);
 			else if (key == this.buttonmaps.get(Buttons.DOWN))
-				move(1);
+				move(1, steps);
 			// If CAST button was pressed, casts a spell
 			if (key == this.buttonmaps.get(Buttons.CAST))
 				castSpell();
@@ -713,14 +713,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			return 1 - (this.castdelay / this.lastcastdelay);
 	}
 	
-	private void move(int movementsign)
+	private void move(int movementsign, double steps)
 	{
 		// Doesn't work if the wizard is paralyzed
 		if (getStatusStrength(WizardStatus.PARALYZED) > 0)
 			return;
 		
 		// Haste affects accelration
-		double speedchange = this.accelration * 
+		double speedchange = this.accelration * steps * 
 				(1 + getStatusStrength(WizardStatus.HASTE) / 75);
 		
 		// Panic switches the controls

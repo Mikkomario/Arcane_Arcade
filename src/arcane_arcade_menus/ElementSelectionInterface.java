@@ -309,7 +309,8 @@ public class ElementSelectionInterface
 		}
 
 		@Override
-		public void onKeyDown(char key, int keyCode, boolean coded)
+		public void onKeyDown(char key, int keyCode, boolean coded, 
+				double steps)
 		{
 			// Does nothing
 		}

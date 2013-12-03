@@ -29,24 +29,24 @@ public class KeyListenerHandler extends LogicalHandler implements
 	// IMPLEMENTED METHODS	---------------------------------------------
 
 	@Override
-	public void onKeyDown(char key, int keyCode, boolean coded)
+	public void onKeyDown(char key, int keyCode, boolean coded, double steps)
 	{
 		handleObjects(new AdvancedKeyEventOperator(AdvancedKeyEvent.KEYDOWN, 
-				key, keyCode, coded));
+				key, keyCode, coded, steps));
 	}
 
 	@Override
 	public void onKeyPressed(char key, int keyCode, boolean coded)
 	{
 		handleObjects(new AdvancedKeyEventOperator(AdvancedKeyEvent.KEYPRESSED, 
-				key, keyCode, coded));
+				key, keyCode, coded, 0));
 	}
 
 	@Override
 	public void onKeyReleased(char key, int keyCode, boolean coded)
 	{
 		handleObjects(new AdvancedKeyEventOperator(AdvancedKeyEvent.KEYRELEASED, 
-				key, keyCode, coded));
+				key, keyCode, coded, 0));
 	}
 	
 	@Override
@@ -94,17 +94,19 @@ public class KeyListenerHandler extends LogicalHandler implements
 		private int keycode;
 		private boolean coded;
 		private AdvancedKeyEvent event;
+		private double duration;
 		
 		
 		// CONSTRUCTOR	---------------------------------------------------
 		
 		public AdvancedKeyEventOperator(AdvancedKeyEvent event, char key, 
-				int keycode, boolean coded)
+				int keycode, boolean coded, double duration)
 		{
 			this.key = key;
 			this.keycode = keycode;
 			this.coded = coded;
 			this.event = event;
+			this.duration = duration;
 		}
 		
 		
@@ -122,8 +124,8 @@ public class KeyListenerHandler extends LogicalHandler implements
 			// Calls an event for the handled
 			switch (this.event)
 			{
-				case KEYDOWN: l.onKeyDown(this.key, this.keycode, this.coded); 
-						break;
+				case KEYDOWN: l.onKeyDown(this.key, this.keycode, this.coded, 
+						this.duration); break;
 				case KEYPRESSED: l.onKeyPressed(this.key, this.keycode, 
 						this.coded); break;
 				case KEYRELEASED: l.onKeyReleased(this.key, this.keycode, 

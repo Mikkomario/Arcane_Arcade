@@ -24,7 +24,6 @@ public class OptionBar extends DrawnObject implements RoomListener
 {
 	// ATTRIBUTES-------------------------------------------------------
 	
-	private boolean active;
 	private int value;
 	private int minValue;
 	private int maxValue;
@@ -55,7 +54,6 @@ public class OptionBar extends DrawnObject implements RoomListener
 	{
 		super(x, y, DepthConstants.NORMAL, drawer);
 
-		this.active = true;
 		this.value = defaultValue;
 		this.minValue = minValue;
 		this.maxValue = maxValue;
@@ -181,24 +179,6 @@ public class OptionBar extends DrawnObject implements RoomListener
 		// IMPLEMENTENTED METHODS ------------------------------------------
 
 		@Override
-		public boolean isActive()
-		{
-			return OptionBar.this.active;
-		}
-
-		@Override
-		public void activate()
-		{
-			OptionBar.this.active = true;
-		}
-
-		@Override
-		public void inactivate()
-		{
-			OptionBar.this.active = false;
-		}
-
-		@Override
 		public void onLeftPressed(int mouseX, int mouseY)
 		{
 			//System.out.println("Left mouse button pressed");
@@ -231,17 +211,27 @@ public class OptionBar extends DrawnObject implements RoomListener
 		}
 
 		@Override
-		public void onMouseOver(int mouseX, int mouseY)
-		{
-			// Does nothing
-		}
-
-		@Override
 		public void onMouseExit(int mouseX, int mouseY)
 		{
 			// Changes image index back
 			//System.out.println("You left the arrow alone.");
 			getSpriteDrawer().setImageIndex(0);
+		}
+		
+		@Override
+		public boolean isVisible()
+		{
+			if (!super.isVisible())
+				return false;
+			
+			// If the value is already at maximum / minimum, doesn't even 
+			// show the button
+			if ((this.direction == RIGHT && OptionBar.this.value == 
+					OptionBar.this.maxValue) || (this.direction == LEFT && 
+					OptionBar.this.value == OptionBar.this.minValue))
+				return false;
+			
+			return true;
 		}
 	}
 }

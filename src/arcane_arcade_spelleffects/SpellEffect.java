@@ -247,7 +247,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 			if (this.fadesin && this.lifetime - this.lifeleft < this.fadein && 
 					getAlpha() < 1)
 			{
-				setAlpha(getAlpha() + 1 / (float) this.fadein);
+				setAlpha(getAlpha() + (float) (steps / this.fadein));
 			}
 			// Changes the object's scaling if needed
 			if (this.scalesout && this.lifeleft < this.scaleout)

@@ -145,12 +145,12 @@ Eteneminen:														Status
 			* CPU-käytön optimointi								DONE
 				- CPU-käytön paikallistaminen					DONE
 				- CPU-käytön paikallinen vähentäminen			DONE
-			* Ajastin -luokka, jota voidaan käyttää 
+			* Ajastin -luokka, jota voidaan käyttää 			DONE
 			ajastetuissa eventeissä
-				- (Abstract)Timer
-				- SingularTimer
-				- ConinuousTimer
-				- RandomContinuousTimer
+				- (Abstract)Timer								DONE
+				- SingularTimer									DONE
+				- ConinuousTimer								DONE
+				- RandomContinuousTimer							DONE
 		- Debuggaus												...
 			* Törmäystarkistusten korjaus						DONE
 				- Ongelman paikantaminen						DONE
@@ -164,6 +164,8 @@ Eteneminen:														Status
 						- Itse asiassa tukee
 				- Ongelman korjaaminen							...
 					* Kaikkien wavien muuttaminen stereoksi		...
+			* Steptimen laittaminen myös mouse & keyEventteihin
+				- Samalla tavalla kuin actissa
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE
@@ -210,11 +212,11 @@ Eteneminen:														Status
 			* Loitsujen manankulutus							DONE
 		- Toinen pelaaja										DONE
 			* Eri näppäinten käyttäminen						DONE
-		- Menu													Testaamatta
+		- Menu													DONE
 			* Main-menun ympäristön luominen					DONE
 			* Ympäristöjen vaihtaminen							DONE
-				- Muistin vapauttaminen välissä					Testaamatta
-					* Tarpeettomiksi tulleiden pankkien 		Testaamatta
+				- Muistin vapauttaminen välissä					DONE
+					* Tarpeettomiksi tulleiden pankkien 		DONE
 					tyhjentäminen
 				- Ainoastaan alustettujen pankkien jakaminen 	DONE
 				eteenpäin

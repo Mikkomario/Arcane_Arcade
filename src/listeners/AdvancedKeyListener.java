@@ -17,8 +17,9 @@ public interface AdvancedKeyListener extends LogicalHandled
 	 * @param key The key that is currently pressed
 	 * @param keyCode The key's keycode (used for some keys)
 	 * @param coded Is the pressed key coded
+	 * @param steps How many steps has the key been pressed since the last event
 	 */
-	public void onKeyDown(char key, int keyCode, boolean coded);
+	public void onKeyDown(char key, int keyCode, boolean coded, double steps);
 	
 	/**
 	 * This method is called once when a key is pressed

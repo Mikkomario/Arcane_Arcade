@@ -25,6 +25,7 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 	private ArrayList<Integer> codesPressed;
 	private ArrayList<Character> keysReleased;
 	private ArrayList<Integer> codesReleased;
+	private double lastkeyduration;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -47,6 +48,7 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 		this.keysReleased = new ArrayList<Character>();
 		this.codesPressed = new ArrayList<Integer>();
 		this.codesReleased = new ArrayList<Integer>();
+		this.lastkeyduration = 0;
 	}
 	
 	
@@ -55,6 +57,9 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 	@Override
 	public void act(double steps)
 	{
+		// Collects necessary information
+		this.lastkeyduration = steps;
+		
 		// Informs the objects
 		handleObjects();
 		
@@ -108,7 +113,8 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 		// Informs if a key is down
 		for (int ikd = 0; ikd < this.keysDown.size(); ikd++)
 		{
-			listener.onKeyDown(this.keysDown.get(ikd), 0, false);
+			listener.onKeyDown(this.keysDown.get(ikd), 0, false, 
+					this.lastkeyduration);
 		}
 		
 		// Informs if a coded key is down
@@ -116,7 +122,8 @@ public class MainKeyListenerHandler extends LogicalHandler implements Actor
 		{
 			// For some reason, this check is needed...?
 			if (icd < this.codesDown.size())
-				listener.onKeyDown((char) 0, this.codesDown.get(icd), true);
+				listener.onKeyDown((char) 0, this.codesDown.get(icd), true, 
+						this.lastkeyduration);
 		}
 		
 		return true;

@@ -115,7 +115,7 @@ public class InputReader implements AdvancedKeyListener
 	}
 
 	@Override
-	public void onKeyDown(char key, int keyCode, boolean coded)
+	public void onKeyDown(char key, int keyCode, boolean coded, double steps)
 	{
 		// Doens't do anything
 	}
