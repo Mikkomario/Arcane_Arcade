@@ -17,10 +17,12 @@ public class StepHandler extends ActorHandler implements Runnable
 {
 	// ATTRIBUTES	-------------------------------------------------------
 	
-	// How long is a single step in milliseconds
-	private static final int STEPLENGTH = 15;
+	/**
+	 * How long does a single step take in milliseconds.
+	 */
+	public static final int STEPLENGTH = 15;
 	
-	private int stepduration;
+	private int callinterval, maxstepspercall;
 	private long nextupdatemillis, lastactmillis;
 	private boolean running;
 	private GameWindow window;
@@ -33,24 +35,36 @@ public class StepHandler extends ActorHandler implements Runnable
 	 * when a certain number of milliseconds has passed. Actors can be 
 	 * added using addActor method.
 	 * 
-	 * @param stepDuration How long does a single step last in milliseconds.
-	 * In other words, how often are the actors updated.
+	 * @param callInterval How many milliseconds will there at least be between 
+	 * update calls? This also defines the maximum frame rate / action rate 
+	 * for the program. No more than 20 milliseconds is adviced. All computers 
+	 * may be unable to update the program in less than 10 milliseconds though. 
+	 * (>0)
+	 * @param maxStepsPerCall How many steps can be "skipped" or simulated 
+	 * during a single call. Normally there is only one step or less for each 
+	 * call, but if the program can't run fast enough more steps are simulated 
+	 * for each call. The larger the value, the more unstable the program can 
+	 * become under heavy CPU-usage, but the better the game keeps from slowing 
+	 * down. The adviced value is from 2 to 3 but it can be 
+	 * different depending on the nature of the software. (> 0)
 	 * @param window The which which created the stepHandler
 	 * @see #addActor(handleds.Actor)
 	 */
-	public StepHandler(int stepDuration, GameWindow window)
+	public StepHandler(int callInterval, int maxStepsPerCall, 
+			GameWindow window)
 	{
 		super(false, null); // Stephandler doesn't have a superhandler
 		
 		// Initializes attributes
-		this.stepduration = stepDuration;
+		this.callinterval = callInterval;
+		this.maxstepspercall = maxStepsPerCall;
 		this.nextupdatemillis = 0;
 		this.lastactmillis = System.currentTimeMillis();
 		this.running = false;
 		this.window = window;
 		
 		// Creates an ApsOptimizer and adds it to the actors
-		addActor(new ApsOptimizer(this.stepduration, 8, 4000, 20000, 6));
+		addActor(new ApsOptimizer(this.callinterval, 8, 4000, 20000, 6));
 	}
 	
 	
@@ -81,13 +95,22 @@ public class StepHandler extends ActorHandler implements Runnable
 	private void update()
 	{
 		// Remembers the time
-		this.nextupdatemillis = System.currentTimeMillis() + this.stepduration;
+		this.nextupdatemillis = System.currentTimeMillis() + this.callinterval;
 		
 		// Calls all actors
 		if (!isDead())
 		{
-			act((System.currentTimeMillis() - this.lastactmillis) / 
-					(double) STEPLENGTH);
+			// Calculates the step length that is informed for the objects
+			double steps = (System.currentTimeMillis() - this.lastactmillis) / 
+					(double) STEPLENGTH;
+			
+			// Sometimes the true amount of steps can't be informed and a 
+			// different number is given instead (physics don't like there 
+			// being too many steps at once)
+			if (steps > this.maxstepspercall)
+				steps = this.maxstepspercall;
+			
+			act(steps);
 			
 			// Updates the game according to the changes
 			this.window.callScreenUpdate();
@@ -263,7 +286,7 @@ public class StepHandler extends ActorHandler implements Runnable
 				// Otherwise advances to the next phase (and updates the steptime)
 				else
 				{
-					this.optimalsteptime = StepHandler.this.stepduration;
+					this.optimalsteptime = StepHandler.this.callinterval;
 					if (this.aps < this.optimalaps)
 						this.stepsizeadjuster = -1;
 					else
@@ -284,7 +307,7 @@ public class StepHandler extends ActorHandler implements Runnable
 						this.maxstepsizeadjustment)
 				{
 					goToBreak();
-					StepHandler.this.stepduration = this.optimalsteptime;
+					StepHandler.this.callinterval = this.optimalsteptime;
 				}
 				// Otherwise further adjusts the stepduration
 				else
@@ -292,10 +315,10 @@ public class StepHandler extends ActorHandler implements Runnable
 					// Checks if the current status is closer to the goal than 
 					// the last and remembers it
 					if (currentapsdifference < this.lastapsdifference)
-						this.optimalsteptime = StepHandler.this.stepduration;
+						this.optimalsteptime = StepHandler.this.callinterval;
 					
 					// Increases / decreases the stepduration
-					StepHandler.this.stepduration += this.stepsizeadjuster;
+					StepHandler.this.callinterval += this.stepsizeadjuster;
 					this.currentstepsizeadjustments ++;
 				}
 			}

@@ -164,8 +164,8 @@ Eteneminen:														Status
 						- Itse asiassa tukee
 				- Ongelman korjaaminen							...
 					* Kaikkien wavien muuttaminen stereoksi		...
-			* Steptimen laittaminen myös mouse & keyEventteihin
-				- Samalla tavalla kuin actissa
+			* Steptimen laittaminen myös mouse & keyEventteihin	DONE
+				- Samalla tavalla kuin actissa					DONE
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE
@@ -298,6 +298,8 @@ Eteneminen:														Status
 			* Musiikkien järkevä organisointi ja lukeminen
 				- OpenMidiBank ja muuta
 			* Musiikin äänenvoimakkuuden säädön mahdollisaminen
+			* Resurssien allokoiminen ja vapauttaminen 
+			tarvittaessa
 		- Pelin pysäyttäminen									...
 			* Pausen toiminnallisuus							Testaamatta
 				- Omat handlerit fieldille						DONE
