@@ -70,7 +70,7 @@ public class GraphicalMousePositionTest extends DrawnObject implements AdvancedM
 	}
 
 	@Override
-	public void onLeftDown(int mouseX, int mouseY)
+	public void onLeftDown(int mouseX, int mouseY, double steps)
 	{
 		// Prints the difference between the given values
 		//System.out.println("Mouse position difference: " + (getX() - mouseX) + 
@@ -78,7 +78,7 @@ public class GraphicalMousePositionTest extends DrawnObject implements AdvancedM
 	}
 
 	@Override
-	public void onRightDown(int mouseX, int mouseY)
+	public void onRightDown(int mouseX, int mouseY, double steps)
 	{
 		// Unnecessary in this context
 	}

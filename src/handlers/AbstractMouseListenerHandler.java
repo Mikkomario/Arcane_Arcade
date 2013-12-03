@@ -26,6 +26,7 @@ implements Actor
 	private ArrayList<AdvancedMouseListener> exited;
 	
 	private AdvancedMouseEvent lastevent;
+	private double lasteventduration;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -52,6 +53,7 @@ implements Actor
 		this.lreleased = false;
 		this.rreleased = false;
 		this.lastevent = AdvancedMouseEvent.OTHER;
+		this.lasteventduration = 0;
 	}
 
 	
@@ -62,6 +64,7 @@ implements Actor
 	{
 		// Informs the objects
 		this.lastevent = AdvancedMouseEvent.OTHER;
+		this.lasteventduration = steps;
 		handleObjects();
 		
 		// Refreshes memory
@@ -143,9 +146,11 @@ implements Actor
 			if (l.listensPosition(getMouseX(), getMouseY()))
 			{
 				if (leftIsDown())
-					l.onLeftDown(getMouseX(), getMouseY());
+					l.onLeftDown(getMouseX(), getMouseY(), 
+							this.lasteventduration);
 				if (rightIsDown())
-					l.onRightDown(getMouseX(), getMouseY());
+					l.onRightDown(getMouseX(), getMouseY(), 
+							this.lasteventduration);
 				if (this.lpressed)
 					l.onLeftPressed(getMouseX(), getMouseY());
 				if (this.rpressed)

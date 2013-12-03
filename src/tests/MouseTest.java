@@ -59,15 +59,17 @@ public class MouseTest implements listeners.AdvancedMouseListener
 	// --------------------------------------------------------
 
 	@Override
-	public void onLeftDown(int mouseX, int mouseY) {
-		System.out.println("Vasen hiiren nappula pohjassa koordinaateissa X:"+mouseX+" Y:"+mouseY);
-
+	public void onLeftDown(int mouseX, int mouseY, double steps)
+	{
+		System.out.println("Vasen hiiren nappula pohjassa koordinaateissa X:" + 
+				mouseX+" Y:"+mouseY);
 	}
 
 	@Override
-	public void onRightDown(int mouseX, int mouseY) {
-		System.out.println("Oikea hiiren nappula pohjassa koordinaateissa X:"+mouseX+" Y:"+mouseY);
-
+	public void onRightDown(int mouseX, int mouseY, double steps)
+	{
+		System.out.println("Oikea hiiren nappula pohjassa koordinaateissa X:" + 
+				mouseX+" Y:"+mouseY);
 	}
 
 	@Override

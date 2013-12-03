@@ -147,13 +147,13 @@ public abstract class AbstractButton extends DimensionalDrawnObject implements
 	}
 
 	@Override
-	public void onLeftDown(int mouseX, int mouseY)
+	public void onLeftDown(int mouseX, int mouseY, double steps)
 	{
 		// Does nothing
 	}
 
 	@Override
-	public void onRightDown(int mouseX, int mouseY)
+	public void onRightDown(int mouseX, int mouseY, double steps)
 	{
 		// Does nothing
 	}

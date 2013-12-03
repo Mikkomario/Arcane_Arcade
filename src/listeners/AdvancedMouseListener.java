@@ -15,16 +15,20 @@ public interface AdvancedMouseListener extends LogicalHandled
 	 * and the mouse is over the object
 	 * @param mouseX The mouse's current x-coordinate
 	 * @param mouseY The mouse's current y-coordinate
+	 * @param steps How long the button has been held down since the last 
+	 * event (in steps)
 	 */
-	public void onLeftDown(int mouseX, int mouseY);
+	public void onLeftDown(int mouseX, int mouseY, double steps);
 	
 	/**
 	 * This method is called at each step when the right mouse button is down 
 	 * and the mouse is over the object
 	 * @param mouseX The mouse's current x-coordinate
 	 * @param mouseY The mouse's current y-coordinate
+	 * @param steps How long the button has been held down since the last 
+	 * event (in steps)
 	 */
-	public void onRightDown(int mouseX, int mouseY);
+	public void onRightDown(int mouseX, int mouseY, double steps);
 	
 	/**
 	 * This method is called when the left mouse button is pressed 
