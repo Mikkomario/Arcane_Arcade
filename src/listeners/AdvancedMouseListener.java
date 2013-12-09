@@ -106,4 +106,42 @@ public interface AdvancedMouseListener extends LogicalHandled
 	 * @param mouseY The mouse's current y-coordinate
 	 */
 	public void onMouseMove(int mouseX, int mouseY);
+	
+	/**
+	 * @return On which scale the object is interested in mouse button events. 
+	 * This affects what events are informed to the listener.
+	 */
+	public MouseButtonEventScale getCurrentButtonScaleOfInterest();
+	
+	
+	// ENUMERATIONS	-------------------------------------------------------
+	
+	/**
+	 * MouseButtonEventScale is used to define which mouse button events 
+	 * should be informed to the listener and which shouldn't.
+	 *
+	 * @author Mikko Hilpinen.
+	 *         Created 9.12.2013.
+	 */
+	public enum MouseButtonEventScale
+	{
+		/**
+		 * Local mouse events are events that happen inside the object's area 
+		 * of interest.<br>
+		 * Should be used if the listener is interested only about a certain area
+		 */
+		LOCAL, 
+		/**
+		 * All mouse events are included in the global mouse events.<br>
+		 * Should be used if the listener is interested in mouse events 
+		 * regardles of mouse position
+		 */
+		GLOBAL,
+		/**
+		 * No event is included in this category.<br>
+		 * Should be used if the listener is not interested in mouse button 
+		 * events at all.
+		 */
+		NONE;
+	}
 }

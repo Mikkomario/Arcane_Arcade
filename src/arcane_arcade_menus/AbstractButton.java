@@ -194,6 +194,12 @@ public abstract class AbstractButton extends DimensionalDrawnObject implements
 		// Does nothing
 	}
 	
+	@Override
+	public MouseButtonEventScale getCurrentButtonScaleOfInterest()
+	{
+		return MouseButtonEventScale.LOCAL;
+	}
+	
 	
 	// GETTERS & SETTERS	---------------------------------------------
 	

@@ -164,4 +164,10 @@ public class GraphicalMousePositionTest extends DrawnObject implements AdvancedM
 		// Draws a rectangle
 		g2d.drawRect(0, 0, 50, 50);
 	}
+
+	@Override
+	public MouseButtonEventScale getCurrentButtonScaleOfInterest()
+	{
+		return MouseButtonEventScale.GLOBAL;
+	}
 }

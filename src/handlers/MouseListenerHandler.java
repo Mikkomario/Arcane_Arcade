@@ -113,4 +113,11 @@ public class MouseListenerHandler extends AbstractMouseListenerHandler
 	{
 		// Nothing
 	}
+
+	@Override
+	public MouseButtonEventScale getCurrentButtonScaleOfInterest()
+	{
+		// Handlers are interested in all button events
+		return MouseButtonEventScale.GLOBAL;
+	}
 }

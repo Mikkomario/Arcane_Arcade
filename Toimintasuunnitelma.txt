@@ -232,6 +232,8 @@ Eteneminen:														Status
 		- Perus nappula											DONE
 			* Nappulan muuttuminen kun hiiri menee päälle		DONE
 			* Nappulan funktion piirtäminen kun hiiri päällä	DONE
+		- Slideri
+			* On - Off versio
 		- Voittovalikko											DONE
 			* Tiedon siirtäminen ympäristöjen välillä			DONE
 				- Settings -luokka ja sen phasekohtaiset 		DONE

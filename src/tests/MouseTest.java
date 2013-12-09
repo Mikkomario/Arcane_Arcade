@@ -131,5 +131,10 @@ public class MouseTest implements listeners.AdvancedMouseListener
 		// Reacts to mouses movements
 		
 	}
-	
+
+	@Override
+	public MouseButtonEventScale getCurrentButtonScaleOfInterest()
+	{
+		return MouseButtonEventScale.GLOBAL;
+	}
 }

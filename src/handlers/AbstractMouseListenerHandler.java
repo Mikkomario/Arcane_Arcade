@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import handleds.Actor;
 import handleds.Handled;
 import listeners.AdvancedMouseListener;
+import listeners.AdvancedMouseListener.MouseButtonEventScale;
 
 /**
  * This class handles the informing of mouselsteners. It does not actively find 
@@ -142,8 +143,12 @@ implements Actor
 					l.onMouseEnter(getMouseX(), getMouseY());
 			}
 			
-			// Informs about mouse buttons
-			if (l.listensPosition(getMouseX(), getMouseY()))
+			// Informs about mouse buttons (if the listener is interested)
+			if (l.getCurrentButtonScaleOfInterest().equals(
+					MouseButtonEventScale.GLOBAL) || 
+					(l.getCurrentButtonScaleOfInterest().equals(
+					MouseButtonEventScale.LOCAL) && 
+					l.listensPosition(getMouseX(), getMouseY())))
 			{
 				if (leftIsDown())
 					l.onLeftDown(getMouseX(), getMouseY(), 
