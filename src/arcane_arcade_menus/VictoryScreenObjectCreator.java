@@ -4,14 +4,14 @@ import java.awt.Graphics2D;
 
 import listeners.RoomListener;
 
+import gameobjects.DrawnObject;
+import gameobjects.GameObject;
 import graphic.SpriteDrawer;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.DepthConstants;
 import worlds.Room;
-import common.GameObject;
-import drawnobjects.DrawnObject;
 
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;

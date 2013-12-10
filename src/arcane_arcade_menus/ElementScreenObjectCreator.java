@@ -1,10 +1,10 @@
 package arcane_arcade_menus;
 
+import gameobjects.GameObject;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
 import handlers.MouseListenerHandler;
-import common.GameObject;
 
 import worlds.Room;
 import arcane_arcade_main.GameSettings;

@@ -1,6 +1,6 @@
 package arcane_arcade_spelleffects;
 
-import drawnobjects.DrawnObject;
+import gameobjects.DrawnObject;
 import handlers.ActorHandler;
 import worlds.Room;
 

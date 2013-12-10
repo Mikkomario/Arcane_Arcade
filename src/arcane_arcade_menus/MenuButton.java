@@ -7,13 +7,13 @@ import arcane_arcade_worlds.Navigator;
 
 import worlds.Room;
 
+import gameobjects.DrawnObject;
 import handleds.Actor;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import drawnobjects.DrawnObject;
 
 /**
  * Menubuttons have different functions and can be clicked. MenuButtons also 

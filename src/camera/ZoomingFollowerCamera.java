@@ -1,8 +1,8 @@
 package camera;
 
+import gameobjects.BasicPhysicDrawnObject;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
-import drawnobjects.BasicPhysicDrawnObject;
 
 /**
  * This camera follows a given object and zooms out when the speed of the object 

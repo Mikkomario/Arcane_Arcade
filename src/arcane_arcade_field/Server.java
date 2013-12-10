@@ -13,6 +13,7 @@ import listeners.TimerEventListener;
 
 import arcane_arcade_worlds.Navigator;
 
+import gameobjects.BasicPhysicDrawnObject;
 import graphic.SpriteDrawer;
 import handleds.Collidable;
 import handlers.ActorHandler;
@@ -21,7 +22,6 @@ import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import drawnobjects.BasicPhysicDrawnObject;
 
 /**
  * Server spins, shoots the ball and then vanishes until it is needed again

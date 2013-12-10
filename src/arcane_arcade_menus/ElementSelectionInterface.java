@@ -1,5 +1,7 @@
 package arcane_arcade_menus;
 
+import gameobjects.DrawnObject;
+import gameobjects.GameObject;
 import graphic.SpriteDrawer;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
@@ -9,14 +11,12 @@ import helpAndEnums.HelpMath;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import common.GameObject;
 
 import worlds.Room;
 
 import listeners.AdvancedKeyListener;
 import listeners.RoomListener;
 
-import drawnobjects.DrawnObject;
 
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_main.Buttons;

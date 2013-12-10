@@ -1,12 +1,12 @@
 package tests;
 
+import gameobjects.DrawnObject;
 import handlers.DrawableHandler;
 
 import java.awt.Graphics2D;
 
 import arcane_arcade_main.GameSettings;
 
-import drawnobjects.DrawnObject;
 
 /**
  * Gamepanelsizetest draws a box with certain dimensions to the screen

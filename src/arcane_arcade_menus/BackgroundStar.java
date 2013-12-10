@@ -6,13 +6,13 @@ import arcane_arcade_worlds.Navigator;
 
 import worlds.Room;
 
+import gameobjects.DrawnObject;
 import graphic.SpriteDrawer;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.DepthConstants;
 import listeners.AnimationListener;
 import listeners.RoomListener;
-import drawnobjects.DrawnObject;
 
 /**
  * A backgroundstar is a visual effect shown in the background of the game

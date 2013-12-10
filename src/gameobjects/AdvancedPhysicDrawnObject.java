@@ -1,4 +1,4 @@
-package drawnobjects;
+package gameobjects;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;

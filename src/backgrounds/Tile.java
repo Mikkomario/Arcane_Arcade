@@ -1,6 +1,6 @@
 package backgrounds;
 
-import resource_management.SpriteBank;
+import resourcebanks.SpriteBank;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 

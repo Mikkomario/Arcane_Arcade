@@ -3,15 +3,15 @@ package arcane_arcade_menus;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-import common.GameObject;
 
 import worlds.Room;
 
 import listeners.RoomListener;
-import drawnobjects.DrawnObject;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
+import gameobjects.DrawnObject;
+import gameobjects.GameObject;
 import graphic.SpriteDrawer;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;

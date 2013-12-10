@@ -4,8 +4,8 @@ import timers.ContinuousTimer;
 import worlds.Room;
 import listeners.RoomListener;
 import listeners.TimerEventListener;
-import common.GameObject;
 
+import gameobjects.GameObject;
 import handleds.Actor;
 import handlers.ActorHandler;
 

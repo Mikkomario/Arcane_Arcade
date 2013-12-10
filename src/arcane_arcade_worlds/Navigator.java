@@ -3,10 +3,10 @@ package arcane_arcade_worlds;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import resource_management.OpenSpriteBankHolder;
-import resource_management.OpenWavSoundBankHolder;
-import resource_management.SpriteBank;
-import resource_management.WavSoundBank;
+import resourcebanks.OpenSpriteBankHolder;
+import resourcebanks.OpenWavSoundBankHolder;
+import resourcebanks.SpriteBank;
+import resourcebanks.WavSoundBank;
 
 import handlers.ActorHandler;
 import handlers.DrawableHandler;

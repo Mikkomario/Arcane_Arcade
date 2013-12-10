@@ -1,4 +1,4 @@
-package resource_management;
+package resourcebanks;
 
 import java.util.HashMap;
 
@@ -10,7 +10,7 @@ import java.util.HashMap;
  *
  * @author Mikko Hilpinen.
  *         Created 17.8.2013.
- * @see resource_management.BankObject
+ * @see resourcebanks.BankObject
  */
 public abstract class AbstractBank
 {

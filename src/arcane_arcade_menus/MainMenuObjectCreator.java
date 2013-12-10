@@ -3,11 +3,11 @@ package arcane_arcade_menus;
 import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.RoomObjectCreator;
 import arcane_arcade_worlds.Navigator;
+import gameobjects.GameObject;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import worlds.Room;
-import common.GameObject;
 
 /**
  * MainMenuObjectCreator creates the objects needed in the main menu at the 

@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.Navigator;
-import drawnobjects.DrawnObject;
+import gameobjects.DrawnObject;
 import graphic.SpriteDrawer;
 import handleds.Drawable;
 import handleds.Handled;

@@ -2,8 +2,8 @@ package graphic;
 
 import java.awt.Graphics2D;
 
-import drawnobjects.DrawnObject;
 
+import gameobjects.DrawnObject;
 import handleds.Actor;
 import handlers.ActorHandler;
 import handlers.AnimationListenerHandler;

@@ -21,6 +21,7 @@ import arcane_arcade_status.Element;
 import arcane_arcade_status.WizardStatus;
 import arcane_arcade_worlds.Navigator;
 
+import gameobjects.BasicPhysicDrawnObject;
 import graphic.MaskChecker;
 import graphic.SpriteDrawer;
 import handleds.Collidable;
@@ -32,7 +33,6 @@ import handlers.KeyListenerHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
 import helpAndEnums.HelpMath;
-import drawnobjects.BasicPhysicDrawnObject;
 
 /**
  * Mages are the playable characters in the game

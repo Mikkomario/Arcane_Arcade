@@ -1,8 +1,9 @@
 package arcane_arcade_worlds;
 
+import gameobjects.GameObject;
+
 import java.util.ArrayList;
 
-import common.GameObject;
 
 import backgrounds.Background;
 

@@ -6,6 +6,10 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import listeners.CameraListener;
+import gameobjects.BasicPhysicDrawnObject;
+import gameobjects.CollidingDrawnObject;
+import gameobjects.DimensionalDrawnObject;
+import gameobjects.DrawnObject;
 import handleds.Collidable;
 import handleds.Drawable;
 import handlers.ActorHandler;
@@ -14,10 +18,6 @@ import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
 import helpAndEnums.HelpMath;
-import drawnobjects.CollidingDrawnObject;
-import drawnobjects.DimensionalDrawnObject;
-import drawnobjects.DrawnObject;
-import drawnobjects.BasicPhysicDrawnObject;
 
 /**
  * This object acts as the camera of the game, drawing multiple elements from the 

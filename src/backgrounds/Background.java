@@ -3,14 +3,14 @@ package backgrounds;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import resource_management.SpriteBank;
+import resourcebanks.SpriteBank;
 
+import gameobjects.DrawnObject;
 import graphic.Sprite;
 import graphic.SpriteDrawer;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.DepthConstants;
-import drawnobjects.DrawnObject;
 
 /**
  * Background is a simple surface that can be drawn under other objects

@@ -3,14 +3,14 @@ package backgrounds;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import resource_management.SpriteBank;
+import resourcebanks.SpriteBank;
 
+import gameobjects.DimensionalDrawnObject;
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import drawnobjects.DimensionalDrawnObject;
 
 /**
  * Tilemaps hold a certain number of tiles. Tilemaps can be created using tables 

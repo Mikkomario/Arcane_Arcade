@@ -9,10 +9,10 @@ import worlds.Room;
 
 import listeners.RoomListener;
 
+import gameobjects.DrawnObject;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.DepthConstants;
-import drawnobjects.DrawnObject;
 
 /**
  * Creates an OptionBar for one of the game's options.

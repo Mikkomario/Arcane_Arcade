@@ -5,10 +5,10 @@ import java.awt.Graphics2D;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.Navigator;
 
+import gameobjects.DrawnObject;
 import graphic.SpriteDrawer;
 import handlers.DrawableHandler;
 import helpAndEnums.DepthConstants;
-import drawnobjects.DrawnObject;
 import worlds.Room;
 import listeners.RoomListener;
 

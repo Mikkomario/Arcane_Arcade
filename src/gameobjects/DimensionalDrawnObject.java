@@ -1,4 +1,4 @@
-package drawnobjects;
+package gameobjects;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

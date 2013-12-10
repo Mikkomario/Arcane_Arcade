@@ -14,6 +14,7 @@ import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.WizardStatus;
 import arcane_arcade_worlds.Navigator;
 
+import gameobjects.BouncingBasicPhysicDrawnObject;
 import graphic.SpriteDrawer;
 import handleds.Collidable;
 import handlers.ActorHandler;
@@ -23,7 +24,6 @@ import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
 import helpAndEnums.HelpMath;
-import drawnobjects.BouncingBasicPhysicDrawnObject;
 
 /**
  * Ball is one of the main objects of the game. It mainly flies around the 

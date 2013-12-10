@@ -11,8 +11,8 @@ import java.awt.BorderLayout;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 
-import resource_management.OpenSpriteBankHolder;
-import resource_management.OpenWavSoundBankHolder;
+import resourcebanks.OpenSpriteBankHolder;
+import resourcebanks.OpenWavSoundBankHolder;
 import tests.FpsApsTest;
 import video.GamePanel;
 import video.GameWindow;

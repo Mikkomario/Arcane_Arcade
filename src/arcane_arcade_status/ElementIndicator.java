@@ -1,5 +1,6 @@
 package arcane_arcade_status;
 
+import gameobjects.DrawnObject;
 import graphic.SpriteDrawer;
 import handlers.DrawableHandler;
 
@@ -11,7 +12,6 @@ import listeners.RoomListener;
 
 import arcane_arcade_worlds.Navigator;
 
-import drawnobjects.DrawnObject;
 
 /**
  * ElementIndicators are used to represent the possible elements to choose 

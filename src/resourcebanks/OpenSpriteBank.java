@@ -1,4 +1,4 @@
-package resource_management;
+package resourcebanks;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

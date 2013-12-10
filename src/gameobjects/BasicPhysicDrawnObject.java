@@ -1,4 +1,4 @@
-package drawnobjects;
+package gameobjects;
 
 import handleds.Actor;
 import handlers.ActorHandler;

@@ -1,5 +1,6 @@
 package arcane_arcade_field;
 
+import gameobjects.DrawnObject;
 import graphic.SpriteDrawer;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
@@ -8,7 +9,6 @@ import java.awt.Graphics2D;
 
 import arcane_arcade_status.WizardStatus;
 import arcane_arcade_worlds.Navigator;
-import drawnobjects.DrawnObject;
 
 /**
  * WizardStatusDrawer draws the status effects of the wizard

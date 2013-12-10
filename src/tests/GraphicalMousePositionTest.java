@@ -2,10 +2,10 @@ package tests;
 
 import java.awt.Graphics2D;
 
+import gameobjects.DrawnObject;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.DepthConstants;
-import drawnobjects.DrawnObject;
 import listeners.AdvancedMouseListener;
 
 /**

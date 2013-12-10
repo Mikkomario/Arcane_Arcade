@@ -1,9 +1,9 @@
-package resource_management;
+package resourcebanks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import common.FileReader;
+import fileio.FileReader;
 
 /**
  * OpenBankHolder is an abstract class which creates and stores various OpenBanks

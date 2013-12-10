@@ -1,4 +1,4 @@
-package resource_management;
+package resourcebanks;
 
 import sound.WavSound;
 

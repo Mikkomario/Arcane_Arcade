@@ -1,4 +1,4 @@
-package drawnobjects;
+package gameobjects;
 
 import handlers.CollidableHandler;
 import handlers.CollisionHandler;

@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import drawnobjects.BasicPhysicDrawnObject;
+import gameobjects.BasicPhysicDrawnObject;
 import handleds.Collidable;
 import handlers.ActorHandler;
 import helpAndEnums.CollisionType;

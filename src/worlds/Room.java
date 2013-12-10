@@ -1,5 +1,6 @@
 package worlds;
 
+import gameobjects.GameObject;
 import handleds.Drawable;
 import handleds.Handled;
 import handleds.LogicalHandled;
@@ -10,7 +11,6 @@ import java.util.ArrayList;
 
 import listeners.RoomListener;
 
-import common.GameObject;
 
 import backgrounds.Background;
 

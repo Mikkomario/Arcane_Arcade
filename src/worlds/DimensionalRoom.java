@@ -9,7 +9,7 @@ import helpAndEnums.HelpMath;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import resource_management.SpriteBank;
+import resourcebanks.SpriteBank;
 
 import backgrounds.Background;
 import backgrounds.TileMap;

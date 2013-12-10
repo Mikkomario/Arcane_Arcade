@@ -11,13 +11,13 @@ import worlds.Room;
 
 import listeners.RoomListener;
 
+import gameobjects.BasicPhysicDrawnObject;
 import graphic.SpriteDrawer;
 import handleds.Collidable;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import drawnobjects.BasicPhysicDrawnObject;
 
 /**
  * BackgroundComet is a comet that travels through the screen and then dies

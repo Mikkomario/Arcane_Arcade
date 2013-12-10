@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import arcane_arcade_status.BallStatus;
 import arcane_arcade_worlds.Navigator;
 
-import drawnobjects.DrawnObject;
+import gameobjects.DrawnObject;
 import graphic.SpriteDrawer;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;

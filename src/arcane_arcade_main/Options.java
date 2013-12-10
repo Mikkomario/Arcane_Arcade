@@ -2,8 +2,8 @@ package arcane_arcade_main;
 
 import java.util.HashMap;
 
-import common.AbstractFileWriter;
-import common.FileReader;
+import fileio.AbstractFileWriter;
+import fileio.FileReader;
 
 /**
  * Options class loads the chosen settings at the start of the game, provides 

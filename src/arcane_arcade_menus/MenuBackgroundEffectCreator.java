@@ -11,8 +11,8 @@ import listeners.TimerEventListener;
 import timers.RandomTimer;
 import worlds.Room;
 
-import common.GameObject;
 
+import gameobjects.GameObject;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 

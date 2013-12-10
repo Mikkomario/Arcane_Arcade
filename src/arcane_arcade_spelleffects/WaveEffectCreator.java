@@ -5,13 +5,13 @@ import java.util.Random;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_main.SoundEffectPlayer;
+import gameobjects.BasicPhysicDrawnObject;
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.HelpMath;
 import helpAndEnums.Movement;
 import worlds.Room;
-import drawnobjects.BasicPhysicDrawnObject;
 
 /**
  * WaveEffect creator follows a wizard and creates three waves of waveeffects

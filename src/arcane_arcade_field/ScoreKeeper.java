@@ -11,12 +11,12 @@ import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.VictorySetting;
 
+import gameobjects.DrawnObject;
 import graphic.SpriteDrawer;
 import handleds.Actor;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.DepthConstants;
-import drawnobjects.DrawnObject;
 
 /**
  * Scorekeeper keeps track of the game's score and handlers the continuity 

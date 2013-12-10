@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import resource_management.BankObject;
+import resourcebanks.BankObject;
 
 
 /**

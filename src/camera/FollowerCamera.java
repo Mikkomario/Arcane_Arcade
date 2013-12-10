@@ -1,6 +1,6 @@
 package camera;
 
-import drawnobjects.BasicPhysicDrawnObject;
+import gameobjects.BasicPhysicDrawnObject;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 

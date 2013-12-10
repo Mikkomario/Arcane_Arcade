@@ -1,4 +1,4 @@
-package resource_management;
+package resourcebanks;
 
 /**
  * Each object which implements this interface will be able to receive commands

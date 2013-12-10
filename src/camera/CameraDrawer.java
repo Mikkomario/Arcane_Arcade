@@ -1,6 +1,6 @@
 package camera;
 
-import drawnobjects.DrawnObject;
+import gameobjects.DrawnObject;
 import handleds.Handled;
 import handlers.DrawnObjectHandler;
 import helpAndEnums.DepthConstants;

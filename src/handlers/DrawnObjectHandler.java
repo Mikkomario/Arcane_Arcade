@@ -1,6 +1,6 @@
 package handlers;
 
-import drawnobjects.DrawnObject;
+import gameobjects.DrawnObject;
 
 /**
  * Drawnobjecthandler is a special drawablehandler that handles only drawn 

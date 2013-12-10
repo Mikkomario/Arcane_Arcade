@@ -14,6 +14,7 @@ import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 import arcane_arcade_worlds.Navigator;
 
+import gameobjects.BasicPhysicDrawnObject;
 import graphic.SpriteDrawer;
 import handleds.Collidable;
 import handlers.ActorHandler;
@@ -22,7 +23,6 @@ import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.HelpMath;
-import drawnobjects.BasicPhysicDrawnObject;
 
 /**
  * Spelleffects vary quite much but each of them has one or two elements and 

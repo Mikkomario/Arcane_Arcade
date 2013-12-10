@@ -3,7 +3,7 @@ package worlds;
 
 import java.util.ArrayList;
 
-import resource_management.SpriteBank;
+import resourcebanks.SpriteBank;
 
 import backgrounds.Background;
 import backgrounds.TileMap;

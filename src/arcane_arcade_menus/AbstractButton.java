@@ -7,12 +7,12 @@ import worlds.Room;
 import listeners.AdvancedMouseListener;
 import listeners.RoomListener;
 
+import gameobjects.DimensionalDrawnObject;
 import graphic.Sprite;
 import graphic.SpriteDrawer;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.CollisionType;
-import drawnobjects.DimensionalDrawnObject;
 
 /**
  * AbstractButton class implements some of the most common functions all the 

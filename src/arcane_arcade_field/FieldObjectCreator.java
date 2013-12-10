@@ -6,12 +6,12 @@ import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.FieldSetting;
 import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.RoomObjectCreator;
+import gameobjects.GameObject;
 import handlers.ActorHandler;
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
 import helpAndEnums.DepthConstants;
-import common.GameObject;
 
 import worlds.Room;
 
