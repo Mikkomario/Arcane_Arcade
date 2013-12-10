@@ -63,6 +63,8 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 	@Override
 	public void onRoomStart(Room room)
 	{
+		//System.out.println("battlescreen object creator starts creating objects");
+		
 		// Creates the objects
 		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
 		new MenuCornerCreator(this.drawer, this.mousehandler, room,
@@ -73,6 +75,8 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT - 100, 
 				GamePhase.MAINMENU, this.navigator, this.drawer, 
 				this.actorhandler, this.mousehandler, room).setXScale(-1);
+		
+		//System.out.println("battlescreen object creator completed");
 	}
 
 	@Override

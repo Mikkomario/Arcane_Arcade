@@ -26,7 +26,7 @@ public class OpenWavSoundBank extends WavSoundBank implements OpenBank
 	 * @param creationcommands The creationcommands contain the necessary 
 	 * information for creating a wavsound. The commands should have the 
 	 * following syntax:<br>
-	 * <i>soundname#filename (src/data automatically included)
+	 * <i>soundname#filename (data/ automatically included)
 	 * #volumeadjustment#panning</i><br>
 	 * Command can be for example such line as "car#sounds/car.wav#3.0#-0.4"
 	 */

@@ -46,14 +46,14 @@ public abstract class AbstractFileWriter
 	 * is one, writes data into the file by calling the writeLine method and 
 	 * finally closes the file.
 	 *
-	 * @param filename The name of the new file created (src/data/ 
+	 * @param filename The name of the new file created (data/ 
 	 * already included)
 	 * @see #writeLine(int)
 	 */
 	public void saveIntoFile(String filename)
 	{
 		// Generates a new filename
-		String savename = "src/data/" + filename;
+		String savename = "data/" + filename;
 		
 		// Creates the new Savefile or overwrites the old one
 		File savefile = new File(savename);

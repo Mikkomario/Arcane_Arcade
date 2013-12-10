@@ -28,7 +28,7 @@ public class OpenSpriteBank extends SpriteBank implements OpenBank
 	 *
 	 * @param creationcommands Creation commands should follow the following 
 	 * style:<br>
-	 * spritename#filename <i>(src/data/ is automatically included)</i>#image 
+	 * spritename#filename <i>(data/ is automatically included)</i>#image 
 	 * number#originx#originy
 	 */
 	public OpenSpriteBank(ArrayList<String> creationcommands)

@@ -35,7 +35,7 @@ public class MidiMusic extends Sound implements MetaEventListener
 	/**
 	 * Creates MidiMusic-object.
 	 * 
-	 * @param fileName Which midi file is used to play the music (src/data/ 
+	 * @param fileName Which midi file is used to play the music (data/ 
 	 * automatically included).
 	 * @param name The name of the midimusic (in the midimusicbank)
 	 */
@@ -44,7 +44,7 @@ public class MidiMusic extends Sound implements MetaEventListener
 		super(name);
 		
 		// Initializes attributes
-		this.fileName = "src/data/" + fileName;
+		this.fileName = "data/" + fileName;
 		this.pauseposition = 0;
 		
 		// tries to create the midisequence

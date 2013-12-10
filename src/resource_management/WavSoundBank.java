@@ -25,7 +25,7 @@ public abstract class WavSoundBank extends SoundBank
 	/**
 	 * Creates and puts a sound to the bank
 	 * 
-	 * @param filename The name of the wav-file (src/data/ included automatically)
+	 * @param filename The name of the wav-file (data/ included automatically)
 	 * @param soundname The name of the sound in the bank
 	 * @param defvolume How many desibels the volume is adjusted by default
 	 * @param defpan How much the sound is panned by default [-1 (left speaker 

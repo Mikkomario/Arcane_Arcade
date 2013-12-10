@@ -18,11 +18,11 @@ public class OpenWavSoundBankHolder extends OpenBankHolder
 	 * using the given file.
 	 *
 	 * @param filename A file that shows information about what banks to create 
-	 * (src/data/ automatically included). 
+	 * (data/ automatically included). 
 	 * The file should be written as follows:<p>
 	 * 
 	 * &bankname<br>
-	 * soundname#filename(src/data/ automatically included)#volumeadjustment (float)#
+	 * soundname#filename(data/ automatically included)#volumeadjustment (float)#
 	 * pan (float [-1, 1])<br>
 	 * anothersoundname#...<br>
 	 * ...<br>

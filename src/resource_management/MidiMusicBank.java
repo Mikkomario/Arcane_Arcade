@@ -51,7 +51,7 @@ public abstract class MidiMusicBank extends SoundBank
 	/**
 	 * Creates a midi and stores it in the bank
 	 * 
-	 * @param fileName	File's name and location (src/data/ is added by default)
+	 * @param fileName	File's name and location (data/ is added by default)
 	 * @param midiName	Name of the new midi in the bank.
 	 */
 	protected void createMidiMusic(String fileName, String midiName)

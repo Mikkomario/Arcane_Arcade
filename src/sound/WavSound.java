@@ -40,7 +40,7 @@ public class WavSound extends Sound
 	/**
 	 * Creates a new wawsound with the given information
 	 *
-	 * @param filename The location of the wav sound file (src/data/ is 
+	 * @param filename The location of the wav sound file (data/ is 
 	 * automatically included)
 	 * @param name The name of the sound that differentiates it from other 
 	 * sounds
@@ -54,7 +54,7 @@ public class WavSound extends Sound
 		
 		// Initializes attributes
 		//this.filename = "/data/" + filename;
-		this.soundfile = new File("src/data/" + filename);
+		this.soundfile = new File("data/" + filename);
 		this.defaultvolume = defaultvolume;
 		this.defaultpan = defaultpan;
 		this.players = new LinkedList<WavPlayer>();

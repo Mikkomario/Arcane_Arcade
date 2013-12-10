@@ -166,6 +166,10 @@ Eteneminen:														Status
 					* Kaikkien wavien muuttaminen stereoksi		...
 			* Steptimen laittaminen myös mouse & keyEventteihin	DONE
 				- Samalla tavalla kuin actissa					DONE
+			* Ohjelma kaatuu välillä main menun ja battle 
+			settings screenin välillä
+				- Ongelman paikantaminen
+				- Ongelman korjaus
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE

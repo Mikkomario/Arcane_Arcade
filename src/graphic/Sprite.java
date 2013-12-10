@@ -35,7 +35,7 @@ public class Sprite implements BankObject
 	 * the caller. The images are loaded from a strip that contains one or more 
 	 * images.
 	 *
-	 * @param filename The location of the loaded image (src/data/ is added 
+	 * @param filename The location of the loaded image (data/ is added 
 	 * automatically to the beginning)
 	 * @param numberOfImages How many separate images does the strip contain?
 	 * @param originX the x-coordinate of the sprite's origin (Pxl)
@@ -59,7 +59,7 @@ public class Sprite implements BankObject
 		this.dead = false;
 		
 		// Loads the image
-		File img = new File("src/data/" + filename);
+		File img = new File("data/" + filename);
 		BufferedImage strip = null;
 		
 		try
@@ -68,7 +68,7 @@ public class Sprite implements BankObject
 		}
 		catch (IOException ioe)
 		{
-			System.err.println(this + " failed to load the image src/data/" + 
+			System.err.println(this + " failed to load the image data/" + 
 					filename);
 			ioe.printStackTrace();
 			return;

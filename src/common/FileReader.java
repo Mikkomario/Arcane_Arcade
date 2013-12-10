@@ -54,14 +54,14 @@ public abstract class FileReader
 	 * Doesn't read a file that doesn't exist and prints an error message if 
 	 * no file was found
 	 *
-	 * @param filename The name of the file read (src/data/ is added 
+	 * @param filename The name of the file read (data/ is added 
 	 * automatically to the beginning)
 	 * @see onLine
 	 */
 	public void readFile(String filename)
 	{
 		// First checks if the file actually exists
-		File file = new File("src/data/" + filename);
+		File file = new File("data/" + filename);
 		Scanner scanner = null;
 		
 		// Tries to open the file
@@ -71,7 +71,7 @@ public abstract class FileReader
 		}
 		catch (FileNotFoundException e)
 		{
-			System.err.println("File src/data/" + filename + 
+			System.err.println("File data/" + filename + 
 					" does not exist!");
 			return;
 		}

@@ -29,11 +29,11 @@ public abstract class OpenBankHolder extends FileReader
 	 * the given file.
 	 * 
 	 * @param filename A file that shows information about what banks to create
-	 * (src/data/ automatically included). The file should be written for sprites
+	 * (data/ automatically included). The file should be written for sprites
 	 * as follows:
 	 * <p>
 	 * &bankname<br>
-	 * spritename#filename(src/data/ automatically included)#number
+	 * spritename#filename(data/ automatically included)#number
 	 * of images# xorigin#yorigin<br>
 	 * anotherspritename#...<br>
 	 *  ...<br>
@@ -42,11 +42,13 @@ public abstract class OpenBankHolder extends FileReader
 	 *   * this is a comment
 	 */
 	@SuppressWarnings("unchecked")
-	public OpenBankHolder(String filename) {
+	public OpenBankHolder(String filename)
+	{
 		// Initializes attributes
 		this.banks = new HashMap<String, OpenBank>();
 		this.lastbankname = null;
 		this.lastcommands = new ArrayList<String>();
+		
 		// Reads the file
 		readFile(filename);
 		// Adds the last Bank and releases the memory
@@ -56,6 +58,7 @@ public abstract class OpenBankHolder extends FileReader
 			this.banks.put(this.lastbankname, this.createBank(
 					(ArrayList<String>) this.lastcommands.clone()));
 		}
+		
 		this.lastcommands.clear();
 		this.lastbankname = null;
 	}

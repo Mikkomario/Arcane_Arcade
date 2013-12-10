@@ -19,11 +19,11 @@ public class OpenSpriteBankHolder extends OpenBankHolder
 	 * using the given file.
 	 *
 	 * @param filename A file that shows information about what banks to create 
-	 * (src/data/ automatically included). 
+	 * (data/ automatically included). 
 	 * The file should be written as follows:<p>
 	 * 
 	 * &bankname<br>
-	 * spritename#filename(src/data/ automatically included)#number of images#
+	 * spritename#filename(data/ automatically included)#number of images#
 	 * xorigin#yorigin<br>
 	 * anotherspritename#...<br>
 	 * ...<br>
