@@ -132,10 +132,20 @@ public class ElementScreenObjectCreator extends GameObject implements
 		public void onLeftPressed(int mouseX, int mouseY)
 		{
 			// If the settings are ready, goes to the next screen
-			if (ElementScreenObjectCreator.this.settings.elementsAreReady())
+			if (isVisible())
 				ElementScreenObjectCreator.this.navigator.startPhase(
 						GamePhase.FIELD, 
 						ElementScreenObjectCreator.this.settings);
+		}
+		
+		@Override
+		public boolean isVisible()
+		{
+			// Overrides the isVisible method so that the button only comes 
+			// visible when the next section can be accessed
+			
+			return super.isVisible() && 
+					ElementScreenObjectCreator.this.settings.elementsAreReady();
 		}
 	}
 }

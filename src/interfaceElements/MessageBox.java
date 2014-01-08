@@ -11,11 +11,14 @@ import java.awt.font.TextLayout;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 
-import resourcebanks.SpriteBank;
 import gameobjects.DrawnObject;
+import graphic.Sprite;
 import graphic.SpriteDrawer;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
+
+// TODO: Consider adding a width / height system that allows rescaling 
+// of the background sprite without scaling the text size
 
 /**
  * Messageboxes are used to present information to the user in text format. 
@@ -26,6 +29,8 @@ import handlers.DrawableHandler;
 public class MessageBox extends DrawnObject
 {
 	// ATTRIBUTES	-----------------------------------------------------
+	
+	private static final int MARGIN = 15;
 	
 	private SpriteDrawer spritedrawer;
 	private String message;
@@ -47,26 +52,26 @@ public class MessageBox extends DrawnObject
 	 * @param message The message shown in the box
 	 * @param textfont The font used in drawing the message
 	 * @param textcolor What color is used when drawing the text
-	 * @param bank The spritebank that contains the message's background sprite
-	 * @param backgroundname The name of the background sprite in the bank
-	 * @param drawer The drawablehandler that will draw the messagebox
+	 * @param backgroundsprite The sprite used to draw the background of the 
+	 * messageBox
+	 * @param drawer The drawablehandler that will draw the messagebox (optional)
 	 * @param actorhandler The actorhandler that will animate the message 
 	 * background (optional)
 	 */
 	public MessageBox(int x, int y, int depth, String message, 
-			Font textfont, Color textcolor, SpriteBank bank, String backgroundname, 
+			Font textfont, Color textcolor, Sprite backgroundsprite, 
 			DrawableHandler drawer, ActorHandler actorhandler)
 	{
 		super(x, y, depth, drawer);
 
 		// Initializes the attributes
-		this.spritedrawer = new SpriteDrawer(bank.getSprite(backgroundname), 
+		this.spritedrawer = new SpriteDrawer(backgroundsprite, 
 				actorhandler, this);
-		this.message = message;
+		this.message = message + "";
 		this.font = textfont;
 		this.color = textcolor;
 		
-		AttributedString attstring = new AttributedString(message);
+		AttributedString attstring = new AttributedString(this.message);
 		attstring.addAttribute(TextAttribute.FONT, this.font);
 		
 		this.styledtextiterator = attstring.getIterator();
@@ -100,26 +105,25 @@ public class MessageBox extends DrawnObject
 	@Override
 	public void drawSelfBasic(Graphics2D g2d)
 	{
-		Point topLeft = new Point(-this.spritedrawer.getSprite().getOriginX(), 
-				-this.spritedrawer.getSprite().getOriginY());
+		// TODO: Test the positioning that it's right
 		
 		// Draws the background
 		if (this.spritedrawer != null)
-			this.spritedrawer.drawSprite(g2d, topLeft.x, topLeft.y);
+			this.spritedrawer.drawSprite(g2d, 0, 0);
 		
 		// And then the text
 		g2d.setFont(this.font);
 		g2d.setColor(this.color);
 		
 		// From: http://docs.oracle.com/javase/7/docs/api/java/awt/font/LineBreakMeasurer.html
-		Point pen = new Point(topLeft.x + 15, topLeft.y + 15);
+		Point pen = new Point(MARGIN, MARGIN);
 		FontRenderContext frc = g2d.getFontRenderContext();
 
 		// "let styledText be an AttributedCharacterIterator containing at least
 		// one character"
 		
 		LineBreakMeasurer measurer = new LineBreakMeasurer(this.styledtextiterator, frc);
-		float wrappingWidth = this.spritedrawer.getSprite().getWidth() - 15;
+		float wrappingWidth = this.spritedrawer.getSprite().getWidth() - MARGIN;
 		
 		while (measurer.getPosition() < this.message.length()/*fStyledText.length()*/)
 		{
