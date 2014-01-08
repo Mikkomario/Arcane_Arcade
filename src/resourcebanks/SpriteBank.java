@@ -73,7 +73,7 @@ public abstract class SpriteBank extends AbstractBank
      * @throws FileNotFoundException If the image file could not be loaded
      */
     protected void createSprite(String filename, int imgnumber, int originx, 
-    		int originy, String name) throws FileNotFoundException
+    		int originy, String name)
     {
     	Sprite newsprite = new Sprite(filename, imgnumber, originx, originy);
         addObject(newsprite, name);

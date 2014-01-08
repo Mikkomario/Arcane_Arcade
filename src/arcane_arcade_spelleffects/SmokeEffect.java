@@ -1,8 +1,8 @@
 package arcane_arcade_spelleffects;
 
 import handlers.ActorHandler;
+
 import handlers.CollidableHandler;
-import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
@@ -31,21 +31,18 @@ public class SmokeEffect extends MaskedSpellEffect
 	 * @param drawer The drawer that will draw the smoke
 	 * @param collidablehandler The collidablehandler that will handle the 
 	 * smoke's collision checking
-	 * @param collisionhandler The collisionhandler that will inform the 
-	 * smoke about collisions with other spells
 	 * @param actorhandler The actorhandler that will inform the object about 
 	 * steps
 	 * @param room The room where the object is created at
 	 * @param duration How long will the smoke last
 	 */
 	public SmokeEffect(int x, int y, DrawableHandler drawer, 
-			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, ActorHandler actorhandler,
+			CollidableHandler collidablehandler, ActorHandler actorhandler,
 			Room room, int duration)
 	{
 		super(x, y, DepthConstants.FOREGROUND - 30, CollisionType.BOX, drawer, 
-				collidablehandler, /*collisionhandler*/null, actorhandler, room, 
-				"smoke", "cloudmask", /*true*/false, false, false, Element.NOELEMENT, 
+				collidablehandler, null, actorhandler, room, 
+				"smoke", "cloudmask", false, false, false, Element.NOELEMENT, 
 				Element.NOELEMENT, duration, false);
 		setBoxCollisionPrecision(2, 2);
 		addFadeEffect((int) (duration * 0.2), (int) (duration * 0.6));

@@ -306,7 +306,7 @@ public class Navigator
 		activeWavBanks.put(bankname, newbank);
 	}
 	
-	private void removeSpriteBank(String bankname)
+	private static void removeSpriteBank(String bankname)
 	{
 		// If the bank doesn't contain the bank, does nothing
 		if (!activeSpriteBanks.containsKey(bankname))
@@ -317,7 +317,7 @@ public class Navigator
 		activeSpriteBanks.remove(bankname);
 	}
 	
-	private void removeWavSoundBank(String bankname)
+	private static void removeWavSoundBank(String bankname)
 	{
 		// If the bank doesn't contain the bank, does nothing
 		if (!activeWavBanks.containsKey(bankname))
@@ -328,7 +328,7 @@ public class Navigator
 		activeWavBanks.remove(bankname);
 	}
 	
-	private ArrayList<Background> getSimpleBackgroundList(String backname, 
+	private static ArrayList<Background> getSimpleBackgroundList(String backname, 
 			DrawableHandler drawer)
 	{
 		Background back = new Background(0, 0, drawer, null, 

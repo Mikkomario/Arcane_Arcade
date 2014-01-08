@@ -11,9 +11,6 @@ public class ScreenDrawer implements Runnable
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private GameWindow window;
-	//private long lastdraw;
-	//private boolean needsupdating;
-	//private int drawdelay;
 	private boolean running;
 	
 	
@@ -23,17 +20,13 @@ public class ScreenDrawer implements Runnable
 	 * Creates a new screendrawer that will draw the given window after 
 	 * added to a thread.
 	 *
-	 * @param window
-	 * @param drawdelay
+	 * @param window The window where the stuff is drawn
 	 * @see Thread
 	 */
-	public ScreenDrawer(GameWindow window, int drawdelay)
+	public ScreenDrawer(GameWindow window)
 	{
 		// Initializes attributes
 		this.window = window;
-		//this.lastdraw = 0;
-		//this.needsupdating = true;
-		//this.drawdelay = drawdelay;
 		this.running = false;
 	}
 	

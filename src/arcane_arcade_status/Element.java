@@ -231,12 +231,12 @@ public enum Element
 		return toString().toLowerCase();
 	}
 	
-	private double getWeakModifier(double strength)
+	private static double getWeakModifier(double strength)
 	{
 		return 1 - 0.9 * strength / 100;
 	}
 	
-	private double getStrongModifier(double strength)
+	private static double getStrongModifier(double strength)
 	{
 		return 1 + strength / 100;
 	}

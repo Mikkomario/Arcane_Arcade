@@ -4,7 +4,6 @@ import java.util.Random;
 
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
-import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.Movement;
 import worlds.Room;
@@ -24,7 +23,6 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 	private int y;
 	private DrawableHandler drawer;
 	private CollidableHandler collidablehandler;
-	private CollisionHandler collisionhandler;
 	private ActorHandler actorhandler;
 	private Room room;
 	
@@ -47,15 +45,14 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 	 */
 	public SmokeEffectCreator(int duration,
 			ActorHandler actorhandler, Room room, int x, int y,
-			DrawableHandler drawer, CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler) {
+			DrawableHandler drawer, CollidableHandler collidablehandler)
+	{
 		super(duration, 20, 3, actorhandler, room);
 		this.randomGenerator = new Random();
 		this.x = x;
 		this.y = y;
 		this.drawer = drawer;
 		this.collidablehandler = collidablehandler;
-		this.collisionhandler = collisionhandler;
 		this.actorhandler = actorhandler;
 		this.room = room;
 	}
@@ -70,8 +67,7 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 		double randomSpeed = (1 + (this.randomGenerator.nextDouble() * 3));
 		//Creates a new smokeEffect which lasts somewhere between 50-150 steps
 		SmokeEffect smokeScreen = new SmokeEffect(this.x, this.y, this.drawer,
-				this.collidablehandler, this.collisionhandler,
-				this.actorhandler, this.room,
+				this.collidablehandler, this.actorhandler, this.room,
 				(int) (50 + this.randomGenerator.nextDouble() * 100));
 		smokeScreen.setMovement(Movement.createMovement(randomDirection, randomSpeed));
 		// Friction of the smoke-plumes

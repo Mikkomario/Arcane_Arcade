@@ -109,7 +109,7 @@ public class GameWindow extends JFrame
 				(int) Math.round((1000.0 / minimumsupportedfps) / 
 				StepHandler.STEPLENGTH), this);
 		// And the screen drawer
-		this.screendrawer = new ScreenDrawer(this, 1000 / maxfpslimit);
+		this.screendrawer = new ScreenDrawer(this);
 		
 		this.listeneractorhandler = new ActorHandler(false, this.stephandler);
 		this.mainkeyhandler = new MainKeyListenerHandler(this.listeneractorhandler);
