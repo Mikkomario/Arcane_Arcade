@@ -467,6 +467,15 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		Point2D.Double oldpoint = new Point2D.Double(x, y);
 		Point2D.Double newpoint = new Point2D.Double(0, 0);
 		
+		AffineTransform inversetransform = getOpposingTransform();
+		
+		if (inversetransform == null)
+			return null;
+		
+		inversetransform.transform(oldpoint, newpoint);
+		return newpoint;
+		
+		/*// TODO: Readd this if the new version doesn't work
 		try
 		{
 			if (this.currentdeterminant != 0)
@@ -489,6 +498,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		}
 		
 		return newpoint;
+		*/
 		//return negateTransformations(x, y, getX(), getY(), getXScale(), 
 		//		getYScale(), getAngle(), getOriginX(), getOriginY());
 	}
@@ -690,6 +700,54 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		
 		// Loads the previous transformation
 		g2d.setTransform(trans);
+	}
+	
+	/**
+	 * @return An affineTransform matrix opposite to the object's normal 
+	 * transformation. This may be used in cameras for example
+	 */
+	protected AffineTransform getOpposingTransform()
+	{
+		AffineTransform inversion = null;
+		
+		try
+		{	
+			if (this.currentdeterminant != 0)
+			{
+				inversion = new AffineTransform(this.currenttransformation);
+				inversion.invert();
+			}
+			else
+			{
+				// In the case the current transformation can't be inverted, 
+				// inverts the translations (seems to be enough)
+				inversion = new AffineTransform();
+				inversion.translate(-getX(), -getY());
+			}
+		}
+		catch (NoninvertibleTransformException exception)
+		{
+			System.err.println("Failed to inverse transform a position");
+			exception.printStackTrace();
+		}
+		
+		return inversion;
+		
+		// Check if this is even needed or if
+		// this.currenttransformation.invert() can be used
+		// Notie the negateTransformations -method
+		/*
+		// Translates the origin to the right position
+		trans.translate(getOriginX(), getOriginY());
+		// scales it depending on it's xscale and yscale
+		trans.scale(1/getXScale(), 1/getYScale());
+		// rotates it depending on its angle
+		trans.rotate(Math.toRadians((getAngle())));
+		// Translates the sprite to the object's position
+		trans.translate(-getX(), -getY());
+		
+		return trans;
+		*/
 	}
 	
 	/**

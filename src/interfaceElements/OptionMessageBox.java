@@ -1,11 +1,15 @@
 package interfaceElements;
 
+import gameobjects.DimensionalDrawnObject;
 import graphic.Sprite;
 import handlers.ActorHandler;
+import handlers.CollidableHandler;
 import handlers.DrawableHandler;
+import helpAndEnums.CollisionType;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics2D;
 
 /**
  * OptionMessageBoxes are interactive messageBoxes that show a number of 
@@ -13,6 +17,7 @@ import java.awt.Font;
  * users can listen to the events caused by the user-box-interaction
  * 
  * @author Mikko Hilpinen
+ * created 8.1.2014
  */
 public class OptionMessageBox extends MessageBox
 {
@@ -44,5 +49,62 @@ public class OptionMessageBox extends MessageBox
 				actorhandler);
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	// SUBCLASSES	-----------------------------------------------------
+	
+	/**
+	 * OptionButton is a simple button that listens to mouse clicks and 
+	 * and informs the messagebox if it is clicked.
+	 * 
+	 * @author Mikko Hilpinen
+	 * created 8.1.2014
+	 */
+	private class OptionButton extends DimensionalDrawnObject
+	{
 
+		public OptionButton(int x, int y, int depth, boolean isSolid,
+				CollisionType collisiontype, DrawableHandler drawer,
+				CollidableHandler collidablehandler)
+		{
+			super(x, y, depth, isSolid, collisiontype, drawer, collidablehandler);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public int getWidth()
+		{
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int getHeight()
+		{
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int getOriginX()
+		{
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int getOriginY()
+		{
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public void drawSelfBasic(Graphics2D g2d)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
 }

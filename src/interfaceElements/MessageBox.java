@@ -25,6 +25,7 @@ import handlers.DrawableHandler;
  * Messageboxes can be drawn on screen and manipulated like any DrawnObject
  * 
  * @author Mikko Hilpinen
+ * created 8.1.2014
  */
 public class MessageBox extends DrawnObject
 {

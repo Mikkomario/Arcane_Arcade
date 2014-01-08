@@ -90,10 +90,12 @@ public class BasicCamera extends BasicPhysicDrawnObject
 	@Override
 	public void drawSelf(Graphics2D g2d)
 	{
-		// Uses transformations that are opposite to the usual transformations
+		// Uses transformations that are opposite to the 
+		// usual transformations
 		AffineTransform trans = g2d.getTransform();
 		
-		// and translates the origin to the right position
+		/*
+		// Translates the origin to the right position
 		g2d.translate(getOriginX(), getOriginY());
 		// scales it depending on it's xscale and yscale
 		g2d.scale(1/getXScale(), 1/getYScale());
@@ -101,6 +103,10 @@ public class BasicCamera extends BasicPhysicDrawnObject
 		g2d.rotate(Math.toRadians((getAngle())));
 		// Translates the sprite to the object's position
 		g2d.translate(-getX(), -getY());
+		*/
+		
+		// Adds the opposing transformations
+		g2d.transform(getOpposingTransform());
 		
 		// Finally draws the object
 		drawSelfBasic(g2d);
