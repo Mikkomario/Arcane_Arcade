@@ -9,6 +9,8 @@ import handleds.LogicalHandled;
  * @author Mikko Hilpinen.
  *         Created 7.12.2012.
  * @see camera.BasicCamera
+ * @warning This class may become deprecated in the near future if a 
+ * transformationListener class is added
  */
 public interface CameraListener extends LogicalHandled
 {	

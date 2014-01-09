@@ -177,6 +177,11 @@ Eteneminen:														Status
 						objektin omia transformaatioita, ei 
 						objektin ja kameran transformaatioita
 					* Ongelman korjaus
+						- Kameraa varten erillinen 
+						mouseListenerHandlerin alaluokka, joka 
+						modifioi informoitavia 
+						hiirikoordinaatteja kameran 
+						transformaatioiden mukaan
 				- Kameran transformaatiot translatea lukuun 	DONE
 				ottamatta eivät toimi
 					* Ongelman paikantaminen					DONE

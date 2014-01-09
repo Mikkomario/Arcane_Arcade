@@ -23,6 +23,9 @@ import java.awt.geom.Point2D;
  */
 public abstract class DrawnObject extends GameObject implements Drawable
 {
+	// TODO: Consider adding a transformation listening system so that other 
+	// objects can react to transformations of the object
+	
 	// ATTRIBUTES	-------------------------------------------------------
 	
 	private double xscale, yscale, x, y, angle, xshear, yshear, currentdeterminant;
@@ -684,6 +687,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	@Deprecated
 	protected void drawSelfAsContainer(Graphics2D g2d)
 	{
+		// TODO: Re-add support for this method since it is actually needed
+		
 		AffineTransform trans = g2d.getTransform();
 		
 		// and translates the origin to the right position
