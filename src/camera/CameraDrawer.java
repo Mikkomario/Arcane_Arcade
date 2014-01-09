@@ -45,7 +45,7 @@ public class CameraDrawer extends DrawnObjectHandler
 	
 	@Override
 	public boolean handleObject(Handled h)
-	{
+	{	
 		// Only handles (draws) objects that camera says should be drawn
 		if (!this.camera.objectShouldBeDrawn((DrawnObject) h))
 			return true;

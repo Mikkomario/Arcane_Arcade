@@ -30,7 +30,7 @@ public class BasicCamera extends BasicPhysicDrawnObject
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
-	private CameraDrawer followerhandler;
+	private CameraDrawer drawer;
 	private CameraListenerHandler listenerhandler;
 	private int screenWidth, screenHeight;
 	
@@ -58,7 +58,7 @@ public class BasicCamera extends BasicPhysicDrawnObject
 		
 		// Initializes attributes
 		this.listenerhandler = new CameraListenerHandler(true, null);
-		this.followerhandler =  new CameraDrawer(false, this);
+		this.drawer =  new CameraDrawer(false, this);
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
 		
@@ -84,7 +84,8 @@ public class BasicCamera extends BasicPhysicDrawnObject
 	@Override
 	public void drawSelfBasic(Graphics2D g2d)
 	{
-		this.followerhandler.drawSelf(g2d);
+		if (this.drawer != null)
+			this.drawer.drawSelf(g2d);
 	}
 	
 	@Override
@@ -94,7 +95,6 @@ public class BasicCamera extends BasicPhysicDrawnObject
 		// usual transformations
 		AffineTransform trans = g2d.getTransform();
 		
-		/*
 		// Translates the origin to the right position
 		g2d.translate(getOriginX(), getOriginY());
 		// scales it depending on it's xscale and yscale
@@ -103,10 +103,10 @@ public class BasicCamera extends BasicPhysicDrawnObject
 		g2d.rotate(Math.toRadians((getAngle())));
 		// Translates the sprite to the object's position
 		g2d.translate(-getX(), -getY());
-		*/
 		
 		// Adds the opposing transformations
-		g2d.transform(getOpposingTransform());
+		// TODO: Did not work, try to find another way to do this
+		//g2d.transform(getOpposingTransform());
 		
 		// Finally draws the object
 		drawSelfBasic(g2d);
@@ -145,7 +145,7 @@ public class BasicCamera extends BasicPhysicDrawnObject
 	 */
 	public void addDrawable(Drawable drawable)
 	{
-		this.followerhandler.addDrawable(drawable);
+		this.drawer.addDrawable(drawable);
 	}
 	
 	/**
@@ -156,6 +156,15 @@ public class BasicCamera extends BasicPhysicDrawnObject
 	public void addCameraListener(CameraListener listener)
 	{
 		this.listenerhandler.addListener(listener);
+	}
+	
+	/**
+	 * @return The drawablehandler used to draw the contents of the camera. 
+	 * Notice that the drawer only supports drawnObjects and not drawableHandlers
+	 */	
+	public CameraDrawer getDrawer()
+	{
+		return this.drawer;
 	}
 	
 	private void informStatus()
@@ -208,8 +217,8 @@ public class BasicCamera extends BasicPhysicDrawnObject
 			// Checks if it's possible that any point of the object would be shown
 			double maxrange = dd.getMaxRangeFromOrigin() + getMaxRangeFromOrigin();
 			
-			return HelpMath.pointDistance(-getX(), -getY(), dd.getX(), dd.getY()) 
-					< maxrange;
+			return HelpMath.pointDistance(getX(), getY(), dd.getX(), dd.getY()) 
+					<= maxrange;
 		}
 		// Other objects are always drawn
 		return true;

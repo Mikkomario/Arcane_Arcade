@@ -170,6 +170,20 @@ Eteneminen:														Status
 			settings screenin välillä
 				- Ongelman paikantaminen
 				- Ongelman korjaus
+			* Kamera ei toimi
+				- Hiiren sijainti ei toimi kameran kanssa		...
+					* Ongelman paikantaminen					DONE
+						- Hiiritarkistukseen käytetään vain 
+						objektin omia transformaatioita, ei 
+						objektin ja kameran transformaatioita
+					* Ongelman korjaus
+				- Kameran transformaatiot translatea lukuun 	DONE
+				ottamatta eivät toimi
+					* Ongelman paikantaminen					DONE
+						- tod. näk transformaatioiden käytössä, 
+						kun kokeilin vaihtaa niitä
+					* Ongelman korjaus							DONE
+					
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
 			* Statusefektit enumeraatioina						DONE

@@ -10,7 +10,6 @@ import java.awt.BorderLayout;
 
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
-
 import resourcebanks.OpenSpriteBankHolder;
 import resourcebanks.OpenWavSoundBankHolder;
 import tests.FpsApsTest;
