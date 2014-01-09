@@ -2,6 +2,7 @@ package gameobjects;
 
 import handleds.Drawable;
 import handlers.DrawableHandler;
+import handlers.TransformationListenerHandler;
 import helpAndEnums.HelpMath;
 import helpAndEnums.Movement;
 
@@ -11,6 +12,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
+
+import listeners.TransformationListener.TransformationAxis;
+import listeners.TransformationListener.TransformationEvent;
+import listeners.TransformationListener.TransformationType;
 
 
 
@@ -22,10 +27,7 @@ import java.awt.geom.Point2D;
  *         Created 26.11.2012.
  */
 public abstract class DrawnObject extends GameObject implements Drawable
-{
-	// TODO: Consider adding a transformation listening system so that other 
-	// objects can react to transformations of the object
-	
+{	
 	// ATTRIBUTES	-------------------------------------------------------
 	
 	private double xscale, yscale, x, y, angle, xshear, yshear, currentdeterminant;
@@ -34,6 +36,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	private int depth;
 	private AffineTransform currenttransformation;
 	private boolean transformationneedsupdating;
+	private TransformationListenerHandler listenerhandler;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -65,6 +68,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		this.currenttransformation = new AffineTransform();
 		this.currentdeterminant = 0;
 		this.transformationneedsupdating = true;
+		
+		this.listenerhandler = new TransformationListenerHandler(false, null);
 		
 		// Adds the object to the drawer (if possible)
 		// TODO: May cause deadlock
@@ -176,6 +181,15 @@ public abstract class DrawnObject extends GameObject implements Drawable
 					getXScale() + ", " + getYScale() + "), depth: " + getDepth();
 	}
 	
+	@Override
+	public void kill()
+	{
+		// Also kills the transformationListenerHandler (not the handleds 
+		// inside it though)
+		this.listenerhandler.killWithoutKillingHandleds();
+		super.kill();
+	}
+	
 	
 	// GETTERS & SETTERS	-----------------------------------------------
 	
@@ -195,9 +209,16 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public void setAngle(double angle)
 	{
+		double oldangle = this.angle;
+		
 		this.angle = angle;
 		checkAngle();
 		this.transformationneedsupdating = true;
+		
+		// Informs the listeners
+		this.listenerhandler.onTransformationEvent(
+				new TransformationEvent(TransformationType.ROTATION, 
+				TransformationAxis.Z, this.angle, this.angle - oldangle));
 	}
 	
 	/**
@@ -235,8 +256,15 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public void setXShear(double xshear)
 	{
+		double oldshear = this.xshear;
+		
 		this.xshear = xshear;
 		this.transformationneedsupdating = true;
+		
+		// Informs the listeners
+		this.listenerhandler.onTransformationEvent(new TransformationEvent(
+				TransformationType.SHEARING, TransformationAxis.X, this.xshear, 
+				this.xshear - oldshear));
 	}
 	
 	/**
@@ -246,8 +274,15 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public void setYShear(double yshear)
 	{
+		double oldshear = this.yshear;
+		
 		this.yshear = yshear;
 		this.transformationneedsupdating = true;
+		
+		// Informs the listeners
+		this.listenerhandler.onTransformationEvent(new TransformationEvent(
+				TransformationType.SHEARING, TransformationAxis.Y, this.yshear, 
+				this.yshear - oldshear));
 	}
 	
 	/**
@@ -275,8 +310,15 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public void setXScale(double xscale)
 	{
+		double oldscale = this.xscale;
+		
 		this.xscale = xscale;
 		this.transformationneedsupdating = true;
+		
+		// Informs the listeners
+		this.listenerhandler.onTransformationEvent(new TransformationEvent(
+				TransformationType.SCAlING, TransformationAxis.X, this.xscale, 
+				this.xscale / oldscale));
 	}
 	
 	/**
@@ -286,8 +328,15 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public void setYScale(double yscale)
 	{
+		double oldscale = this.yscale;
+		
 		this.yscale = yscale;
 		this.transformationneedsupdating = true;
+		
+		// Informs the listeners
+		this.listenerhandler.onTransformationEvent(new TransformationEvent(
+				TransformationType.SCAlING, TransformationAxis.Y, this.yscale, 
+				this.yscale / oldscale));
 	}
 	
 	/**
@@ -299,9 +348,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public void setScale(double xscale, double yscale)
 	{
-		this.xscale = xscale;
-		this.yscale = yscale;
-		this.transformationneedsupdating = true;
+		setXScale(xscale);
+		setYScale(yscale);
 	}
 	
 	/**
@@ -313,9 +361,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public void setShear(double xshear, double yshear)
 	{
-		this.xshear = xshear;
-		this.yshear = yshear;
-		this.transformationneedsupdating = true;
+		setXShear(xshear);
+		setYShear(yshear);
 	}
 	
 	/**
@@ -350,9 +397,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public void setPosition(double x, double y)
 	{
-		this.x = x;
-		this.y = y;
-		this.transformationneedsupdating = true;
+		setX(x);
+		setY(y);
 	}
 	
 	/**
@@ -362,8 +408,15 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public void setX(double x)
 	{
+		double oldx = this.x;
+		
 		this.x = x;
 		this.transformationneedsupdating = true;
+		
+		// Informs the listeners
+		this.listenerhandler.onTransformationEvent(new TransformationEvent(
+				TransformationType.TRANSLATION, TransformationAxis.X, this.x, 
+				this.x - oldx));
 	}
 	
 	/**
@@ -373,8 +426,15 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public void setY(double y)
 	{
+		double oldy = this.y;
+		
 		this.y = y;
 		this.transformationneedsupdating = true;
+		
+		// Informs the listeners
+		this.listenerhandler.onTransformationEvent(new TransformationEvent(
+				TransformationType.TRANSLATION, TransformationAxis.Y, this.y, 
+				this.y - oldy));
 	}
 	
 	/**
@@ -522,8 +582,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * @return The point where all of the object's transformations have been 
 	 * negated
 	 * 
-	 * @deprecated This method won't be supported for long since the object's 
-	 * transformation will be used for position transformation in the future
+	 * @deprecated This method isn't supported since the object's transformation 
+	 * matrix is used for the position trasformation instead
 	 */
 	@Deprecated
 	protected static Point2D.Double negateTransformations(double px, double py, double x, 
@@ -603,8 +663,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * @param originy The y-coordinate of the origin of the transformation (relative pixel)
 	 * @return Absolute position with transformations added
 	 * 
-	 * @deprecated This method won't be supported for long since the object's 
-	 * transformation will be used for position transformation in the future
+	 * @deprecated This method isn't supported anymore since position transformation 
+	 * is now done with the object's transformation
 	 */
 	@Deprecated
 	protected Point2D.Double transform(double px, double py, double x, double y, 
