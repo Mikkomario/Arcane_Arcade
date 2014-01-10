@@ -33,6 +33,22 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 	private boolean active, autodeath;
 	private OptionMessageBoxListener user;
 	
+	/**
+	 * This template setting is used for boxes that only need to present 
+	 * information
+	 */
+	public static final String[] OKOPTIONS = {"OK"};
+	/**
+	 * This template setting is used for boxes that require the user to make 
+	 * a simple yes no decision
+	 */
+	public static final String[] YESNOPTIONS = {"Yes", "No"};
+	/**
+	 * This template setting is used for boxes that allow the user to make 
+	 * a yes no decision or cancel the operation
+	 */
+	public static final String[] YESNOCANCELOPTIONS = {"Yes", "No", "Cancel"};
+	
 	
 	// CONSTRUCTOR	------------------------------------------------------
 	
@@ -80,7 +96,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		// Creates the options
 		for (int i = 0; i < options.length; i++)
 		{
-			int buttonx = minbuttonx + (int) ((i / (double) options.length) * 
+			int buttonx = minbuttonx + (int) ((i + 1.0 / (options.length + 1.0)) * 
 					(maxbuttonx - minbuttonx));
 			
 			new OptionButton(buttonx, buttony, buttonsprite, options[i], i, 

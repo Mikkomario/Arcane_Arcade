@@ -297,8 +297,8 @@ Eteneminen:														Status
 				- Asetusten lukeminen pelin alussa				DONE
 				- MessageBoxit interaktiota varten				...
 					* Yleinen yläluokka							Testaamatta
-					* Ok messagebox
-					* Yes / No -box
+					* Ok messagebox								Plääh
+					* Yes / No -box								Plääh
 					* KeyBindaus -box
 			* Kenttävalikko (Sitten kun on kenttiä)
 			* SpellBook											...
@@ -356,6 +356,10 @@ Eteneminen:														Status
 			* Resurssien järkevä käyttöönotto
 		- Loading screenin näyttäminen latauksien yhteydessä
 			* Oma päivitysthread?
+		- Fontit
+			* Vaihtoehtoisten fonttien käyttäminen jos kaikkia 
+			ei löydy
+			* Fonttien lataaminen
 	* Gold	---------------------------------------------------------------
 		- Erilaiset kentät
 			* Erilaiset haasteet ja objektit
