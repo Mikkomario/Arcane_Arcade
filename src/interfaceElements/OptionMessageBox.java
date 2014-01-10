@@ -44,6 +44,11 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 	 * @param textfont The font with which the message is drawn
 	 * @param textcolor The color with which the text is drawn
 	 * @param backgroundsprite The sprite used to draw the messageBox
+	 * @param options A table containing all the names of the options shown 
+	 * as buttons
+	 * @param buttonsprite The sprite used to draw the buttons in the box. 
+	 * Should contain (at least) 2 subimages so the buttons can react to 
+	 * mouse hover
 	 * @param diesafteruse Will the optionmessageBox die and disappear after 
 	 * one of the options is chosen
 	 * @param user The object that is interested in which of the options 
@@ -54,8 +59,8 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 	 */
 	public OptionMessageBox(int x, int y, int depth, String message,
 			Font textfont, Color textcolor, Sprite backgroundsprite, 
-			boolean diesafteruse, OptionMessageBoxListener user, 
-			DrawableHandler drawer,
+			String[] options, Sprite buttonsprite, boolean diesafteruse, 
+			OptionMessageBoxListener user, DrawableHandler drawer,
 			ActorHandler actorhandler)
 	{
 		super(x, y, depth, message, textfont, textcolor, backgroundsprite, drawer,
@@ -65,6 +70,21 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		this.active = true;
 		this.autodeath = diesafteruse;
 		this.user = user;
+		
+		int buttony = backgroundsprite.getHeight() - getOriginY() - MARGIN - 
+				buttonsprite.getHeight() + buttonsprite.getOriginY();
+		int minbuttonx = -getOriginX() + MARGIN + buttonsprite.getOriginX();
+		int maxbuttonx = backgroundsprite.getWidth() - getOriginX() - MARGIN - 
+				buttonsprite.getWidth() + buttonsprite.getOriginX();
+		
+		// Creates the options
+		for (int i = 0; i < options.length; i++)
+		{
+			int buttonx = minbuttonx + (int) ((i / (double) options.length) * 
+					(maxbuttonx - minbuttonx));
+			
+			// TODO: Continue
+		}
 	}
 	
 	@Override
@@ -118,13 +138,15 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		private OptionMessageBox box;
 		private String text;
 		private int index;
+		private Font textfont;
+		private Color textcolor;
 		
 		
 		// CONSTRUCTOR	-------------------------------------------------
 		
 		public OptionButton(int relativex, int relativey, Sprite buttonsprite, 
-				String text, int index, DrawableHandler drawer, 
-				OptionMessageBox containerbox)
+				String text, int index, Font textfont, Color textcolor, 
+				DrawableHandler drawer, OptionMessageBox containerbox)
 		{
 			super(0, 0, containerbox.getDepth(), false, 
 					CollisionType.BOX, drawer, null);
@@ -135,6 +157,8 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 			this.index = index;
 			this.relativeposition = new Point(relativex, relativey);
 			this.spritedrawer = new SpriteDrawer(buttonsprite, null, this);
+			this.textfont = textfont;
+			this.textcolor = textcolor;
 			
 			updatePosition();
 			
@@ -190,7 +214,9 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 			
 			this.spritedrawer.drawSprite(g2d, 0, 0);
 			
-			// TODO: Draw the text
+			g2d.setFont(this.textfont);
+			g2d.setColor(this.textcolor);
+			g2d.drawString(this.text, 0, 0);
 		}
 
 		@Override

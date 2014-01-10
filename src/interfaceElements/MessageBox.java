@@ -31,7 +31,7 @@ public class MessageBox extends DrawnObject
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
-	private static final int MARGIN = 15;
+	protected static final int MARGIN = 15;
 	
 	private SpriteDrawer spritedrawer;
 	private String message;
