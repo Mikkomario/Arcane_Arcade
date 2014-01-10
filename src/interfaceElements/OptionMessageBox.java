@@ -83,7 +83,8 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 			int buttonx = minbuttonx + (int) ((i / (double) options.length) * 
 					(maxbuttonx - minbuttonx));
 			
-			// TODO: Continue
+			new OptionButton(buttonx, buttony, buttonsprite, options[i], i, 
+					textfont, textcolor, drawer, this);
 		}
 	}
 	
@@ -274,32 +275,6 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 			return this.box.getAngle();
 		}
 		
-		
-		// GETTERS & SETTERS	-----------------------------------------
-		
-		public int getIndex()
-		{
-			return this.index;
-		}
-		
-		public String getText()
-		{
-			return this.text;
-		}
-		
-		
-		// OTHER METHODS	---------------------------------------------
-		
-		private void updatePosition()
-		{
-			// Keeps the object in the same relative point relative to the 
-			// containing box
-			Point2D newposition = this.box.transform(
-					this.relativeposition.getX(), this.relativeposition.getY());
-			
-			setPosition(newposition.getX(), newposition.getY());
-		}
-
 		@Override
 		public void onLeftDown(int mouseX, int mouseY, double steps)
 		{
@@ -378,6 +353,44 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		public MouseButtonEventScale getCurrentButtonScaleOfInterest()
 		{
 			return MouseButtonEventScale.LOCAL;
+		}
+		
+		@Override
+		public boolean isVisible()
+		{
+			return super.isVisible() && this.box.isVisible();
+		}
+		
+		@Override
+		public boolean isDead()
+		{
+			return super.isDead() || this.box.isDead();
+		}
+		
+		
+		// GETTERS & SETTERS	-----------------------------------------
+		
+		public int getIndex()
+		{
+			return this.index;
+		}
+		
+		public String getText()
+		{
+			return this.text;
+		}
+		
+		
+		// OTHER METHODS	---------------------------------------------
+		
+		private void updatePosition()
+		{
+			// Keeps the object in the same relative point relative to the 
+			// containing box
+			Point2D newposition = this.box.transform(
+					this.relativeposition.getX(), this.relativeposition.getY());
+			
+			setPosition(newposition.getX(), newposition.getY());
 		}
 	}
 }

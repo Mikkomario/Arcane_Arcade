@@ -296,7 +296,7 @@ Eteneminen:														Status
 					* Filewriter								DONE
 				- Asetusten lukeminen pelin alussa				DONE
 				- MessageBoxit interaktiota varten				...
-					* Yleinen yläluokka							...
+					* Yleinen yläluokka							Testaamatta
 					* Ok messagebox
 					* Yes / No -box
 					* KeyBindaus -box
