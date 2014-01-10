@@ -494,6 +494,15 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		setAlpha(getAlpha() + adjustment);
 	}
 	
+	/**
+	 * @return The transformationListenerHandler that informs listeners about 
+	 * the changes in the object's transformations
+	 */
+	public TransformationListenerHandler getTransformationListenerHandler()
+	{
+		return this.listenerhandler;
+	}
+	
 	
 	// OTHER METHODS	---------------------------------------------------
 	

@@ -2,14 +2,21 @@ package interfaceElements;
 
 import gameobjects.DimensionalDrawnObject;
 import graphic.Sprite;
+import graphic.SpriteDrawer;
+import handleds.LogicalHandled;
 import handlers.ActorHandler;
-import handlers.CollidableHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.geom.Point2D;
+
+import listeners.AdvancedMouseListener;
+import listeners.OptionMessageBoxListener;
+import listeners.TransformationListener;
 
 /**
  * OptionMessageBoxes are interactive messageBoxes that show a number of 
@@ -19,11 +26,12 @@ import java.awt.Graphics2D;
  * @author Mikko Hilpinen
  * created 8.1.2014
  */
-public class OptionMessageBox extends MessageBox
+public class OptionMessageBox extends MessageBox implements LogicalHandled
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
-	// TODO: Add an optionbutton class for button functionalities
+	private boolean active, autodeath;
+	private OptionMessageBoxListener user;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -36,18 +44,58 @@ public class OptionMessageBox extends MessageBox
 	 * @param textfont The font with which the message is drawn
 	 * @param textcolor The color with which the text is drawn
 	 * @param backgroundsprite The sprite used to draw the messageBox
+	 * @param diesafteruse Will the optionmessageBox die and disappear after 
+	 * one of the options is chosen
+	 * @param user The object that is interested in which of the options 
+	 * was pressed (optional)
 	 * @param drawer The drawableHandler that will draw the box (optional)
 	 * @param actorhandler The actorHandler that will animate the background 
 	 * sprite (optional)
 	 */
 	public OptionMessageBox(int x, int y, int depth, String message,
 			Font textfont, Color textcolor, Sprite backgroundsprite, 
+			boolean diesafteruse, OptionMessageBoxListener user, 
 			DrawableHandler drawer,
 			ActorHandler actorhandler)
 	{
 		super(x, y, depth, message, textfont, textcolor, backgroundsprite, drawer,
 				actorhandler);
-		// TODO Auto-generated constructor stub
+		
+		// Initializes attributes
+		this.active = true;
+		this.autodeath = diesafteruse;
+		this.user = user;
+	}
+	
+	@Override
+	public boolean isActive()
+	{
+		return this.active;
+	}
+
+	@Override
+	public void activate()
+	{
+		this.active = true;
+	}
+
+	@Override
+	public void inactivate()
+	{
+		this.active = false;
+	}
+	
+	
+	// OTHER METHODS	-------------------------------------------------
+	
+	private void onOptionClick(OptionButton option)
+	{
+		// Informs the listener about the event
+		if (this.user != null)
+			this.user.onOptionMessageEvent(option.getText(), option.getIndex());
+		// Dies if autodeath is on
+		if (this.autodeath)
+			kill();
 	}
 	
 	
@@ -60,51 +108,250 @@ public class OptionMessageBox extends MessageBox
 	 * @author Mikko Hilpinen
 	 * created 8.1.2014
 	 */
-	private class OptionButton extends DimensionalDrawnObject
+	private class OptionButton extends DimensionalDrawnObject implements 
+			TransformationListener, AdvancedMouseListener
 	{
-
-		public OptionButton(int x, int y, int depth, boolean isSolid,
-				CollisionType collisiontype, DrawableHandler drawer,
-				CollidableHandler collidablehandler)
+		// ATTRIBUTES	-------------------------------------------------
+		
+		private Point2D relativeposition;
+		private SpriteDrawer spritedrawer;
+		private OptionMessageBox box;
+		private String text;
+		private int index;
+		
+		
+		// CONSTRUCTOR	-------------------------------------------------
+		
+		public OptionButton(int relativex, int relativey, Sprite buttonsprite, 
+				String text, int index, DrawableHandler drawer, 
+				OptionMessageBox containerbox)
 		{
-			super(x, y, depth, isSolid, collisiontype, drawer, collidablehandler);
-			// TODO Auto-generated constructor stub
+			super(0, 0, containerbox.getDepth(), false, 
+					CollisionType.BOX, drawer, null);
+			
+			// Initializes attributes
+			this.box = containerbox;
+			this.text = text;
+			this.index = index;
+			this.relativeposition = new Point(relativex, relativey);
+			this.spritedrawer = new SpriteDrawer(buttonsprite, null, this);
+			
+			updatePosition();
+			
+			// Adds the object to the handler(s)
+			this.box.getTransformationListenerHandler().addListener(this);
 		}
+		
+		
+		// IMPLEMENTED METHODS	------------------------------------------
 
 		@Override
 		public int getWidth()
 		{
-			// TODO Auto-generated method stub
-			return 0;
+			if (this.spritedrawer == null)
+				return 0;
+			
+			return this.spritedrawer.getSprite().getWidth();
 		}
 
 		@Override
 		public int getHeight()
 		{
-			// TODO Auto-generated method stub
-			return 0;
+			if (this.spritedrawer == null)
+				return 0;
+			
+			return this.spritedrawer.getSprite().getHeight();
 		}
 
 		@Override
 		public int getOriginX()
 		{
-			// TODO Auto-generated method stub
-			return 0;
+			if (this.spritedrawer == null)
+				return 0;
+			
+			return this.spritedrawer.getSprite().getOriginX();
 		}
 
 		@Override
 		public int getOriginY()
 		{
-			// TODO Auto-generated method stub
-			return 0;
+			if (this.spritedrawer == null)
+				return 0;
+			
+			return this.spritedrawer.getSprite().getOriginY();
 		}
 
 		@Override
 		public void drawSelfBasic(Graphics2D g2d)
 		{
-			// TODO Auto-generated method stub
+			// Draws the sprite
+			if (this.spritedrawer == null)
+				return;
 			
+			this.spritedrawer.drawSprite(g2d, 0, 0);
+			
+			// TODO: Draw the text
+		}
+
+		@Override
+		public boolean isActive()
+		{
+			return this.box.isActive();
+		}
+
+		@Override
+		public void activate()
+		{
+			this.box.activate();
+		}
+
+		@Override
+		public void inactivate()
+		{
+			this.box.inactivate();
+		}
+
+		@Override
+		public void onTransformationEvent(TransformationEvent e)
+		{
+			// Resets the position
+			updatePosition();
 		}
 		
+		@Override
+		public double getXScale()
+		{
+			return this.box.getXScale();
+		}
+		
+		@Override
+		public double getYScale()
+		{
+			return this.box.getYScale();
+		}
+		
+		@Override
+		public double getXShear()
+		{
+			return this.box.getXShear();
+		}
+		
+		@Override
+		public double getYShear()
+		{
+			return this.box.getYShear();
+		}
+		
+		@Override
+		public double getAngle()
+		{
+			return this.box.getAngle();
+		}
+		
+		
+		// GETTERS & SETTERS	-----------------------------------------
+		
+		public int getIndex()
+		{
+			return this.index;
+		}
+		
+		public String getText()
+		{
+			return this.text;
+		}
+		
+		
+		// OTHER METHODS	---------------------------------------------
+		
+		private void updatePosition()
+		{
+			// Keeps the object in the same relative point relative to the 
+			// containing box
+			Point2D newposition = this.box.transform(
+					this.relativeposition.getX(), this.relativeposition.getY());
+			
+			setPosition(newposition.getX(), newposition.getY());
+		}
+
+		@Override
+		public void onLeftDown(int mouseX, int mouseY, double steps)
+		{
+			// Does nothing
+		}
+
+		@Override
+		public void onRightDown(int mouseX, int mouseY, double steps)
+		{
+			// Does nothing
+		}
+
+		@Override
+		public void onLeftPressed(int mouseX, int mouseY)
+		{
+			// Informs the box about button press
+			this.box.onOptionClick(this);
+		}
+
+		@Override
+		public void onRightPressed(int mouseX, int mouseY)
+		{
+			// Does nothing
+		}
+
+		@Override
+		public void onLeftReleased(int mouseX, int mouseY)
+		{
+			// Does nothing
+		}
+
+		@Override
+		public void onRightReleased(int mouseX, int mouseY)
+		{
+			// Does nothing
+		}
+
+		@Override
+		public boolean listensPosition(int x, int y)
+		{
+			return pointCollides(x, y);
+		}
+
+		@Override
+		public boolean listensMouseEnterExit()
+		{
+			return true;
+		}
+
+		@Override
+		public void onMouseEnter(int mouseX, int mouseY)
+		{
+			// Button reacts to mouse over by changing sprite index
+			this.spritedrawer.setImageIndex(1);
+		}
+
+		@Override
+		public void onMouseOver(int mouseX, int mouseY)
+		{
+			// Does nothing
+		}
+
+		@Override
+		public void onMouseExit(int mouseX, int mouseY)
+		{
+			this.spritedrawer.setImageIndex(0);
+		}
+
+		@Override
+		public void onMouseMove(int mouseX, int mouseY)
+		{
+			// Does nothing
+		}
+
+		@Override
+		public MouseButtonEventScale getCurrentButtonScaleOfInterest()
+		{
+			return MouseButtonEventScale.LOCAL;
+		}
 	}
 }

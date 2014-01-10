@@ -151,6 +151,11 @@ Eteneminen:														Status
 				- SingularTimer									DONE
 				- ConinuousTimer								DONE
 				- RandomContinuousTimer							DONE
+		- Moottorin parantelu
+			* AdvancedMouseListener
+				- Vaihda erilliset eventtimetodit yhdeksi tai 
+				muutamaksi eventtimetodiksi
+					* onMouseButtonEvent eri buttonien sijaan
 		- Debuggaus												...
 			* Törmäystarkistusten korjaus						DONE
 				- Ongelman paikantaminen						DONE

@@ -65,4 +65,17 @@ public class TransformationListenerHandler extends LogicalHandler
 		this.lastevent = e;
 		handleObjects();
 	}
+	
+	
+	// OTHER METHODS	-------------------------------------------------
+	
+	/**
+	 * Adds a new TransformationListener to the informed listeners
+	 * 
+	 * @param l The listener to be informed about future events
+	 */
+	public void addListener(TransformationListener l)
+	{
+		addHandled(l);
+	}
 }
