@@ -49,4 +49,19 @@ public class ExplosionSpell extends Spell
 		// Also plays an explosion sound effect
 		SoundEffectPlayer.playSoundEffect("explosion");
 	}
+
+
+	@Override
+	public String getName()
+	{
+		return "Blaze Burst";
+	}
+
+
+	@Override
+	protected String getSimpleDescription()
+	{
+		return "Creates a strong burst of blaze just in front of you. Causes "
+				+ "heavy impact and burn.";
+	}
 }

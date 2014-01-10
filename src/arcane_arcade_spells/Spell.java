@@ -112,21 +112,31 @@ public abstract class Spell
 	 * given information
 	 *
 	 * @param caster The wizard who casts the spell
-	 * @param ballrelay The ballrelay that provide information about the ball 
+	 * @param ballrelay The ballrelay that provides information about the ball(s) 
 	 * for the spelleffects
 	 * @param drawer The drawer that will draw the spelleffects
 	 * @param actorhandler The actorhandler that will call the spelleffects' 
-	 * act event
+	 * act event and animate them
 	 * @param collidablehandler The collidablehandler that will handle the 
 	 * spelleffects' collision checking 
 	 * @param collisionhandler The collisionhandler that will inform the 
 	 * spelleffects' about collisions
-	 * @param room The room to which the spelleffects will be created
+	 * @param room The room to where the spelleffects will be created
 	 */
 	protected abstract void createEffects(Wizard caster, BallRelay ballrelay, 
 			DrawableHandler drawer, ActorHandler actorhandler, 
 			CollidableHandler collidablehandler, 
 			CollisionHandler collisionhandler, Room room);
+	
+	/**
+	 * @return The name of the spell
+	 */
+	public abstract String getName();
+	
+	/**
+	 * @return A short description of what the spell does
+	 */
+	protected abstract String getSimpleDescription();
 	
 	
 	// GETTERS & SETTERS	---------------------------------------------
@@ -176,6 +186,40 @@ public abstract class Spell
 		caster.adjustMana(-this.manausage);
 		
 		// Creates an effect
-		createEffects(caster, ballrelay, drawer, actorhandler, collidablehandler, collisionhandler, room);
+		createEffects(caster, ballrelay, drawer, actorhandler, 
+				collidablehandler, collisionhandler, room);
+	}
+	
+	/**
+	 * @return A description explaining the use and statistics of the spell
+	 */
+	public String getDescription()
+	{
+		return getSimpleDescription() + getDelayDescription() + 
+				getColourUsageDescription();
+	}
+	
+	private String getDelayDescription()
+	{
+		if (this.castdelay <= CASTDELAY_SHORT)
+			return " The spell is very easy to cast";
+		if (this.castdelay <= CASTDELAY_LONG)
+			return "The spell is moderately easy to cast";
+		if (this.castdelay < CASTDELAY_VERY_LONG)
+			return "The spell is rather difficult to cast";
+		
+		return "The spell is very difficult to cast";
+	}
+	
+	private String getColourUsageDescription()
+	{
+		if (this.manausage <= MPUSE_LOW)
+			return " and uses only little colour";
+		if (this.manausage <= MPUSE_SEMI_HIGH)
+			return " and uses moderate amount of colour";
+		if (this.manausage <= MPUSE_VERY_HIGH)
+			return " and uses a lot colour";
+		
+		return " and uses insane amounts of colour";
 	}
 }

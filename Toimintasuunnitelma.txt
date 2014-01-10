@@ -300,9 +300,8 @@ Eteneminen:														Status
 					* Ok messagebox								Plääh
 					* Yes / No -box								Plääh
 					* KeyBindaus -box
-			* Kenttävalikko (Sitten kun on kenttiä)
 			* SpellBook											...
-				- Ohjeresurssien rakenteen määrittäminen
+				- Ohjeresurssien rakenteen määrittäminen		...
 				- Ohjeresurssien valmistaminen
 				- Oikean ohjeresurssin lukeminen
 				- Elementtien valinta graafisten tsydeemien 	...
@@ -369,6 +368,7 @@ Eteneminen:														Status
 				- Seinät
 				- Eri koot
 				- Kts. Dokumentti jossain
+		- Kenttävalikko
 		- Useamman pallon asettaminen peliin					...
 			* Serverrelay usean serverin ylläpitämiseen
 			* Vai yhden serverin käyttäminen useaan kertaan?

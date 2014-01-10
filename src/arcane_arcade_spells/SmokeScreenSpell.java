@@ -44,4 +44,17 @@ public class SmokeScreenSpell extends Spell{
 		// Also plays an smokescreen sound effect
 		SoundEffectPlayer.playSoundEffect("smoke");
 	}
+
+	@Override
+	public String getName()
+	{
+		return "Smokescreen";
+	}
+
+	@Override
+	protected String getSimpleDescription()
+	{
+		return "Creates a burst of distracting smoke on the other player's "
+				+ "side for a moderate duration.";
+	}
 }

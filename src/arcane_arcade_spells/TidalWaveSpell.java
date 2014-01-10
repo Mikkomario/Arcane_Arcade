@@ -39,4 +39,19 @@ public class TidalWaveSpell extends Spell
 		new WaveEffectCreator(drawer, actorhandler, collidablehandler, room, 
 				caster);
 	}
+
+	@Override
+	public String getName()
+	{
+		return "Tide Wave";
+	}
+
+
+	@Override
+	protected String getSimpleDescription()
+	{
+		return "Shoots three waves of tide with a short range. You can affect "
+				+ "the projectile direction by moving. Causes moderate "
+				+ "impact and wet.";
+	}
 }

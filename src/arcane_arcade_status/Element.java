@@ -122,6 +122,8 @@ public enum Element
 	 */
 	public double getForceModifier(BallStatus status, double strength)
 	{
+		// TODO: Update these
+		
 		switch(this)
 		{
 			// Fire is weak against water, ice and muddy
