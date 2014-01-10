@@ -75,8 +75,7 @@ public class CollisionHandler extends LogicalHandler implements Actor
 		for (Point2D.Double colpoint : colpoints)
 		{
 			ArrayList<Collidable> collided = 
-					this.collidablehandler.getCollidedObjectsAtPoint((int) 
-					colpoint.getX(), (int) colpoint.getY());
+					this.collidablehandler.getCollidedObjectsAtPoint(colpoint);
 			// If no collisions were detected, moves on
 			if (collided == null)
 				continue;

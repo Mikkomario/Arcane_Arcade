@@ -1,11 +1,16 @@
 package handlers;
 
+import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import handleds.Actor;
 import handleds.Handled;
 import listeners.AdvancedMouseListener;
+import listeners.AdvancedMouseListener.MouseButton;
 import listeners.AdvancedMouseListener.MouseButtonEventScale;
+import listeners.AdvancedMouseListener.MouseButtonEventType;
+import listeners.AdvancedMouseListener.MousePositionEventType;
 
 /**
  * This class handles the informing of mouselsteners. It does not actively find 
@@ -19,7 +24,7 @@ implements Actor
 {
 	// ATTRIBUTES	-------------------------------------------------------
 	
-	private int mouseX, mouseY;
+	private Point2D currentMousePosition;
 	private boolean ldown, rdown, lpressed, rpressed, lreleased, rreleased;
 	
 	private ArrayList<AdvancedMouseListener> entered;
@@ -44,8 +49,7 @@ implements Actor
 		super(autodeath, actorhandler);
 		
 		// Initializes attributes
-		this.mouseX = 0;
-		this.mouseY = 0;
+		this.currentMousePosition = new Point(0, 0);
 		this.entered = new ArrayList<AdvancedMouseListener>();
 		this.over = new ArrayList<AdvancedMouseListener>();
 		this.exited = new ArrayList<AdvancedMouseListener>();
@@ -108,7 +112,7 @@ implements Actor
 			{		
 				// Checks if entered
 				if (!this.over.contains(l) && !this.entered.contains(l) 
-						&& l.listensPosition(this.mouseX, this.mouseY))
+						&& l.listensPosition(getMousePosition()))
 				{
 					this.entered.add(l);
 					return true;
@@ -116,31 +120,32 @@ implements Actor
 
 				// Checks if exited
 				if (this.over.contains(l) && !this.exited.contains(l) && 
-						!l.listensPosition(this.mouseX, this.mouseY))
+						!l.listensPosition(getMousePosition()))
 				{
 					this.over.remove(l);
 					this.exited.add(l);
 				}
 			}
 			// Informs the listener about the move-event as well
-			l.onMouseMove(getMouseX(), getMouseY());
+			l.onMouseMove(getMousePosition());
 		}
 		else if (this.lastevent == AdvancedMouseEvent.OTHER)
 		{
-			//System.out.println("other-event");
-			
 			// Only if the object cares about mouse movement
 			if (l.listensMouseEnterExit())
 			{
-				// Exiting
-				if (this.exited.contains(l))
-					l.onMouseExit(getMouseX(), getMouseY());
 				// Mouseover
-				else if (this.over.contains(l))
-					l.onMouseOver(getMouseX(), getMouseY());
+				if (this.over.contains(l))
+					l.onMousePositionEvent(MousePositionEventType.OVER, 
+							getMousePosition(), this.lasteventduration);
+				// Exiting
+				else if (this.exited.contains(l))
+					l.onMousePositionEvent(MousePositionEventType.EXIT, 
+							getMousePosition(), this.lasteventduration);
 				// Entering
 				else if (this.entered.contains(l))
-					l.onMouseEnter(getMouseX(), getMouseY());
+					l.onMousePositionEvent(MousePositionEventType.ENTER, 
+							getMousePosition(), this.lasteventduration);
 			}
 			
 			// Informs about mouse buttons (if the listener is interested)
@@ -148,22 +153,32 @@ implements Actor
 					MouseButtonEventScale.GLOBAL) || 
 					(l.getCurrentButtonScaleOfInterest().equals(
 					MouseButtonEventScale.LOCAL) && 
-					l.listensPosition(getMouseX(), getMouseY())))
+					l.listensPosition(getMousePosition())))
 			{
 				if (leftIsDown())
-					l.onLeftDown(getMouseX(), getMouseY(), 
+					l.onMouseButtonEvent(MouseButton.LEFT, 
+							MouseButtonEventType.DOWN, getMousePosition(), 
 							this.lasteventduration);
 				if (rightIsDown())
-					l.onRightDown(getMouseX(), getMouseY(), 
+					l.onMouseButtonEvent(MouseButton.RIGHT, 
+							MouseButtonEventType.DOWN, getMousePosition(), 
 							this.lasteventduration);
 				if (this.lpressed)
-					l.onLeftPressed(getMouseX(), getMouseY());
+					l.onMouseButtonEvent(MouseButton.LEFT, 
+							MouseButtonEventType.PRESSED, getMousePosition(), 
+							this.lasteventduration);
 				if (this.rpressed)
-					l.onRightPressed(getMouseX(), getMouseY());
+					l.onMouseButtonEvent(MouseButton.RIGHT, 
+							MouseButtonEventType.PRESSED, getMousePosition(), 
+							this.lasteventduration);
 				if (this.lreleased)
-					l.onLeftReleased(getMouseX(), getMouseY());
+					l.onMouseButtonEvent(MouseButton.LEFT, 
+							MouseButtonEventType.RELEASED, getMousePosition(), 
+							this.lasteventduration);
 				if (this.rreleased)
-					l.onRightReleased(getMouseX(), getMouseY());
+					l.onMouseButtonEvent(MouseButton.RIGHT, 
+							MouseButtonEventType.RELEASED, getMousePosition(), 
+							this.lasteventduration);
 			}
 		}
 		
@@ -174,19 +189,11 @@ implements Actor
 	// GETTERS & SETTERS	----------------------------------------------
 	
 	/**
-	 * @return The mouse's current x-coordinate
+	 * @return The current position of the mouse
 	 */
-	public int getMouseX()
+	public Point2D getMousePosition()
 	{
-		return this.mouseX;
-	}
-	
-	/**
-	 * @return The mouse's current y-coordinate
-	 */
-	public int getMouseY()
-	{
-		return this.mouseY;
+		return this.currentMousePosition;
 	}
 	
 	/**
@@ -208,17 +215,13 @@ implements Actor
 	/**
 	 * Informs the object about the mouse's current position
 	 *
-	 * @param x The mouse's current x-coordinate
-	 * @param y The mouse's current y-coordinate
+	 * @param newMousePosition the new mouse position to be set
 	 */
-	public void setMousePosition(int x, int y)
+	public void setMousePosition(Point2D newMousePosition)
 	{		
-		if (getMouseX() != x || getMouseY() != y)
+		if (!getMousePosition().equals(newMousePosition))
 		{		
-			this.mouseX = x;
-			this.mouseY = y;
-			
-			//System.out.println("AMLH Mouse x : " + x + ", mousey: " + y);
+			this.currentMousePosition = (Point2D) newMousePosition.clone();
 			
 			// Informs the objects
 			this.lastevent = AdvancedMouseEvent.MOVE;

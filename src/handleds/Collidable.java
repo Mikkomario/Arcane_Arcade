@@ -1,5 +1,7 @@
 package handleds;
 
+import java.awt.geom.Point2D;
+
 /**
  * Collidable objects can collide with each other. They can also be made unsolid 
  * so that collision detection will be ignored.
@@ -11,11 +13,11 @@ public interface Collidable extends Handled
 {
 	/**
 	 * Checks whether a point collides with the object
-	 * @param x The x-coordinate of the point (absolute pixel)
-	 * @param y The y-coordinate of the point (absolute pixel)
+	 * @param absolutepoint The absolute (not in the object's relative space) 
+	 * point to be tested
 	 * @return Does the point collide with the object
 	 */
-	public boolean pointCollides(int x, int y);
+	public boolean pointCollides(Point2D absolutepoint);
 	
 	/**
 	 * @return Can the object be collided with at this time

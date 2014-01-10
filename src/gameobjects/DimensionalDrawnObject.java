@@ -94,10 +94,10 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 	}
 	
 	@Override
-	public boolean pointCollides(int x, int y)
+	public boolean pointCollides(Point2D absolutepoint)
 	{
 		// Negates the transformation
-		Point2D.Double negatedPoint = negateTransformations(x, y);
+		Point2D.Double negatedPoint = negateTransformations(absolutepoint);
 		
 		// Returns the object if it collides with the point
 		// Circular objects react if the point is near enough
@@ -191,8 +191,7 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 		else if (this.collisiontype == CollisionType.BOX)
 		{
 			// Calculates the side which the object touches
-			Point2D.Double relativepoint = negateTransformations(collisionpoint.x, 
-					collisionpoint.y);
+			Point2D.Double relativepoint = negateTransformations(collisionpoint);
 			double relxdiffer = -0.5 + relativepoint.x / getWidth();
 			double relydiffer = -0.5 + relativepoint.y / getHeight();
 			

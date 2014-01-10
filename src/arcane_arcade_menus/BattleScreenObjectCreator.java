@@ -1,6 +1,8 @@
 package arcane_arcade_menus;
 
 
+import java.awt.geom.Point2D;
+
 import gameobjects.GameObject;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
@@ -125,12 +127,16 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 		// IMPLEMENTED METHODS	------------------------------------------
 
 		@Override
-		public void onLeftPressed(int mouseX, int mouseY)
+		public void onMouseButtonEvent(MouseButton button,
+				MouseButtonEventType eventType, Point2D mousePosition,
+				double eventStepTime)
 		{
-			// Goes to the element setting screen
-			BattleScreenObjectCreator.this.navigator.startPhase(
-					GamePhase.ELEMENTMENU, 
-					BattleScreenObjectCreator.this.barhandler.createFieldSetting());
+			// On left pressed goes to the element selection screen
+			if (button == MouseButton.LEFT && 
+					eventType == MouseButtonEventType.PRESSED)
+				BattleScreenObjectCreator.this.navigator.startPhase(
+						GamePhase.ELEMENTMENU, 
+						BattleScreenObjectCreator.this.barhandler.createFieldSetting());
 		}
 	}
 }

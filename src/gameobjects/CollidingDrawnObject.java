@@ -99,7 +99,7 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 		// Transforms each of the points and adds them to the new table
 		for (int i = 0; i < relativepoints.length; i++)
 		{
-			newpoints[i] = transform(relativepoints[i].x, relativepoints[i].y);
+			newpoints[i] = transform(relativepoints[i]);
 		}
 		
 		return newpoints;

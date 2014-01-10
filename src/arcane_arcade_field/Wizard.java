@@ -376,14 +376,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	}
 	
 	@Override
-	public boolean pointCollides(int x, int y)
+	public boolean pointCollides(Point2D testPosition)
 	{	
 		// Point only collides if it also collides the mask
-		if (!super.pointCollides(x, y))
+		if (!super.pointCollides(testPosition))
 			return false;
 		
 		return (this.maskchecker.maskContainsRelativePoint(
-				negateTransformations(x, y), 0));
+				negateTransformations(testPosition), 0));
 	}
 
 	@Override

@@ -1,11 +1,12 @@
 package arcane_arcade_menus;
 
+import java.awt.geom.Point2D;
+
 import gameobjects.GameObject;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
 import handlers.MouseListenerHandler;
-
 import worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;
@@ -129,10 +130,13 @@ public class ElementScreenObjectCreator extends GameObject implements
 		// IMPLEMENTED METHODS	-----------------------------------------
 
 		@Override
-		public void onLeftPressed(int mouseX, int mouseY)
+		public void onMouseButtonEvent(MouseButton button,
+				MouseButtonEventType eventType, Point2D mousePosition,
+				double eventStepTime)
 		{
-			// If the settings are ready, goes to the next screen
-			if (isVisible())
+			// On left pressed goes to the element selection screen
+			if (button == MouseButton.LEFT && 
+					eventType == MouseButtonEventType.PRESSED && isVisible())
 				ElementScreenObjectCreator.this.navigator.startPhase(
 						GamePhase.FIELD, 
 						ElementScreenObjectCreator.this.settings);

@@ -199,7 +199,7 @@ public class GameWindow extends JFrame
 		
 		//System.out.println("GW Mouse x : " + mousex + ", mousey: " + mousey);
 		
-		this.mainmousehandler.setMousePosition(mousex, mousey);
+		this.mainmousehandler.setMousePosition(new Point(mousex, mousey));
 	}
 	
 	/**
@@ -410,8 +410,8 @@ public class GameWindow extends JFrame
 			int mousey = (int) ((e.getY() - GameWindow.this.toppaddingheight) / 
 					GameWindow.this.yscale);
 			
-			GameWindow.this.mainmousehandler.setMouseStatus(mousex, mousey, 
-					true, e.getButton());
+			GameWindow.this.mainmousehandler.setMouseStatus(
+					new Point(mousex, mousey), true, e.getButton());
 		}
 
 		@Override
@@ -423,8 +423,8 @@ public class GameWindow extends JFrame
 			int mousey = (int) ((e.getY() - GameWindow.this.toppaddingheight) / 
 					GameWindow.this.yscale);
 			
-			GameWindow.this.mainmousehandler.setMouseStatus(mousex, mousey,
-					false, e.getButton());
+			GameWindow.this.mainmousehandler.setMouseStatus(
+					new Point(mousex, mousey), false, e.getButton());
 		}
 	}
 	

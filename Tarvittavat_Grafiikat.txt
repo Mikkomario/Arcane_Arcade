@@ -7,9 +7,6 @@ Status
 		- Esimerkiksi l‰pin‰kyv‰ jalkapallotsydeemi tai joku (animoitu?)
 Menut
 	* Nuoli (k‰ytet‰‰n arvon kasvattamiseen / pienent‰miseen)
-	* Sound volume mittari (Eri arvot eri frameina)
-	* Music volume mittari (Eri arvot eri frameina)
-	* On / Off -button (Ellen vaan photoshoppaa vanhan nappulan pohjalta)
 	* Spellbook-rinkula (johon elementit laitetaan p‰‰lle)
 	* V‰riympyr‰ :)
 		- Jokaiselle elementille oma frame
@@ -18,15 +15,14 @@ Menut
 	* 1p ja 2p -ikonit
 		- 1p = forever alone
 		- 2p = super happy :)
-	* Save Settings -nappi
 	* Tekstitausta (ellei photoshoppaa pistetaustaa jotenkin)
+	* Viesti-ikkunoiden nappulapohjat
 	* Tutorial ikonit
-		- Controlls
+		- Controls
 		- Basics
 		- Advanced
 		- Perus tutoriaalikehykset
 		- Lukko ja V (check), jotka voi piirt‰‰ kehyksen p‰‰lle sitten kivasti
-	* Ruudun vaakatasossa t‰ytt‰v‰ "Press Enter to Battle" (v‰h‰n niinku smash brossis)
 Hahmot
 	* Field versiot maageista (ylh‰‰lt‰ p‰in kuvattuna)
 		- Animaationa castaus, muuta ei tarvi

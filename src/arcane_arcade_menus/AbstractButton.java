@@ -1,12 +1,11 @@
 package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 
 import worlds.Room;
-
 import listeners.AdvancedMouseListener;
 import listeners.RoomListener;
-
 import gameobjects.DimensionalDrawnObject;
 import graphic.Sprite;
 import graphic.SpriteDrawer;
@@ -147,49 +146,13 @@ public abstract class AbstractButton extends DimensionalDrawnObject implements
 	}
 
 	@Override
-	public void onLeftDown(int mouseX, int mouseY, double steps)
+	public boolean listensPosition(Point2D testPosition)
 	{
-		// Does nothing
+		return pointCollides(testPosition);
 	}
 
 	@Override
-	public void onRightDown(int mouseX, int mouseY, double steps)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onRightPressed(int mouseX, int mouseY)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onLeftReleased(int mouseX, int mouseY)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onRightReleased(int mouseX, int mouseY)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public boolean listensPosition(int x, int y)
-	{
-		return pointCollides(x, y);
-	}
-
-	@Override
-	public void onMouseOver(int mouseX, int mouseY)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onMouseMove(int mouseX, int mouseY)
+	public void onMouseMove(Point2D newMousePosition)
 	{
 		// Does nothing
 	}
@@ -199,6 +162,19 @@ public abstract class AbstractButton extends DimensionalDrawnObject implements
 	{
 		return MouseButtonEventScale.LOCAL;
 	}
+	
+	/*
+	@Override
+	public void onMousePositionEvent(MousePositionEventType eventType,
+			Point2D mousePosition, double eventStepTime)
+	{
+		// Changes sprite index when mouse enters or exits the button
+		if (eventType == MousePositionEventType.ENTER)
+			this.spritedrawer.setImageIndex(1);
+		else if (eventType == MousePositionEventType.EXIT)
+			this.spritedrawer.setImageIndex(0);
+	}
+	*/
 	
 	
 	// GETTERS & SETTERS	---------------------------------------------

@@ -290,48 +290,11 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		{
 			return this.box.getAngle();
 		}
-		
-		@Override
-		public void onLeftDown(int mouseX, int mouseY, double steps)
-		{
-			// Does nothing
-		}
 
 		@Override
-		public void onRightDown(int mouseX, int mouseY, double steps)
+		public boolean listensPosition(Point2D testPosition)
 		{
-			// Does nothing
-		}
-
-		@Override
-		public void onLeftPressed(int mouseX, int mouseY)
-		{
-			// Informs the box about button press
-			this.box.onOptionClick(this);
-		}
-
-		@Override
-		public void onRightPressed(int mouseX, int mouseY)
-		{
-			// Does nothing
-		}
-
-		@Override
-		public void onLeftReleased(int mouseX, int mouseY)
-		{
-			// Does nothing
-		}
-
-		@Override
-		public void onRightReleased(int mouseX, int mouseY)
-		{
-			// Does nothing
-		}
-
-		@Override
-		public boolean listensPosition(int x, int y)
-		{
-			return pointCollides(x, y);
+			return pointCollides(testPosition);
 		}
 
 		@Override
@@ -341,26 +304,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		}
 
 		@Override
-		public void onMouseEnter(int mouseX, int mouseY)
-		{
-			// Button reacts to mouse over by changing sprite index
-			this.spritedrawer.setImageIndex(1);
-		}
-
-		@Override
-		public void onMouseOver(int mouseX, int mouseY)
-		{
-			// Does nothing
-		}
-
-		@Override
-		public void onMouseExit(int mouseX, int mouseY)
-		{
-			this.spritedrawer.setImageIndex(0);
-		}
-
-		@Override
-		public void onMouseMove(int mouseX, int mouseY)
+		public void onMouseMove(Point2D newMousePosition)
 		{
 			// Does nothing
 		}
@@ -383,6 +327,27 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 			return super.isDead() || this.box.isDead();
 		}
 		
+		@Override
+		public void onMouseButtonEvent(MouseButton button,
+				MouseButtonEventType eventType, Point2D mousePosition,
+				double eventStepTime)
+		{
+			// If the button was clicked, Informs the box
+			if (button == MouseButton.LEFT && 
+					eventType == MouseButtonEventType.PRESSED)
+				this.box.onOptionClick(this);
+		}
+
+		@Override
+		public void onMousePositionEvent(MousePositionEventType eventType,
+				Point2D mousePosition, double eventStepTime)
+		{
+			// Button reacts to mouse over by changing sprite index
+			if (eventType == MousePositionEventType.ENTER)
+				this.spritedrawer.setImageIndex(1);
+			else if (eventType == MousePositionEventType.EXIT)
+				this.spritedrawer.setImageIndex(0);
+		}
 		
 		// GETTERS & SETTERS	-----------------------------------------
 		
@@ -403,8 +368,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		{
 			// Keeps the object in the same relative point relative to the 
 			// containing box
-			Point2D newposition = this.box.transform(
-					this.relativeposition.getX(), this.relativeposition.getY());
+			Point2D newposition = this.box.transform(this.relativeposition);
 			
 			setPosition(newposition.getX(), newposition.getY());
 		}

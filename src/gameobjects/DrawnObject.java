@@ -526,25 +526,23 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	
 	/**
 	 * Transforms the point so that collisions can be checked without
-	// transformations.
+	 * transformations. In other words, transforms a point from the absolute 
+	 * space to the object's relative space
 	 *
-	 * @param x The x-coordinate of the point to be negated
-	 * @param y The y-coordinate of the point to be negated
+	 * @param absolutepoint The absolute point to be transformed into negative space
 	 * @return The point where all of the object's transformations are negated
 	 */
-	public Point2D.Double negateTransformations(double x, double y)
+	public Point2D.Double negateTransformations(Point2D absolutepoint)
 	{
 		updateTransformation();
 		
-		Point2D.Double oldpoint = new Point2D.Double(x, y);
 		Point2D.Double newpoint = new Point2D.Double(0, 0);
-		
 		AffineTransform inversetransform = getOpposingTransform();
 		
 		if (inversetransform == null)
 			return null;
 		
-		inversetransform.transform(oldpoint, newpoint);
+		inversetransform.transform(absolutepoint, newpoint);
 		return newpoint;
 		
 		/*// TODO: Readd this if the new version doesn't work
@@ -637,25 +635,22 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	}
 	
 	/**
-	 * Transforms the position depending on the object's current transformation
+	 * Transforms the position depending on the object's current transformation. 
+	 * In other words transforms a point from the object's relative space to 
+	 * the absolute space.
 	 *
-	 * @param x Position's x-coordinate relative to the object's origin (relative pixel)
-	 * @param y Position's y-coordinate relative to the object's origin (relative pixel)
-	 * @return Absolute position with transformations added
+	 * @param relativepoint The point to be transformed.
+	 * @return Absolute position created by transforming the relative point
 	 */
-	protected Point2D.Double transform(double x, double y)
+	protected Point2D.Double transform(Point2D relativepoint)
 	{	
 		updateTransformation();
 		
-		Point2D.Double oldpoint = new Point2D.Double(x, y);
 		Point2D.Double newpoint = new Point2D.Double(0, 0);
 		
-		this.currenttransformation.transform(oldpoint, newpoint);
+		this.currenttransformation.transform(relativepoint, newpoint);
 		
 		return newpoint;
-		
-		//return transform(x, y, getX(), getY(), getXScale(), getYScale(), 
-		//		getAngle(), getOriginX(), getOriginY());
 	}
 	
 	/**
@@ -739,7 +734,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 */
 	public void rotateAroundRelativePoint(double angle, Point2D.Double p)
 	{
-		Point2D.Double abspoint = transform(p.x, p.y);
+		Point2D.Double abspoint = transform(p);
 		rotateAroundPoint(angle, abspoint);
 	}
 	

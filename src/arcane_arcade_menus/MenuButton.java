@@ -1,12 +1,11 @@
 package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.Navigator;
-
 import worlds.Room;
-
 import gameobjects.DrawnObject;
 import handleds.Actor;
 import handlers.ActorHandler;
@@ -78,21 +77,18 @@ public abstract class MenuButton extends AbstractButton
 	}
 
 	@Override
-	public void onMouseEnter(int mouseX, int mouseY)
+	public void onMousePositionEvent(MousePositionEventType eventType,
+			Point2D mousePosition, double eventStepTime)
 	{
-		// Changes image index
-		getSpriteDrawer().setImageIndex(1);
-		this.mouseon = true;
-	}
-
-	@Override
-	public void onMouseExit(int mouseX, int mouseY)
-	{
-		// Changes image index back
-		getSpriteDrawer().setImageIndex(0);
-		this.mouseon = false;
+		// Changes sprite index when mouse enters or exits the button
+		if (eventType == MousePositionEventType.ENTER)
+			getSpriteDrawer().setImageIndex(1);
+		else if (eventType == MousePositionEventType.EXIT)
+			getSpriteDrawer().setImageIndex(0);
 	}
 	
+	
+	// SUBCLASSES	-----------------------------------------------------
 	
 	// The buttontextdrawer draws a text over the button when the mouse is 
 	// over it

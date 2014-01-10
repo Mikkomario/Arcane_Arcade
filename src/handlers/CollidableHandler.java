@@ -1,5 +1,6 @@
 package handlers;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import handleds.Collidable;
@@ -57,18 +58,18 @@ public class CollidableHandler extends Handler
 	}
 
 	/**
-	 * Returns all the collided objects the collidablehandler handles that 
+	 * Returns all the collided objects the collidableHandler handles that 
 	 * collide with the given point
 	 *
-	 * @param x The x-coordinate of the collision point
-	 * @param y The y-coordinate of the collision point
+	 * @param collisionPoint The point where the collisions are checked
 	 * @return A list of objects colliding wiht the point or null if no object 
 	 * collided with the point
 	 */
-	public ArrayList<Collidable> getCollidedObjectsAtPoint(int x, int y)
+	public ArrayList<Collidable> getCollidedObjectsAtPoint(Point2D collisionPoint)
 	{
 		// Initializes the operator
-		CollisionCheckOperator checkoperator = new CollisionCheckOperator(x, y);
+		CollisionCheckOperator checkoperator = 
+				new CollisionCheckOperator(collisionPoint);
 		
 		// Checks collisions through all collidables
 		handleObjects(checkoperator);
@@ -128,15 +129,14 @@ public class CollidableHandler extends Handler
 		// ATTRIBUTES	-------------------------------------------------
 		
 		private ArrayList<Collidable> collided;
-		private int checkx, checky;
+		private Point2D checkPosition;
 		
 		
 		// CONSTRUCTOR	-------------------------------------------------
 		
-		public CollisionCheckOperator(int x, int y)
+		public CollisionCheckOperator(Point2D checkPosition)
 		{
-			this.checkx = x;
-			this.checky = y;
+			this.checkPosition = checkPosition;
 			this.collided = new ArrayList<Collidable>();
 		}
 		
@@ -153,7 +153,7 @@ public class CollidableHandler extends Handler
 				return true;
 			
 			// Checks the collision
-			if (!c.pointCollides(this.checkx, this.checky))
+			if (!c.pointCollides(this.checkPosition))
 				return true;
 				
 			// Adds the collided object to the list

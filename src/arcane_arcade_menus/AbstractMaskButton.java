@@ -1,5 +1,7 @@
 package arcane_arcade_menus;
 
+import java.awt.geom.Point2D;
+
 import graphic.MaskChecker;
 import graphic.Sprite;
 import handlers.DrawableHandler;
@@ -49,12 +51,13 @@ public abstract class AbstractMaskButton extends AbstractButton
 	// IMPLEMENTED METHODS	----------------------------------------------
 	
 	@Override
-	public boolean pointCollides(int x, int y)
+	public boolean pointCollides(Point2D testPosition)
 	{
 		// Uses mask for collision checking
 		return (this.maskchecker != null && 
 				this.maskchecker.maskContainsRelativePoint(
-				negateTransformations(x, y), getSpriteDrawer().getImageIndex()));
+				negateTransformations(testPosition), 
+				getSpriteDrawer().getImageIndex()));
 	}
 	
 	

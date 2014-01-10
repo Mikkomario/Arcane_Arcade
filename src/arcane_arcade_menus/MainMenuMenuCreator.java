@@ -5,6 +5,8 @@ import java.awt.Point;
 
 
 
+import java.awt.geom.Point2D;
+
 import worlds.Room;
 import listeners.RoomListener;
 import arcane_arcade_main.GameSettings;
@@ -180,57 +182,62 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 		// IMPLEMENTENTED METHODS	------------------------------------------
 
 		@Override
-		public void onLeftPressed(int mouseX, int mouseY)
-		{
-			//Starts the correct gamePhase
-			this.navigator.startPhase(this.gamephase, null);
-		}
-
-		@Override
 		public boolean listensMouseEnterExit()
 		{
 			return true;
 		}
 
 		@Override
-		public void onMouseEnter(int mouseX, int mouseY)
+		public void onMouseButtonEvent(MouseButton button,
+				MouseButtonEventType eventType, Point2D mousePosition,
+				double eventStepTime)
 		{
-			//Moves the MenuElement slightly when the mouse enters
-			switch (this.direction) 
-			{
-				case UP: 
-				{
-					this.setPosition(this.startposition.getX(), 
-							this.startposition.getY()-15);
-					break;
-				}
-				case RIGHT: 
-				{
-					this.setPosition(this.startposition.getX()+15, 
-							this.startposition.getY());
-					break;
-				}
-				case DOWN: 
-				{
-					this.setPosition(this.startposition.getX(), 
-							this.startposition.getY()+15);
-					break;
-				}
-				case LEFT: 
-				{
-					this.setPosition(this.startposition.getX()-15, 
-							this.startposition.getY());
-					break;
-				}
-			}
+			//Starts the correct gamePhase if the left button was pressed
+			if (button == MouseButton.LEFT && 
+					eventType == MouseButtonEventType.PRESSED)
+				this.navigator.startPhase(this.gamephase, null);
 		}
 
 		@Override
-		public void onMouseExit(int mouseX, int mouseY)
+		public void onMousePositionEvent(MousePositionEventType eventType,
+				Point2D mousePosition, double eventStepTime)
 		{
-			//Resets the position of the MenuElement
-			this.setPosition(this.startposition.getX(), 
-					this.startposition.getY());
+			// Resets the position of the MenuElement on mouse exit
+			if (eventType == MousePositionEventType.EXIT)
+				this.setPosition(this.startposition.getX(), 
+						this.startposition.getY());
+			
+			// Moves the MenuElement slightly when the mouse enters
+			if (eventType == MousePositionEventType.ENTER)
+			{
+				switch (this.direction) 
+				{
+					case UP: 
+					{
+						this.setPosition(this.startposition.getX(), 
+								this.startposition.getY()-15);
+						break;
+					}
+					case RIGHT: 
+					{
+						this.setPosition(this.startposition.getX()+15, 
+								this.startposition.getY());
+						break;
+					}
+					case DOWN: 
+					{
+						this.setPosition(this.startposition.getX(), 
+								this.startposition.getY()+15);
+						break;
+					}
+					case LEFT: 
+					{
+						this.setPosition(this.startposition.getX()-15, 
+								this.startposition.getY());
+						break;
+					}
+				}
+			}
 		}
 	}
 	

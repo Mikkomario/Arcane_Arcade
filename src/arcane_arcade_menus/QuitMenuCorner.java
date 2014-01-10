@@ -1,11 +1,11 @@
 package arcane_arcade_menus;
 
 
+import java.awt.geom.Point2D;
+
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.Navigator;
-
 import worlds.Room;
-
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.DepthConstants;
@@ -41,29 +41,30 @@ public class QuitMenuCorner extends AbstractMaskButton
 	// IMPLEMENTENTED METHODS	------------------------------------------
 
 	@Override
-	public void onLeftPressed(int mouseX, int mouseY)
-	{
-		// Quits the game
-		System.exit(0);
-	}
-
-	@Override
 	public boolean listensMouseEnterExit()
 	{
 		return true;
 	}
 
 	@Override
-	public void onMouseEnter(int mouseX, int mouseY)
+	public void onMousePositionEvent(MousePositionEventType eventType,
+			Point2D mousePosition, double eventStepTime)
 	{
-		// Changes sprite index
-		getSpriteDrawer().setImageIndex(1);
+		// Changes sprite index when mouse enters or exits the button
+		if (eventType == MousePositionEventType.ENTER)
+			getSpriteDrawer().setImageIndex(1);
+		else if (eventType == MousePositionEventType.EXIT)
+			getSpriteDrawer().setImageIndex(0);
 	}
 
 	@Override
-	public void onMouseExit(int mouseX, int mouseY)
+	public void onMouseButtonEvent(MouseButton button,
+			MouseButtonEventType eventType, Point2D mousePosition,
+			double eventStepTime)
 	{
-		// Changes sprite index
-		getSpriteDrawer().setImageIndex(0);
+		if (button == MouseButton.LEFT && 
+				eventType == MouseButtonEventType.PRESSED)
+		// Quits the game when clicked
+		System.exit(0);
 	}
 }

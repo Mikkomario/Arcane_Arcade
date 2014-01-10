@@ -84,10 +84,10 @@ public class DimensionalRoom extends TiledRoom implements Collidable
 	// IMPLEMENTED METHODS	----------------------------------------------
 
 	@Override
-	public boolean pointCollides(int x, int y)
+	public boolean pointCollides(Point2D testPoint)
 	{
 		// Room uses tilemap for collision checking
-		return getTiles().pointCollides(x, y);
+		return getTiles().pointCollides(testPoint);
 	}
 
 	@Override

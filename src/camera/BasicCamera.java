@@ -201,8 +201,7 @@ public class BasicCamera extends BasicPhysicDrawnObject
 			// Returns true if any of the collisionpoints collides
 			for (int i = 0; i < collisionpoints.length; i++)
 			{
-				if (pointCollides((int) collisionpoints[i].getX(), 
-						(int) collisionpoints[i].getY()))
+				if (pointCollides(collisionpoints[i]))
 					return true;
 			}
 			

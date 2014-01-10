@@ -1,5 +1,7 @@
 package listeners;
 
+import java.awt.geom.Point2D;
+
 import handleds.LogicalHandled;
 
 /**
@@ -11,65 +13,30 @@ import handleds.LogicalHandled;
 public interface AdvancedMouseListener extends LogicalHandled
 {
 	/**
-	 * This method is called at each step when the left mouse button is down 
-	 * and the mouse is over the object
-	 * @param mouseX The mouse's current x-coordinate
-	 * @param mouseY The mouse's current y-coordinate
-	 * @param steps How long the button has been held down since the last 
-	 * event (in steps)
+	 * This method is called each time a mouse button event is caused in the 
+	 * object's scope of interest. The parameters specify the type and location 
+	 * of the event.
+	 * 
+	 * @param button The mouse button that caused the event
+	 * @param eventType The event caused by the mouse button
+	 * @param mousePosition The position where the event occurred
+	 * @param eventStepTime How long did the last step take. This tells how 
+	 * long the mouse button was held down since the last event for 
+	 * example.
+	 * @see #getCurrentButtonScaleOfInterest()
 	 */
-	public void onLeftDown(int mouseX, int mouseY, double steps);
-	
-	/**
-	 * This method is called at each step when the right mouse button is down 
-	 * and the mouse is over the object
-	 * @param mouseX The mouse's current x-coordinate
-	 * @param mouseY The mouse's current y-coordinate
-	 * @param steps How long the button has been held down since the last 
-	 * event (in steps)
-	 */
-	public void onRightDown(int mouseX, int mouseY, double steps);
-	
-	/**
-	 * This method is called when the left mouse button is pressed 
-	 * and the mouse is over the object
-	 * @param mouseX The mouse's current x-coordinate
-	 * @param mouseY The mouse's current y-coordinate
-	 */
-	public void onLeftPressed(int mouseX, int mouseY);
-	
-	/**
-	 * This method is called when the right mouse button is pressed 
-	 * and the mouse is over the object
-	 * @param mouseX The mouse's current x-coordinate
-	 * @param mouseY The mouse's current y-coordinate
-	 */
-	public void onRightPressed(int mouseX, int mouseY);
-	
-	/**
-	 * This method is called when the left mouse button is released
-	 * and the mouse is over the object
-	 * @param mouseX The mouse's current x-coordinate
-	 * @param mouseY The mouse's current y-coordinate
-	 */
-	public void onLeftReleased(int mouseX, int mouseY);
-	
-	/**
-	 * This method is called when the right mouse button is released
-	 * and the mouse is over the object
-	 * @param mouseX The mouse's current x-coordinate
-	 * @param mouseY The mouse's current y-coordinate
-	 */
-	public void onRightReleased(int mouseX, int mouseY);
+	public void onMouseButtonEvent(MouseButton button, 
+			MouseButtonEventType eventType, Point2D mousePosition, 
+			double eventStepTime);
 	
 	/**
 	 * Tell's whether the object is interested in clicks at the given position
 	 * 
-	 * @param x The mouse's x-coordinate
-	 * @param y The mouse's y-coordinate
-	 * @return Is the object interested if the given position is clicked
+	 * @param testedPosition The position that is being tested for being important
+	 * @return Is the object interested if a mouse event occurs in the given 
+	 * position
 	 */
-	public boolean listensPosition(int x, int y);
+	public boolean listensPosition(Point2D testedPosition);
 	
 	/**
 	 * @return Should the listener be informed if the mouse enters or exits its 
@@ -78,34 +45,27 @@ public interface AdvancedMouseListener extends LogicalHandled
 	public boolean listensMouseEnterExit();
 	
 	/**
-	 * This method is called when the mouse enters the listener's area of interrest
-	 * @param mouseX The mouse's current x-coordinate
-	 * @param mouseY The mouse's current y-coordinate
+	 * This method is called when a mouse position event occurs and the object 
+	 * is interested in it. The events do not include mouse move event which 
+	 * is informed separately
+	 * 
+	 * @param eventType The type of mouse position event that just occurred
+	 * @param mousePosition The current position of the mouse
+	 * @param eventStepTime How long did the last step take. This tells how 
+	 * long the mouse has hovered over the object since the last event for 
+	 * example.
+	 * @see #listensMouseEnterExit()
 	 */
-	public void onMouseEnter(int mouseX, int mouseY);
-	
-	/**
-	 * This method is called when the mouse is over the listener's area of interrest
-	 * @param mouseX The mouse's current x-coordinate
-	 * @param mouseY The mouse's current y-coordinate
-	 */
-	public void onMouseOver(int mouseX, int mouseY);
-	
-	/**
-	 * This method is called when the mouse exits the listener's area of interrest
-	 * @param mouseX The mouse's current x-coordinate
-	 * @param mouseY The mouse's current y-coordinate
-	 */
-	public void onMouseExit(int mouseX, int mouseY);
+	public void onMousePositionEvent(MousePositionEventType eventType, 
+			Point2D mousePosition, double eventStepTime);
 	
 	/**
 	 * This method is called at each time the mouse was moved and it tells 
 	 * the mouse's current position
 	 * 
-	 * @param mouseX The mouse's current x-coordinate
-	 * @param mouseY The mouse's current y-coordinate
+	 * @param newMousePosition the mouse's new position
 	 */
-	public void onMouseMove(int mouseX, int mouseY);
+	public void onMouseMove(Point2D newMousePosition);
 	
 	/**
 	 * @return On which scale the object is interested in mouse button events. 
@@ -143,5 +103,80 @@ public interface AdvancedMouseListener extends LogicalHandled
 		 * events at all.
 		 */
 		NONE;
+	}
+	
+	/**
+	 * MouseButton represents the usual buttons in the mouse. Mouse button 
+	 * events are always tied to one of those buttons.
+	 * 
+	 * @author Mikko Hilpinen.
+	 * Created 10.1.2014
+	 */
+	public enum MouseButton
+	{
+		/**
+		 * The left mouse button
+		 */
+		LEFT, 
+		/**
+		 * The right mouse button
+		 */
+		RIGHT;
+	}
+	
+	/**
+	 * MouseButtonEventType tells which kind of mouse button event is in 
+	 * question.
+	 * 
+	 * @author Mikko Hilpinen.
+	 * Created 10.1.2014
+	 */
+	public enum MouseButtonEventType
+	{
+		/**
+		 * A mouse button is being held down. This kind of event is caused 
+		 * continuously until the button is released.
+		 */
+		DOWN, 
+		/**
+		 * A mouse button was just pressed down. This kind of event is caused 
+		 * only once per each button press
+		 */
+		PRESSED,
+		/**
+		 * A mouse button was just released and is no longer being held down. 
+		 * This kind of event is caused only once per each button release
+		 */
+		RELEASED;
+	}
+	
+	/**
+	 * There are different types of mouse position events the object can 
+	 * react to. An event is caused when the mouse enters the area of interest 
+	 * of a certain object, when the mouse leaves that area and while the 
+	 * mouse is over that area.
+	 * 
+	 * @author Gandalf
+	 * @notice These kind of events are only informed if the object is 
+	 * interested in them
+	 * @see AdvancedMouseListener#listensMouseEnterExit()
+	 */
+	public enum MousePositionEventType
+	{
+		/**
+		 * This event is created when the mouse enters the area of interest 
+		 * of the listener
+		 */
+		ENTER, 
+		/**
+		 * This event is created when the mouse exits the area of interest of 
+		 * the listener
+		 */
+		EXIT, 
+		/**
+		 * This event is continuously caused while the mouse hovers over the 
+		 * area of interest of the object
+		 */
+		OVER;
 	}
 }

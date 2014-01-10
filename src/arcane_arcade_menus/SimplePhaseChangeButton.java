@@ -1,5 +1,7 @@
 package arcane_arcade_menus;
 
+import java.awt.geom.Point2D;
+
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 import handlers.ActorHandler;
@@ -56,9 +58,12 @@ public class SimplePhaseChangeButton extends MenuButton
 	// IMPLEMENTED METHODS	----------------------------------------------
 
 	@Override
-	public void onLeftPressed(int mouseX, int mouseY)
+	public void onMouseButtonEvent(MouseButton button,
+			MouseButtonEventType eventType, Point2D mousePosition,
+			double eventStepTime)
 	{
-		// Changes the phase
-		this.navigator.startPhase(this.phase, null);
+		// Changes the phase when clicked
+		if (button == MouseButton.LEFT && eventType == MouseButtonEventType.PRESSED)
+			this.navigator.startPhase(this.phase, null);
 	}
 }

@@ -1,5 +1,7 @@
 package arcane_arcade_spelleffects;
 
+import java.awt.geom.Point2D;
+
 import worlds.Room;
 import graphic.MaskChecker;
 import handlers.ActorHandler;
@@ -81,10 +83,10 @@ public abstract class MaskedSpellEffect extends SpellEffect
 	// IMPLEMENTED METHODS	---------------------------------------------
 	
 	@Override
-	public boolean pointCollides(int x, int y)
+	public boolean pointCollides(Point2D testPosition)
 	{	
 		// Point only collides if it also collides the mask
-		if (!super.pointCollides(x, y))
+		if (!super.pointCollides(testPosition))
 			return false;
 		
 		// Calculates the imageindex used in the collision check
@@ -93,6 +95,6 @@ public abstract class MaskedSpellEffect extends SpellEffect
 			maskindex = getSpriteDrawer().getImageIndex();
 		
 		return (this.maskchecker.maskContainsRelativePoint(
-				negateTransformations(x, y), maskindex));
+				negateTransformations(testPosition), maskindex));
 	}
 }

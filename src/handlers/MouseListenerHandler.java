@@ -1,5 +1,7 @@
 package handlers;
 
+import java.awt.geom.Point2D;
+
 import listeners.AdvancedMouseListener;
 
 /**
@@ -36,82 +38,17 @@ public class MouseListenerHandler extends AbstractMouseListenerHandler
 	// IMPLEMENTED METHODS	-------------------------------------------------
 
 	@Override
-	public void onLeftDown(int mouseX, int mouseY, double steps)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onRightDown(int mouseX, int mouseY, double steps)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onLeftPressed(int mouseX, int mouseY)
-	{
-		// Updates the mouse status
-		setLeftMouseDown(true);
-	}
-
-	@Override
-	public void onRightPressed(int mouseX, int mouseY)
-	{
-		// Updates the mouse status
-		setRightMouseDown(true);
-	}
-
-	@Override
-	public boolean listensPosition(int x, int y)
-	{
-		// Handlers listen all positions
-		return true;
-	}
-
-	@Override
 	public boolean listensMouseEnterExit()
 	{
-		// Does not have a special area of interrest
+		// Does not have a special area of interest
 		return false;
 	}
 
 	@Override
-	public void onMouseEnter(int mouseX, int mouseY)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onMouseExit(int mouseX, int mouseY)
-	{
-		// Nothing
-	}
-
-	@Override
-	public void onMouseMove(int mouseX, int mouseY)
+	public void onMouseMove(Point2D mousePosition)
 	{
 		// Updates mouse status
-		setMousePosition(mouseX, mouseY);
-	}
-
-	@Override
-	public void onLeftReleased(int mouseX, int mouseY)
-	{
-		// Updates mouse status
-		setLeftMouseDown(false);
-	}
-
-	@Override
-	public void onRightReleased(int mouseX, int mouseY)
-	{
-		// Updates mouse status
-		setRightMouseDown(false);
-	}
-
-	@Override
-	public void onMouseOver(int mouseX, int mouseY)
-	{
-		// Nothing
+		setMousePosition(mousePosition);
 	}
 
 	@Override
@@ -119,5 +56,44 @@ public class MouseListenerHandler extends AbstractMouseListenerHandler
 	{
 		// Handlers are interested in all button events
 		return MouseButtonEventScale.GLOBAL;
+	}
+
+	@Override
+	public void onMouseButtonEvent(MouseButton button,
+			MouseButtonEventType eventType, Point2D mousePosition,
+			double eventStepTime)
+	{
+		// TODO: Change this old system into a more elegant one
+		
+		// Updates the mouse status
+		if (eventType == MouseButtonEventType.PRESSED)
+		{
+			if (button == MouseButton.LEFT)
+				setLeftMouseDown(true);
+			else
+				setRightMouseDown(true);
+		}
+		else if (eventType == MouseButtonEventType.RELEASED)
+		{
+			if (button == MouseButton.LEFT)
+				setLeftMouseDown(false);
+			else
+				setRightMouseDown(false);
+		}
+	}
+
+	@Override
+	public boolean listensPosition(Point2D testedPosition)
+	{
+		// Handlers are interested in all areas
+		return true;
+	}
+
+
+	@Override
+	public void onMousePositionEvent(MousePositionEventType eventType,
+			Point2D mousePosition, double eventStepTime)
+	{
+		// Doesn't react to mouse position events
 	}
 }

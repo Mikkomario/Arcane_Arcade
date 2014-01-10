@@ -334,8 +334,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 		for (Point2D.Double relmomentorigin: this.moments.keySet())
 		{
 			// Calculates the momentorigin's absolute position
-			Point2D.Double absmomentorigin = transform(relmomentorigin.x, 
-					relmomentorigin.y);
+			Point2D.Double absmomentorigin = transform(relmomentorigin);
 			// Adds the movement
 			pixelmovement = Movement.movementSum(pixelmovement, 
 					Movement.createMovement(
@@ -440,8 +439,7 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 			// TODO: Try to come up with a way to always get nice numbers here
 			double moment = calculateMoment(forcedir, 
 					0.4*movementforce + 0.4*rotationforce, colpoint, colpixel);
-			addMoment(negateTransformations(colpoint.getX(), colpoint.getY()), 
-					moment);
+			addMoment(negateTransformations(colpoint), moment);
 		}
 	}
 	
