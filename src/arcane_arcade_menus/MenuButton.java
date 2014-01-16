@@ -82,9 +82,15 @@ public abstract class MenuButton extends AbstractButton
 	{
 		// Changes sprite index when mouse enters or exits the button
 		if (eventType == MousePositionEventType.ENTER)
+		{
+			this.mouseon = true;
 			getSpriteDrawer().setImageIndex(1);
+		}
 		else if (eventType == MousePositionEventType.EXIT)
+		{
+			this.mouseon = false;
 			getSpriteDrawer().setImageIndex(0);
+		}
 	}
 	
 	
