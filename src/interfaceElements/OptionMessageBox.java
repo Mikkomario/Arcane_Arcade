@@ -1,8 +1,8 @@
 package interfaceElements;
 
 import gameobjects.DimensionalDrawnObject;
+import graphic.SingleSpriteDrawer;
 import graphic.Sprite;
-import graphic.SpriteDrawer;
 import handleds.LogicalHandled;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
@@ -151,7 +151,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		// ATTRIBUTES	-------------------------------------------------
 		
 		private Point2D relativeposition;
-		private SpriteDrawer spritedrawer;
+		private SingleSpriteDrawer spritedrawer;
 		private OptionMessageBox box;
 		private String text;
 		private int index;
@@ -173,7 +173,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 			this.text = text;
 			this.index = index;
 			this.relativeposition = new Point(relativex, relativey);
-			this.spritedrawer = new SpriteDrawer(buttonsprite, null, this);
+			this.spritedrawer = new SingleSpriteDrawer(buttonsprite, null, this);
 			this.textfont = textfont;
 			this.textcolor = textcolor;
 			

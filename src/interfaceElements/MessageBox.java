@@ -12,8 +12,8 @@ import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 
 import gameobjects.DrawnObject;
+import graphic.SingleSpriteDrawer;
 import graphic.Sprite;
-import graphic.SpriteDrawer;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 
@@ -31,9 +31,12 @@ public class MessageBox extends DrawnObject
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
+	/**
+	 * Margin is the empty amount of pixels left to the each side of the box
+	 */
 	protected static final int MARGIN = 15;
 	
-	private SpriteDrawer spritedrawer;
+	private SingleSpriteDrawer spritedrawer;
 	private String message;
 	// The iterator used in drawing the message on the box
 	private AttributedCharacterIterator styledtextiterator;
@@ -66,7 +69,7 @@ public class MessageBox extends DrawnObject
 		super(x, y, depth, drawer);
 
 		// Initializes the attributes
-		this.spritedrawer = new SpriteDrawer(backgroundsprite, 
+		this.spritedrawer = new SingleSpriteDrawer(backgroundsprite, 
 				actorhandler, this);
 		this.message = message + "";
 		this.font = textfont;

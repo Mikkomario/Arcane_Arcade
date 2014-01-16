@@ -208,7 +208,7 @@ public class TileMap extends DimensionalDrawnObject
 	 * Clears the map of tiles, freeing the used memory. 
 	 * The tiles can be recreated with the initialize method.
 	 * 
-	 * @see initialize
+	 * @see #initialize(ArrayList, ArrayList)
 	 */
 	public void clear()
 	{
@@ -229,7 +229,7 @@ public class TileMap extends DimensionalDrawnObject
 	 * @param banks A list containing the spritebanks used in the map
 	 * @param texturenames A list containing the spritenames of the textures 
 	 * in the spritebanks
-	 * @see clear
+	 * @see #clear()
 	 */
 	public void initialize(ArrayList<SpriteBank> banks, 
 			ArrayList<String> texturenames)

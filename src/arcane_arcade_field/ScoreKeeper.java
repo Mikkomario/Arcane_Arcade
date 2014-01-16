@@ -12,7 +12,7 @@ import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.VictorySetting;
 
 import gameobjects.DrawnObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handleds.Actor;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
@@ -29,7 +29,7 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
-	private SpriteDrawer spritedrawer;
+	private SingleSpriteDrawer spritedrawer;
 	private int scoreleft;
 	private int scoreright;
 	private int maxscore;
@@ -66,7 +66,7 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 		super(GameSettings.SCREENWIDTH / 2, 20, DepthConstants.HUD, drawer);
 		
 		// Initializes attributes
-		this.spritedrawer = new SpriteDrawer(
+		this.spritedrawer = new SingleSpriteDrawer(
 				Navigator.getSpriteBank("hud").getSprite("score"), null, this);
 		this.navigator = navigator;
 		this.scoreleft = 0;

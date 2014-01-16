@@ -32,8 +32,6 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 	/**Creates a new SmokeEffectCreator, which in turn creates new SmokeEffects
 	 * 
 	 * @param duration	How long will the creator live (steps).
-	 * @param creationdelay	How many steps there will be between each creation.
-	 * @param burstsize	How many spelleffects are created at once.
 	 * @param actorhandler	The actorhandler that informs the object about steps.
 	 * @param room	The room in which the creator is created.
 	 * @param x	The x-coordinates of the creator.
@@ -41,7 +39,6 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 	 * @param drawer	The drawer that will draw the smoke.
 	 * @param collidablehandler	The collidablehandler that will handle the 
 	 * smoke's collision checking.
-	 * @param collisionhandler	Informs the smokeEffects about collisions.	
 	 */
 	public SmokeEffectCreator(int duration,
 			ActorHandler actorhandler, Room room, int x, int y,

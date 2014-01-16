@@ -6,7 +6,7 @@ import java.util.Iterator;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.Navigator;
 import gameobjects.DrawnObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handleds.Drawable;
 import handleds.Handled;
 import handlers.DrawableHandler;
@@ -162,7 +162,7 @@ public class WizardHudDrawer extends DrawableHandler
 		private static final int ELEMENTINDEX_CURRENT = 0;
 		private static final int ELEMENTINDEX_CURRENT_SECOND = 3;
 		
-		private SpriteDrawer spritedrawer;
+		private SingleSpriteDrawer spritedrawer;
 		private int elementindex;
 		private int elementspriteindex;
 		
@@ -186,7 +186,7 @@ public class WizardHudDrawer extends DrawableHandler
 			super(x, y, depth, drawer);
 			
 			// Initializes attributes
-			this.spritedrawer = new SpriteDrawer(
+			this.spritedrawer = new SingleSpriteDrawer(
 					Navigator.getSpriteBank("hud").getSprite(
 					"elements"), null, this);
 			this.elementindex = elementindex;
@@ -281,7 +281,7 @@ public class WizardHudDrawer extends DrawableHandler
 		// ATTRIBUTES	--------------------------------------------------
 		
 		private int length;
-		private SpriteDrawer spritedrawer;
+		private SingleSpriteDrawer spritedrawer;
 		
 		
 		// CONSTRUCTOR	--------------------------------------------------
@@ -303,7 +303,7 @@ public class WizardHudDrawer extends DrawableHandler
 			super(x, y, depth, drawer);
 			
 			// Initializes attributes
-			this.spritedrawer = new SpriteDrawer(
+			this.spritedrawer = new SingleSpriteDrawer(
 					Navigator.getSpriteBank("hud").getSprite(
 					"mp"), null, this);
 			this.spritedrawer.setImageIndex(meterimageindex);
@@ -446,7 +446,7 @@ public class WizardHudDrawer extends DrawableHandler
 		// ATTRIBUTES	-------------------------------------------------
 		
 		private int meterwidth;
-		private SpriteDrawer spritedrawer;
+		private SingleSpriteDrawer spritedrawer;
 		private int mpuse;
 		private int xscalemodifier;
 		
@@ -469,7 +469,7 @@ public class WizardHudDrawer extends DrawableHandler
 			super(x, y, depth, drawer);
 			
 			// Initializes attributes
-			this.spritedrawer = new SpriteDrawer(
+			this.spritedrawer = new SingleSpriteDrawer(
 					Navigator.getSpriteBank("hud").getSprite(
 					"mpuse"), null, this);
 			this.meterwidth = this.spritedrawer.getSprite().getWidth() - 
@@ -530,7 +530,7 @@ public class WizardHudDrawer extends DrawableHandler
 	{
 		// ATTRIBUTES	--------------------------------------------------
 		
-		private SpriteDrawer spritedrawer;
+		private SingleSpriteDrawer spritedrawer;
 		
 		
 		// CONSTRUCTOR	--------------------------------------------------
@@ -549,7 +549,7 @@ public class WizardHudDrawer extends DrawableHandler
 			super(x, y, depth, drawer);
 			
 			// Initializes attributes
-			this.spritedrawer = new SpriteDrawer(
+			this.spritedrawer = new SingleSpriteDrawer(
 					Navigator.getSpriteBank("hud").getSprite(
 					"hp"), null, this);
 		}

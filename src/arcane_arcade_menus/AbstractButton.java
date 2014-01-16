@@ -7,8 +7,8 @@ import worlds.Room;
 import listeners.AdvancedMouseListener;
 import listeners.RoomListener;
 import gameobjects.DimensionalDrawnObject;
+import graphic.SingleSpriteDrawer;
 import graphic.Sprite;
-import graphic.SpriteDrawer;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.CollisionType;
@@ -28,7 +28,7 @@ public abstract class AbstractButton extends DimensionalDrawnObject implements
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
-	private SpriteDrawer spritedrawer;
+	private SingleSpriteDrawer spritedrawer;
 	private boolean active;
 	
 	
@@ -56,7 +56,7 @@ public abstract class AbstractButton extends DimensionalDrawnObject implements
 		this.active = true;
 		
 		// Initializes spritedrawer
-		this.spritedrawer = new SpriteDrawer(sprite, null, this);
+		this.spritedrawer = new SingleSpriteDrawer(sprite, null, this);
 		
 		// Adds the button to the handlers
 		if (room != null)
@@ -183,7 +183,7 @@ public abstract class AbstractButton extends DimensionalDrawnObject implements
 	 * @return The spritedrawer used in drawing the button or null if the button 
 	 * is dead
 	 */
-	protected SpriteDrawer getSpriteDrawer()
+	protected SingleSpriteDrawer getSpriteDrawer()
 	{
 		return this.spritedrawer;
 	}

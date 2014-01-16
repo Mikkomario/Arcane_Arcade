@@ -1,7 +1,7 @@
 package arcane_arcade_field;
 
 import gameobjects.DrawnObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 
@@ -68,7 +68,7 @@ public class WizardStatusDrawer extends DrawableHandler
 	{
 		// ATTRIBUTES	-------------------------------------------------
 		
-		private SpriteDrawer spritedrawer;
+		private SingleSpriteDrawer spritedrawer;
 		private WizardStatus status;
 		
 		
@@ -88,7 +88,7 @@ public class WizardStatusDrawer extends DrawableHandler
 			super(0, 0, 0, drawer);
 			
 			// Initializes attributes
-			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+			this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
 					"status").getSprite(statusspritename), 
 					WizardStatusDrawer.this.animator, this);
 			this.status = status;

@@ -2,7 +2,6 @@ package graphic;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -40,10 +39,6 @@ public class Sprite implements BankObject
 	 * @param numberOfImages How many separate images does the strip contain?
 	 * @param originX the x-coordinate of the sprite's origin (Pxl)
 	 * @param originY the y-coordinate of the sprite's origin (Pxl)
-	 * @throws FileNotFoundException If an image can't be loaded with the given 
-	 * filename, the constructor will throw this exception. It is advised to 
-	 * not use the sprite since the 
-	 * object can't function properly if this happens
 	 */
 	public Sprite(String filename, int numberOfImages, int originX, int originY)
 	{
@@ -159,7 +154,7 @@ public class Sprite implements BankObject
 	 *
 	 * @param imageIndex The index of the image to be drawn [0, numberOfImages[
 	 * @return The subimage from the given index
-	 * @see getImageNumber
+	 * @see #getImageNumber()
 	 */
 	public BufferedImage getSubImage(int imageIndex)
 	{

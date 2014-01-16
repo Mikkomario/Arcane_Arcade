@@ -6,7 +6,7 @@ import arcane_arcade_status.BallStatus;
 import arcane_arcade_worlds.Navigator;
 
 import gameobjects.DrawnObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 
@@ -67,7 +67,7 @@ public class BallStatusDrawer extends DrawableHandler
 	{
 		// ATTRIBUTES	-------------------------------------------------
 		
-		private SpriteDrawer spritedrawer;
+		private SingleSpriteDrawer spritedrawer;
 		private BallStatus status;
 		
 		
@@ -87,7 +87,7 @@ public class BallStatusDrawer extends DrawableHandler
 			super(0, 0, 0, drawer);
 			
 			// Initializes attributes
-			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+			this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
 					"status").getSprite(statusspritename), 
 					BallStatusDrawer.this.animator, this);
 			this.status = status;

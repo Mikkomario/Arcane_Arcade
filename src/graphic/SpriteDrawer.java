@@ -10,19 +10,18 @@ import handlers.AnimationListenerHandler;
 
 /**
  * Spritedrawer is able to draw animated sprites for an object. Object's can 
- * draw the sprite calling the drawSprite method.<p>
+ * draw the sprite(s) calling the drawSprite method.<p>
  * 
- * The spriteDrawer can be tied into a single object, making it 
+ * The spriteDrawer can be tied into a single object, making it die 
  * when that object does.
  *
  * @author Mikko Hilpinen.
  *         Created 2.7.2013.
  */
-public class SpriteDrawer implements Actor
+public abstract class SpriteDrawer implements Actor
 {
 	// ATTRIBUTES	-------------------------------------------------------
 	
-	private Sprite sprite;
 	private double imageSpeed, imageIndex;
 	private boolean alive, active;
 	private AnimationListenerHandler listenerhandler;
@@ -34,16 +33,14 @@ public class SpriteDrawer implements Actor
 	/**
 	 * Creates a new spritedrawer with the given sprite to draw.
 	 *
-	 * @param sprite The sprite which the drawer will draw
 	 * @param animator The actorhandler that calls the drawer's animation 
 	 * (optional)
 	 * @param user The object the drawer is tied into. The spritedrawer will 
 	 * automatically die when the user dies. (Optional)
 	 */
-	public SpriteDrawer(Sprite sprite, ActorHandler animator, DrawnObject user)
+	public SpriteDrawer(ActorHandler animator, DrawnObject user)
 	{
 		// Initializes the attributes
-		this.sprite = sprite;
 		this.listenerhandler = new AnimationListenerHandler(false, null);
 		this.user = user;
 		
@@ -56,6 +53,14 @@ public class SpriteDrawer implements Actor
 		if (animator != null)
 			animator.addActor(this);
 	}
+	
+	
+	// ABSTRACT METHODS	--------------------------------------------------
+	
+	/**
+	 * @return The sprite that is currently being drawn / used
+	 */
+	protected abstract Sprite getCurrentSprite();
 	
 	
 	// IMPLEMENTED METHODS	----------------------------------------------
@@ -105,21 +110,8 @@ public class SpriteDrawer implements Actor
 	 */
 	public Sprite getSprite()
 	{
-		return this.sprite;
-	}
-	
-	/**
-	 *This method changes the sprite with which the object is represented. The 
-	 *image index will be set to 0 in the process.
-	 * @param newSprite The new sprite that will be drawn
-	 */
-	public void setSprite(Sprite newSprite)
-	{
-		if (newSprite == null)
-			return;
-		
-		this.sprite = newSprite;
-		this.imageIndex = 0;
+		// TODO: Consider just using the following method instead of this wrapper
+		return getCurrentSprite();
 	}
 	
 	/**

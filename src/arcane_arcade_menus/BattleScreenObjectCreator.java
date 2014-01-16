@@ -41,7 +41,6 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 	 * @param drawer The drawer that will draw the created objects
 	 * @param actorhandler The actorhandler that will inform the objects about 
 	 * act events
-	 * @param room The room where the objects will be created
 	 * @param mousehandler The mouselistenerhandler that will inform the objects 
 	 * about mouse events
 	 * @param navigator The navigator that handles the transition between the 

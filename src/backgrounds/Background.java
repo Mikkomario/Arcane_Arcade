@@ -4,10 +4,9 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import resourcebanks.SpriteBank;
-
 import gameobjects.DrawnObject;
+import graphic.SingleSpriteDrawer;
 import graphic.Sprite;
-import graphic.SpriteDrawer;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.DepthConstants;
@@ -22,7 +21,7 @@ public class Background extends DrawnObject
 {	
 	// ATTRIBUTES	-------------------------------------------------------
 	
-	private SpriteDrawer texturedrawer;
+	private SingleSpriteDrawer texturedrawer;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -45,7 +44,7 @@ public class Background extends DrawnObject
 		super(x, y, DepthConstants.BOTTOM, drawer);
 
 		// Initializes attributes
-		this.texturedrawer = new SpriteDrawer(bank.getSprite(texturename), 
+		this.texturedrawer = new SingleSpriteDrawer(bank.getSprite(texturename), 
 				actorhandler, this);
 	}
 	
@@ -79,7 +78,7 @@ public class Background extends DrawnObject
 	/**
 	 * @return The spritedrawer used to drawing the texture of the background
 	 */
-	public SpriteDrawer getSpriteDrawer()
+	public SingleSpriteDrawer getSpriteDrawer()
 	{
 		return this.texturedrawer;
 	}

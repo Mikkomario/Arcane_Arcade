@@ -12,7 +12,7 @@ import worlds.Room;
 import listeners.RoomListener;
 
 import gameobjects.BasicPhysicDrawnObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handleds.Collidable;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
@@ -29,7 +29,7 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 {
 	// ATTRIBUTES	-------------------------------------------------------
 	
-	private SpriteDrawer spritedrawer;
+	private SingleSpriteDrawer spritedrawer;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -52,7 +52,7 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 				CollisionType.CIRCLE, drawer, null, null, actorhandler);
 		
 		// Initializes attributes
-		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+		this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
 				"menu").getSprite("comet"), actorhandler, this);
 		
 		// Changes the scaling and speed

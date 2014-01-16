@@ -23,7 +23,7 @@ import arcane_arcade_worlds.Navigator;
 
 import gameobjects.BasicPhysicDrawnObject;
 import graphic.MaskChecker;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handleds.Collidable;
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
@@ -68,8 +68,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private ScoreKeeper scorekeeper;
 	private WizardSoundQueuePlayer voiceplayer;
 	
-	private SpriteDrawer spritedrawer;
-	private SpriteDrawer castdelaymeterdrawer;
+	private SingleSpriteDrawer spritedrawer;
+	private SingleSpriteDrawer castdelaymeterdrawer;
 	private MaskChecker maskchecker;
 	private Element[] elements;
 	private int elementindex1;
@@ -170,11 +170,11 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.hp = this.maxhp;
 		this.invincibilitytime = 0;
 		this.invincibilitydelay = 60;
-		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+		this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
 				"creatures").getSprite("redwizard"), actorhandler, this);
 		this.maskchecker = new MaskChecker(Navigator.getSpriteBank(
 				"creatures").getSprite("wizardmask"));
-		this.castdelaymeterdrawer = new SpriteDrawer(
+		this.castdelaymeterdrawer = new SingleSpriteDrawer(
 				Navigator.getSpriteBank("field").getSprite(
 				"regeneration"), actorhandler, this);
 		this.buttonmaps = leftwizardbuttons;
@@ -477,7 +477,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	/**
 	 * @return The spritedrawer that draws the wizard's sprite
 	 */
-	public SpriteDrawer getSpriteDrawer()
+	public SingleSpriteDrawer getSpriteDrawer()
 	{
 		return this.spritedrawer;
 	}

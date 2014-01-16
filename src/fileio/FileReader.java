@@ -56,7 +56,6 @@ public abstract class FileReader
 	 *
 	 * @param filename The name of the file read (data/ is added 
 	 * automatically to the beginning)
-	 * @see onLine
 	 */
 	public void readFile(String filename)
 	{

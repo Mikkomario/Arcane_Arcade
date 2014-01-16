@@ -14,7 +14,7 @@ import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 import gameobjects.DrawnObject;
 import gameobjects.GameObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.DepthConstants;
@@ -251,7 +251,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 	{	
 		//ATTRIBUTES------------------------------------------------------
 		
-		private SpriteDrawer spritedrawer;
+		private SingleSpriteDrawer spritedrawer;
 		
 		
 		//CONSTRUCTOR------------------------------------------------------
@@ -264,7 +264,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 			super(GameSettings.SCREENWIDTH/2, GameSettings.SCREENHEIGHT/2, 
 					DepthConstants.FOREGROUND, drawer);
 			
-			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+			this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
 					"menu").getSprite("center"), null, this);
 			this.spritedrawer.inactivate();
 		}
@@ -272,14 +272,16 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 		// IMPLEMENTENTED METHODS ------------------------------------------
 
 		@Override
-		public int getOriginX() {
+		public int getOriginX()
+		{
 			if (this.spritedrawer == null)
 				return 0;
 			return this.spritedrawer.getSprite().getOriginX();
 		}
 
 		@Override
-		public int getOriginY() {
+		public int getOriginY()
+		{
 			if (this.spritedrawer == null)
 				return 0;
 			return this.spritedrawer.getSprite().getOriginY();

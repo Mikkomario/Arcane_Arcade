@@ -33,7 +33,6 @@ public class WaveEffect extends MaskedSpellEffect
 	 * @param actorhandler The actorhandler that will inform the wave
 	 * about act events
 	 * @param room The room where the wave was created at
-	 * @param caster	The wizard casting the spell.
 	 */
 	public WaveEffect(int x, int y, DrawableHandler drawer,
 			CollidableHandler collidablehandler, ActorHandler actorhandler,

@@ -15,7 +15,7 @@ import arcane_arcade_status.WizardStatus;
 import arcane_arcade_worlds.Navigator;
 
 import gameobjects.BouncingBasicPhysicDrawnObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handleds.Collidable;
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
@@ -36,7 +36,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
-	private SpriteDrawer spritedrawer;
+	private SingleSpriteDrawer spritedrawer;
 	private BallStatusDrawer statusdrawer;
 	
 	private WizardRelay wizardrelay;
@@ -80,7 +80,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 		this.frozen = 0;
 		this.muddy = 0;
 		this.charged = 0;
-		this.spritedrawer = new SpriteDrawer(
+		this.spritedrawer = new SingleSpriteDrawer(
 				Navigator.getSpriteBank("field").getSprite("ball"), 
 				actorhandler, this);
 		this.statusdrawer = new BallStatusDrawer(drawer, actorhandler, this);

@@ -33,8 +33,6 @@ public class FieldSetting implements AreaSetting
 	 * decreased (default = 1)
 	 * @param manaregenerationmodifier How much faster the mana regenerates 
 	 * in the match
-	 * @param leftsideelements What elements does the player on the left use
-	 * @param rightsideelements What elements does the player on the right use
 	 * @param elementnumber How many elements the wizards have
 	 */
 	public FieldSetting(int ballnumber, int victorypoints, 

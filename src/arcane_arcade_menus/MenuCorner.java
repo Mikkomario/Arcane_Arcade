@@ -6,7 +6,7 @@ import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.Navigator;
 
 import gameobjects.DrawnObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handlers.DrawableHandler;
 import helpAndEnums.DepthConstants;
 import worlds.Room;
@@ -36,7 +36,7 @@ public class MenuCorner extends DrawnObject implements RoomListener
 	 */
 	public static final int RIGHT_BOTTOM = 2;
 	
-	private SpriteDrawer spritedrawer;
+	private SingleSpriteDrawer spritedrawer;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -57,7 +57,7 @@ public class MenuCorner extends DrawnObject implements RoomListener
 		super(0, 0, DepthConstants.BACK, drawer);
 		
 		// Initializes attributes
-		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+		this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
 				"menu").getSprite("corner"), null, this);
 		
 		// Changes the position and angle

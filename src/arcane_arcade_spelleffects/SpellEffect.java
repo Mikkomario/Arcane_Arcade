@@ -5,17 +5,14 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import worlds.Room;
-
 import listeners.RoomListener;
-
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 import arcane_arcade_worlds.Navigator;
-
 import gameobjects.BasicPhysicDrawnObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handleds.Collidable;
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
@@ -40,7 +37,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
-	private SpriteDrawer spritedrawer;
+	private SingleSpriteDrawer spritedrawer;
 	private boolean spellcollision, ballcollision, wizardcollision;
 	private Element element1, element2;
 	private int lifetime;
@@ -101,7 +98,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.element2 = element2;
 		this.lifeleft = lifetime;
 		this.lifetime = lifetime;
-		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+		this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
 				"spells").getSprite(spritename), actorhandler, this);
 		this.fadesin = false;
 		this.fadesout = false;
@@ -271,7 +268,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	/**
 	 * @return The spritedrawer used to draw the object
 	 */
-	protected SpriteDrawer getSpriteDrawer()
+	protected SingleSpriteDrawer getSpriteDrawer()
 	{
 		return this.spritedrawer;
 	}
@@ -351,7 +348,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	/**
 	 * @return Should the ball call onBallCollision method when it collides 
 	 * with the spellEffect
-	 * @see #onBallCollision(Ball, int, int)
+	 * @see #onBallCollision(Ball, double, double)
 	 */
 	public boolean collidesWithBalls()
 	{
@@ -361,7 +358,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	/**
 	 * @return Should the wizard call onWizardCollision method when it collides 
 	 * with the spellEffect
-	 * @see #onWizardCollision(Wizard, int, int)
+	 * @see #onWizardCollision(Wizard, double, double)
 	 */
 	public boolean collidesWithWizards()
 	{

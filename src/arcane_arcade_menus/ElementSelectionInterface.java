@@ -2,7 +2,7 @@ package arcane_arcade_menus;
 
 import gameobjects.DrawnObject;
 import gameobjects.GameObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handlers.DrawableHandler;
 import handlers.KeyListenerHandler;
 import helpAndEnums.DepthConstants;
@@ -152,7 +152,7 @@ public class ElementSelectionInterface
 	{
 		// ATTRIBUTES	--------------------------------------------------
 		
-		private SpriteDrawer spritedrawer;
+		private SingleSpriteDrawer spritedrawer;
 		private int playernumber;
 		
 		
@@ -171,7 +171,7 @@ public class ElementSelectionInterface
 			super(0, 0, DepthConstants.FOREGROUND, drawer);
 			
 			// Initializes attributes
-			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+			this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
 					"menu").getSprite("chosen"), null, this);
 			this.playernumber = playernumber;
 			
@@ -366,7 +366,7 @@ public class ElementSelectionInterface
 	{
 		// ATTRIBUTES	--------------------------------------------------
 		
-		private SpriteDrawer spritedrawer;
+		private SingleSpriteDrawer spritedrawer;
 		private ScreenSide side;
 		
 		
@@ -385,7 +385,7 @@ public class ElementSelectionInterface
 			super(0, 200, DepthConstants.NORMAL, drawer);
 			
 			// Initializes attributes
-			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+			this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
 					"hud").getSprite("elements"), null, this);
 			this.side = side;
 

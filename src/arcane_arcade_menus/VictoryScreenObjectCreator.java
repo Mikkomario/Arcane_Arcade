@@ -6,7 +6,7 @@ import listeners.RoomListener;
 
 import gameobjects.DrawnObject;
 import gameobjects.GameObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
@@ -27,8 +27,8 @@ import arcane_arcade_worlds.VictorySetting;
  * @author Unto Solala
  *			Created 4.9.2013
  */
-public class VictoryScreenObjectCreator extends GameObject implements RoomObjectCreator{
-	
+public class VictoryScreenObjectCreator extends GameObject implements RoomObjectCreator
+{	
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private DrawableHandler drawer;
@@ -45,7 +45,6 @@ public class VictoryScreenObjectCreator extends GameObject implements RoomObject
 	 * @param drawer The drawer that will draw the created objects
 	 * @param actorhandler The actorhandler that will inform the objects about 
 	 * act events
-	 * @param room The room where the objects will be created
 	 * @param mousehandler The mouselistenerhandler that will inform the objects 
 	 * about mouse events
 	 * @param navigator The navigator that handles the transition between the 
@@ -119,7 +118,7 @@ public class VictoryScreenObjectCreator extends GameObject implements RoomObject
 		
 		//ATTRIBUTES------------------------------------------------------
 		
-		private SpriteDrawer spritedrawer;
+		private SingleSpriteDrawer spritedrawer;
 		private int winner;
 		
 		public WinnerText(int winner, DrawableHandler drawer, Room room)
@@ -145,7 +144,7 @@ public class VictoryScreenObjectCreator extends GameObject implements RoomObject
 			}
 			//Let's set the position for our WinnerText
 			this.setPosition(x, y);
-			this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+			this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
 					"menu").getSprite("winner"), null, this);
 			this.spritedrawer.inactivate();
 			this.setScale(0.5, 0.5);

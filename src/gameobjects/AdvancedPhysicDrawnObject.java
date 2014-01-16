@@ -10,6 +10,7 @@ import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.HelpMath;
+import helpAndEnums.Material;
 import helpAndEnums.Movement;
 
 /**
@@ -67,7 +68,6 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	 * 
 	 * This value is used when the object bounces interactively from other 
 	 * objects
-	 * @see bounceInteractivelyFrom
 	 */
 	public abstract int getZHeight();
 	
@@ -78,7 +78,6 @@ public abstract class AdvancedPhysicDrawnObject extends BouncingBasicPhysicDrawn
 	 * 
 	 * This value is used when the object bounces interactively from other 
 	 * objects
-	 * @see bounceInterActivelyFrom
 	 * @see Material
 	 */
 	public abstract int getDensity();

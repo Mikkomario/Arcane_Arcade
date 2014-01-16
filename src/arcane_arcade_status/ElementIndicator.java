@@ -1,15 +1,13 @@
 package arcane_arcade_status;
 
 import gameobjects.DrawnObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handlers.DrawableHandler;
 
 import java.awt.Graphics2D;
 
 import worlds.Room;
-
 import listeners.RoomListener;
-
 import arcane_arcade_worlds.Navigator;
 
 
@@ -25,7 +23,7 @@ public class ElementIndicator extends DrawnObject implements RoomListener
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private Element element;
-	private SpriteDrawer spritedrawer;
+	private SingleSpriteDrawer spritedrawer;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -48,7 +46,7 @@ public class ElementIndicator extends DrawnObject implements RoomListener
 		
 		// Initializes attributes
 		this.element = element;
-		this.spritedrawer = new SpriteDrawer(Navigator.getSpriteBank(
+		this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
 				"hud").getSprite("elements"), null, this);
 		this.spritedrawer.setImageIndex(this.element.getElementIconIndex());
 		

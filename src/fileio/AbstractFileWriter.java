@@ -48,7 +48,6 @@ public abstract class AbstractFileWriter
 	 *
 	 * @param filename The name of the new file created (data/ 
 	 * already included)
-	 * @see #writeLine(int)
 	 */
 	public void saveIntoFile(String filename)
 	{

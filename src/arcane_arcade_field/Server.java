@@ -14,7 +14,7 @@ import listeners.TimerEventListener;
 import arcane_arcade_worlds.Navigator;
 
 import gameobjects.BasicPhysicDrawnObject;
-import graphic.SpriteDrawer;
+import graphic.SingleSpriteDrawer;
 import handleds.Collidable;
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
@@ -34,7 +34,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener,
 {
 	// ATTRIBUTES	----------------------------------------------------
 	
-	private SpriteDrawer spritedrawer;
+	private SingleSpriteDrawer spritedrawer;
 	private ActorHandler actorhandler;
 	private DrawableHandler drawer;
 	private CollidableHandler collidablehandler;
@@ -85,7 +85,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener,
 		this.maxrotation = 30;
 		this.minshootforce = 10;
 		this.maxshootforce = 15;
-		this.spritedrawer = new SpriteDrawer(
+		this.spritedrawer = new SingleSpriteDrawer(
 				Navigator.getSpriteBank("field").getSprite("server"), 
 				actorhandler, this);
 		this.actorhandler = actorhandler;
