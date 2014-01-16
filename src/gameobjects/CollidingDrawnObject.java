@@ -45,9 +45,6 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	 * collision checking (optional)
 	 * @param collisionhandler The collisionhandler that will handle the object's 
 	 * collision informing (optional)
-	 * @see setRelativeCollisionPoints
-	 * @see setBoxCollisionPrecision
-	 * @see setCircleCollisionPrecision
 	 */
 	public CollidingDrawnObject(int x, int y, int depth, boolean isSolid,
 			CollisionType collisiontype, DrawableHandler drawer, 

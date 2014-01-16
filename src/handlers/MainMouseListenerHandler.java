@@ -3,6 +3,8 @@ package handlers;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
+import video.GameWindow;
+
 /**
  * This class takes input straight from the gamewindow and informs all 
  * mouselisteners 'below' it. There should be only one 

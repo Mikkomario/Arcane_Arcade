@@ -5,6 +5,7 @@ import java.util.Comparator;
 
 import handleds.Drawable;
 import handleds.Handled;
+import helpAndEnums.DepthConstants;
 
 /**
  * The object from this class will draw multiple drawables, calling their 
@@ -32,7 +33,7 @@ public class DrawableHandler extends Handler implements Drawable
 	 * @param usesDepth Will the handler draw the objects in a depth-specific order
 	 * @param depth How 'deep' the objects in this handler are drawn
 	 * @param superhandler The drawablehandler that will draw this handler (optional)
-	 * @see depthConstants
+	 * @see DepthConstants
 	 */
 	public DrawableHandler(boolean autodeath, boolean usesDepth, int depth, 
 			DrawableHandler superhandler)

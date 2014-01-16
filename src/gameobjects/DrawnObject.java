@@ -3,6 +3,7 @@ package gameobjects;
 import handleds.Drawable;
 import handlers.DrawableHandler;
 import handlers.TransformationListenerHandler;
+import helpAndEnums.DepthConstants;
 import helpAndEnums.HelpMath;
 import helpAndEnums.Movement;
 
@@ -49,7 +50,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * @param y The new y-coordinate of the object (Game world Pxl)
 	 * @param depth How 'deep' the object is drawn
 	 * @param drawer The handler that draws the object (optional)
-	 * @see depthConstants
+	 * @see DepthConstants
 	 */
 	public DrawnObject(int x, int y, int depth, DrawableHandler drawer)
 	{

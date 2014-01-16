@@ -1,5 +1,7 @@
 package handleds;
 
+import helpAndEnums.DepthConstants;
+
 import java.awt.Graphics2D;
 
 /**
@@ -37,7 +39,7 @@ public interface Drawable extends Handled
 	/**
 	 * @return How deep should the object be drawn (object with positive depth 
 	 * are drawn to the bottom, objects with negative depth are drawn to the top)
-	 * @see depthConstants
+	 * @see DepthConstants
 	 */
 	public int getDepth();
 	
@@ -46,7 +48,7 @@ public interface Drawable extends Handled
 	 * 
 	 * @param depth The object's new depth (negative = top, positive = bottom)
 	 * @return Was the object's depth successfully changed
-	 * @see depthConstants
+	 * @see DepthConstants
 	 */
 	public boolean setDepth(int depth);
 }
