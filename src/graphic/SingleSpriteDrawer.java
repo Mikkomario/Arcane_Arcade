@@ -6,7 +6,8 @@ import handlers.ActorHandler;
 /**
  * SingleSpriteDrawer is a spritedrawer that only draws a single sprite.
  * 
- * @author Mikko Hilpinen
+ * @author Mikko Hilpinen. 
+ * Created 16.1.2014
  */
 public class SingleSpriteDrawer extends SpriteDrawer
 {
