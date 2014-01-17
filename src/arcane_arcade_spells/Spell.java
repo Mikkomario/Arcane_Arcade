@@ -149,6 +149,15 @@ public abstract class Spell
 		return this.manausage;
 	}
 	
+	/**
+	 * @return How long it takes for the wizard to recover from casting the 
+	 * spell
+	 */
+	public int getCastDelay()
+	{
+		return this.castdelay;
+	}
+	
 	
 	// OTHER METHODS	-------------------------------------------------
 	
