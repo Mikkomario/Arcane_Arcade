@@ -3,6 +3,9 @@ package arcane_arcade_status;
 import java.util.ArrayList;
 
 import arcane_arcade_spells.ExplosionSpell;
+import arcane_arcade_spells.FreezeSpell;
+import arcane_arcade_spells.FrostBarrierSpell;
+import arcane_arcade_spells.IceMineSpell;
 import arcane_arcade_spells.SmokeScreenSpell;
 import arcane_arcade_spells.Spell;
 import arcane_arcade_spells.TidalWaveSpell;
@@ -61,13 +64,23 @@ public enum Element
 		// LIGHTNING, DARK and LIGHT
 		spells.add(new ExplosionSpell());	// Fire Fire
 		spells.add(new SmokeScreenSpell());	// Fire Water
-		spells.add(new ExplosionSpell());	// Fire Ice
+		spells.add(new IceMineSpell());		// Fire Ice
 		spells.add(new ExplosionSpell());	// Fire Earth
 		spells.add(new ExplosionSpell());	// Fire Wind
 		spells.add(new ExplosionSpell());	// Fire Lightning
 		spells.add(new ExplosionSpell());	// Fire Dark
 		spells.add(new ExplosionSpell());	// Fire Light
+		
 		spells.add(new TidalWaveSpell());	// Water Water
+		spells.add(new FrostBarrierSpell());// Water frost
+		spells.add(new TidalWaveSpell());	// Tide Earth
+		spells.add(new TidalWaveSpell());	// Tide Gale
+		spells.add(new TidalWaveSpell());	// Tide Volt
+		spells.add(new TidalWaveSpell());	// Tide Somber
+		spells.add(new TidalWaveSpell());	// Tide Light
+		
+		spells.add(new FreezeSpell());		// Frost Frost
+		
 		// TODO: Add spells
 	}
 	

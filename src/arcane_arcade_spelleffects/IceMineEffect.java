@@ -58,7 +58,7 @@ public class IceMineEffect extends MaskedSpellEffect
 		this.room = room;
 
 		// Sets additional events
-		addFadeEffect(20, lifetime - 20);
+		addFadeEffect(10, lifetime - 10);
 		setFriction(0.25);
 	}
 	

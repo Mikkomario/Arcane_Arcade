@@ -84,7 +84,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 				Navigator.getSpriteBank("field").getSprite("ball"), 
 				actorhandler, this);
 		this.statusdrawer = new BallStatusDrawer(drawer, actorhandler, this);
-		this.statusdepletionrate = 0.15;
+		this.statusdepletionrate = 0.1;
 		this.wizardrelay = wizardrelay;
 		
 		// Sets up movement stats

@@ -40,13 +40,14 @@ public class FreezeSpellEffect extends MaskedSpellEffect
 			Room room)
 	{
 		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, drawer, 
-				collidablehandler, null, actorhandler, room, "freeze", 
+				collidablehandler, null, actorhandler, room, "freezespell", 
 				"freezemask", false, true, false, Element.FROST, 
-				Element.NOELEMENT, 15, true);
+				Element.NOELEMENT, 100, true);
 		
 		// Adds additional effects
 		setRadius(75);
-		addAnimationEffect();
+		//addAnimationEffect();
+		addFadeEffect(2, 95);
 	}
 	
 	
@@ -56,9 +57,9 @@ public class FreezeSpellEffect extends MaskedSpellEffect
 	public void onBallCollision(Ball ball, double x, double y)
 	{
 		// Freeze burst causes impact
-		ball.impact(20 * getForceModifier(ball), 20, 
+		ball.impact(12 * getForceModifier(ball), 15, 
 				HelpMath.pointDirection(getX(), getY(), ball.getX(), 
-				ball.getY()), BallStatus.FROZEN, 50);
+				ball.getY()), BallStatus.FROZEN, 40);
 	}
 
 	@Override

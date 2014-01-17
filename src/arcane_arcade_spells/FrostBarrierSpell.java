@@ -45,7 +45,7 @@ public class FrostBarrierSpell extends Spell
 		
 		new FrostBarrierEffect(x, (int) caster.getY(), drawer, 
 				collidablehandler, actorhandler, room, 
-				(int) (getCastDelay() * 0.75), caster.getScreenSide());
+				(int) (getCastDelay() * 0.9), caster.getScreenSide());
 	}
 
 	@Override

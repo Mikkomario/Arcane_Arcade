@@ -42,7 +42,7 @@ public class IceExplosionEffect extends MaskedSpellEffect
 		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, drawer, 
 				collidablehandler, null, actorhandler, room, "iceexplosion", 
 				"iceexplosionmask", false, true, false, Element.BLAZE, 
-				Element.FROST, 25, true);
+				Element.FROST, 40, true);
 		
 		// Setups effects
 		setRadius(100);

@@ -69,6 +69,7 @@ fire#images/spells/fire_strip4.png#4#23#52
 flameswordmask#images/spells/flaming_sword_mask_strip22.png#22#0#82
 flamingsword#images/spells/flaming_sword_strip22.png#22#0#82
 freezemask#images/spells/freeze_spell_mask_strip5.png#5#49#54
+freezespell#images/spells/freeze_spell_strip5.png#5#49#54
 frostbarrier#images/spells/frost_barrier.png#1#25#68
 frostswordmask#images/spells/frost_sword_mask_strip23.png#23#0#92
 frostsword#images/spells/frost_sword_strip23.png#23#0#92

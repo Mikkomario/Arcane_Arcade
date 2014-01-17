@@ -11,8 +11,7 @@ import arcane_arcade_field.Wizard;
 import arcane_arcade_spelleffects.FreezeSpellEffect;
 
 /**
- * Freeze spell creates a powerful burst in front of the caster. The timing 
- * has to be precise since the burst is very short.
+ * Freeze spell creates a powerful burst in front of the caster..
  * 
  * @author Mikko Hilpinen. 
  * Created 18.1.2014
@@ -26,7 +25,7 @@ public class FreezeSpell extends Spell
 	 */
 	public FreezeSpell()
 	{
-		super(CASTDELAY_NORMAL, MPUSE_HIGH);
+		super(CASTDELAY_NORMAL, MPUSE_MEDIUM);
 	}
 
 	
@@ -56,7 +55,7 @@ public class FreezeSpell extends Spell
 	@Override
 	protected String getSimpleDescription()
 	{
-		return "Creates a short but powerful burst in front of the caster. "
+		return "Creates a lenghty but less powerful burst in front of the caster. "
 				+ "The burst impacts the ball and causes freezing.";
 	}
 

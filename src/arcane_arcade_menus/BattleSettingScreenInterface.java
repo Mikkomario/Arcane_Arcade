@@ -44,7 +44,7 @@ public class BattleSettingScreenInterface
 		this.castdelaybar = new OptionBar(columnx, columny + ydifference * 2, 
 				drawer, 5, 1, 10, "Cast time rate", mousehandler, room);
 		this.elementnumberbar = new OptionBar(columnx, columny + ydifference * 3, 
-				drawer, 2, 1, 2, "Number of Elements", mousehandler, room);
+				drawer, 3, 1, 3, "Number of Elements", mousehandler, room);
 	}
 	
 	

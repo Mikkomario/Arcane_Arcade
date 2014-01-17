@@ -40,20 +40,20 @@ public class IceMineSpell extends Spell
 			CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, Room room)
 	{
-		// Creates 3 ice mines and sets them moving as well
+		// Creates 4 ice mines and sets them moving as well
 		Random rand = new Random();
 		
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			int lifetime = 40 + rand.nextInt(20);
+			int lifetime = 80 + rand.nextInt(50);
 			IceMineEffect neweffect = new IceMineEffect((int) caster.getX(), 
 					(int) caster.getY(), drawer, collidablehandler, actorhandler, 
 					room, lifetime);
 			
-			double dir = -45 + rand.nextDouble() * 90;
+			double dir = -33 + rand.nextDouble() * 66;
 			if (caster.getScreenSide() == ScreenSide.RIGHT)
 				dir += 180;
-			double speed = 5 + rand.nextDouble() * 10;
+			double speed = 7 + rand.nextDouble() * 5;
 			
 			neweffect.setMovement(Movement.movementSum(
 					Movement.createMovement(dir, speed), caster.getMovement()));
@@ -69,7 +69,7 @@ public class IceMineSpell extends Spell
 	@Override
 	protected String getSimpleDescription()
 	{
-		return "Shoots 3 frost crystals that remain on the field for a short "
+		return "Shoots 4 frost crystals that remain on the field for a short "
 				+ "while. The crystals explodee upon contact with the ball, "
 				+ "causing impact. One can affect the projectile trajectory by "
 				+ "moving while casting.";

@@ -26,58 +26,58 @@ public abstract class Spell
 	/**
 	 * A short castdelay used in light spells
 	 */
-	protected static final int CASTDELAY_SHORT = 33;
+	protected static final int CASTDELAY_SHORT = 45;
 	/**
 	 * A medium cast delay used in most spells
 	 */
-	protected static final int CASTDELAY_NORMAL = 45;
+	protected static final int CASTDELAY_NORMAL = 75;
 	/**
 	 * A long cast delay used in heavy spells
 	 */
-	protected static final int CASTDELAY_LONG = 80;
+	protected static final int CASTDELAY_LONG = 100;
 	/**
 	 * A very long cast delay used in very powerful spells
 	 */
-	protected static final int CASTDELAY_VERY_LONG = 120;
+	protected static final int CASTDELAY_VERY_LONG = 145;
 	/**
 	 * A super long cast delay used only in the most powerful and 
 	 * rare spells
 	 */
-	protected static final int CASTDELAY_EPIC = 170;
+	protected static final int CASTDELAY_EPIC = 200;
 	
 	/**
 	 * A very low mana cost used by spells that have ligth effects or are 
 	 * used in quick succession
 	 */
-	protected static final int MPUSE_VERY_LOW = 13;
+	protected static final int MPUSE_VERY_LOW = 12;
 	/**
 	 * A low mana cost used by spells that have light effects and / or are 
 	 * medium curses
 	 */
-	protected static final int MPUSE_LOW = 18;
+	protected static final int MPUSE_LOW = 16;
 	/**
 	 * A medium mana cost used by most spells
 	 */
-	protected static final int MPUSE_MEDIUM = 24;
+	protected static final int MPUSE_MEDIUM = 22;
 	/**
 	 * A bit higher than normal mana cost used by rather effective spells or 
 	 * blessings
 	 */
-	protected static final int MPUSE_SEMI_HIGH = 28;
+	protected static final int MPUSE_SEMI_HIGH = 26;
 	/**
 	 * A high mana cost used by very effective spells and / or blessings
 	 */
-	protected static final int MPUSE_HIGH = 35;
+	protected static final int MPUSE_HIGH = 33;
 	/**
 	 * A very high mana cost used only by very strong blessings or very lenghty 
 	 * and effective spells
 	 */
-	protected static final int MPUSE_VERY_HIGH = 42;
+	protected static final int MPUSE_VERY_HIGH = 44;
 	/**
 	 * An extremely high mana cost used only by the most incredible spells 
 	 * like the rebirth
 	 */
-	protected static final int MPUSE_EPIC = 75;
+	protected static final int MPUSE_EPIC = 55;
 	
 	private int castdelay;
 	private int manausage;
@@ -101,7 +101,7 @@ public abstract class Spell
 		// Manausage is lowered according to the length of the spell (affects 
 		// regeneration)
 		this.manausage = (int) (manausage - castdelay * 
-				GameSettings.DEFAULTMANAREGENERATIONRATE * 0.8);
+				GameSettings.DEFAULTMANAREGENERATIONRATE * 0.5);
 	}
 	
 	

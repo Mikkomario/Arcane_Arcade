@@ -52,7 +52,7 @@ public class FrostBarrierEffect extends SpellEffect
 		this.side = side;
 		
 		// Sets up other effects
-		addFadeEffect(30, duration - 30);
+		addFadeEffect(30, duration - 10);
 	}
 	
 	
@@ -64,7 +64,7 @@ public class FrostBarrierEffect extends SpellEffect
 		// Either bounces the ball or pathetically tries to impact it
 		if (ball.getStatusStrength(BallStatus.FLAMING) < 1)
 		{
-			double newhspeed = Math.abs(ball.getMovement().getHSpeed()) * 0.8;
+			double newhspeed = Math.abs(ball.getMovement().getHSpeed()) * 0.95;
 			if (this.side == ScreenSide.RIGHT)
 				newhspeed *= -1;
 			
@@ -76,7 +76,7 @@ public class FrostBarrierEffect extends SpellEffect
 			if (this.side == ScreenSide.RIGHT)
 				forcedir = 180;
 			
-			ball.impact(1, 1, forcedir, BallStatus.WET, 1);
+			ball.impact(1, 20, forcedir, BallStatus.WET, 3);
 		}
 	}
 

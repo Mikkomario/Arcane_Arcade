@@ -44,7 +44,7 @@ public class ElementSelectionInterface
 	private ElementScreenObjectCreator creator;
 	
 	private static final Element[] UNLOCKEDELEMETS = {Element.BLAZE, 
-			Element.TIDE};
+			Element.TIDE, Element.FROST};
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------

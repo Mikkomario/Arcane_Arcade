@@ -887,14 +887,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		// Changes elements
 		if (elementside == LEFT)
 		{
-			if (direction == DOWN)
+			if (direction == UP)
 				this.elementindex1 = getNextElementIndex(this.elementindex1);
 			else
 				this.elementindex1 = getPreviousElementIndex(this.elementindex1);
 		}
 		else
 		{
-			if (direction == DOWN)
+			if (direction == UP)
 				this.elementindex2 = getNextElementIndex(this.elementindex2);
 			else
 				this.elementindex2 = getPreviousElementIndex(this.elementindex2);
