@@ -1,38 +1,44 @@
 package graphic;
 
+import java.util.HashMap;
+
 import gameobjects.DrawnObject;
 import handlers.ActorHandler;
 
 /**
+ * MultiSpriteDrawer can easily change between multiple different sprites to 
+ * draw.
  * 
  * @author Mikko Hilpinen. 
  * Created 16.1.2014
  */
-public class SpriteTableDrawer extends SpriteDrawer
+public class MultiSpriteDrawer extends SpriteDrawer
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private Sprite[] sprites;
 	private int currentid;
+	private HashMap<String, Integer> keywords;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
-	 * Creates a new SpriteTableDrawer with the given data
+	 * Creates a new MultiSpriteDrawer with the given data
 	 * 
 	 * @param sprites A table containing the sprites the drawer will draw
 	 * @param animator The actorHandler that will animate the sprites (optional)
 	 * @param user The object the drawer is tied into. The spritedrawer will 
 	 * automatically die when the user dies. (Optional)
 	 */
-	public SpriteTableDrawer(Sprite[] sprites, ActorHandler animator, DrawnObject user)
+	public MultiSpriteDrawer(Sprite[] sprites, ActorHandler animator, DrawnObject user)
 	{
 		super(animator, user);
 		
 		// Initializes attributes
 		this.sprites = sprites;
 		this.currentid = 0;
+		this.keywords = new HashMap<String, Integer>();
 	}
 	
 	
@@ -68,6 +74,28 @@ public class SpriteTableDrawer extends SpriteDrawer
 	}
 	
 	/**
+	 * Changes the currently shown sprite to the sprite tied to the given 
+	 * keyword
+	 * 
+	 * @param keyword The keyword that tells which sprite should be changed to. 
+	 * Use {@link #setKeyword(String, int)} to add a keyword to a sprite
+	 * @param resetImageIndex Should the sprite's animation restart from 
+	 * the beginning
+	 * @see #setKeyword(String, int)
+	 */
+	public void setSpriteIndex(String keyword, boolean resetImageIndex)
+	{
+		// Only works if the keyword has been created
+		if (!this.keywords.containsKey(keyword))
+		{
+			System.err.println("The spritedrawer doesn't have the keyword " + keyword);
+			return;
+		}
+		
+		setSpriteIndex(this.keywords.get(keyword), resetImageIndex);
+	}
+	
+	/**
 	 * Changes the shown sprite to the next one in the table. If the end of the 
 	 * table was reached the index loops
 	 * 
@@ -87,5 +115,18 @@ public class SpriteTableDrawer extends SpriteDrawer
 	public void changeToPreviousSprite(boolean resetImageIndex)
 	{
 		setSpriteIndex(this.currentid - 1, resetImageIndex);
+	}
+	
+	/**
+	 * This method ties a certain keyword to a certain sprite index so that 
+	 * the index can be accessed with the keyword.
+	 * 
+	 * @param keyword The new keyword to be tied to the given index
+	 * @param spriteindex The index of the sprite the keyword is tied to
+	 * @see #setSpriteIndex(String, boolean)
+	 */
+	public void setKeyword(String keyword, int spriteindex)
+	{
+		this.keywords.put(keyword, spriteindex);
 	}
 }
