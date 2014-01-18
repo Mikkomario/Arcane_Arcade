@@ -6,26 +6,25 @@ import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import worlds.Room;
 import arcane_arcade_field.BallRelay;
-import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
-import arcane_arcade_spelleffects.FreezeSpellEffect;
+import arcane_arcade_spelleffects.EarthquakeEffectCreator;
 
 /**
- * Freeze spell creates a powerful burst in front of the caster.
+ * Earthquakespell creates a lenghty series of quakes.
  * 
  * @author Mikko Hilpinen. 
  * Created 18.1.2014
  */
-public class FreezeSpell extends Spell
+public class EarthquakeSpell extends Spell
 {
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
-	 * Creates a new freeze spell
+	 * Creates a new earthquake spell
 	 */
-	public FreezeSpell()
+	public EarthquakeSpell()
 	{
-		super(CASTDELAY_NORMAL, MPUSE_MEDIUM);
+		super(CASTDELAY_VERY_LONG, MPUSE_HIGH);
 	}
 
 	
@@ -37,26 +36,20 @@ public class FreezeSpell extends Spell
 			CollidableHandler collidablehandler,
 			CollisionHandler collisionhandler, Room room)
 	{
-		// Creates a freeze burst
-		int x = (int) caster.getX() + 120;
-		 if (caster.getScreenSide() == ScreenSide.RIGHT)
-			 x -= 240;
-		
-		new FreezeSpellEffect(x, (int) caster.getY(), 
-				drawer, collidablehandler, actorhandler, room); 
+		new EarthquakeEffectCreator((int) caster.getX(), (int) caster.getY(), 
+				drawer, actorhandler, collidablehandler, room);
 	}
 
 	@Override
 	public String getName()
 	{
-		return "Frost Burst";
+		return "Earthquake";
 	}
 
 	@Override
 	protected String getSimpleDescription()
 	{
-		return "Creates a lenghty but less powerful burst in front of the caster. "
-				+ "The burst impacts the ball and causes freezing.";
+		return "Creates a series of quakes that impact the ball and cause "
+				+ "muddy status. The area of effect gets larger with each quake.";
 	}
-
 }

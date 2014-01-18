@@ -740,6 +740,20 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	}
 	
 	/**
+	 * Calculates and returns the direction towards which the other drawnObject 
+	 * is from this object's origin.
+	 * 
+	 * @param other The other drawnObject towards which the direction is 
+	 * calculated
+	 * @return The direction from this object towards the other object
+	 */
+	public double getDirectionTowardsObject(DrawnObject other)
+	{
+		return HelpMath.pointDirection(getX(), getY(), other.getX(), 
+				other.getY());
+	}
+	
+	/**
 	 * This is an alternate method for drawing the object (instead of DrawSelf) 
 	 * and works only with objects that draw multiple objects that then transform 
 	 * themselves normally (like cameras, for example). This method should 

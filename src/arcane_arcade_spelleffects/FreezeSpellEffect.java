@@ -5,7 +5,6 @@ import handlers.CollidableHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import helpAndEnums.HelpMath;
 import worlds.Room;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
@@ -58,8 +57,7 @@ public class FreezeSpellEffect extends MaskedSpellEffect
 	{
 		// Freeze burst causes impact
 		ball.impact(12 * getForceModifier(ball), 15, 
-				HelpMath.pointDirection(getX(), getY(), ball.getX(), 
-				ball.getY()), BallStatus.FROZEN, 40);
+				getDirectionTowardsObject(ball), BallStatus.FROZEN, 40);
 	}
 
 	@Override

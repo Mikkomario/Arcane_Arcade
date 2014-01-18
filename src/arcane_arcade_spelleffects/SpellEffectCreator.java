@@ -150,5 +150,7 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 		{
 			createEffect();
 		}
+		// Also informs the subclass that the burst just ended
+		onBurstEnd();
 	}
 }

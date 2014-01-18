@@ -53,6 +53,9 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 		this.collidablehandler = collidablehandler;
 		this.room = room;
 		this.rand = new Random();
+		
+		// Also plays a wave sound
+		SoundEffectPlayer.playSoundEffect("strongwave");
 	}
 	
 	
@@ -96,9 +99,9 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 	@Override
 	protected void onBurstEnd()
 	{
+		// TODO: This is never called
+		
 		// Adjusts the burst size after each burst
 			this.adjustBurstSize(-2);
-		// Also plays a wave sound
-		SoundEffectPlayer.playSoundEffect("strongwave");
 	}
 }

@@ -5,7 +5,6 @@ import handlers.CollidableHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
-import helpAndEnums.HelpMath;
 import worlds.Room;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
@@ -54,8 +53,7 @@ public class IceExplosionEffect extends MaskedSpellEffect
 	{
 		// Causes impact
 		ball.impact(15 * getForceModifier(ball), 15, 
-				HelpMath.pointDirection(getX(), getY(), ball.getX(), 
-				ball.getY()), BallStatus.NOSTATUS, 0);
+				getDirectionTowardsObject(ball), BallStatus.NOSTATUS, 0);
 	}
 
 	@Override

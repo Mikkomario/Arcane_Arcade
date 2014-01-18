@@ -12,50 +12,49 @@ import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 
 /**
- * Explosioneffect is a simple explosion that will last a while and then 
- * disappear
- *
- * @author Mikko Hilpinen.
- *         Created 28.8.2013.
+ * Earthquake creates an area of effect that impacts the ball
+ * 
+ * @author Mikko Hilpinen. 
+ * Created 18.1.2014
  */
-public class ExplosionEffect extends MaskedSpellEffect
+public class EarthquakeEffect extends MaskedSpellEffect
 {
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
-	 * Creates a new explosioneffect to the given location and adds it to the 
-	 * given handlers
-	 *
-	 * @param x The explosion's x-coordinate
-	 * @param y The explosion's y-coordinate
-	 * @param drawer The drawer that will draw the explosion
+	 * Creates a new earthquake effect to the given position.
+	 * 
+	 * @param x The x-coordinate of the quake's origin
+	 * @param y The y-coordinate of the quake's origin
+	 * @param drawer The DrawableHandler that will draw the effect
 	 * @param collidablehandler The collidablehandler that will handle the 
-	 * explosion's collision checking
-	 * @param actorhandler The actorhandler that will inform the explosion 
-	 * about act events
-	 * @param room The room where the explosion was created at
+	 * object's collision checking
+	 * @param actorhandler the ActorHandler that will inform the object about 
+	 * steps
+	 * @param room The room where the quake is located at
 	 */
-	public ExplosionEffect(int x, int y, DrawableHandler drawer,
+	public EarthquakeEffect(int x, int y, DrawableHandler drawer,
 			CollidableHandler collidablehandler, ActorHandler actorhandler,
 			Room room)
 	{
 		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, drawer, 
-				collidablehandler, null, actorhandler, room, "explosion", 
-				"explosionmask", false, true, false, Element.BLAZE, 
-				Element.NOELEMENT, 30, true);
-		setRadius(100);
+				collidablehandler, null, actorhandler, room, "earthquake", 
+				"earthquakemask", false, true, false, Element.EARTH, 
+				Element.NOELEMENT, 70, true);
+		
+		// Adds other effects
 		addAnimationEffect();
 	}
 	
 	
-	// IMPLEMENTED METHODS	--------------------------------------------
+	// IMPLEMENTED METHODS	---------------------------------------------
 
 	@Override
 	public void onBallCollision(Ball ball, double x, double y)
 	{
 		// Causes impact to the ball
-		ball.impact(15 * getForceModifier(ball), 15, 
-				getDirectionTowardsObject(ball), BallStatus.FLAMING, 40);
+		ball.impact(10 * getForceModifier(ball), 5, 
+				getDirectionTowardsObject(ball), BallStatus.MUDDY, 25);
 	}
 
 	@Override
