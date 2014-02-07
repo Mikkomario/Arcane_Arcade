@@ -151,11 +151,11 @@ Eteneminen:														Status
 				- SingularTimer									DONE
 				- ConinuousTimer								DONE
 				- RandomContinuousTimer							DONE
-		- Moottorin parantelu
-			* AdvancedMouseListener
-				- Vaihda erilliset eventtimetodit yhdeksi tai 
+		- Moottorin parantelu									DONE
+			* AdvancedMouseListener								DONE
+				- Vaihda erilliset eventtimetodit yhdeksi tai 	DONE
 				muutamaksi eventtimetodiksi
-					* onMouseButtonEvent eri buttonien sijaan
+					* onMouseButtonEvent eri buttonien sijaan	DONE
 		- Debuggaus												...
 			* Törmäystarkistusten korjaus						DONE
 				- Ongelman paikantaminen						DONE
@@ -327,8 +327,8 @@ Eteneminen:														Status
 				tarvita
 					* Efektiäänet								Testaamatta
 					* Wizardäänet								Testaamatta
-		- Musiikki
-			* Tarvittavat resurssit
+		- Musiikki												...
+			* Tarvittavat resurssit								...
 			* Musiikkien järkevä organisointi ja lukeminen
 				- OpenMidiBank ja muuta
 			* Musiikin äänenvoimakkuuden säädön mahdollisaminen
@@ -349,10 +349,6 @@ Eteneminen:														Status
 				- Messagen luonti
 			* Tarvittavien ympäristöjen luonti
 			* Tarvittavien ympäristöjen välillä siirtyminen
-		- Interaktiivinen hiiri valikoissa
-			* "Favi"
-			* Äänten soittaminen
-			* Resurssien järkevä käyttöönotto
 		- Loading screenin näyttäminen latauksien yhteydessä
 			* Oma päivitysthread?
 		- Fontit
@@ -393,6 +389,10 @@ Eteneminen:														Status
 				- Vaikutus soitettavaan musiikkiin
 			* Järkevä arkkitehtuuri vaaditaan, jotta maagien 	...
 			lisäys olisi helppoa
+		- Interaktiivinen hiiri valikoissa
+			* "Favi"
+			* Äänten soittaminen
+			* Resurssien järkevä käyttöönotto
 		- Title screen
 			* Alkunäyte?
 				- Videoiden näyttäminen
@@ -437,3 +437,7 @@ Eteneminen:														Status
 			* Parempiresoluutioisten spritejen valmistaminen
 			* Tilanteeseen sopivan spriteympäristön luominen
 				- Objektien skaalaus resurssikoon mukaan
+		- Mobiiliversio
+			* Mahdollisuuksien kartoittaminen
+			* Käyttöliittymän muuttaminen
+			* Ohjauksen toiminta

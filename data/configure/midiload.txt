@@ -1,0 +1,9 @@
+* This is a midi music used in the Arcane Arcade
+
+&menu
+menu1#midis/menu1.mid
+menu2#midis/menu2.mid
+menu3#midis/menu3.mid
+
+&field
+battle#midis/punertavaniska.mid
