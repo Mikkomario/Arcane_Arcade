@@ -359,6 +359,11 @@ Eteneminen:														Status
 			* Vaihtoehtoisten fonttien käyttäminen jos kaikkia 
 			ei löydy
 			* Fonttien lataaminen
+		- Beta grafiikat ja käyttöliittymäsuunnittelu
+			* Velhojen erotuminen taustasta
+			* Taustan reunan erottuminen
+			* Etuosan hudin erottuminen
+			* Menuelementtien käytetävyyden parantaminen
 	* Gold	---------------------------------------------------------------
 		- Erilaiset kentät
 			* Erilaiset haasteet ja objektit
@@ -368,6 +373,7 @@ Eteneminen:														Status
 				- Seinät
 				- Eri koot
 				- Kts. Dokumentti jossain
+				- Lohikäärme, joka blockkii pallon kulun
 		- Kenttävalikko
 		- Useamman pallon asettaminen peliin					...
 			* Serverrelay usean serverin ylläpitämiseen
@@ -384,6 +390,7 @@ Eteneminen:														Status
 				- Attribuuttimuunnoksia
 				- Spriten vaihto
 				- Äänien muuttaminen							...
+				- Vaikutus soitettavaan musiikkiin
 			* Järkevä arkkitehtuuri vaaditaan, jotta maagien 	...
 			lisäys olisi helppoa
 		- Title screen
@@ -414,6 +421,8 @@ Eteneminen:														Status
 			* Informaation välitys
 			* Tarvittava synkronisointi
 			* Vaikutus valikkoihin
+			* Pelaajaranking
+			* Toisten pelaajien haastaminen?
 		- Achievementit
 			* Achievementtien tallennus
 			* Achievementtien tarkastelu
