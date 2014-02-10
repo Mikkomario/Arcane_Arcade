@@ -30,6 +30,10 @@ public class GameSettings
 	 */
 	public final static String WAVDATALOCATION = "configure/wavload.txt";
 	/**
+	 * The name of the file where the midi musics are loaded from
+	 */
+	public final static String MIDIDATALOCATION = "configure/midiload.txt";
+	/**
 	 * The name of the file where the wizard voice wavs are loaded from
 	 */
 	public final static String WIZARDVOICEDATALOCATION = "configure/wizardvoiceload.txt";

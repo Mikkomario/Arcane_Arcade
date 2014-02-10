@@ -58,7 +58,7 @@ public class OpenMidiMusicBank extends MidiMusicBank implements OpenBank
 			}
 			
 			// Creates the new wavsound and adds it to the bank
-			createMidiMusic(commands[0], commands[1]);
+			createMidiMusic(commands[1], commands[0]);
 		}
 	}
 

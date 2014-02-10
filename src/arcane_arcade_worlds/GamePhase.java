@@ -118,6 +118,26 @@ public enum GamePhase
 		}
 	}
 	
+	/**
+	 * @return The WavSounds used during the phase
+	 */
+	public String[] getUsedMidiMusicBanks()
+	{
+		switch (this)
+		{
+			case FIELD:
+			{
+				String[] returned = {"field"};
+				return returned;
+			}
+			default:
+			{
+				String[] returned = {"menu"};
+				return returned;
+			}
+		}
+	}
+	
 	@Override
 	public String toString()
 	{

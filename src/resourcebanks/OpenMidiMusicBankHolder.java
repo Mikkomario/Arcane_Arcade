@@ -43,8 +43,14 @@ public class OpenMidiMusicBankHolder extends OpenBankHolder
 		return new OpenMidiMusicBank(commands);
 	}
 	
-	@Override
-	public OpenMidiMusicBank getBank(String bankname)
+	/**
+	 * Looks for a OpenMidiMusic matching the given name and if it is found,
+	 * returns it. If not found, returns null.
+	 * 
+	 * @param bankname	The name of the required bank
+	 * @return The bank with the given name or null if no such bank exists
+	 */
+	public OpenMidiMusicBank getMidiMusicBank(String bankname)
 	{
 		OpenBank maybeOpenMidiBank = getBank(bankname);
 		

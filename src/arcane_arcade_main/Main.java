@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
+import resourcebanks.OpenMidiMusicBankHolder;
 import resourcebanks.OpenSpriteBankHolder;
 import resourcebanks.OpenWavSoundBankHolder;
 import tests.FpsApsTest;
@@ -74,7 +75,11 @@ public class Main
 		this.navigator = new Navigator(this.maindrawer, this.mainactorhandler, 
 				this.mainkeyhandler, this.mainmousehandler, 
 				new OpenSpriteBankHolder(GameSettings.SPRITEDATALOCATION), 
-				new OpenWavSoundBankHolder(GameSettings.WAVDATALOCATION));
+				new OpenWavSoundBankHolder(GameSettings.WAVDATALOCATION), 
+				new OpenMidiMusicBankHolder(GameSettings.MIDIDATALOCATION));
+		
+		// TODO: Move the resource handling from here and from navigator to 
+		// a separate resource handler
 		
 		// Starts the game by starting the main menu
 		this.navigator.startPhase(GamePhase.MAINMENU, null);

@@ -34,6 +34,9 @@ public abstract class MidiMusicBank extends SoundBank
 		}
 		catch (FileNotFoundException fnfe)
 		{
+			// TODO: For some reason this doesn't seem to catch all the 
+			// filenotfound exceptions
+			
 			System.err.println("Could not load all of the Midis!");
 			fnfe.printStackTrace();
 		}
