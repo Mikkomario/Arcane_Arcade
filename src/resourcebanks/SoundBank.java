@@ -35,4 +35,15 @@ public abstract class SoundBank extends AbstractBank
 	{
 		return (Sound) getObject(soundname);
 	}
+	
+	/**
+	 * Stops all the sounds from the bank from playing
+	 */
+	public void stopAllSounds()
+	{
+		for (String name : getContentNames())
+		{
+			getSound(name).stop();
+		}
+	}
 }

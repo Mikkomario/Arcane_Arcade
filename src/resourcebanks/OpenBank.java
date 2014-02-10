@@ -1,11 +1,13 @@
 package resourcebanks;
 
 /**
- * Each object which implements this interface will be able to receive commands
- * in the form of an ArrayList<String>.
+ * OpenBanks contain a number of elements and offer those elements for other 
+ * objects. Openbanks in particular are banks that are initialized in-game using 
+ * configuration files. OpenBanks are usually held in OpenBankHolders.
  *
  * @author Unto Solala
  * 			Created 29.8.2013
+ * @see OpenBankHolder
  */
 public interface OpenBank
 {

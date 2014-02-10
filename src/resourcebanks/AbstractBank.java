@@ -1,6 +1,7 @@
 package resourcebanks;
 
 import java.util.HashMap;
+import java.util.Set;
 
 
 /**
@@ -68,6 +69,18 @@ public abstract class AbstractBank
 		}
 		
 		return status + getClass().getName() + includes;
+	}
+	
+	
+	// GETTERS & SETTERS	---------------------------------------------
+	
+	/**
+	 * @return A set containing all the names of the objects held in the bank. 
+	 * Notice that this is empty if the bank has not been initialized
+	 */
+	public Set<String> getContentNames()
+	{
+		return this.bank.keySet();
 	}
 	
 	
