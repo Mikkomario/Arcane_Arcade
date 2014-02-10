@@ -35,6 +35,9 @@ public class OpenSpriteBankHolder extends OpenBankHolder
 	{
 		super(filename);
 	}
+	
+	
+	// OTHER METHODS	--------------------------------------------------
 
 	/**
 	 * Looks for the OpenBank matching the given bankName and if it is found,

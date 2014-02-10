@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author Mikko Hilpinen. 
  * Created 10.2.2014
  */
-public class OpenMidiMusicBank extends MidiMusicBank
+public class OpenMidiMusicBank extends MidiMusicBank implements OpenBank
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
