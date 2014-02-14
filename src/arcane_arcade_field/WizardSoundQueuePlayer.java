@@ -88,7 +88,7 @@ public class WizardSoundQueuePlayer
 	 */
 	public void playDialogEvent(DialogEvent event, Wizard source)
 	{
-		System.out.println("Plays a single dialog: " + event);
+		//System.out.println("Plays a single dialog: " + event);
 		
 		// If the event is noevent, plays no dialog
 		if (event == DialogEvent.NODIALOG)
@@ -104,16 +104,18 @@ public class WizardSoundQueuePlayer
 		if (event == DialogEvent.DAMAGE || event == DialogEvent.STRIKE)
 		{
 			// Calculates the larges HP the other wizards have
-			int othermaxhp = getMaxOtherWizardHP(source);
+			int otherhp = getMaxOtherWizardHP(source);
 			// Adjusts the soundnames
 			// TODO: Check if this would be better with >
-			if (source.getMaxHP() >= othermaxhp)
+			if (source.getHP() >= otherhp)
 			{
+				System.out.println("Damaged is winning");
 				firstvoicename += "win";
 				secondvoicename += "loss";
 			}
 			else
 			{
+				System.out.println("Damaged is losing");
 				firstvoicename += "loss";
 				secondvoicename += "win";
 			}
@@ -134,7 +136,7 @@ public class WizardSoundQueuePlayer
 			
 			for (Wizard opponent : opponents)
 			{
-				System.out.println("Wizard 2: " + secondvoicename);
+				//System.out.println("Wizard 2: " + secondvoicename);
 				// TODO: It seems like damageloss or strikewin is never played
 				
 				//Wizard opponent = this.wizardrelay.getWizard(i);
@@ -152,11 +154,10 @@ public class WizardSoundQueuePlayer
 	{
 		int maxhp = 0;
 		// Goes through all the (other) wizards
-		for (int i = 0; i < this.wizardrelay.getWizardNumber(); i++)
+		for (Wizard opponent : this.wizardrelay.getWizardsFromSide(wizard.getScreenSide().getOppositeSide()))
 		{
-			Wizard w = this.wizardrelay.getWizard(i);
-			if (w.getMaxHP() > maxhp && !w.equals(wizard))
-				maxhp = w.getMaxHP();
+			if (opponent.getHP() > maxhp)
+				maxhp = opponent.getHP();
 		}
 		
 		return maxhp;
