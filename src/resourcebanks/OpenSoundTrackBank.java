@@ -72,6 +72,7 @@ public class OpenSoundTrackBank extends SoundTrackBank implements OpenBank
 				for (int a = 0; a < loopsubcommands.length; a++)
 				{
 					loopcounts[a] = Integer.parseInt(loopsubcommands[a]);
+					//System.out.println("Loopcount " + a + ": " + loopcounts[a]);
 				}
 			}
 			catch (NumberFormatException nfe)

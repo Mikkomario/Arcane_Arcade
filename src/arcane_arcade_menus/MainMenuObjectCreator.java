@@ -59,12 +59,16 @@ public class MainMenuObjectCreator extends GameObject implements
 	public void onRoomStart(Room room)
 	{
 		// Creates the objects
+		// Creates the musicplayer
+		new MenuThemePlayer(room, 0);
 		// Creates the bakcgroundeffectcreator
 		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
 		// Creates the menucorners
-		new MenuCornerCreator(this.drawer, this.mouselistenerhandler, room, false);
+		new MenuCornerCreator(this.drawer, this.mouselistenerhandler, room, 
+				false);
 		// Creates the MainMenuElements
-		new MainMenuMenuCreator(this.drawer, this.mouselistenerhandler, room, this.navigator);
+		new MainMenuMenuCreator(this.drawer, this.mouselistenerhandler, room, 
+				this.navigator);
 	}
 
 	@Override

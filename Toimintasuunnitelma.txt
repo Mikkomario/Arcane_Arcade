@@ -198,6 +198,13 @@ Eteneminen:														Status
 						- tod. näk transformaatioiden käytössä, 
 						kun kokeilin vaihtaa niitä
 					* Ongelman korjaus							DONE
+			* SoundTrack ei jatka infinitelooppeja vaan etenee 	DONE
+			aina seuraavaan
+				- Ongelman paikantaminen						DONE
+				- Ongelman korjaus								DONE
+			* Hud-elementit on ihan sekaisin, myös elem.select
+				- Ongelman paikannus
+				- Ongelman korjaus
 					
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
@@ -334,10 +341,11 @@ Eteneminen:														Status
 					* Wizardäänet								Testaamatta
 		- Musiikki												...
 			* Tarvittavat resurssit								...
-			* Musiikkien järkevä organisointi ja lukeminen		...
+			* Musiikkien järkevä organisointi ja lukeminen		DONE
 				- OpenMidiBank ja muuta							DONE
-				- OpenSoundBankHolder kahden nykyisen yläluokaksi
-				- OpenSoundTrackBankHolder
+				- OpenSoundBankHolder kahden nykyisen 			DONE
+				yläluokaksi
+				- OpenSoundTrackBankHolder						DONE
 			* Musiikin äänenvoimakkuuden säädön mahdollisaminen
 				- Kts: http://www.codezealot.org/archives/27
 			* Resurssien allokoiminen ja vapauttaminen 			Testaamatta

@@ -82,6 +82,7 @@ public class Navigator
 		
 		// Updates the loaded resources
 		updateResourceBanks(phase, ResourceType.MIDI);
+		updateResourceBanks(phase, ResourceType.MIDISOUNDTRACK);
 		updateResourceBanks(phase, ResourceType.SPRITE);
 		updateResourceBanks(phase, ResourceType.WAV);
 		

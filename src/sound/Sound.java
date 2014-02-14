@@ -44,17 +44,23 @@ public abstract class Sound implements BankObject
 	// ABSTRACT METHODS	--------------------------------------------------
 	
 	/**
-	 * Plays the sound
+	 * Plays the sound. This is meant for class-subclass interaction only and 
+	 * the user should use the play() method instead.
+	 * @see Sound#play(SoundListener)
 	 */
 	protected abstract void playSound();
 	
 	/**
-	 * Loops the sound until it is stopped.
+	 * Loops the sound until it is stopped. This is meant for class-subclass 
+	 * interaction only and the user should use the loop() method instead.
+	 * @see Sound#loop(SoundListener)
 	 */
 	protected abstract void loopSound();
 	
 	/**
-	 * Stops the sound from playing
+	 * Stops the sound from playing. This is meant for class-subclass 
+	 * interaction only and the user should use the stop() method instead.
+	 * @see Sound#stop()
 	 */
 	protected abstract void stopSound();
 	

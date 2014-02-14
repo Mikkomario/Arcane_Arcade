@@ -123,7 +123,7 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 	 * Stops the track from playing
 	 */
 	@Override
-	public void stopSound()
+	protected void stopSound()
 	{
 		// Stops the current sound and the track
 		this.delayed = false;
@@ -163,7 +163,7 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 	 * Plays through the track once
 	 */
 	@Override
-	public void playSound()
+	protected void playSound()
 	{
 		// Doesn't work if the track was killed
 		if (isDead())
@@ -185,7 +185,7 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 	 * Plays through the track repeatedly until stopped
 	 */
 	@Override
-	public void loopSound()
+	protected void loopSound()
 	{
 		playSound();
 		this.loops = true;
@@ -244,6 +244,8 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 		// Checks if the track should jump to a specific index
 		if (this.nextjumpindex >= 0)
 		{
+			//System.out.println("Forced track jump");
+			
 			// Gathers information
 			this.currentindex = this.nextjumpindex;
 			this.currentloopcount = getLoopCount(this.currentindex);
@@ -255,8 +257,8 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 		}
 		// otherwise checks whether more loops are needed
 		// Loops the current sound if needed
-		if (this.currentloopcount > 0 || 
-				(this.currentloopcount < 0 && this.releasespending > 0))
+		else if (this.currentloopcount > 0 || 
+				(this.currentloopcount < 0 && this.releasespending == 0))
 		{
 			this.currentloopcount --;
 			this.currentsound = playPhase(this.currentindex);

@@ -66,6 +66,9 @@ public class ElementScreenObjectCreator extends GameObject implements
 	public void onRoomStart(Room room)
 	{
 		// Creates the objects
+		// Starts the music
+		new MenuThemePlayer(room, 2);
+		
 		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
 		new MenuCornerCreator(this.drawer, this.mousehandler, room,
 				true);

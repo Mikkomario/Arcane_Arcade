@@ -138,6 +138,20 @@ public enum GamePhase
 					}
 				}
 			}
+			case MIDISOUNDTRACK:
+			{
+				switch (this)
+				{
+					case BATTLESETTINGMENU:
+					case ELEMENTMENU:
+					case MAINMENU:
+					{
+						String[] returned = {"menu"};
+						return returned;
+					}
+					default: return new String[0];
+				}
+			}
 			default: return new String[0];
 		}
 	}

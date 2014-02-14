@@ -9,6 +9,8 @@ package resourcebanks;
  */
 public class OpenMidiSoundTrackBankHolder extends OpenSoundTrackBankHolder
 {
+	// CONSTRUCTOR	------------------------------------------------------
+	
 	/**
 	 * Creates and initializes new OpenSoundTrackBankHolder. The content is loaded 
 	 * using the given file.

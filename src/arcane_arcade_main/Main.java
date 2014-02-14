@@ -53,6 +53,8 @@ public class Main
 				GameSettings.SPRITEDATALOCATION);
 		MultiMediaHolder.initializeResourceDatabase(ResourceType.WAV, 
 				GameSettings.WAVDATALOCATION);
+		MultiMediaHolder.initializeResourceDatabase(ResourceType.MIDISOUNDTRACK, 
+				GameSettings.MIDITRACKDATALOCATION);
 		
 		// Initializes attributes
 		this.mainpanel = new GamePanel(GameSettings.SCREENWIDTH, 

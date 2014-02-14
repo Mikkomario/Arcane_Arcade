@@ -63,10 +63,10 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 
 	@Override
 	public void onRoomStart(Room room)
-	{
-		//System.out.println("battlescreen object creator starts creating objects");
-		
+	{	
 		// Creates the objects
+		// Starts the music
+		new MenuThemePlayer(room, 1);
 		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
 		new MenuCornerCreator(this.drawer, this.mousehandler, room,
 				true);

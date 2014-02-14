@@ -164,6 +164,42 @@ public class MultiMediaHolder
 	}
 	
 	/**
+	 * Returns an SoundTrackBank if it has been initialized
+	 *
+	 * @param trackbankname The name of the needed bank
+	 * @return The SoundTrackBank with the given name or null if no such bank exists 
+	 * or if the bank is not active
+	 */
+	public static SoundTrackBank getMidiTrackBank(String trackbankname)
+	{
+		OpenBank maybetrackbank = getBank(ResourceType.MIDISOUNDTRACK, 
+				trackbankname);
+		
+		if (maybetrackbank instanceof SoundTrackBank)
+			return (SoundTrackBank) maybetrackbank;
+		else
+			return null;
+	}
+	
+	/**
+	 * Returns an SoundTrackBank if it has been initialized
+	 *
+	 * @param trackbankname The name of the needed bank
+	 * @return The SoundTrackBank with the given name or null if no such bank exists 
+	 * or if the bank is not active
+	 */
+	public static SoundTrackBank getWavTrackBank(String trackbankname)
+	{
+		OpenBank maybetrackbank = getBank(ResourceType.WAVSOUNDTRACK, 
+				trackbankname);
+		
+		if (maybetrackbank instanceof SoundTrackBank)
+			return (SoundTrackBank) maybetrackbank;
+		else
+			return null;
+	}
+	
+	/**
 	 * Activates the bank with the given resourceType and name. The bank 
 	 * can be then found by calling the getBank() -methods. The bank remains 
 	 * active until deactivateBank() is called for it
