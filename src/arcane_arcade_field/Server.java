@@ -5,11 +5,11 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Random;
 
+import resourcebanks.MultiMediaHolder;
 import timers.SingularTimer;
 import worlds.Room;
 import listeners.RoomListener;
 import listeners.TimerEventListener;
-import arcane_arcade_main.MultiMediaHolder;
 import gameobjects.BasicPhysicDrawnObject;
 import graphic.SingleSpriteDrawer;
 import handleds.Collidable;

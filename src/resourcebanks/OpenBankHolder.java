@@ -29,17 +29,15 @@ public abstract class OpenBankHolder extends FileReader
 	 * the given file.
 	 * 
 	 * @param filename A file that shows information about what banks to create
-	 * (data/ automatically included). The file should be written for sprites
+	 * (data/ automatically included). The file should be written
 	 * as follows:
 	 * <p>
 	 * &bankname<br>
-	 * spritename#filename(data/ automatically included)#number
-	 * of images# xorigin#yorigin<br>
-	 * anotherspritename#...<br>
-	 *  ...<br>
-	 *  &anotherbankname<br>
-	 *   ...<br>
-	 *   * this is a comment
+	 * ...<br>
+	 * ...<br>
+	 * &anotherbankname<br>
+	 * ...<br>
+	 * * this is a comment
 	 */
 	@SuppressWarnings("unchecked")
 	public OpenBankHolder(String filename)
@@ -108,11 +106,15 @@ public abstract class OpenBankHolder extends FileReader
 	 * 
 	 * @param bankname	The name of the Bank
 	 * @return The Bank with the given name or null if no Bank was found
+	 * @warning It's usually easier to simply use another getter provided by 
+	 * a subclass.
 	 */
-	protected OpenBank getBank(String bankname) {
+	public OpenBank getBank(String bankname)
+	{
 		if (this.banks.containsKey(bankname))
 			return this.banks.get(bankname);
-		else {
+		else
+		{
 			System.err.println("The OpenBankHolder doesn't hold a bank "
 					+ "named " + bankname);
 			return null;

@@ -15,7 +15,8 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 	
 	private int currentindex, currentloopcount;
 	private Sound currentsound;
-	private boolean paused, delayed, loops, released;
+	private boolean paused, delayed, loops;
+	private int releasespending;
 	
 	
 	// CONSTRUCTROR	------------------------------------------------------
@@ -36,7 +37,7 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 		this.paused = false;
 		this.delayed = false;
 		this.loops = false;
-		this.released = false;
+		this.releasespending = 0;
 	}
 	
 	
@@ -123,7 +124,7 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 		// Stops the current sound and the track
 		this.delayed = false;
 		this.paused = false;
-		this.released = false;
+		this.releasespending = 0;
 		this.currentsound.stop();
 	}
 	
@@ -170,7 +171,7 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 		this.paused = false;
 		this.delayed = false;
 		this.loops = false;
-		this.released = false;
+		this.releasespending = 0;
 		
 		// Plays the first sound
 		this.currentsound = playPhase(this.currentindex);
@@ -190,22 +191,28 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 	// OTHER METHODS	--------------------------------------------------
 	
 	/**
-	 * Releases the track from the next infinite loop when it starts.
+	 * Releases the track from the next infinite loop when it starts. 
+	 * The releases stack so if you call the release multiple times it affects 
+	 * multiple following loops.
 	 */
 	public void release()
 	{
-		this.released = true;
+		this.releasespending++;
 	}
 	
 	/**
 	 * Negates the last release so that the track will not break out of the 
-	 * next infinite loop until it is released again.
+	 * next infinite loop until it is released again. If multiple releases 
+	 * have been issued, only the latest is negated.
 	 * 
 	 * @see #release()
 	 */
 	public void unrelease()
 	{
-		this.released = false;
+		this.releasespending--;
+		
+		if (this.releasespending < 0)
+			this.releasespending = 0;
 	}
 	
 	private void playnextsound()
@@ -220,7 +227,7 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 		// Checks whether more loops are needed
 		// Loops the current sound if needed
 		if (this.currentloopcount > 0 || 
-				(this.currentloopcount < 0 && !this.released))
+				(this.currentloopcount < 0 && this.releasespending > 0))
 		{
 			this.currentloopcount --;
 			this.currentsound = playPhase(this.currentindex);
@@ -230,7 +237,7 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 		{
 			// If the track was released from an infinite loop, remembers it
 			if (this.currentloopcount < 0)
-				this.released = false;
+				this.releasespending--;
 			
 			// Gathers the information
 			this.currentindex ++;
@@ -244,7 +251,7 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 				{
 					this.delayed = false;
 					this.paused = false;
-					this.released = false;
+					this.releasespending = 0;
 					informSoundEnd();
 					return;
 				}

@@ -32,7 +32,7 @@ public abstract class SoundTrackBank extends SoundBank
 	 * @param trackname The name of the new track in the bank
 	 */
 	protected void createTrack(String[] soundnames, int[] loopcounts, 
-			WavSoundBank soundbank, String trackname)
+			SoundBank soundbank, String trackname)
 	{
 		SoundTrack newtrack = new SoundTrack(soundnames, loopcounts, 
 				soundbank, trackname);

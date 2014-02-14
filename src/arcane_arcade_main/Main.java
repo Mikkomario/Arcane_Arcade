@@ -10,6 +10,8 @@ import java.awt.BorderLayout;
 
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
+import resourcebanks.MultiMediaHolder;
+import resourcebanks.ResourceType;
 import tests.FpsApsTest;
 import video.GamePanel;
 import video.GameWindow;
@@ -43,6 +45,14 @@ public class Main
 	{
 		// Reads the options from a file
 		Options.loadSettings();
+		
+		// Initializes the resource banks
+		MultiMediaHolder.initializeResourceDatabase(ResourceType.MIDI, 
+				GameSettings.MIDIDATALOCATION);
+		MultiMediaHolder.initializeResourceDatabase(ResourceType.SPRITE, 
+				GameSettings.SPRITEDATALOCATION);
+		MultiMediaHolder.initializeResourceDatabase(ResourceType.WAV, 
+				GameSettings.WAVDATALOCATION);
 		
 		// Initializes attributes
 		this.mainpanel = new GamePanel(GameSettings.SCREENWIDTH, 

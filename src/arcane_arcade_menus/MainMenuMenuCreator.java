@@ -7,10 +7,10 @@ import java.awt.Point;
 
 import java.awt.geom.Point2D;
 
+import resourcebanks.MultiMediaHolder;
 import worlds.Room;
 import listeners.RoomListener;
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 import gameobjects.DrawnObject;

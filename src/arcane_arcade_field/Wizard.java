@@ -5,13 +5,13 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import resourcebanks.MultiMediaHolder;
 import worlds.Room;
 import listeners.AdvancedKeyListener;
 import listeners.RoomListener;
 import arcane_arcade_field.WizardSoundQueuePlayer.DialogEvent;
 import arcane_arcade_main.Buttons;
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_spelleffects.ExplosionEffect;
 import arcane_arcade_spelleffects.SpellEffect;
 import arcane_arcade_spelleffects.TeleportEffect;

@@ -1,5 +1,7 @@
 package arcane_arcade_worlds;
 
+import resourcebanks.ResourceType;
+
 /**
  * Gamephases represent the phases in a game like the menu screen or the 
  * actual game field
@@ -50,91 +52,93 @@ public enum GamePhase
 	// METHODS	---------------------------------------------------------
 	
 	/**
-	 * @return The names of the spritebanks that should be initialized 
-	 * during this gamephase
+	 * Returns the names of the resourceBanks used during the phase.
+	 * 
+	 * @param banktype What kind of resource bank names should be listed
+	 * @return A list containing all the names of the banks of the given 
+	 * resourceType that are used during the phase
 	 */
-	public String[] getUsedSpriteBanks()
+	public String[] getUsedBankNames(ResourceType banktype)
 	{
-		switch (this)
+		switch (banktype)
 		{
-			case FIELD:
+			case SPRITE:
 			{
-				String[] returned = {"background", "field", "hud", "status", 
-						"creatures", "spells"};
-				return returned;
+				switch (this)
+				{
+					case FIELD:
+					{
+						String[] returned = {"background", "field", "hud", "status", 
+								"creatures", "spells"};
+						return returned;
+					}
+					case MAINMENU:
+					{
+						String[] returned = {"menu"};
+						return returned;
+					}
+					case TUTORIALMENU:
+					{
+						String[] returned = {"menu"};
+						return returned;
+					}
+					case OPTIONSMENU:
+					{
+						String[] returned = {"menu"};
+						return returned;
+					}
+					case SPELLBOOKMENU:
+					{
+						String[] returned = {"menu"};
+						return returned;
+					}
+					case BATTLESETTINGMENU:
+					{
+						String[] returned = {"menu"};
+						return returned;
+					}
+					case ELEMENTMENU:
+					{
+						String[] returned = {"menu", "hud"};
+						return returned;
+					}
+					case VICTORYSCREEN:
+					{
+						String[] returned = {"menu"};
+						return returned;
+					}
+					default: return new String[0];
+				}
 			}
-			case MAINMENU:
+			case WAV:
 			{
-				String[] returned = {"menu"};
-				return returned;
+				switch (this)
+				{
+					case FIELD:
+					{
+						String[] returned = {"effects"};
+						return returned;
+					}
+					default: return new String[0];
+				}
 			}
-			case TUTORIALMENU:
+			case MIDI:
 			{
-				String[] returned = {"menu"};
-				return returned;
-			}
-			case OPTIONSMENU:
-			{
-				String[] returned = {"menu"};
-				return returned;
-			}
-			case SPELLBOOKMENU:
-			{
-				String[] returned = {"menu"};
-				return returned;
-			}
-			case BATTLESETTINGMENU:
-			{
-				String[] returned = {"menu"};
-				return returned;
-			}
-			case ELEMENTMENU:
-			{
-				String[] returned = {"menu", "hud"};
-				return returned;
-			}
-			case VICTORYSCREEN:
-			{
-				String[] returned = {"menu"};
-				return returned;
+				switch (this)
+				{
+					case FIELD:
+					{
+						String[] returned = {"field"};
+						return returned;
+					}
+					default:
+					{
+						String[] returned = {"menu"};
+						return returned;
+					}
+				}
 			}
 			default: return new String[0];
-		}
-	}
-	
-	/**
-	 * @return The WavSounds used during the phase
-	 */
-	public String[] getUsedWavSoundBanks()
-	{
-		switch (this)
-		{
-			case FIELD:
-			{
-				String[] returned = {"effects"};
-				return returned;
-			}
-			default: return new String[0];
-		}
-	}
-	
-	/**
-	 * @return The WavSounds used during the phase
-	 */
-	public String[] getUsedMidiMusicBanks()
-	{
-		switch (this)
-		{
-			case FIELD:
-			{
-				String[] returned = {"field"};
-				return returned;
-			}
-			default:
-			{
-				String[] returned = {"menu"};
-				return returned;
-			}
 		}
 	}
 	
@@ -154,6 +158,5 @@ public enum GamePhase
 			
 			default: return "???";
 		}
-
 	}
 }

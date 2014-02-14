@@ -2,10 +2,10 @@ package arcane_arcade_field;
 
 import java.awt.Graphics2D;
 
+import resourcebanks.MultiMediaHolder;
 import worlds.Room;
 import listeners.RoomListener;
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.VictorySetting;

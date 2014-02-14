@@ -2,7 +2,7 @@ package arcane_arcade_field;
 
 import java.awt.Graphics2D;
 
-import arcane_arcade_main.MultiMediaHolder;
+import resourcebanks.MultiMediaHolder;
 import arcane_arcade_status.BallStatus;
 import gameobjects.DrawnObject;
 import graphic.SingleSpriteDrawer;

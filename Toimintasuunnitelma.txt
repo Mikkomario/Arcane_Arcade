@@ -151,11 +151,16 @@ Eteneminen:														Status
 				- SingularTimer									DONE
 				- ConinuousTimer								DONE
 				- RandomContinuousTimer							DONE
-		- Moottorin parantelu									DONE
 			* AdvancedMouseListener								DONE
 				- Vaihda erilliset eventtimetodit yhdeksi tai 	DONE
 				muutamaksi eventtimetodiksi
 					* onMouseButtonEvent eri buttonien sijaan	DONE
+		- Arkkitehtuurilliset Parannukset						DONE
+			* Resurssienhallinta								DONE
+				- Templatemaisen yleispätevän ratkaisun 		DONE
+				löytäminen										DONE
+				- Suunnittelu									DONE
+				- Toteutus										DONE
 		- Debuggaus												...
 			* Törmäystarkistusten korjaus						DONE
 				- Ongelman paikantaminen						DONE
@@ -329,9 +334,12 @@ Eteneminen:														Status
 					* Wizardäänet								Testaamatta
 		- Musiikki												...
 			* Tarvittavat resurssit								...
-			* Musiikkien järkevä organisointi ja lukeminen		DONE
+			* Musiikkien järkevä organisointi ja lukeminen		...
 				- OpenMidiBank ja muuta							DONE
+				- OpenSoundBankHolder kahden nykyisen yläluokaksi
+				- OpenSoundTrackBankHolder
 			* Musiikin äänenvoimakkuuden säädön mahdollisaminen
+				- Kts: http://www.codezealot.org/archives/27
 			* Resurssien allokoiminen ja vapauttaminen 			Testaamatta
 			tarvittaessa
 		- Pelin pysäyttäminen									...
@@ -360,6 +368,11 @@ Eteneminen:														Status
 			* Taustan reunan erottuminen
 			* Etuosan hudin erottuminen
 			* Menuelementtien käytetävyyden parantaminen
+		- Kameran käyttö fieldillä
+			* Handlerien oikea jakaminen
+			* Hudin jättäminen kameran ulkopuolelle
+			* Kentän koon muuntelu / sen tukeminen
+			* Kameran oikeaoppinen zoomaus
 	* Gold	---------------------------------------------------------------
 		- Erilaiset kentät
 			* Erilaiset haasteet ja objektit
@@ -433,10 +446,14 @@ Eteneminen:														Status
 		- Visuaaliset erikoisefektit
 		- Mikrotransaktiot (:D)
 			* Mahdollisuuksien ja toteutuksen kartoittaminen
+				- Hahmojen, kenttien ja elementtien ostaminen 
+				joko kaikki kerralla tai satunnaisissa paketeissa
+					* Tai jopa yksittäin
 		- HD Edition
 			* Parempiresoluutioisten spritejen valmistaminen
 			* Tilanteeseen sopivan spriteympäristön luominen
 				- Objektien skaalaus resurssikoon mukaan
+			* ScreenSize:n koon muuttaminen
 		- Mobiiliversio
 			* Mahdollisuuksien kartoittaminen
 			* Käyttöliittymän muuttaminen

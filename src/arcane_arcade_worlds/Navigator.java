@@ -3,6 +3,7 @@ package arcane_arcade_worlds;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import resourcebanks.MultiMediaHolder;
 import resourcebanks.ResourceType;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
@@ -11,7 +12,6 @@ import handlers.MouseListenerHandler;
 import backgrounds.Background;
 import arcane_arcade_field.FieldObjectCreator;
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_menus.BattleScreenObjectCreator;
 import arcane_arcade_menus.ElementScreenObjectCreator;
 import arcane_arcade_menus.MainMenuObjectCreator;
@@ -54,7 +54,7 @@ public class Navigator
 		this.activephase = null;
 		
 		// Initializes the backgrounds for the rooms
-		MultiMediaHolder.activateSpriteBank("background");
+		MultiMediaHolder.activateBank(ResourceType.SPRITE, "background");
 		
 		// Initializes the rooms
 		initializeMainMenu(drawer, actorhandler, mouselistenerhandler);
@@ -165,29 +165,12 @@ public class Navigator
 	private void updateResourceBanks(GamePhase newphase, 
 			ResourceType resourcetype)
 	{
-		String[] newbanknames = null; 
-		
-		switch (resourcetype)
-		{
-			case SPRITE: newbanknames = newphase.getUsedSpriteBanks(); break;
-			case WAV: newbanknames = newphase.getUsedWavSoundBanks(); break;
-			case MIDI: newbanknames = newphase.getUsedMidiMusicBanks(); break;
-		}
+		String[] newbanknames = newphase.getUsedBankNames(resourcetype);
 		
 		// Skips the removal progres if there was no previous phase
 		if (this.activephase != null)
 		{
-			String[] oldbanknames = null;
-			
-			switch (resourcetype)
-			{
-				case SPRITE: oldbanknames = 
-						this.activephase.getUsedSpriteBanks(); break;
-				case WAV: oldbanknames = 
-						this.activephase.getUsedWavSoundBanks(); break;
-				case MIDI: oldbanknames = 
-						this.activephase.getUsedMidiMusicBanks(); break;
-			}
+			String[] oldbanknames = this.activephase.getUsedBankNames(resourcetype);
 			
 			// Takes all the new banknames into a list format
 			ArrayList<String> newbanknamelist = new ArrayList<String>();
@@ -200,15 +183,9 @@ public class Navigator
 			for (int i = 0; i < oldbanknames.length; i++)
 			{
 				String oldbankname = oldbanknames[i];
+				
 				if (!newbanknamelist.contains(oldbankname))
-				{
-					switch (resourcetype)
-					{
-						case SPRITE: MultiMediaHolder.deactivateSpriteBank(oldbankname); break;
-						case WAV: MultiMediaHolder.deactivateWavSoundBank(oldbankname); break;
-						case MIDI: MultiMediaHolder.deactivateMidiMusicBank(oldbankname); break;
-					}
-				}
+					MultiMediaHolder.deactivateBank(resourcetype, oldbankname);
 			}
 		}
 		
@@ -216,14 +193,7 @@ public class Navigator
 		// (Checking done in the addSpritebank method)
 		for (int i = 0; i < newbanknames.length; i++)
 		{
-			// TODO: If I can find a better solution for the multiMediaHolder, I should update this as well
-			
-			switch (resourcetype)
-			{
-				case SPRITE: MultiMediaHolder.activateSpriteBank(newbanknames[i]); break;
-				case WAV: MultiMediaHolder.activateWavSoundBank(newbanknames[i]); break;
-				case MIDI: MultiMediaHolder.activateMidiMusicBank(newbanknames[i]); break;
-			}
+			MultiMediaHolder.activateBank(resourcetype, newbanknames[i]);
 		}
 	}
 	
@@ -239,7 +209,4 @@ public class Navigator
 		
 		return backlist;
 	}
-	
-	
-	
 }

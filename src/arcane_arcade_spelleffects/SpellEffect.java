@@ -4,11 +4,11 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import resourcebanks.MultiMediaHolder;
 import worlds.Room;
 import listeners.RoomListener;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
-import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 import gameobjects.BasicPhysicDrawnObject;

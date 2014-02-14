@@ -123,7 +123,7 @@ public class WizardSoundQueuePlayer
 		
 		// Adds the dialog(s) to the queue
 		// Adds firstsound by source to the gueue
-		System.out.println("Wizard 1: " + firstvoicename);
+		//System.out.println("Wizard 1: " + firstvoicename);
 		this.dialogqueue.addWavSound(
 				source.getAvatar().getVoiceBank().getSound(firstvoicename), 
 				Options.voicevolumeadjustment, 

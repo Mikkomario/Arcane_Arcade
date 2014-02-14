@@ -2,6 +2,7 @@ package arcane_arcade_spelleffects;
 
 import java.awt.geom.Point2D;
 
+import resourcebanks.MultiMediaHolder;
 import worlds.Room;
 import graphic.MaskChecker;
 import handlers.ActorHandler;
@@ -9,7 +10,6 @@ import handlers.CollidableHandler;
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
-import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_status.Element;
 
 /**

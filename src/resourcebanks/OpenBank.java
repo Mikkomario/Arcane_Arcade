@@ -20,4 +20,10 @@ public interface OpenBank
 	 * to uninitialize the bank only when the content is not in use.
 	 */
 	public void uninitialize();
+	
+	/**
+	 * Initializes the bank so it can be used immediately
+	 */
+	// TODO: Add this if multiMediaHolder doesn't work otherwise
+	//public void initializeBank();
 }

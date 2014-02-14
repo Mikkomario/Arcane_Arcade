@@ -2,6 +2,7 @@ package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
 
+import resourcebanks.MultiMediaHolder;
 import listeners.RoomListener;
 import gameobjects.DrawnObject;
 import gameobjects.GameObject;
@@ -12,7 +13,6 @@ import handlers.MouseListenerHandler;
 import helpAndEnums.DepthConstants;
 import worlds.Room;
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;

@@ -3,8 +3,8 @@ package arcane_arcade_menus;
 
 import java.awt.geom.Point2D;
 
+import resourcebanks.MultiMediaHolder;
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_main.MultiMediaHolder;
 import worlds.Room;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;

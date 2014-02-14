@@ -4,8 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import resourcebanks.MultiMediaHolder;
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_main.MultiMediaHolder;
 import worlds.Room;
 import listeners.RoomListener;
 import gameobjects.BasicPhysicDrawnObject;

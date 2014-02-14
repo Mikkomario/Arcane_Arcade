@@ -1,7 +1,7 @@
 package arcane_arcade_field;
 
+import resourcebanks.MultiMediaHolder;
 import sound.MidiMusic;
-import arcane_arcade_main.MultiMediaHolder;
 import gameobjects.GameObject;
 import worlds.Room;
 import listeners.RoomListener;

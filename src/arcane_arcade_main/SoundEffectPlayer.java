@@ -1,5 +1,6 @@
 package arcane_arcade_main;
 
+import resourcebanks.MultiMediaHolder;
 import arcane_arcade_field.Avatar;
 
 /**

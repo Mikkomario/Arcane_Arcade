@@ -3,9 +3,9 @@ package arcane_arcade_menus;
 import java.util.Random;
 
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_main.MultiMediaHolder;
 import listeners.RoomListener;
 import listeners.TimerEventListener;
+import resourcebanks.MultiMediaHolder;
 import timers.RandomTimer;
 import worlds.Room;
 

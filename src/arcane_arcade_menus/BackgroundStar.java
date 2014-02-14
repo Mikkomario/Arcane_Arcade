@@ -2,7 +2,7 @@ package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
 
-import arcane_arcade_main.MultiMediaHolder;
+import resourcebanks.MultiMediaHolder;
 import worlds.Room;
 import gameobjects.DrawnObject;
 import graphic.SingleSpriteDrawer;

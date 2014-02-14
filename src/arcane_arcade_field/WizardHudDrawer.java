@@ -3,8 +3,8 @@ package arcane_arcade_field;
 import java.awt.Graphics2D;
 import java.util.Iterator;
 
+import resourcebanks.MultiMediaHolder;
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_main.MultiMediaHolder;
 import gameobjects.DrawnObject;
 import graphic.SingleSpriteDrawer;
 import handleds.Drawable;
