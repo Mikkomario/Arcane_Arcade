@@ -17,6 +17,9 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 	private Sound currentsound;
 	private boolean paused, delayed, loops;
 	private int releasespending;
+	 // The index to which the next jump will lead. -1 if the track is 
+	// supposed to traverse at default
+	private int nextjumpindex;
 	
 	
 	// CONSTRUCTROR	------------------------------------------------------
@@ -38,6 +41,7 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 		this.delayed = false;
 		this.loops = false;
 		this.releasespending = 0;
+		this.nextjumpindex = -1;
 	}
 	
 	
@@ -109,7 +113,7 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 		if (this.paused)
 		{
 			this.delayed = true;
-			System.out.println("Delays");
+			//System.out.println("Delays");
 		}
 		else
 			playnextsound();
@@ -215,6 +219,19 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 			this.releasespending = 0;
 	}
 	
+	/**
+	 * Orders the track to jump to the given index after the current sound 
+	 * has been played. If another jump is set before the sound ends, the 
+	 * previously issued jump will be skipped.
+	 * 
+	 * @param soundindex The index of the sound to which the track jumps to 
+	 * (indexing starts from 0)
+	 */
+	public void setJumpToIndex(int soundindex)
+	{
+		this.nextjumpindex = soundindex % getMaxPhase();
+	}
+	
 	private void playnextsound()
 	{
 		// Only plays the next sound if the track is still playing
@@ -224,7 +241,19 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 		// The sound is no longer delayed
 		this.delayed = false;
 		
-		// Checks whether more loops are needed
+		// Checks if the track should jump to a specific index
+		if (this.nextjumpindex >= 0)
+		{
+			// Gathers information
+			this.currentindex = this.nextjumpindex;
+			this.currentloopcount = getLoopCount(this.currentindex);
+					
+			this.nextjumpindex = -1;
+			
+			// And plays the new sound
+			this.currentsound = playPhase(this.currentindex);
+		}
+		// otherwise checks whether more loops are needed
 		// Loops the current sound if needed
 		if (this.currentloopcount > 0 || 
 				(this.currentloopcount < 0 && this.releasespending > 0))
@@ -232,7 +261,7 @@ public abstract class AbstractSoundTrack extends Sound implements SoundListener
 			this.currentloopcount --;
 			this.currentsound = playPhase(this.currentindex);
 		}
-		// Or plays the next sound
+		// otherwise plays the next sound
 		else
 		{
 			// If the track was released from an infinite loop, remembers it
