@@ -31,7 +31,7 @@ public class OpenMidiMusicBankHolder extends OpenSoundBankHolder
 	 */
 	public OpenMidiMusicBankHolder(String filename)
 	{
-		super(filename);
+		super(filename, true);
 	}
 	
 	

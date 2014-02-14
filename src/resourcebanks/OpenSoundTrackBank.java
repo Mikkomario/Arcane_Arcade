@@ -28,7 +28,7 @@ public class OpenSoundTrackBank extends SoundTrackBank implements OpenBank
 	 * information for creating the tracks. The commands should have the 
 	 * following syntax:<br>
 	 * <i>soundname1,soundname2,soundname3,...#loopcount1,loopcount2,
-	 * loopcount3,...#trackname</i><br>
+	 * loopcount3,...#soundbankname#trackname</i><br>
 	 * Command can be for example such line as "smooth,jazz#2,-1s#smoothjazz"
 	 * @param soundbankholder The soundBankHolder that holds the soundBanks 
 	 * that contain the sounds used in the tracks
@@ -55,7 +55,7 @@ public class OpenSoundTrackBank extends SoundTrackBank implements OpenBank
 			String[] commands = commandline.split("#");
 			
 			// Check that there's enough information
-			if (commands.length < 3)
+			if (commands.length < 4)
 			{
 				System.err.println("Command " + commandline + " doesn't " +
 						"have enough arguments for creating a soundtrack!");

@@ -33,7 +33,7 @@ public class OpenSpriteBankHolder extends OpenBankHolder
 	 */
 	public OpenSpriteBankHolder(String filename)
 	{
-		super(filename);
+		super(filename, true);
 	}
 	
 	

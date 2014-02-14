@@ -18,8 +18,9 @@ public abstract class OpenBankHolder extends FileReader
 	// ATTRIBUTES -----------------------------------------------------
 
 	private HashMap<String, OpenBank> banks;
-	private String lastbankname;
+	private String lastbankname, filename;
 	private ArrayList<String> lastcommands;
+	private boolean initialized;
 
 	
 	// CONSTRUCTOR -----------------------------------------------------
@@ -38,27 +39,22 @@ public abstract class OpenBankHolder extends FileReader
 	 * &anotherbankname<br>
 	 * ...<br>
 	 * * this is a comment
+	 * @param autoinitialize Should the holder be initialized right at the 
+	 * constructor. This should be true unless the subclass needs to collect 
+	 * some information before initialization, in which case initialization 
+	 * must be called manually
 	 */
-	@SuppressWarnings("unchecked")
-	public OpenBankHolder(String filename)
+	public OpenBankHolder(String filename, boolean autoinitialize)
 	{
 		// Initializes attributes
+		this.initialized = false;
 		this.banks = new HashMap<String, OpenBank>();
 		this.lastbankname = null;
 		this.lastcommands = new ArrayList<String>();
+		this.filename = filename;
 		
-		// Reads the file
-		readFile(filename);
-		// Adds the last Bank and releases the memory
-		if (this.lastcommands.size() > 0) {
-			// System.out.println("Puts " + this.lastcommands.size() +
-			// " objects to the bank " + this.lastbankname);
-			this.banks.put(this.lastbankname, this.createBank(
-					(ArrayList<String>) this.lastcommands.clone()));
-		}
-		
-		this.lastcommands.clear();
-		this.lastbankname = null;
+		if (autoinitialize)
+			initialize();
 	}
 	
 	
@@ -113,10 +109,15 @@ public abstract class OpenBankHolder extends FileReader
 	{
 		if (this.banks.containsKey(bankname))
 			return this.banks.get(bankname);
-		else
+		else if (this.initialized)
 		{
 			System.err.println("The OpenBankHolder doesn't hold a bank "
 					+ "named " + bankname);
+			return null;
+		}
+		else
+		{
+			System.err.println("The OpenBankHolder hasn't been initialized yet");
 			return null;
 		}
 	}
@@ -129,5 +130,31 @@ public abstract class OpenBankHolder extends FileReader
 		for (OpenBank bank : this.banks.values()) {
 			bank.uninitialize();
 		}
+	}
+	
+	/**
+	 * Initializes the BankHolder if it hasn't been initialized already
+	 */
+	@SuppressWarnings("unchecked")
+	protected void initialize()
+	{
+		if (this.initialized)
+			return;
+		
+		this.initialized = true;
+		
+		// Reads the file
+		readFile(this.filename);
+		// Adds the last Bank and releases the memory
+		if (this.lastcommands.size() > 0)
+		{
+			// System.out.println("Puts " + this.lastcommands.size() +
+			// " objects to the bank " + this.lastbankname);
+			this.banks.put(this.lastbankname, this.createBank(
+					(ArrayList<String>) this.lastcommands.clone()));
+		}
+			
+		this.lastcommands.clear();
+		this.lastbankname = null;
 	}
 }

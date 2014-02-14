@@ -51,7 +51,7 @@ public class MultiMediaHolder
 	 * &anotherbankname<br>
 	 * ...<br>
 	 * * this is a comment
-	 * @see OpenBankHolder#OpenBankHolder(String)
+	 * @see OpenBankHolder#OpenBankHolder(String, boolean)
 	 */
 	public static void initializeResourceDatabase(ResourceType type, String filename)
 	{

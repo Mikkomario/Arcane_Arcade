@@ -24,10 +24,12 @@ public abstract class OpenSoundBankHolder extends OpenBankHolder
 	 * &anotherbankname<br>
 	 * ...<br>
 	 * * this is a comment
+	 * @param autoinitialize Should the holder be initialized right in the 
+	 * constructor (true) or manually later (false)
 	 */
-	public OpenSoundBankHolder(String filename)
+	public OpenSoundBankHolder(String filename, boolean autoinitialize)
 	{
-		super(filename);
+		super(filename, autoinitialize);
 	}
 	
 	

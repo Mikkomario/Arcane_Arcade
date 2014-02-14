@@ -32,7 +32,7 @@ public class OpenWavSoundBankHolder extends OpenSoundBankHolder
 	 */
 	public OpenWavSoundBankHolder(String filename)
 	{
-		super(filename);
+		super(filename, true);
 	}
 	
 	
