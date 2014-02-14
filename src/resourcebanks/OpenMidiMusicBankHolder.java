@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Mikko Hilpinen. 
  * Created 10.2.2014
  */
-public class OpenMidiMusicBankHolder extends OpenBankHolder
+public class OpenMidiMusicBankHolder extends OpenSoundBankHolder
 {
 	// CONSTRUCTOR	------------------------------------------------------
 	
@@ -42,6 +42,9 @@ public class OpenMidiMusicBankHolder extends OpenBankHolder
 	{
 		return new OpenMidiMusicBank(commands);
 	}
+	
+	
+	// OTHER METHODS	-------------------------------------------------
 	
 	/**
 	 * Looks for a OpenMidiMusic matching the given name and if it is found,
