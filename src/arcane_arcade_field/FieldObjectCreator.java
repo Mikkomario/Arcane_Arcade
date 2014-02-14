@@ -70,6 +70,8 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 	{
 		// Creates the objects needed
 
+		// Creates the music player
+		new FieldMusicPlayer(room);
 		// Creates a ballrelay
 		BallRelay ballrelay = new BallRelay(room);
 		// And the wizardrelay
@@ -95,6 +97,15 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 				this.currentsetting.getElementsOnSide(ScreenSide.LEFT), 
 				this.currentsetting.getManaRegenerationModifier(), 
 				this.currentsetting.getSpellDelayModifier(), Avatar.GANDALF, 
+				wizardvoiceplayer));
+		wizardrelay.addWizard(new Wizard(this.fielddrawer, 
+				this.fieldcollisionhandler.getCollidableHandler(), 
+				this.fieldcollisionhandler, this.fieldactorhandler, 
+				this.fieldkeylistenerhandler, room, scorekeeper, ballrelay, 
+				ScreenSide.RIGHT, Options.rightwizardbuttons, 
+				this.currentsetting.getElementsOnSide(ScreenSide.RIGHT), 
+				this.currentsetting.getManaRegenerationModifier(), 
+				this.currentsetting.getSpellDelayModifier(), Avatar.WHITEWIZARD, 
 				wizardvoiceplayer));
 	}
 

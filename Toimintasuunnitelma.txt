@@ -329,10 +329,10 @@ Eteneminen:														Status
 					* Wizardäänet								Testaamatta
 		- Musiikki												...
 			* Tarvittavat resurssit								...
-			* Musiikkien järkevä organisointi ja lukeminen
-				- OpenMidiBank ja muuta
+			* Musiikkien järkevä organisointi ja lukeminen		DONE
+				- OpenMidiBank ja muuta							DONE
 			* Musiikin äänenvoimakkuuden säädön mahdollisaminen
-			* Resurssien allokoiminen ja vapauttaminen 
+			* Resurssien allokoiminen ja vapauttaminen 			Testaamatta
 			tarvittaessa
 		- Pelin pysäyttäminen									...
 			* Pausen toiminnallisuus							Testaamatta
