@@ -5,15 +5,12 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import worlds.Room;
-
 import listeners.RoomListener;
-
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_spelleffects.SpellEffect;
 import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.WizardStatus;
-import arcane_arcade_worlds.Navigator;
-
 import gameobjects.BouncingBasicPhysicDrawnObject;
 import graphic.SingleSpriteDrawer;
 import handleds.Collidable;
@@ -81,7 +78,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 		this.muddy = 0;
 		this.charged = 0;
 		this.spritedrawer = new SingleSpriteDrawer(
-				Navigator.getSpriteBank("field").getSprite("ball"), 
+				MultiMediaHolder.getSpriteBank("field").getSprite("ball"), 
 				actorhandler, this);
 		this.statusdrawer = new BallStatusDrawer(drawer, actorhandler, this);
 		this.statusdepletionrate = 0.1;

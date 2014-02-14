@@ -2,7 +2,7 @@ package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
 
-import arcane_arcade_worlds.Navigator;
+import arcane_arcade_main.MultiMediaHolder;
 import worlds.Room;
 import gameobjects.DrawnObject;
 import graphic.SingleSpriteDrawer;
@@ -46,7 +46,7 @@ public class BackgroundStar extends DrawnObject implements RoomListener,
 		super(x, y, DepthConstants.BOTTOM - 1 - (int) (scale * 10), drawer);
 		
 		// Initializes attributes
-		this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
+		this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 				"menu").getSprite("star"), animator, this);
 		this.spritedrawer.getAnimationListenerHandler().addAnimationListener(this);
 		this.spritedrawer.setAnimationDuration(duration);

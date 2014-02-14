@@ -3,7 +3,6 @@ package arcane_arcade_menus;
 import java.awt.Graphics2D;
 
 import listeners.RoomListener;
-
 import gameobjects.DrawnObject;
 import gameobjects.GameObject;
 import graphic.SingleSpriteDrawer;
@@ -12,8 +11,8 @@ import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
 import helpAndEnums.DepthConstants;
 import worlds.Room;
-
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
@@ -144,7 +143,7 @@ public class VictoryScreenObjectCreator extends GameObject implements RoomObject
 			}
 			//Let's set the position for our WinnerText
 			this.setPosition(x, y);
-			this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
+			this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 					"menu").getSprite("winner"), null, this);
 			this.spritedrawer.inactivate();
 			this.setScale(0.5, 0.5);

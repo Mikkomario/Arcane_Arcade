@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 
 import worlds.Room;
 import listeners.RoomListener;
-import arcane_arcade_worlds.Navigator;
+import arcane_arcade_main.MultiMediaHolder;
 
 
 /**
@@ -46,7 +46,7 @@ public class ElementIndicator extends DrawnObject implements RoomListener
 		
 		// Initializes attributes
 		this.element = element;
-		this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
+		this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 				"hud").getSprite("elements"), null, this);
 		this.spritedrawer.setImageIndex(this.element.getElementIconIndex());
 		

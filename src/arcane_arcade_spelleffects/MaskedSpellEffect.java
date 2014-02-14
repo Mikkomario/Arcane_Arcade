@@ -9,8 +9,8 @@ import handlers.CollidableHandler;
 import handlers.CollisionHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
+import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_status.Element;
-import arcane_arcade_worlds.Navigator;
 
 /**
  * MaskedSpellEffect works like any other spell effect except it uses a mask 
@@ -76,7 +76,7 @@ public abstract class MaskedSpellEffect extends SpellEffect
 		// Initializes attributes
 		this.maskanimated = isMaskAnimated;
 		this.maskchecker = new MaskChecker(
-				Navigator.getSpriteBank("spells").getSprite(maskname));
+				MultiMediaHolder.getSpriteBank("spells").getSprite(maskname));
 	}
 	
 	

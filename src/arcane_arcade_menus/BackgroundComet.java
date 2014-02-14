@@ -5,12 +5,9 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_worlds.Navigator;
-
+import arcane_arcade_main.MultiMediaHolder;
 import worlds.Room;
-
 import listeners.RoomListener;
-
 import gameobjects.BasicPhysicDrawnObject;
 import graphic.SingleSpriteDrawer;
 import handleds.Collidable;
@@ -52,7 +49,7 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 				CollisionType.CIRCLE, drawer, null, null, actorhandler);
 		
 		// Initializes attributes
-		this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
+		this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 				"menu").getSprite("comet"), actorhandler, this);
 		
 		// Changes the scaling and speed

@@ -7,12 +7,9 @@ import java.util.Random;
 
 import timers.SingularTimer;
 import worlds.Room;
-
 import listeners.RoomListener;
 import listeners.TimerEventListener;
-
-import arcane_arcade_worlds.Navigator;
-
+import arcane_arcade_main.MultiMediaHolder;
 import gameobjects.BasicPhysicDrawnObject;
 import graphic.SingleSpriteDrawer;
 import handleds.Collidable;
@@ -86,7 +83,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener,
 		this.minshootforce = 10;
 		this.maxshootforce = 15;
 		this.spritedrawer = new SingleSpriteDrawer(
-				Navigator.getSpriteBank("field").getSprite("server"), 
+				MultiMediaHolder.getSpriteBank("field").getSprite("server"), 
 				actorhandler, this);
 		this.actorhandler = actorhandler;
 		this.collidablehandler = collidablehandler;

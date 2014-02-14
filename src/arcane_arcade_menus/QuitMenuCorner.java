@@ -4,7 +4,7 @@ package arcane_arcade_menus;
 import java.awt.geom.Point2D;
 
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_worlds.Navigator;
+import arcane_arcade_main.MultiMediaHolder;
 import worlds.Room;
 import handlers.DrawableHandler;
 import handlers.MouseListenerHandler;
@@ -32,8 +32,8 @@ public class QuitMenuCorner extends AbstractMaskButton
 			MouseListenerHandler mousehandler, Room room)
 	{
 		super(GameSettings.SCREENWIDTH, 0, DepthConstants.BACK, 
-				Navigator.getSpriteBank("menu").getSprite("quit"), 
-				Navigator.getSpriteBank("menu").getSprite("quitmask"), 
+				MultiMediaHolder.getSpriteBank("menu").getSprite("quit"), 
+				MultiMediaHolder.getSpriteBank("menu").getSprite("quitmask"), 
 				drawer, mousehandler, room);
 	}
 	

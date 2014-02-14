@@ -3,14 +3,12 @@ package arcane_arcade_field;
 import java.awt.Graphics2D;
 
 import worlds.Room;
-
 import listeners.RoomListener;
-
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.VictorySetting;
-
 import gameobjects.DrawnObject;
 import graphic.SingleSpriteDrawer;
 import handleds.Actor;
@@ -67,7 +65,7 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 		
 		// Initializes attributes
 		this.spritedrawer = new SingleSpriteDrawer(
-				Navigator.getSpriteBank("hud").getSprite("score"), null, this);
+				MultiMediaHolder.getSpriteBank("hud").getSprite("score"), null, this);
 		this.navigator = navigator;
 		this.scoreleft = 0;
 		this.scoreright = 0;

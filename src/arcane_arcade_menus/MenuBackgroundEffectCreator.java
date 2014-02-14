@@ -3,11 +3,9 @@ package arcane_arcade_menus;
 import java.util.Random;
 
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_worlds.Navigator;
-
+import arcane_arcade_main.MultiMediaHolder;
 import listeners.RoomListener;
 import listeners.TimerEventListener;
-
 import timers.RandomTimer;
 import worlds.Room;
 
@@ -59,9 +57,9 @@ public class MenuBackgroundEffectCreator extends GameObject implements
 		this.actorhandler = actorhandler;
 		this.room = room;
 		this.random = new Random();
-		this.cometoriginx = Navigator.getSpriteBank("menu").getSprite(
+		this.cometoriginx = MultiMediaHolder.getSpriteBank("menu").getSprite(
 				"comet").getOriginX();
-		this.cometoriginy = Navigator.getSpriteBank("menu").getSprite(
+		this.cometoriginy = MultiMediaHolder.getSpriteBank("menu").getSprite(
 				"comet").getOriginY();
 		this.active = true;
 		

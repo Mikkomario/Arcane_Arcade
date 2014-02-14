@@ -12,8 +12,8 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 
-import worlds.Room;
 
+import worlds.Room;
 import listeners.AdvancedKeyListener;
 import listeners.RoomListener;
 
@@ -21,10 +21,10 @@ import listeners.RoomListener;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_main.Buttons;
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_main.Options;
 import arcane_arcade_status.Element;
 import arcane_arcade_status.ElementIndicator;
-import arcane_arcade_worlds.Navigator;
 
 /**
  * This interface lets the users choose the elements they will be using. 
@@ -171,7 +171,7 @@ public class ElementSelectionInterface
 			super(0, 0, DepthConstants.FOREGROUND, drawer);
 			
 			// Initializes attributes
-			this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
+			this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 					"menu").getSprite("chosen"), null, this);
 			this.playernumber = playernumber;
 			
@@ -385,7 +385,7 @@ public class ElementSelectionInterface
 			super(0, 200, DepthConstants.NORMAL, drawer);
 			
 			// Initializes attributes
-			this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
+			this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 					"hud").getSprite("elements"), null, this);
 			this.side = side;
 

@@ -3,8 +3,7 @@ package arcane_arcade_menus;
 import java.awt.Graphics2D;
 
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_worlds.Navigator;
-
+import arcane_arcade_main.MultiMediaHolder;
 import gameobjects.DrawnObject;
 import graphic.SingleSpriteDrawer;
 import handlers.DrawableHandler;
@@ -57,7 +56,7 @@ public class MenuCorner extends DrawnObject implements RoomListener
 		super(0, 0, DepthConstants.BACK, drawer);
 		
 		// Initializes attributes
-		this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
+		this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 				"menu").getSprite("corner"), null, this);
 		
 		// Changes the position and angle

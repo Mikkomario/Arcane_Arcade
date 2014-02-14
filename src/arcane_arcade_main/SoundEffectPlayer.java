@@ -1,7 +1,6 @@
 package arcane_arcade_main;
 
 import arcane_arcade_field.Avatar;
-import arcane_arcade_worlds.Navigator;
 
 /**
  * SoundEffectPlayer provides more easy tools to play different wavsounds in 
@@ -22,7 +21,7 @@ public class SoundEffectPlayer
 	public static void playSoundEffect(String effectname)
 	{
 		// Simply plays the sound with certain volume settings
-		Navigator.getWavBank("effects").getSound(effectname).play(
+		MultiMediaHolder.getWavBank("effects").getSound(effectname).play(
 				Options.soundvolumeadjustment, 0, null);
 	}
 	
@@ -39,7 +38,7 @@ public class SoundEffectPlayer
 		// Calculates the used pan
 		float pan = getEnvironmentalPan(x);
 		// Plays the sound effect
-		Navigator.getWavBank("effects").getSound(effectname).play(
+		MultiMediaHolder.getWavBank("effects").getSound(effectname).play(
 				Options.soundvolumeadjustment, pan, null);
 	}
 	

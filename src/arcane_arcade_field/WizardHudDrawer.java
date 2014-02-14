@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.util.Iterator;
 
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_worlds.Navigator;
+import arcane_arcade_main.MultiMediaHolder;
 import gameobjects.DrawnObject;
 import graphic.SingleSpriteDrawer;
 import handleds.Drawable;
@@ -187,7 +187,7 @@ public class WizardHudDrawer extends DrawableHandler
 			
 			// Initializes attributes
 			this.spritedrawer = new SingleSpriteDrawer(
-					Navigator.getSpriteBank("hud").getSprite(
+					MultiMediaHolder.getSpriteBank("hud").getSprite(
 					"elements"), null, this);
 			this.elementindex = elementindex;
 			this.elementspriteindex = 0;
@@ -304,7 +304,7 @@ public class WizardHudDrawer extends DrawableHandler
 			
 			// Initializes attributes
 			this.spritedrawer = new SingleSpriteDrawer(
-					Navigator.getSpriteBank("hud").getSprite(
+					MultiMediaHolder.getSpriteBank("hud").getSprite(
 					"mp"), null, this);
 			this.spritedrawer.setImageIndex(meterimageindex);
 			this.length = 10;
@@ -470,7 +470,7 @@ public class WizardHudDrawer extends DrawableHandler
 			
 			// Initializes attributes
 			this.spritedrawer = new SingleSpriteDrawer(
-					Navigator.getSpriteBank("hud").getSprite(
+					MultiMediaHolder.getSpriteBank("hud").getSprite(
 					"mpuse"), null, this);
 			this.meterwidth = this.spritedrawer.getSprite().getWidth() - 
 					this.spritedrawer.getSprite().getOriginX();
@@ -550,7 +550,7 @@ public class WizardHudDrawer extends DrawableHandler
 			
 			// Initializes attributes
 			this.spritedrawer = new SingleSpriteDrawer(
-					Navigator.getSpriteBank("hud").getSprite(
+					MultiMediaHolder.getSpriteBank("hud").getSprite(
 					"hp"), null, this);
 		}
 		

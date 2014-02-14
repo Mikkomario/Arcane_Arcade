@@ -10,6 +10,7 @@ import java.awt.geom.Point2D;
 import worlds.Room;
 import listeners.RoomListener;
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 import gameobjects.DrawnObject;
@@ -172,9 +173,9 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 			this.navigator = navigator;
 			
 			// Sets the correct sprite and mask
-			getSpriteDrawer().setSprite(Navigator.getSpriteBank(
+			getSpriteDrawer().setSprite(MultiMediaHolder.getSpriteBank(
 					"menu").getSprite(spriteName));
-			getMaskChecker().setMask(Navigator.getSpriteBank(
+			getMaskChecker().setMask(MultiMediaHolder.getSpriteBank(
 					"menu").getSprite(spriteName+"mask"));
 		}
 
@@ -264,7 +265,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 			super(GameSettings.SCREENWIDTH/2, GameSettings.SCREENHEIGHT/2, 
 					DepthConstants.FOREGROUND, drawer);
 			
-			this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
+			this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 					"menu").getSprite("center"), null, this);
 			this.spritedrawer.inactivate();
 		}

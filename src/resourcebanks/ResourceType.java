@@ -1,0 +1,30 @@
+package resourcebanks;
+
+import sound.MidiMusic;
+import sound.WavSound;
+import graphic.Sprite;
+
+/**
+ * ResourceType shows the different types of resources the program supports
+ * @author Mikko Hilpinen. 
+ * Created 14.2.2014
+ */
+public enum ResourceType
+{
+	/**
+	 * Sprite is an 2d (animated) image. Any .png or .jpg can be made into 
+	 * a sprite.
+	 * @see Sprite
+	 */
+	SPRITE, 
+	/**
+	 * Wav is a sound. A file that is in wav-format.
+	 * @see WavSound
+	 */
+	WAV, 
+	/**
+	 * Midi is a midi sound. A file that is in midi-format.
+	 * @see MidiMusic
+	 */
+	MIDI;
+}

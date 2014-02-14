@@ -8,9 +8,9 @@ import worlds.Room;
 import listeners.RoomListener;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
+import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
-import arcane_arcade_worlds.Navigator;
 import gameobjects.BasicPhysicDrawnObject;
 import graphic.SingleSpriteDrawer;
 import handleds.Collidable;
@@ -98,7 +98,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.element2 = element2;
 		this.lifeleft = lifetime;
 		this.lifetime = lifetime;
-		this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
+		this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 				"spells").getSprite(spritename), actorhandler, this);
 		this.fadesin = false;
 		this.fadesout = false;

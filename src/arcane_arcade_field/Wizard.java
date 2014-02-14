@@ -6,21 +6,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import worlds.Room;
-
 import listeners.AdvancedKeyListener;
 import listeners.RoomListener;
-
 import arcane_arcade_field.WizardSoundQueuePlayer.DialogEvent;
 import arcane_arcade_main.Buttons;
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_main.MultiMediaHolder;
 import arcane_arcade_spelleffects.ExplosionEffect;
 import arcane_arcade_spelleffects.SpellEffect;
 import arcane_arcade_spelleffects.TeleportEffect;
 import arcane_arcade_spells.Spell;
 import arcane_arcade_status.Element;
 import arcane_arcade_status.WizardStatus;
-import arcane_arcade_worlds.Navigator;
-
 import gameobjects.BasicPhysicDrawnObject;
 import graphic.MaskChecker;
 import graphic.SingleSpriteDrawer;
@@ -170,12 +167,12 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.hp = this.maxhp;
 		this.invincibilitytime = 0;
 		this.invincibilitydelay = 60;
-		this.spritedrawer = new SingleSpriteDrawer(Navigator.getSpriteBank(
+		this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 				"creatures").getSprite("redwizard"), actorhandler, this);
-		this.maskchecker = new MaskChecker(Navigator.getSpriteBank(
+		this.maskchecker = new MaskChecker(MultiMediaHolder.getSpriteBank(
 				"creatures").getSprite("wizardmask"));
 		this.castdelaymeterdrawer = new SingleSpriteDrawer(
-				Navigator.getSpriteBank("field").getSprite(
+				MultiMediaHolder.getSpriteBank("field").getSprite(
 				"regeneration"), actorhandler, this);
 		this.buttonmaps = leftwizardbuttons;
 		this.elements = usedelements;

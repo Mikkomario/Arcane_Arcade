@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_worlds.Navigator;
+import arcane_arcade_main.MultiMediaHolder;
 import worlds.Room;
 import listeners.RoomListener;
 import gameobjects.DrawnObject;
@@ -163,8 +163,8 @@ public class OptionBar extends DrawnObject implements RoomListener
 				MouseListenerHandler mousehandler, int direction)
 		{
 			super(x, y, DepthConstants.NORMAL, 
-					Navigator.getSpriteBank("menu").getSprite("arrow"), 
-					Navigator.getSpriteBank("menu").getSprite("arrowmask"), 
+					MultiMediaHolder.getSpriteBank("menu").getSprite("arrow"), 
+					MultiMediaHolder.getSpriteBank("menu").getSprite("arrowmask"), 
 					drawer, mousehandler, null);
 			
 			this.direction = direction;

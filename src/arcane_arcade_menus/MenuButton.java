@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_worlds.Navigator;
+import arcane_arcade_main.MultiMediaHolder;
 import worlds.Room;
 import gameobjects.DrawnObject;
 import handleds.Actor;
@@ -52,7 +52,7 @@ public abstract class MenuButton extends AbstractButton
 			String message)
 	{
 		super(x, y, DepthConstants.FOREGROUND, 
-				Navigator.getSpriteBank("menu").getSprite("button"), 
+				MultiMediaHolder.getSpriteBank("menu").getSprite("button"), 
 				drawer, mouselistenerhandler, room);
 		
 		// Initializes attributes
