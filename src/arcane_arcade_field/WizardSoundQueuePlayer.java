@@ -1,11 +1,11 @@
 package arcane_arcade_field;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import arcane_arcade_main.Options;
 import arcane_arcade_main.SoundEffectPlayer;
 import arcane_arcade_status.Element;
-
 import sound.WavSoundQueue;
 
 /**
@@ -88,6 +88,8 @@ public class WizardSoundQueuePlayer
 	 */
 	public void playDialogEvent(DialogEvent event, Wizard source)
 	{
+		System.out.println("Plays a single dialog: " + event);
+		
 		// If the event is noevent, plays no dialog
 		if (event == DialogEvent.NODIALOG)
 			return;
@@ -119,6 +121,7 @@ public class WizardSoundQueuePlayer
 		
 		// Adds the dialog(s) to the queue
 		// Adds firstsound by source to the gueue
+		System.out.println("Wizard 1: " + firstvoicename);
 		this.dialogqueue.addWavSound(
 				source.getAvatar().getVoiceBank().getSound(firstvoicename), 
 				Options.voicevolumeadjustment, 
@@ -126,9 +129,15 @@ public class WizardSoundQueuePlayer
 		// Adds secondsound by other wizards to the queue (if needed)
 		if (event.getOpposingEvent() != DialogEvent.NODIALOG)
 		{
-			for (int i = 0; i < this.wizardrelay.getWizardNumber(); i++)
+			ArrayList<Wizard> opponents = this.wizardrelay.getWizardsFromSide(
+					source.getScreenSide().getOppositeSide());
+			
+			for (Wizard opponent : opponents)
 			{
-				Wizard opponent = this.wizardrelay.getWizard(i);
+				System.out.println("Wizard 2: " + secondvoicename);
+				// TODO: It seems like damageloss or strikewin is never played
+				
+				//Wizard opponent = this.wizardrelay.getWizard(i);
 				this.dialogqueue.addWavSound(opponent.getAvatar().getVoiceBank(
 						).getSound(secondvoicename), 
 						Options.voicevolumeadjustment, 
