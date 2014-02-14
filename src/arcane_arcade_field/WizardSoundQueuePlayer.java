@@ -109,13 +109,13 @@ public class WizardSoundQueuePlayer
 			// TODO: Check if this would be better with >
 			if (source.getHP() >= otherhp)
 			{
-				System.out.println("Damaged is winning");
+				//System.out.println("Damaged is winning");
 				firstvoicename += "win";
 				secondvoicename += "loss";
 			}
 			else
 			{
-				System.out.println("Damaged is losing");
+				//System.out.println("Damaged is losing");
 				firstvoicename += "loss";
 				secondvoicename += "win";
 			}

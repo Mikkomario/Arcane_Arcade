@@ -2,6 +2,7 @@ package arcane_arcade_menus;
 
 import java.awt.geom.Point2D;
 
+import resourcebanks.MultiMediaHolder;
 import gameobjects.GameObject;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
@@ -140,9 +141,15 @@ public class ElementScreenObjectCreator extends GameObject implements
 			// On left pressed goes to the element selection screen
 			if (button == MouseButton.LEFT && 
 					eventType == MouseButtonEventType.PRESSED && isVisible())
+			{
+				// Also stops the menumusic
+				MultiMediaHolder.getMidiTrackBank("menu").getTrack(
+						"maintheme").stop();
+				
 				ElementScreenObjectCreator.this.navigator.startPhase(
 						GamePhase.FIELD, 
 						ElementScreenObjectCreator.this.settings);
+			}
 		}
 		
 		@Override
