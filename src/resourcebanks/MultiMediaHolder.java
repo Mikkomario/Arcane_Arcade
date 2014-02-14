@@ -71,6 +71,36 @@ public class MultiMediaHolder
 					new OpenWavSoundBankHolder(filename)); break;
 			case MIDI: bankholders.put(type, 
 					new OpenMidiMusicBankHolder(filename)); break;
+			case MIDISOUNDTRACK:
+			{
+				if (!bankholders.containsKey(ResourceType.MIDI))
+				{
+					System.err.println("Couldn't initialize the MidiSoundTrack "
+							+ "database because the MidiDatabase hasn't been "
+							+ "initialized yet");
+					return;
+				}
+				
+				bankholders.put(type, 
+						new OpenMidiSoundTrackBankHolder(filename, 
+								(OpenMidiMusicBankHolder) bankholders.get(
+								ResourceType.MIDI))); break;
+			}
+			case WAVSOUNDTRACK:
+			{
+				if (!bankholders.containsKey(ResourceType.WAV))
+				{
+					System.err.println("Couldn't initialize the WavSoundTrack "
+							+ "database because the WavDatabase hasn't been "
+							+ "initialized yet");
+					return;
+				}
+				
+				bankholders.put(type, 
+						new OpenWavSoundTrackBankHolder(filename, 
+								(OpenWavSoundBankHolder) bankholders.get(
+								ResourceType.WAV))); break;
+			}
 			default:
 			{
 				System.err.println(type + " is not supported by "

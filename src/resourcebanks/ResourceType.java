@@ -1,6 +1,7 @@
 package resourcebanks;
 
 import sound.MidiMusic;
+import sound.SoundTrack;
 import sound.WavSound;
 import graphic.Sprite;
 
@@ -26,5 +27,15 @@ public enum ResourceType
 	 * Midi is a midi sound. A file that is in midi-format.
 	 * @see MidiMusic
 	 */
-	MIDI;
+	MIDI, 
+	/**
+	 * MidiSoundTrack is a track created by combining multiple midis together.
+	 * @see SoundTrack
+	 */
+	MIDISOUNDTRACK, 
+	/**
+	 * WavSoundTrack is a track created by combining multiple wavs together.
+	 * @see SoundTrack
+	 */
+	WAVSOUNDTRACK;
 }

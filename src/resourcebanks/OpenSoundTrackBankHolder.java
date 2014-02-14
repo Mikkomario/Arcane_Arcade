@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Mikko Hilpinen. 
  * Created 14.2.2014
  */
-public class OpenSoundTrackBankHolder extends OpenSoundBankHolder
+public abstract class OpenSoundTrackBankHolder extends OpenSoundBankHolder
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
