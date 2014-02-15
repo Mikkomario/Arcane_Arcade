@@ -202,9 +202,9 @@ Eteneminen:														Status
 			aina seuraavaan
 				- Ongelman paikantaminen						DONE
 				- Ongelman korjaus								DONE
-			* Hud-elementit on ihan sekaisin, myös elem.select	...
-				- Ongelman paikannus							...
-				- Ongelman korjaus								...
+			* Hud-elementit on ihan sekaisin, myös elem.select	DONE
+				- Ongelman paikannus							DONE
+				- Ongelman korjaus								DONE
 					
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE

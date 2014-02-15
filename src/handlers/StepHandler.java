@@ -48,10 +48,14 @@ public class StepHandler extends ActorHandler implements Runnable
 	 * down. The adviced value is from 2 to 3 but it can be 
 	 * different depending on the nature of the software. (> 0)
 	 * @param window The which which created the stepHandler
+	 * @param optimizesteplength Should Aps optimization be activated. The 
+	 * optimization tries to increase / decrease the Aps to the optimal value. 
+	 * Usually this is unnecessary but may counter the computer's tries to 
+	 * limit the Aps
 	 * @see #addActor(handleds.Actor)
 	 */
 	public StepHandler(int callInterval, int maxStepsPerCall, 
-			GameWindow window)
+			GameWindow window, boolean optimizesteplength)
 	{
 		super(false, null); // Stephandler doesn't have a superhandler
 		
@@ -64,7 +68,8 @@ public class StepHandler extends ActorHandler implements Runnable
 		this.window = window;
 		
 		// Creates an ApsOptimizer and adds it to the actors
-		addActor(new ApsOptimizer(this.callinterval, 8, 4000, 20000, 6));
+		if (optimizesteplength)
+			addActor(new ApsOptimizer(this.callinterval, 8, 4000, 20000, 6));
 	}
 	
 	

@@ -63,7 +63,8 @@ public class Main
 		boolean fullscreen = Options.fullscreenon;
 		
 		this.window = new GameWindow(GameSettings.SCREENWIDTH, 
-				GameSettings.SCREENHEIGHT, "Arcane Arcade", !fullscreen, 80, 10);
+				GameSettings.SCREENHEIGHT, "Arcane Arcade", !fullscreen, 
+				120, 10, false);
 		// Sets up the window
 		this.window.addGamePanel(this.mainpanel, BorderLayout.CENTER);
 		// Sets the window to the fullscreen if needed

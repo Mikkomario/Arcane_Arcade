@@ -54,7 +54,7 @@ public class Navigator
 		this.activephase = null;
 		
 		// Initializes the backgrounds for the rooms
-		MultiMediaHolder.activateBank(ResourceType.SPRITE, "background");
+		MultiMediaHolder.activateBank(ResourceType.SPRITE, "background", true);
 		
 		// Initializes the rooms
 		initializeMainMenu(drawer, actorhandler, mouselistenerhandler);
@@ -194,7 +194,7 @@ public class Navigator
 		// (Checking done in the addSpritebank method)
 		for (int i = 0; i < newbanknames.length; i++)
 		{
-			MultiMediaHolder.activateBank(resourcetype, newbanknames[i]);
+			MultiMediaHolder.activateBank(resourcetype, newbanknames[i], true);
 		}
 	}
 	

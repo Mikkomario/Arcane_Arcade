@@ -22,8 +22,7 @@ public interface OpenBank
 	public void uninitialize();
 	
 	/**
-	 * Initializes the bank so it can be used immediately
+	 * Initializes all the resources in the bank so they can be used immediately
 	 */
-	// TODO: Add this if multiMediaHolder doesn't work otherwise
-	//public void initializeBank();
+	public void initializeBank();
 }

@@ -206,9 +206,12 @@ public class MultiMediaHolder
 	 * 
 	 * @param type The resource type of the bank
 	 * @param bankname The name of the resource bank
+	 * @param preinitialize Should all the resources in the bank be initialized 
+	 * right away (true) or at the first time the bank is used (false)
 	 * @see #deactivateBank(ResourceType, String)
 	 */
-	public static void activateBank(ResourceType type, String bankname)
+	public static void activateBank(ResourceType type, String bankname, 
+			boolean preinitialize)
 	{
 		if (!activebanks.containsKey(type))
 		{
@@ -222,7 +225,8 @@ public class MultiMediaHolder
 			return;
 		
 		OpenBank newbank = bankholders.get(type).getBank(bankname);
-		// TODO: Check if initialization is needed
+		if (preinitialize)
+			newbank.initializeBank();
 		activebanks.get(type).put(bankname, newbank);
 		
 		if (newbank == null)
@@ -235,7 +239,7 @@ public class MultiMediaHolder
 	 * 
 	 * @param type The resource type of the bank
 	 * @param bankname The name of the bank
-	 * @see #activateBank(ResourceType, String)
+	 * @see #activateBank(ResourceType, String, boolean)
 	 */
 	public static void deactivateBank(ResourceType type, String bankname)
 	{

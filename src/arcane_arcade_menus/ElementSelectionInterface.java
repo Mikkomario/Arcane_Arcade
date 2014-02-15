@@ -389,7 +389,7 @@ public class ElementSelectionInterface
 			this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 					"hud").getSprite("elements"), null, this);
 			this.side = side;
-
+			
 			// Sets up the position
 			switch (side)
 			{
@@ -421,13 +421,19 @@ public class ElementSelectionInterface
 		@Override
 		public int getOriginX()
 		{
-			return 0;
+			if (this.spritedrawer == null)
+				return 0;
+			else
+				return this.spritedrawer.getSprite().getOriginX();
 		}
 
 		@Override
 		public int getOriginY()
 		{
-			return 0;
+			if (this.spritedrawer == null)
+				return 0;
+			else
+				return this.spritedrawer.getSprite().getOriginY();
 		}
 
 		@Override

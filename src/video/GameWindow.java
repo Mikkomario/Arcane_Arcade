@@ -75,9 +75,13 @@ public class GameWindow extends JFrame
 	 * to slow down if the fps drops below this value so keeping it low increases 
 	 * usability. The program's physics may not support very low framerates 
 	 * though. (> 0)
+	 * @param optimizeAps Should Aps (actions per second) optimization be 
+	 * activated. The optimization tries to increase / decrease the Aps to the 
+	 * optimal value. Usually this is unnecessary but may counter the 
+	 * computer's attempts to limit the Aps
 	 */
 	public GameWindow(int width, int height, String title, boolean hastoolbar, 
-			int maxfpslimit, int minimumsupportedfps)
+			int maxfpslimit, int minimumsupportedfps, boolean optimizeAps)
 	{
 		// Sets the decorations off if needed
 		if (!hastoolbar)
@@ -107,7 +111,7 @@ public class GameWindow extends JFrame
 		// Creates and initializes important handlers
 		this.stephandler = new StepHandler(1000 / maxfpslimit, 
 				(int) Math.round((1000.0 / minimumsupportedfps) / 
-				StepHandler.STEPLENGTH), this);
+				StepHandler.STEPLENGTH), this, optimizeAps);
 		// And the screen drawer
 		this.screendrawer = new ScreenDrawer(this);
 		
