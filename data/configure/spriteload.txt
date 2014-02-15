@@ -31,7 +31,7 @@ server#images/game/server.png#1#91#52
 regeneration#images/hud/regen_meter_strip19.png#19#55#54
 
 &hud
-elements#images/hud/elem_button_strip9.png#9#0#0
+elements#images/hud/elem_button_strip9.png#9#29#29
 hp#images/hud/heart_meter_strip2.png#2#0#0
 mp#images/hud/mp_meter_block_strip3.png#3#0#0
 mpuse#images/hud/mp_usage_strip2.png#2#8#12

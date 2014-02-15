@@ -202,9 +202,9 @@ Eteneminen:														Status
 			aina seuraavaan
 				- Ongelman paikantaminen						DONE
 				- Ongelman korjaus								DONE
-			* Hud-elementit on ihan sekaisin, myös elem.select
-				- Ongelman paikannus
-				- Ongelman korjaus
+			* Hud-elementit on ihan sekaisin, myös elem.select	...
+				- Ongelman paikannus							...
+				- Ongelman korjaus								...
 					
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
@@ -381,6 +381,10 @@ Eteneminen:														Status
 			* Hudin jättäminen kameran ulkopuolelle
 			* Kentän koon muuntelu / sen tukeminen
 			* Kameran oikeaoppinen zoomaus
+		- Uuden nimen kehittäminen
+			* Arcane Arcade näyttäisi olevan erään 
+			kahvipöytälaitteen tuotemerkki
+			* Wizard Pong on tietysti yks vaihtoehto
 	* Gold	---------------------------------------------------------------
 		- Erilaiset kentät
 			* Erilaiset haasteet ja objektit
@@ -452,11 +456,16 @@ Eteneminen:														Status
 			* Kokemuksen hankkiminen
 			* Uusien ominaisuuksien unlockkaaminen
 		- Visuaaliset erikoisefektit
-		- Mikrotransaktiot (:D)
+		- Mikrotransaktiot
 			* Mahdollisuuksien ja toteutuksen kartoittaminen
 				- Hahmojen, kenttien ja elementtien ostaminen 
 				joko kaikki kerralla tai satunnaisissa paketeissa
 					* Tai jopa yksittäin
+				- Voisi myös tehdä niin, että pelaamalla pystyy 
+				saamaan merkittäviä alennuksia ostoksiin 
+				(expa vähentää hintaa)
+					* Esim. X voittoa / peliä pudottaa seuraavan 
+					ostoksen hintaa Y prossaa
 		- HD Edition
 			* Parempiresoluutioisten spritejen valmistaminen
 			* Tilanteeseen sopivan spriteympäristön luominen
@@ -466,3 +475,5 @@ Eteneminen:														Status
 			* Mahdollisuuksien kartoittaminen
 			* Käyttöliittymän muuttaminen
 			* Ohjauksen toiminta
+		- Neljän maagin taistelumoodi
+			* Yksi maagi kullakin sivulla

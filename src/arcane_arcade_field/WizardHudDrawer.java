@@ -47,16 +47,12 @@ public class WizardHudDrawer extends DrawableHandler
 		this.wizard = wizard;
 		
 		// Creates the drawers and adds them to the handleds
-		int element1x = 5;
-		int elementy = GameSettings.SCREENHEIGHT - 125;
-		int xmovementsign = 1;
+		int element1x = 35;
+		int elementy = GameSettings.SCREENHEIGHT - 97;
 		ScreenSide side = this.wizard.getScreenSide();
 		// Positions are different if the screenside is different
 		if (side == ScreenSide.RIGHT)
-		{
-			element1x = GameSettings.SCREENWIDTH - 5;
-			xmovementsign = -1;
-		}
+			element1x = GameSettings.SCREENWIDTH - 93;
 		
 		// Current 1
 		ElementDrawer current1 = new ElementDrawer(element1x, elementy, 
@@ -64,26 +60,29 @@ public class WizardHudDrawer extends DrawableHandler
 		int elementiconwidth = current1.getWidth();
 		int elementiconheight = current1.getHeight();
 		// Current 2
-		new ElementDrawer(element1x + elementiconwidth * xmovementsign, 
+		new ElementDrawer(element1x + elementiconwidth, 
 				elementy, -1, this, ElementDrawer.ELEMENTINDEX_CURRENT_SECOND);
 		// Next 1
 		new ElementDrawer(element1x, elementy - elementiconheight / 2, 0, this, 
 				ElementDrawer.ELEMENTINDEX_NEXT);
 		// Next 2
-		new ElementDrawer(element1x + elementiconwidth * xmovementsign, 
+		new ElementDrawer(element1x + elementiconwidth, 
 				elementy - elementiconheight / 2, 0, this, 
 				ElementDrawer.ELEMENTINDEX_NEXT_SECOND);
 		// Last 1
 		new ElementDrawer(element1x, elementy + elementiconheight / 2, 0, 
 				this, ElementDrawer.ELEMENTINDEX_LAST);
 		// Last 2
-		new ElementDrawer(element1x + elementiconwidth * xmovementsign, 
+		new ElementDrawer(element1x + elementiconwidth, 
 				elementy + elementiconheight / 2, 0, 
 				this, ElementDrawer.ELEMENTINDEX_LAST_SECOND);
 		
 		// Creates the MP-meters and adds them to the drawer
-		int meterx = element1x + (elementiconwidth * 2 + 10) * xmovementsign;
+		int meterx = element1x + (int) (elementiconwidth * 1.5 + 10);
 		int metery = GameSettings.SCREENHEIGHT - mpblockheight * 2 - 10;
+		
+		if (side == ScreenSide.RIGHT)
+			meterx = element1x - (int) (elementiconwidth * 0.5 + 10);
 		
 		// The bottom meter
 		new MPMeterDrawer(meterx, metery, 4, this, 0);
@@ -97,22 +96,6 @@ public class WizardHudDrawer extends DrawableHandler
 		// Creates the HP-meter and adds it to the drawer
 		metery -= hpblockheight + 10;
 		new HealthMeter(meterx, metery, 2, this);
-		
-		// If the screen side was RIGHT, goes through all handleds and flips 
-		// them around
-		if (side == ScreenSide.RIGHT)
-		{
-			Iterator<Handled> iterator = getIterator();
-			while (iterator.hasNext())
-			{
-				DrawnObject d = (DrawnObject) iterator.next();
-				
-				// Doesn't scale the MPUse meter (which handles the scaling 
-				// individually)
-				if (!(d instanceof MPUseMeter))
-					d.scale(-1, 1);
-			}
-		}
 	}
 	
 	
@@ -133,6 +116,7 @@ public class WizardHudDrawer extends DrawableHandler
 	 */
 	protected void callSpellUpdate()
 	{
+		//System.out.println(getHandledNumber());
 		// Goes through the handleds and updates their status
 		Iterator<Handled> iterator = getIterator();
 		while (iterator.hasNext())
@@ -200,6 +184,10 @@ public class WizardHudDrawer extends DrawableHandler
 					this.elementindex == ELEMENTINDEX_NEXT || 
 					this.elementindex == ELEMENTINDEX_NEXT_SECOND)
 				setAlpha(0.4f);
+			
+			// If the element resides on the right side it is mirrored
+			if (WizardHudDrawer.this.wizard.getScreenSide() == ScreenSide.RIGHT)
+				scale(-1, 1);
 		}
 		
 		
@@ -308,6 +296,10 @@ public class WizardHudDrawer extends DrawableHandler
 					"mp"), null, this);
 			this.spritedrawer.setImageIndex(meterimageindex);
 			this.length = 10;
+			
+			// Right side elements are flipped
+			if (WizardHudDrawer.this.wizard.getScreenSide() == ScreenSide.RIGHT)
+				scale(-1, 1);
 		}
 		
 		
@@ -552,6 +544,10 @@ public class WizardHudDrawer extends DrawableHandler
 			this.spritedrawer = new SingleSpriteDrawer(
 					MultiMediaHolder.getSpriteBank("hud").getSprite(
 					"hp"), null, this);
+			
+			// Flips the meter if on the right side
+			if (WizardHudDrawer.this.wizard.getScreenSide() == ScreenSide.RIGHT)
+				scale(-1, 1);
 		}
 		
 		
