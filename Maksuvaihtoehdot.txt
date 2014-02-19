@@ -1,0 +1,38 @@
+AA -maksuvaihtoehdot
+
+Busy man's set
+	- Kaikki elementit, maagit ja kentät unlockattu heti ostettaessa
+	- Tarkoitettu pelaajalle, jolla on rahaa muttei aikaa ja joka haluaa 
+	ostaa koko pelin kerralla
+Traditional set
+	- Kaikki elementit, maagit ja kentät ovat ilmaisia, mutta vaativat 
+	tietyn määrän kokemusta jotta ne saa käyttöön
+	- Tarkoitettu perinteiselle hardcore-pelaajalle, joka arvostaa 
+	progressiivista etenemistä pelissä
+Collector's pack
+	- Osta pelin sisällä X-kokoisen sekoituksen elementtejä, maageja ja 
+	kenttiä
+	- Sekoituksen sisältö valittu satunnaisesti, muta ilman kaksoiskappaleita
+	- Tarkoitettu ihmisille, jotka haluavat kokeilla uusia asioita, mutta jotka 
+	eivät välttämättä halua ostaa koko sisältöä
+Cherrypicker's pack
+	- Osta pelin sisällä yksittäisiä elementtejä, maageja tai kenttiä
+	- Saa valita, mitä ostaa
+	- Tarkoitettu käyttäjille, jotka haluavat juuri jotain tiettyä ja vain sen
+	
+Vois myös tehdä niin, että pelissä on (ellei traditional set) 2 valuuttaa: 
+	* Kokemus, jota saadaan pelaamalla peliä ja voittamalla taisteluita
+	* Materiaali / Power, jota saadaan ostamalla oikealla rahalla
+Nämä eivät tosin toimi perinteisesti, vaan kokemuksella pystytään ASTEITTAIN 
+korvaamaan materiaalia ja toisin päin.
+
+Korvaussysteemi menis seuraavan kaavan mukaisesti (vain yhden vaihdon voi tehdä 
+yhtä ostosta kohden)
+	* 1 Kokemuksella 1 Materiaali
+	* 3 Kokemuksella 2 Materiaalia
+	* 6 Kokemuksella 3 Materiaalia
+	* 10 Kokemuksella 4 Materiaalia
+	* ...
+	* 55 Kokemuksella 10 Materiaalia
+	* (1 + (n - 1)*0.5) * n Kokemuksella n Materiaalia
+Näin käyttäjä pystyy itse päättämään, kuinka arvokasta aika hänelle on

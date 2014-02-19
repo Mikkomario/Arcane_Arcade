@@ -6,6 +6,7 @@ import graphic.Sprite;
 import handleds.LogicalHandled;
 import handlers.ActorHandler;
 import handlers.DrawableHandler;
+import handlers.MouseListenerHandler;
 import helpAndEnums.CollisionType;
 
 import java.awt.Color;
@@ -72,12 +73,14 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 	 * @param drawer The drawableHandler that will draw the box (optional)
 	 * @param actorhandler The actorHandler that will animate the background 
 	 * sprite (optional)
+	 * @param mousehandler MouseListenerHandler that informs the option buttons 
+	 * about mouse events
 	 */
 	public OptionMessageBox(int x, int y, int depth, String message,
 			Font textfont, Color textcolor, Sprite backgroundsprite, 
 			String[] options, Sprite buttonsprite, boolean diesafteruse, 
 			OptionMessageBoxListener user, DrawableHandler drawer,
-			ActorHandler actorhandler)
+			ActorHandler actorhandler, MouseListenerHandler mousehandler)
 	{
 		super(x, y, depth, message, textfont, textcolor, backgroundsprite, drawer,
 				actorhandler);
@@ -87,20 +90,30 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		this.autodeath = diesafteruse;
 		this.user = user;
 		
-		int buttony = backgroundsprite.getHeight() - getOriginY() - MARGIN - 
+		// TODO: Fix this
+		
+		int buttony = backgroundsprite.getHeight() - MARGIN - 
 				buttonsprite.getHeight() + buttonsprite.getOriginY();
-		int minbuttonx = -getOriginX() + MARGIN + buttonsprite.getOriginX();
-		int maxbuttonx = backgroundsprite.getWidth() - getOriginX() - MARGIN - 
+		int minbuttonx = /*MARGIN +*/ buttonsprite.getOriginX();
+		int maxbuttonx = backgroundsprite.getWidth() - //MARGIN - 
 				buttonsprite.getWidth() + buttonsprite.getOriginX();
+		
+		//System.out.println("Y:" + buttony + ", X1: " + minbuttonx + ", X2: " + maxbuttonx);
+		//System.out.println("Vali: " + (maxbuttonx - minbuttonx));
 		
 		// Creates the options
 		for (int i = 0; i < options.length; i++)
 		{
-			int buttonx = minbuttonx + (int) ((i + 1.0 / (options.length + 1.0)) * 
-					(maxbuttonx - minbuttonx));
+			int buttonx = (int) (minbuttonx + ((i + 1.0) / (options.length + 1.0)) * (maxbuttonx - minbuttonx));
+			
+			//System.out.println(getX() + " + " + minbuttonx + " + " + (i + 1.0) + " / " + (options.length + 1.0) + " * " + (maxbuttonx - minbuttonx));
+			//System.out.println(minbuttonx + ((i + 1.0) / (options.length + 1.0)) * (maxbuttonx - minbuttonx));	
+			
+			/*minbuttonx + (int) ((i + 1.0 / (options.length + 1.0)) * 
+			(maxbuttonx - minbuttonx));*/
 			
 			new OptionButton(buttonx, buttony, buttonsprite, options[i], i, 
-					textfont, textcolor, drawer, this);
+					textfont, textcolor, drawer, mousehandler, this);
 		}
 	}
 	
@@ -161,9 +174,12 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		
 		// CONSTRUCTOR	-------------------------------------------------
 		
+		// Note: Relativex and relativey are relative to the top left corner 
+		// of the object
 		public OptionButton(int relativex, int relativey, Sprite buttonsprite, 
 				String text, int index, Font textfont, Color textcolor, 
-				DrawableHandler drawer, OptionMessageBox containerbox)
+				DrawableHandler drawer, MouseListenerHandler mousehandler, 
+				OptionMessageBox containerbox)
 		{
 			super(0, 0, containerbox.getDepth(), false, 
 					CollisionType.BOX, drawer, null);
@@ -181,6 +197,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 			
 			// Adds the object to the handler(s)
 			this.box.getTransformationListenerHandler().addListener(this);
+			mousehandler.addMouseListener(this);
 		}
 		
 		

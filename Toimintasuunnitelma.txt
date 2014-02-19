@@ -50,10 +50,10 @@ Eteneminen:														Status
 				- Maagin normaali liikuttaminen					DONE
 				- Maagin teleporttailu							DONE
 					* Lisää visuaalinen efekti					DONE
-					* Portal-grafiikka efektiin					Plääh
+					* Portal-grafiikka efektiin					Hylätty
 			* Maagin törmääminen seiniin						DONE
-				- Lisää oma luokka joka hoitaa tarkistuksen 	Plääh
-				- Lisää myös listener rajapinta niin että 		Plääh
+				- Lisää oma luokka joka hoitaa tarkistuksen 	Hylätty
+				- Lisää myös listener rajapinta niin että 		Hylätty
 				uusi luokka voi kertoa objekteille kun ne 
 				törmää seinään
 		- Pallo													DONE
@@ -110,7 +110,7 @@ Eteneminen:														Status
 			* Ongelma: Piirtosyvyys vaihtelee jaksollisesti, 	DONE
 			mutta on säännöllisesti väärä 
 			(mutta toimii 1/2 aikaa oikein)
-			* Ongelman syyn etsiminen							Plääh
+			* Ongelman syyn etsiminen							Hylätty
 			* Ongelman ratkaiseminen							DONE
 			* Ratkaisun seurausten kartoittaminen ja 			DONE
 			korjaaminen
@@ -132,10 +132,10 @@ Eteneminen:														Status
 			Transformation_matrix
 			* Muunnosmatriisien käyttö 
 			koordinaatistomuunnoksissa 							DONE
-				- Matriisi-tietorakenteen luominen				Plääh
+				- Matriisi-tietorakenteen luominen				Hylätty
 					* Kts: http://en.wikipedia.org/wiki/
 					Matrix_multiplication
-					* Matriisien kertominen						Plääh
+					* Matriisien kertominen						Hylätty
 				- Matriisien käyttöönotto						DONE
 			* Shearing											DONE
 				- Kts: http://docs.oracle.com/javase/7/docs/
@@ -309,8 +309,8 @@ Eteneminen:														Status
 				- Asetusten lukeminen pelin alussa				DONE
 				- MessageBoxit interaktiota varten				...
 					* Yleinen yläluokka							Testaamatta
-					* Ok messagebox								Plääh
-					* Yes / No -box								Plääh
+					* Ok messagebox								Hylätty
+					* Yes / No -box								Hylätty
 					* KeyBindaus -box
 			* SpellBook											...
 				- Ohjeresurssien rakenteen määrittäminen		...
@@ -358,7 +358,7 @@ Eteneminen:														Status
 		- Uudet loitsut / Elementit
 			* Tarvittavat graafiset resurssit					...
 			* Useamman statusefektin laittaminen kerralla
-			* Movementspeedin vähentyminen castaamisessa?		Plääh
+			* Movementspeedin vähentyminen castaamisessa?		Hylätty
 		- Tutorial
 			* Tarvittavat valikot
 			* Tarvittavan interaktion luonti
@@ -410,14 +410,14 @@ Eteneminen:														Status
 			* Vaikutus peliin									...
 				- Attribuuttimuunnoksia
 				- Spriten vaihto
-				- Äänien muuttaminen							...
+				- Äänien muuttaminen							DONE
 				- Vaikutus soitettavaan musiikkiin
 			* Järkevä arkkitehtuuri vaaditaan, jotta maagien 	...
 			lisäys olisi helppoa
-		- Interaktiivinen hiiri valikoissa
+		- Interaktiivinen hiiri valikoissa						...
 			* "Favi"
 			* Äänten soittaminen
-			* Resurssien järkevä käyttöönotto
+			* Resurssien järkevä käyttöönotto					...
 		- Title screen
 			* Alkunäyte?
 				- Videoiden näyttäminen
@@ -455,6 +455,7 @@ Eteneminen:														Status
 		- Pelissä eteneminen
 			* Kokemuksen hankkiminen
 			* Uusien ominaisuuksien unlockkaaminen
+			* Katso myös mikrotransaktiot
 		- Visuaaliset erikoisefektit
 		- Mikrotransaktiot
 			* Mahdollisuuksien ja toteutuksen kartoittaminen
@@ -466,6 +467,11 @@ Eteneminen:														Status
 				(expa vähentää hintaa)
 					* Esim. X voittoa / peliä pudottaa seuraavan 
 					ostoksen hintaa Y prossaa
+				- Lisäksi vaihtoehtona voisi olla "Traditional mode", 
+				jossa koko peli ostetaan ensin (halvemmalla) ja 
+				sitten stuffi pitää vielä unlockata
+					* Niille joilla on enemmän aikaa, TB:ille 
+					vaihtoehto ostaa kaikki suoraan
 		- HD Edition
 			* Parempiresoluutioisten spritejen valmistaminen
 			* Tilanteeseen sopivan spriteympäristön luominen
