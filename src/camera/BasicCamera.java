@@ -5,7 +5,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import listeners.CameraListener;
 import gameobjects.BasicPhysicDrawnObject;
 import gameobjects.CollidingDrawnObject;
 import gameobjects.DimensionalDrawnObject;
@@ -13,7 +12,6 @@ import gameobjects.DrawnObject;
 import handleds.Collidable;
 import handleds.Drawable;
 import handlers.ActorHandler;
-import handlers.CameraListenerHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
 import helpAndEnums.DepthConstants;
@@ -31,7 +29,6 @@ public class BasicCamera extends BasicPhysicDrawnObject
 	// ATTRIBUTES	------------------------------------------------------
 	
 	private CameraDrawer drawer;
-	private CameraListenerHandler listenerhandler;
 	private int screenWidth, screenHeight;
 	
 	
@@ -57,13 +54,9 @@ public class BasicCamera extends BasicPhysicDrawnObject
 				null, null, actorhandler);
 		
 		// Initializes attributes
-		this.listenerhandler = new CameraListenerHandler(true, null);
 		this.drawer =  new CameraDrawer(false, this);
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
-		
-		// Informs the listeners about the camera's position
-		informStatus();
 	}
 	
 	
@@ -149,31 +142,12 @@ public class BasicCamera extends BasicPhysicDrawnObject
 	}
 	
 	/**
-	 * Adds a new cameralistener to the camera
-	 *
-	 * @param listener The new cameralistener
-	 */
-	public void addCameraListener(CameraListener listener)
-	{
-		this.listenerhandler.addListener(listener);
-	}
-	
-	/**
 	 * @return The drawablehandler used to draw the contents of the camera. 
 	 * Notice that the drawer only supports drawnObjects and not drawableHandlers
 	 */	
 	public CameraDrawer getDrawer()
 	{
 		return this.drawer;
-	}
-	
-	private void informStatus()
-	{
-		this.listenerhandler.informCameraPosition(
-				(int) getX(), (int) getY(), 
-				(int) Math.abs(this.screenWidth * getXScale()), 
-				(int) Math.abs(this.screenHeight * getYScale()), 
-				(int) HelpMath.checkDirection(getAngle()));
 	}
 	
 	/**

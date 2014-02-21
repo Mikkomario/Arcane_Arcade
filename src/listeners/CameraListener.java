@@ -11,6 +11,7 @@ import handleds.LogicalHandled;
  * @see camera.BasicCamera
  * @warning This class may become deprecated in the near future if a 
  * transformationListener class is added
+ * @deprecated TransformationListener should be used instead of this class
  */
 public interface CameraListener extends LogicalHandled
 {	

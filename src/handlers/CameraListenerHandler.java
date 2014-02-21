@@ -8,6 +8,7 @@ import listeners.CameraListener;
  *
  * @author Mikko Hilpinen.
  *         Created 7.12.2012.
+ * @deprecated TransformationListenerHandler should be used instead
  */
 public class CameraListenerHandler extends LogicalHandler implements CameraListener
 {	

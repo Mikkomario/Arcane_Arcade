@@ -643,7 +643,7 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * @param relativepoint The point to be transformed.
 	 * @return Absolute position created by transforming the relative point
 	 */
-	protected Point2D.Double transform(Point2D relativepoint)
+	public Point2D.Double transform(Point2D relativepoint)
 	{	
 		updateTransformation();
 		

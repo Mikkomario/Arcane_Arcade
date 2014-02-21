@@ -31,8 +31,10 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
-	private boolean active, autodeath;
+	private boolean active, autodeath, deactivatesOthers;
 	private OptionMessageBoxListener user;
+	private MouseListenerHandler mousehandler;
+	private ActorHandler actorhandler;
 	
 	/**
 	 * This template setting is used for boxes that only need to present 
@@ -68,6 +70,8 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 	 * mouse hover
 	 * @param diesafteruse Will the optionmessageBox die and disappear after 
 	 * one of the options is chosen
+	 * @param deactivateOtherComponents Should other objects in the mouse and 
+	 * actorhandled be deactivated?
 	 * @param user The object that is interested in which of the options 
 	 * was pressed (optional)
 	 * @param drawer The drawableHandler that will draw the box (optional)
@@ -79,18 +83,27 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 	public OptionMessageBox(int x, int y, int depth, String message,
 			Font textfont, Color textcolor, Sprite backgroundsprite, 
 			String[] options, Sprite buttonsprite, boolean diesafteruse, 
+			boolean deactivateOtherComponents, 
 			OptionMessageBoxListener user, DrawableHandler drawer,
 			ActorHandler actorhandler, MouseListenerHandler mousehandler)
 	{
 		super(x, y, depth, message, textfont, textcolor, backgroundsprite, drawer,
 				actorhandler);
 		
+		// Checks if the message should deactivate other objects
+		if (deactivateOtherComponents)
+		{
+			actorhandler.inactivate();
+			mousehandler.inactivate();
+		}
+		
 		// Initializes attributes
 		this.active = true;
 		this.autodeath = diesafteruse;
 		this.user = user;
-		
-		// TODO: Fix this
+		this.deactivatesOthers = true;
+		this.mousehandler = mousehandler;
+		this.actorhandler = actorhandler;
 		
 		int buttony = backgroundsprite.getHeight() - MARGIN - 
 				buttonsprite.getHeight() + buttonsprite.getOriginY();
@@ -98,19 +111,10 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		int maxbuttonx = backgroundsprite.getWidth() - //MARGIN - 
 				buttonsprite.getWidth() + buttonsprite.getOriginX();
 		
-		//System.out.println("Y:" + buttony + ", X1: " + minbuttonx + ", X2: " + maxbuttonx);
-		//System.out.println("Vali: " + (maxbuttonx - minbuttonx));
-		
 		// Creates the options
 		for (int i = 0; i < options.length; i++)
 		{
 			int buttonx = (int) (minbuttonx + ((i + 1.0) / (options.length + 1.0)) * (maxbuttonx - minbuttonx));
-			
-			//System.out.println(getX() + " + " + minbuttonx + " + " + (i + 1.0) + " / " + (options.length + 1.0) + " * " + (maxbuttonx - minbuttonx));
-			//System.out.println(minbuttonx + ((i + 1.0) / (options.length + 1.0)) * (maxbuttonx - minbuttonx));	
-			
-			/*minbuttonx + (int) ((i + 1.0 / (options.length + 1.0)) * 
-			(maxbuttonx - minbuttonx));*/
 			
 			new OptionButton(buttonx, buttony, buttonsprite, options[i], i, 
 					textfont, textcolor, drawer, mousehandler, this);
@@ -133,6 +137,19 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 	public void inactivate()
 	{
 		this.active = false;
+	}
+	
+	@Override
+	public void kill()
+	{
+		// Checks if the other objects should be reactivated
+		if (this.deactivatesOthers)
+		{
+			this.mousehandler.activate();
+			this.actorhandler.activate();
+		}
+			
+		super.kill();
 	}
 	
 	
