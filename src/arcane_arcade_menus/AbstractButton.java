@@ -163,6 +163,13 @@ public abstract class AbstractButton extends DimensionalDrawnObject implements
 		return MouseButtonEventScale.LOCAL;
 	}
 	
+	@Override
+	public Class<?>[] getSupportedListenerClasses()
+	{
+		// Doens't limit collided classes
+		return null;
+	}
+	
 	/*
 	@Override
 	public void onMousePositionEvent(MousePositionEventType eventType,

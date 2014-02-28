@@ -3,6 +3,7 @@ package handlers;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import listeners.CollisionListener;
 import handleds.Collidable;
 import handleds.Handled;
 
@@ -62,14 +63,19 @@ public class CollidableHandler extends Handler
 	 * collide with the given point
 	 *
 	 * @param collisionPoint The point where the collisions are checked
+	 * @param listener The collisionListener listening to the given position. 
+	 * The value is only used for checking if the collided object supports the 
+	 * listener and no changes are made to the object. Use null if you 
+	 * specifically want to skip all support checks.
 	 * @return A list of objects colliding wiht the point or null if no object 
 	 * collided with the point
 	 */
-	public ArrayList<Collidable> getCollidedObjectsAtPoint(Point2D collisionPoint)
+	public ArrayList<Collidable> getCollidedObjectsAtPoint(Point2D collisionPoint, 
+			CollisionListener listener)
 	{
 		// Initializes the operator
 		CollisionCheckOperator checkoperator = 
-				new CollisionCheckOperator(collisionPoint);
+				new CollisionCheckOperator(collisionPoint, listener);
 		
 		// Checks collisions through all collidables
 		handleObjects(checkoperator);
@@ -130,14 +136,18 @@ public class CollidableHandler extends Handler
 		
 		private ArrayList<Collidable> collided;
 		private Point2D checkPosition;
+		private CollisionListener listener;
 		
 		
 		// CONSTRUCTOR	-------------------------------------------------
 		
-		public CollisionCheckOperator(Point2D checkPosition)
+		// Listener is not changed in any way during the process
+		public CollisionCheckOperator(Point2D checkPosition, 
+				CollisionListener listener)
 		{
 			this.checkPosition = checkPosition;
 			this.collided = new ArrayList<Collidable>();
+			this.listener = listener;
 		}
 		
 		
@@ -150,6 +160,31 @@ public class CollidableHandler extends Handler
 			
 			// Non-solid objects can't collide
 			if (!c.isSolid())
+				return true;
+			
+			// Checks if the listener's class is supported
+			Class<?>[] supportedclasses = c.getSupportedListenerClasses();
+			boolean listenerissupported = true;
+			// Null supported classes means that the collidable doesn't want 
+			// support to be checked.
+			// Null listener means that the listener doesn't want support to 
+			// be checked
+			if (supportedclasses != null && this.listener != null)
+			{
+				// Otherwise tries to find the listener's class from the list
+				listenerissupported = false;
+				
+				for (int i = 0; i < supportedclasses.length; i++)
+				{
+					if (supportedclasses[i].isInstance(this.listener))
+					{
+						listenerissupported = true;
+						break;
+					}
+				}
+			}
+			// Unsupported classes are ignored
+			if (!listenerissupported)
 				return true;
 			
 			// Checks the collision

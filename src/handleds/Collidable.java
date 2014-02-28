@@ -33,4 +33,11 @@ public interface Collidable extends Handled
 	 * Tries to make the object unsolid so that no object can collide with it
 	 */
 	public void makeUnsolid();
+	
+	/**
+	 * @return A table containing all the listener classes that should be 
+	 * informed about the object. Return null if you don't want to limit 
+	 * the class selection.
+	 */
+	public Class<?>[] getSupportedListenerClasses();
 }

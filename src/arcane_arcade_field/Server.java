@@ -181,6 +181,14 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener,
 		shootBall();
 	}
 	
+	@Override
+	public Class<?>[] getSupportedListenerClasses()
+	{
+		// Server doesn't collide with anything by default but doesn't limit it 
+		// either
+		return null;
+	}
+	
 	
 	// OTHER METHODS	-------------------------------------------------
 	

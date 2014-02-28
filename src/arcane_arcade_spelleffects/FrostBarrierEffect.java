@@ -23,6 +23,8 @@ public class FrostBarrierEffect extends SpellEffect
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private ScreenSide side;
+	// Currently only collides with balls
+	private static final Class<?>[] COLLIDEDCLASSES = new Class<?>[]{Ball.class};
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -89,6 +91,12 @@ public class FrostBarrierEffect extends SpellEffect
 	@Override
 	public void onWizardCollision(Wizard wizard, double x, double y)
 	{
-		// Doesn't collide with spells
+		// Doesn't collide with wizards
+	}
+
+	@Override
+	public Class<?>[] getSupportedListenerClasses()
+	{
+		return COLLIDEDCLASSES;
 	}
 }

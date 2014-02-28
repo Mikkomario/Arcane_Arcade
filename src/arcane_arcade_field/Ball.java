@@ -42,6 +42,9 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	private int minspeed;
 	private double flaming, wet, frozen, muddy, charged, statusdepletionrate;
 	
+	private static final Class<?>[] COLLIDINGCLASSES = new Class<?>[] {
+		Wizard.class, SpellEffect.class};
+	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
@@ -211,6 +214,14 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	{
 		// The ball is killed upon the end of the room
 		kill();
+	}
+	
+	@Override
+	public Class<?>[] getSupportedListenerClasses()
+	{
+		// Only wizards and spells collide with the ball
+		// TODO: Update this if needed
+		return COLLIDINGCLASSES;
 	}
 	
 	

@@ -15,8 +15,6 @@ import handleds.Handled;
  *
  * @author Mikko Hilpinen.
  *         Created 18.6.2013.
- * @warning There might be some inaccuracies if CollidableHandlers are added 
- * to the collidables
  */
 public class CollisionHandler extends LogicalHandler implements Actor
 {
@@ -75,7 +73,8 @@ public class CollisionHandler extends LogicalHandler implements Actor
 		for (Point2D.Double colpoint : colpoints)
 		{
 			ArrayList<Collidable> collided = 
-					this.collidablehandler.getCollidedObjectsAtPoint(colpoint);
+					this.collidablehandler.getCollidedObjectsAtPoint(colpoint, 
+							listener);
 			// If no collisions were detected, moves on
 			if (collided == null)
 				continue;

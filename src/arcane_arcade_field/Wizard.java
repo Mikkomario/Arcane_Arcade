@@ -47,6 +47,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private static final int LEFT = -2;
 	private static final int RIGHT = 2;
 	
+	private static final Class<?>[] COLLIDEDCLASSES = new Class<?>[] {
+		Ball.class, SpellEffect.class};
+	
 	private Avatar avatar;
 	private double friction;
 	private double maxspeed;
@@ -466,6 +469,12 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			else
 				setInvisible();
 		}
+	}
+	
+	@Override
+	public Class<?>[] getSupportedListenerClasses()
+	{
+		return COLLIDEDCLASSES;
 	}
 	
 	

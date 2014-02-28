@@ -383,6 +383,14 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 				this.spritedrawer.setImageIndex(0);
 		}
 		
+		@Override
+		public Class<?>[] getSupportedListenerClasses()
+		{
+			// Doesn't limit supported classes
+			return null;
+		}
+		
+		
 		// GETTERS & SETTERS	-----------------------------------------
 		
 		public int getIndex()

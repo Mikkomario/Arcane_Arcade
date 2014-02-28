@@ -138,4 +138,11 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 				getX() < -getWidth() * getXScale())
 			kill();
 	}
+
+	@Override
+	public Class<?>[] getSupportedListenerClasses()
+	{
+		// Doens't limit collided classes
+		return null;
+	}
 }

@@ -1,7 +1,6 @@
 package arcane_arcade_spelleffects;
 
 import handlers.ActorHandler;
-
 import handlers.CollidableHandler;
 import handlers.DrawableHandler;
 import helpAndEnums.CollisionType;
@@ -69,5 +68,12 @@ public class SmokeEffect extends MaskedSpellEffect
 	public void onWizardCollision(Wizard wizard, double x, double y)
 	{
 		// Doesn't collide with wizards
+	}
+
+	@Override
+	public Class<?>[] getSupportedListenerClasses()
+	{
+		// TODO Add collisions with wind spells after they have been made
+		return new Class<?>[0];
 	}
 }

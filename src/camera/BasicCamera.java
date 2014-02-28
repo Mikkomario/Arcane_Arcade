@@ -128,6 +128,13 @@ public class BasicCamera extends BasicPhysicDrawnObject
 		// Doesn't do anything upon collision
 	}
 	
+	@Override
+	public Class<?>[] getSupportedListenerClasses()
+	{
+		// Camera doesn't limit its collided objects in any way
+		return null;
+	}
+	
 	
 	// OTHER METHODS	--------------------------------------------------
 	

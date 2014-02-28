@@ -359,6 +359,7 @@ Eteneminen:														Status
 			* Tarvittavat graafiset resurssit					...
 			* Useamman statusefektin laittaminen kerralla
 			* Movementspeedin vähentyminen castaamisessa?		Hylätty
+			* Loitsujen interaktiiviset vaikutukset
 		- Tutorial
 			* Tarvittavat valikot
 			* Tarvittavan interaktion luonti

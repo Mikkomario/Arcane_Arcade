@@ -10,7 +10,6 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import resourcebanks.SpriteBank;
-
 import backgrounds.Background;
 import backgrounds.TileMap;
 
@@ -87,14 +86,20 @@ public class DimensionalRoom extends TiledRoom implements Collidable
 	public boolean pointCollides(Point2D testPoint)
 	{
 		// Room uses tilemap for collision checking
-		return getTiles().pointCollides(testPoint);
+		if (getTiles() != null)
+			return getTiles().pointCollides(testPoint);
+		else
+			return false;
 	}
 
 	@Override
 	public boolean isSolid()
 	{
 		// Uses tilemap for collision checking
-		return getTiles().isSolid();
+		if (getTiles() != null)
+			return getTiles().isSolid();
+		else
+			return false;
 	}
 
 	@Override
@@ -111,6 +116,15 @@ public class DimensionalRoom extends TiledRoom implements Collidable
 		// Uses tilemap for collision checking
 		if (getTiles() != null)
 			getTiles().makeUnsolid();
+	}
+	
+	@Override
+	public Class<?>[] getSupportedListenerClasses()
+	{
+		if (getTiles() != null)
+			return getTiles().getSupportedListenerClasses();
+		else
+			return null;
 	}
 	
 	

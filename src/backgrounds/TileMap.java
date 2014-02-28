@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import resourcebanks.SpriteBank;
-
 import gameobjects.DimensionalDrawnObject;
 import handlers.ActorHandler;
 import handlers.CollidableHandler;
@@ -174,6 +173,13 @@ public class TileMap extends DimensionalDrawnObject
 			this.tilewidth + "), " + "height: " + getHeight() + " (" + 
 				this.height + "*" + this.tileheight + ")";
 		return status + getClass().getName() + sizes;
+	}
+	
+	@Override
+	public Class<?>[] getSupportedListenerClasses()
+	{
+		// Tilemap doesn't limit collided classes in any way
+		return null;
 	}
 	
 	

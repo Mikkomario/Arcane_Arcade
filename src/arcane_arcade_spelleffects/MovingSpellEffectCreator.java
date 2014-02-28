@@ -115,5 +115,12 @@ public abstract class MovingSpellEffectCreator extends FollowerSpellEffectCreato
 		{
 			// Doesn't draw itself
 		}
+
+		@Override
+		public Class<?>[] getSupportedListenerClasses()
+		{
+			// No-one collides with the object
+			return new Class<?>[0];
+		}
 	}
 }
