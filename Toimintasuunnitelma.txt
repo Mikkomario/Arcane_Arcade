@@ -181,12 +181,12 @@ Eteneminen:														Status
 				- Ongelman paikantaminen
 				- Ongelman korjaus
 			* Kamera ei toimi
-				- Hiiren sijainti ei toimi kameran kanssa		...
+				- Hiiren sijainti ei toimi kameran kanssa		Testaamatta
 					* Ongelman paikantaminen					DONE
 						- Hiiritarkistukseen k‰ytet‰‰n vain 
 						objektin omia transformaatioita, ei 
 						objektin ja kameran transformaatioita
-					* Ongelman korjaus
+					* Ongelman korjaus							Testaamatta
 						- Kameraa varten erillinen 
 						mouseListenerHandlerin alaluokka, joka 
 						modifioi informoitavia 
@@ -303,6 +303,7 @@ Eteneminen:														Status
 					* Pelaajan 2 n‰pp‰imet						...
 					* Audion ‰‰nenvoimakkuus					...
 					* Musiikin ‰‰nenvoimakkuus					...
+					* Wizardien ‰‰nenvoimakkuus					...
 					* Fullscreen p‰‰ll‰							...
 				- Asetusten tallentaminen						DONE
 					* Filewriter								DONE

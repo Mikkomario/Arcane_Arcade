@@ -28,6 +28,8 @@ CAST#b
 0
 &musicvolume
 0
+&voicevolume
+0
 * This determines if the game will start in full screen mode or not.
 &fullscreen
 false
