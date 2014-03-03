@@ -5,13 +5,16 @@ import java.util.ArrayList;
 
 import handleds.Collidable;
 import handleds.LogicalHandled;
+import handlers.CollisionHandler;
 
 /**
  * Collisionlisteners are interested in collisions and react to them somehow. 
- * Each collisionlistener provides a set of collision points it listens to.
+ * Each collisionlistener provides a set of collision points it listens to.<br>
+ * Remember to add the object to a CollisionHandler
  *
  * @author Mikko Hilpinen.
  *         Created 18.6.2013.
+ * @see CollisionHandler
  */
 public interface CollisionListener extends LogicalHandled
 {

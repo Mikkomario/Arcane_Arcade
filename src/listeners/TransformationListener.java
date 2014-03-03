@@ -1,13 +1,18 @@
 package listeners;
 
+import gameobjects.DrawnObject;
 import handleds.LogicalHandled;
+import handlers.TransformationListenerHandler;
 
 /**
  * TransformationListeners listen to changes in some object's transformations 
- * like scaling, translating and rotating and react to those events somehow.
+ * like scaling, translating and rotating and react to those events somehow.<br>
+ * Remember to add the object into a TransformationListenerHandler
  * 
  * @author Mikko Hilpinen. 
  * Created 9.1.2014
+ * @see TransformationListenerHandler
+ * @see DrawnObject
  */
 public interface TransformationListener extends LogicalHandled
 {

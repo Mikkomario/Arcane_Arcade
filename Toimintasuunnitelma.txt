@@ -305,6 +305,7 @@ Eteneminen:														Status
 					* Musiikin ‰‰nenvoimakkuus					...
 					* Wizardien ‰‰nenvoimakkuus					...
 					* Fullscreen p‰‰ll‰							...
+						- On/Off -nappi
 				- Asetusten tallentaminen						DONE
 					* Filewriter								DONE
 				- Asetusten lukeminen pelin alussa				DONE
@@ -340,8 +341,8 @@ Eteneminen:														Status
 				tarvita
 					* Efekti‰‰net								Testaamatta
 					* Wizard‰‰net								Testaamatta
-		- Musiikki												...
-			* Tarvittavat resurssit								...
+		- Musiikki												DONE
+			* Tarvittavat resurssit								DONE
 			* Musiikkien j‰rkev‰ organisointi ja lukeminen		DONE
 				- OpenMidiBank ja muuta							DONE
 				- OpenSoundBankHolder kahden nykyisen 			DONE
@@ -349,7 +350,7 @@ Eteneminen:														Status
 				- OpenSoundTrackBankHolder						DONE
 			* Musiikin ‰‰nenvoimakkuuden s‰‰dˆn mahdollisaminen
 				- Kts: http://www.codezealot.org/archives/27
-			* Resurssien allokoiminen ja vapauttaminen 			Testaamatta
+			* Resurssien allokoiminen ja vapauttaminen 			DONE
 			tarvittaessa
 		- Pelin pys‰ytt‰minen									...
 			* Pausen toiminnallisuus							Testaamatta

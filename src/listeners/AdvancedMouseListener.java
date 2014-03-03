@@ -3,12 +3,15 @@ package listeners;
 import java.awt.geom.Point2D;
 
 import handleds.LogicalHandled;
+import handlers.MouseListenerHandler;
 
 /**
- * Mouselisteners are interested in the mouse's movements and button presses
+ * Mouselisteners are interested in the mouse's movements and button presses.<br>
+ * Remember to add the object to a MouseListenerHandler
  *
  * @author Mikko Hilpinen.
  *         Created 28.12.2012.
+ * @see MouseListenerHandler
  */
 public interface AdvancedMouseListener extends LogicalHandled
 {

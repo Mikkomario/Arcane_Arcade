@@ -2,12 +2,16 @@ package listeners;
 
 import graphic.SpriteDrawer;
 import handleds.LogicalHandled;
+import handlers.AnimationListenerHandler;
 
 /**
- * Animationlistener is informed when an animation cycle ends
+ * Animationlistener is informed when an animation cycle ends.<br>
+ * Remember to add the object into an AnimationListenerHandler
  *
  * @author Mikko Hilpinen.
  *         Created 28.8.2013.
+ * @see AnimationListenerHandler
+ * @see SpriteDrawer
  */
 public interface AnimationListener extends LogicalHandled
 {

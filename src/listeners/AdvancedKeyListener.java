@@ -1,13 +1,16 @@
 package listeners;
 
 import handleds.LogicalHandled;
+import handlers.KeyListenerHandler;
 
 /**
  * Keylisteners are interested in the user's activities on the keyboard and 
- * should be notified when a key is pressed, down or released
+ * should be notified when a key is pressed, down or released.<br>
+ * Remember to add the listener to a KeyListenerHandler
  *
  * @author Mikko Hilpinen.
  *         Created 28.11.2012.
+ * @see KeyListenerHandler
  */
 public interface AdvancedKeyListener extends LogicalHandled
 {

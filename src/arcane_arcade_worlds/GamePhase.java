@@ -145,6 +145,7 @@ public enum GamePhase
 					case BATTLESETTINGMENU:
 					case ELEMENTMENU:
 					case MAINMENU:
+					case OPTIONSMENU:
 					{
 						String[] returned = {"menu"};
 						return returned;

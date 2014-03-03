@@ -15,6 +15,7 @@ import arcane_arcade_main.GameSettings;
 import arcane_arcade_menus.BattleScreenObjectCreator;
 import arcane_arcade_menus.ElementScreenObjectCreator;
 import arcane_arcade_menus.MainMenuObjectCreator;
+import arcane_arcade_menus.OptionScreenObjectCreator;
 import arcane_arcade_menus.VictoryScreenObjectCreator;
 
 /**
@@ -63,6 +64,10 @@ public class Navigator
 		initializeBattleScreen(drawer, actorhandler, mouselistenerhandler);
 		initializeElementScreen(drawer, actorhandler, mouselistenerhandler, 
 				keylistenerhandler);
+		initializeOptionScreen(drawer, actorhandler, mouselistenerhandler);
+		
+		// TODO: Do something about he fact that all backgrounds are 
+		// initialized all the time?
 	}
 	
 	
@@ -161,6 +166,19 @@ public class Navigator
 				getSimpleBackgroundList("space", drawer));
 		
 		this.rooms.put(GamePhase.ELEMENTMENU, elementscreen);
+	}
+	
+	private void initializeOptionScreen(DrawableHandler drawer, 
+			ActorHandler actorhandler, MouseListenerHandler mousehandler)
+	{
+		// Creates the object creator
+		OptionScreenObjectCreator creator = new OptionScreenObjectCreator(
+				drawer, mousehandler, actorhandler, this);
+		
+		SettingUsingRoom optionscreen = new SettingUsingRoom(creator, 
+				getSimpleBackgroundList("space", drawer));
+		
+		this.rooms.put(GamePhase.OPTIONSMENU, optionscreen);
 	}
 	
 	private void updateResourceBanks(GamePhase newphase, 
