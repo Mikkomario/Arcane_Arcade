@@ -44,7 +44,7 @@ public class SmokeEffect extends MaskedSpellEffect
 				"smoke", "cloudmask", false, false, false, Element.NOELEMENT, 
 				Element.NOELEMENT, duration, false);
 		setBoxCollisionPrecision(2, 2);
-		addFadeEffect((int) (duration * 0.2), (int) (duration * 0.6));
+		addFadeEffect((int) (duration * 0.1), (int) (duration * 0.8));
 		addScaleEffect(duration, -1, 0.7);
 	}
 	

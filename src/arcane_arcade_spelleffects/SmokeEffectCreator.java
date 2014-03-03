@@ -57,15 +57,16 @@ public class SmokeEffectCreator extends SpellEffectCreator {
 	//IMPLEMENTED METHODS--------------------------------------------------
 	
 	@Override
-	protected void createEffect() {
+	protected void createEffect()
+	{
 		// Direction is a random number between 0 and 360
 		double randomDirection = (this.randomGenerator.nextDouble() * 360);
-		// Speed is a random number between 1 and 3
-		double randomSpeed = (1 + (this.randomGenerator.nextDouble() * 3));
-		//Creates a new smokeEffect which lasts somewhere between 50-150 steps
+		// Speed is a random number
+		double randomSpeed = (1 + (this.randomGenerator.nextDouble() * 3.5));
+		//Creates a new smokeEffect which lasts somewhere between 80-160 steps
 		SmokeEffect smokeScreen = new SmokeEffect(this.x, this.y, this.drawer,
 				this.collidablehandler, this.actorhandler, this.room,
-				(int) (50 + this.randomGenerator.nextDouble() * 100));
+				(int) (80 + this.randomGenerator.nextDouble() * 80));
 		smokeScreen.setMovement(Movement.createMovement(randomDirection, randomSpeed));
 		// Friction of the smoke-plumes
 		smokeScreen.setFriction(0.04);

@@ -38,7 +38,7 @@ public class SmokeScreenSpell extends Spell{
 		if (caster.getScreenSide() == ScreenSide.RIGHT)
 			x = (int)(GameSettings.SCREENWIDTH * 0.2);
 		
-		new SmokeEffectCreator(400, actorhandler, room, x, (int)caster.getY(), 
+		new SmokeEffectCreator(350, actorhandler, room, x, (int)caster.getY(), 
 				drawer, collidablehandler);
 		
 		// Also plays an smokescreen sound effect

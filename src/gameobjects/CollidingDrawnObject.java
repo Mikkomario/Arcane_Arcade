@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import listeners.CollisionListener;
+import listeners.TransformationListener;
 
 /**
  * Collidingdrawnobject is a subclass of the drawnobject that can collide with 
@@ -20,12 +21,12 @@ import listeners.CollisionListener;
  *         Created 30.6.2013.
  */
 public abstract class CollidingDrawnObject extends DimensionalDrawnObject 
-		implements CollisionListener
+		implements CollisionListener, TransformationListener
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
-	private Point2D.Double[] relativecollisionpoints;
-	private boolean active;
+	private Point2D.Double[] relativecollisionpoints, lastabsolutecollisionpoints;
+	private boolean active, wastransformed;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -54,11 +55,14 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 		
 		// Initializes attributes
 		this.active = true;
+		this.wastransformed = true;
 		this.relativecollisionpoints = new Point2D.Double[0];
+		this.lastabsolutecollisionpoints = null;
 
-		// Adds the object to the handler
+		// Adds the object to the handler(s)
 		if (collisionhandler != null)
 			collisionhandler.addCollisionListener(this);
+		getTransformationListenerHandler().addListener(this);
 	}
 	
 	
@@ -85,6 +89,11 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	@Override
 	public Point2D.Double[] getCollisionPoints()
 	{	
+		// If the object hasn't been transformed since the last check, returns 
+		// the old results
+		if (!this.wastransformed)
+			return this.lastabsolutecollisionpoints;
+		
 		Point2D.Double[] relativepoints = getRelativeCollisionPoints();
 		
 		// if relativepoints don't exist, returns an empty table
@@ -99,7 +108,15 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 			newpoints[i] = transform(relativepoints[i]);
 		}
 		
+		this.wastransformed = false;
+		this.lastabsolutecollisionpoints = newpoints;
 		return newpoints;
+	}
+	
+	@Override
+	public void onTransformationEvent(TransformationEvent e)
+	{
+		this.wastransformed = true;
 	}
 	
 	

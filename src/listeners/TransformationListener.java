@@ -13,7 +13,7 @@ public interface TransformationListener extends LogicalHandled
 {
 	/**
 	 * Here the listener reacts to the transformation event(s) it is interested 
-	 * at. Only active listeners are informed though.
+	 * of. Only active listeners are informed though.
 	 * 
 	 * @param e The transformationEvent that just occured
 	 */
