@@ -96,6 +96,12 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 	@Override
 	public boolean pointCollides(Point2D absolutepoint)
 	{
+		// Doesn't do more specific checks if the point is too far from 
+		// the origin of the object
+		if (HelpMath.pointDistance(getX(), getY(), absolutepoint.getX(), 
+				absolutepoint.getY()) > getMaxRangeFromOrigin())
+			return false;
+		
 		// Negates the transformation
 		Point2D.Double negatedPoint = negateTransformations(absolutepoint);
 		
@@ -139,7 +145,7 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 	}
 	
 	/**
-	 * @return The radius of the object if it was a circle. If the radius has 
+	 * @return The radius of the object as if it was a circle. If the radius has 
 	 * not been specified, returns an approximation. Scaling is not included.
 	 */
 	public int getRadius()
@@ -224,8 +230,9 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Coll
 	{
 		// For circular objects the process is more simple
 		if (getCollisionType() == CollisionType.CIRCLE)
-			return Math.max(getWidth() * getYScale(), 
-					getHeight() * getXScale()) / 2.0;
+			//return Math.max(getWidth() * getYScale(), 
+			//		getHeight() * getXScale()) / 2.0;
+			return Math.max(getYScale(), getXScale()) * getRadius();
 		
 		// First checks which sides are larger
 		double maxXDist = Math.max(getOriginX(), getWidth() - getOriginX());
