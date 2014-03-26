@@ -2,19 +2,14 @@ package arcane_arcade_menus;
 
 import java.awt.geom.Point2D;
 
-import utopia_gameobjects.GameObject;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.KeyListenerHandler;
-import utopia_handlers.MouseListenerHandler;
 import utopia_resourcebanks.MultiMediaHolder;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.FieldSetting;
-import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
-import arcane_arcade_worlds.RoomObjectCreator;
+import arcane_arcade_worlds.SettingUsingArea;
+import arcane_arcade_worlds.SettingUsingAreaObjectCreator;
 
 /**
  * ElementScreen Object creator creates the necessary interface elements to 
@@ -22,18 +17,13 @@ import arcane_arcade_worlds.RoomObjectCreator;
  * the following battle.
  *
  * @author Mikko Hilpinen.
- *         Created 30.11.2013.
+ * @since 30.11.2013.
  */
-public class ElementScreenObjectCreator extends GameObject implements 
-		RoomObjectCreator
+public class ElementScreenObjectCreator extends SettingUsingAreaObjectCreator
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private FieldSetting settings;
-	private DrawableHandler drawer;
-	private ActorHandler actorhandler;
-	private MouseListenerHandler mousehandler;
-	private KeyListenerHandler keyhandler;
 	private Navigator navigator;
 	
 	
@@ -41,60 +31,45 @@ public class ElementScreenObjectCreator extends GameObject implements
 	
 	/**
 	 * Creates a new ElementScreenObjectCreator
+	 * @param elementScreen The elementScreen where the objects will be created
 	 * @param navigator The navigator used to change to different game phases
-	 * @param drawer The drawer that will draw the contents of the room
-	 * @param actorhandler The actorhandler that will inform the objects about 
-	 * steps
-	 * @param mousehandler The mouseListenerHandler that will inform the objects 
-	 * about mouse events
-	 * @param keyhandler The keylistenerhandler that will inform the objects 
-	 * about key events
 	 */
-	public ElementScreenObjectCreator(Navigator navigator, 
-			DrawableHandler drawer, ActorHandler actorhandler, 
-			MouseListenerHandler mousehandler, KeyListenerHandler keyhandler)
+	public ElementScreenObjectCreator(SettingUsingArea elementScreen, 
+			Navigator navigator)
 	{
+		super(elementScreen, "space", "background", GameSettings.SCREENWIDTH, 
+				GameSettings.SCREENHEIGHT, FieldSetting.class);
+		
 		// Initializes attributes
 		this.settings = null;
-		this.drawer = drawer;
-		this.actorhandler = actorhandler;
-		this.mousehandler = mousehandler;
-		this.keyhandler = keyhandler;
 		this.navigator = navigator;
 	}
-		
+	
+	
+	// IMPLEMENTED METHODS	---------------------------------------------
+	
 	@Override
-	public void onRoomStart(Room room)
+	protected void onSettingsChange(AreaSetting newSettings)
+	{
+		this.settings = (FieldSetting) newSettings;
+	}
+
+	@Override
+	protected void createObjects(Area area)
 	{
 		// Creates the objects
 		// Starts the music
-		new MenuThemePlayer(room, 2);
+		new MenuThemePlayer(area, 2);
 		
-		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
-		new MenuCornerCreator(this.drawer, this.mousehandler, room,
+		new MenuBackgroundEffectCreator(area.getDrawer(), 
+				area.getActorHandler(), area);
+		new MenuCornerCreator(area.getDrawer(), area.getMouseHandler(), area,
 				true);
 		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT - 100, 
-				GamePhase.BATTLESETTINGMENU, this.navigator, this.drawer, 
-				this.actorhandler, this.mousehandler, room).setXScale(-1);
-		new ToFieldButton(room);
-		new ElementSelectionInterface(this, this.drawer, this.keyhandler, room);
-	}
-
-	@Override
-	public void onRoomEnd(Room room)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void setSettings(AreaSetting setting)
-	{
-		// Only works with fieldsettings
-		if (setting instanceof FieldSetting)
-			this.settings = (FieldSetting) setting;
-		else
-			System.err.println("ElementScreenObjectCreator only works with " +
-					"FieldSetting type settings");
+				"battlesettingmenu", this.navigator, area.getDrawer(), 
+				area.getActorHandler(), area.getMouseHandler(), area).setXScale(-1);
+		new ToFieldButton(area);
+		new ElementSelectionInterface(this, area.getDrawer(), area.getKeyHandler(), area);
 	}
 	
 	
@@ -118,16 +93,16 @@ public class ElementScreenObjectCreator extends GameObject implements
 		/**
 		 * Creates a new tofieldbutton to the given room
 		 *
-		 * @param room The room where the button is created at
+		 * @param area The room where the button is created at
 		 */
-		public ToFieldButton(Room room)
+		public ToFieldButton(Area area)
 		{
 			super(GameSettings.SCREENWIDTH - 100, 
 					GameSettings.SCREENHEIGHT - 100, 
-					ElementScreenObjectCreator.this.drawer, 
-					ElementScreenObjectCreator.this.actorhandler,
-					ElementScreenObjectCreator.this.mousehandler, room, 
-					"To " + GamePhase.FIELD.toString());
+					area.getDrawer(), 
+					area.getActorHandler(),
+					area.getMouseHandler(), area, 
+					"To field");
 		}
 		
 		
@@ -147,8 +122,7 @@ public class ElementScreenObjectCreator extends GameObject implements
 						"maintheme").stop();
 				
 				ElementScreenObjectCreator.this.navigator.startPhase(
-						GamePhase.FIELD, 
-						ElementScreenObjectCreator.this.settings);
+						"field", ElementScreenObjectCreator.this.settings);
 			}
 		}
 		

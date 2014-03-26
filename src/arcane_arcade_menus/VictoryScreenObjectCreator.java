@@ -3,105 +3,95 @@ package arcane_arcade_menus;
 import java.awt.Graphics2D;
 
 import utopia_gameobjects.DrawnObject;
-import utopia_gameobjects.GameObject;
 import utopia_graphic.SingleSpriteDrawer;
-import utopia_handlers.ActorHandler;
 import utopia_handlers.DrawableHandler;
-import utopia_handlers.MouseListenerHandler;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;
-import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
-import arcane_arcade_worlds.RoomObjectCreator;
+import arcane_arcade_worlds.SettingUsingArea;
+import arcane_arcade_worlds.SettingUsingAreaObjectCreator;
 import arcane_arcade_worlds.VictorySetting;
 
 /**
  * VictoryScreenCreator creates the objects needed in the victory screen at the 
  * start of the room.
  * 
- * @author Unto Solala
- *			Created 4.9.2013
+ * @author Unto Solala & Mikko Hilpinen
+ * @since 4.9.2013
  */
-public class VictoryScreenObjectCreator extends GameObject implements RoomObjectCreator
+public class VictoryScreenObjectCreator extends SettingUsingAreaObjectCreator
 {	
 	// ATTRIBUTES	-----------------------------------------------------
 	
-	private DrawableHandler drawer;
-	private ActorHandler actorhandler;
-	private MouseListenerHandler mouselistenerhandler;
 	private Navigator navigator;
 	private VictorySetting victorysetting;
+	
 		
 	// CONSTRUCTOR	-----------------------------------------------------
+	
 	/**
 	 * Creates a new VictoryScreenObjectCreator that will use the given handlers. 
 	 * The creator will create the objects when the room starts.
-	 *
-	 * @param drawer The drawer that will draw the created objects
-	 * @param actorhandler The actorhandler that will inform the objects about 
-	 * act events
-	 * @param mousehandler The mouselistenerhandler that will inform the objects 
-	 * about mouse events
+	 * 
+	 * @param victoryScreen The victory screen where the objects will be created
 	 * @param navigator The navigator that handles the transition between the 
-	 * gamephases
+	 * gamePhases
 	 */
-	public VictoryScreenObjectCreator(DrawableHandler drawer, 
-			ActorHandler actorhandler, MouseListenerHandler mousehandler, 
+	public VictoryScreenObjectCreator(SettingUsingArea victoryScreen, 
 			Navigator navigator)
 	{
+		super(victoryScreen, "space", "background", GameSettings.SCREENWIDTH, 
+				GameSettings.SCREENHEIGHT, VictorySetting.class);
+		
 		// Initializes attributes
-		this.drawer = drawer;
-		this.actorhandler = actorhandler;
-		this.mouselistenerhandler = mousehandler;
 		this.navigator = navigator;
 		this.victorysetting = null;
 	}
 	
+	
 	// IMPLMENTED METHODS ---------------------------------------------
 
+	
 	@Override
-	public void onRoomStart(Room room) {
+	protected void onSettingsChange(AreaSetting newSettings)
+	{
+		this.victorysetting = (VictorySetting) newSettings;
+	}
+
+	@Override
+	protected void createObjects(Area area)
+	{
 		// Creates the objects
-		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
-		new MenuCornerCreator(this.drawer, this.mouselistenerhandler, room, true);
+		new MenuBackgroundEffectCreator(area.getDrawer(), 
+				area.getActorHandler(), area);
+		new MenuCornerCreator(area.getDrawer(), area.getMouseHandler(), area, 
+				true);
 		
 		new SimplePhaseChangeButton(GameSettings.SCREENWIDTH - 100, 
-				GameSettings.SCREENHEIGHT / 2, GamePhase.MAINMENU, 
-				this.navigator, this.drawer, this.actorhandler, 
-				this.mouselistenerhandler, room);
+				GameSettings.SCREENHEIGHT / 2, "mainmenu", 
+				this.navigator, area.getDrawer(), area.getActorHandler(), 
+				area.getMouseHandler(), area);
 		
 		//Let's try to solve our victor and create the WinnerText
-		if (this.victorysetting != null) {
+		if (this.victorysetting != null)
+		{
 			int winner = 0;
 			if (this.victorysetting.getLeftSidePoints() > this.victorysetting
-					.getRightSidePoints()) {
+					.getRightSidePoints())
 				winner = WinnerText.WINNERLEFT;
-			} else {
+			else
 				winner = WinnerText.WINNERRIGHT;
-			}
+			
 			// Let's place the WinnerText
-			new WinnerText(winner, this.drawer, room);
+			new WinnerText(winner, area.getDrawer(), area);
 		}
 	}
-
-	@Override
-	public void onRoomEnd(Room room) {
-		// Does nothing
-	}
-
-	@Override
-	public void setSettings(AreaSetting setting) {
-		// Checks that the setting is the right type
-		if (setting instanceof VictorySetting)
-			this.victorysetting = (VictorySetting) setting;
-		else
-			System.err.println("VictoryScreenCreator requires an " +
-					"VictorySetting -setting and will not function otherwise!");
-	}
+	
 	
 	/**
 	 * Draws the "Winner"-text on the winning player's side.

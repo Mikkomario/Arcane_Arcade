@@ -1,6 +1,5 @@
 package arcane_arcade_main;
 
-
 import java.awt.BorderLayout;
 
 import utopia_handlers.ActorHandler;
@@ -12,7 +11,6 @@ import utopia_resourceHandling.ResourceType;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_video.GamePanel;
 import utopia_video.GameWindow;
-import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 
 /**
@@ -54,6 +52,8 @@ public class Main
 				GameSettings.WAVDATALOCATION);
 		MultiMediaHolder.initializeResourceDatabase(ResourceType.MIDISOUNDTRACK, 
 				GameSettings.MIDITRACKDATALOCATION);
+		MultiMediaHolder.initializeResourceDatabase(ResourceType.GAMEPHASE, 
+				"configure/gamephaseload.txt");
 		
 		// Initializes attributes
 		this.mainpanel = new GamePanel(GameSettings.SCREENWIDTH, 
@@ -85,7 +85,7 @@ public class Main
 				this.mainkeyhandler, this.mainmousehandler);
 		
 		// Starts the game by starting the main menu
-		this.navigator.startPhase(GamePhase.MAINMENU, null);
+		this.navigator.startPhase("mainmenu", null);
 	}
 	
 	

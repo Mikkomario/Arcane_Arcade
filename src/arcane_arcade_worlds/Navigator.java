@@ -1,22 +1,20 @@
 package arcane_arcade_worlds;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import utopia_backgrounds.Background;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.KeyListenerHandler;
-import utopia_handlers.MouseListenerHandler;
-import utopia_resourceHandling.ResourceType;
-import utopia_resourcebanks.MultiMediaHolder;
 import arcane_arcade_field.FieldObjectCreator;
-import arcane_arcade_main.GameSettings;
 import arcane_arcade_menus.BattleScreenObjectCreator;
 import arcane_arcade_menus.ElementScreenObjectCreator;
 import arcane_arcade_menus.MainMenuObjectCreator;
 import arcane_arcade_menus.OptionScreenObjectCreator;
 import arcane_arcade_menus.VictoryScreenObjectCreator;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.KeyListenerHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_resourceHandling.ResourceType;
+import utopia_resourcebanks.GamePhaseBank;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
+import utopia_worlds.AreaRelay;
 
 /**
  * Navigator is a class that handles the transition between different rooms 
@@ -25,207 +23,83 @@ import arcane_arcade_menus.VictoryScreenObjectCreator;
  * @author Mikko Hilpinen & Unto Solala
  *         Created 27.8.2013.
  */
-public class Navigator
+public class Navigator extends AreaRelay
 {
-	// ATTRIBUTES	-----------------------------------------------------
-	
-	private HashMap<GamePhase, SettingUsingRoom> rooms;
-	private GamePhase activephase;
-	
+	// TODO: Add public static variables for the area names
 	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
 	 * Creates a new navigator, also creating all the rooms used in the game
 	 *
-	 * @param drawer The drawablehandler that will draw the rooms
-	 * @param actorhandler The actorhandler that will handle all the actors 
+	 * @param drawer The drawableHandler that will draw the rooms
+	 * @param actorHandler The actorHandler that will handle all the actors 
 	 * in the rooms
-	 * @param keylistenerhandler The keylistenerhandler that will inform 
-	 * all keylisteners about the keypresses
-	 * @param mouselistenerhandler The mouselistenerhandler that will inform 
+	 * @param keyHandler The keyListenerHandler that will inform 
+	 * all keyListeners about the key events
+	 * @param mouseHandler The mouseListenerHandler that will inform 
 	 * the game's objects about mouse events
 	 */
-	public Navigator(DrawableHandler drawer, ActorHandler actorhandler, 
-			KeyListenerHandler keylistenerhandler, 
-			MouseListenerHandler mouselistenerhandler)
+	public Navigator(DrawableHandler drawer, ActorHandler actorHandler, 
+			KeyListenerHandler keyHandler, 
+			MouseListenerHandler mouseHandler)
 	{
-		// Initializes attributes
-		this.rooms = new HashMap<GamePhase, SettingUsingRoom>();
-		this.activephase = null;
-		
 		// Initializes the backgrounds for the rooms
-		MultiMediaHolder.activateBank(ResourceType.SPRITE, "background", true);
+		//MultiMediaHolder.activateBank(ResourceType.SPRITE, "background", true);
 		
-		// Initializes the rooms
-		initializeMainMenu(drawer, actorhandler, mouselistenerhandler);
-		initializeField(drawer, actorhandler, keylistenerhandler);
-		initializeVictoryScreen(drawer, actorhandler, mouselistenerhandler);
-		initializeBattleScreen(drawer, actorhandler, mouselistenerhandler);
-		initializeElementScreen(drawer, actorhandler, mouselistenerhandler, 
-				keylistenerhandler);
-		initializeOptionScreen(drawer, actorhandler, mouselistenerhandler);
+		// Initializes the areas
+		MultiMediaHolder.activateBank(ResourceType.GAMEPHASE, "default", true);
+		GamePhaseBank phaseBank = MultiMediaHolder.getGamePhaseBank("default");
 		
-		// TODO: Do something about he fact that all backgrounds are 
-		// initialized all the time?
+		addArea("mainmenu", new SettingUsingArea(
+				phaseBank.getPhase("mainmenu"), mouseHandler, actorHandler, 
+				drawer, keyHandler));
+		addArea("field", new SettingUsingArea(
+				phaseBank.getPhase("field"), mouseHandler, actorHandler, 
+				drawer, keyHandler));
+		addArea("victoryscreen", new SettingUsingArea(
+				phaseBank.getPhase("victoryscreen"), mouseHandler, actorHandler, 
+				drawer, keyHandler));
+		addArea("battlesettingmenu", new SettingUsingArea(
+				phaseBank.getPhase("battlesettingmenu"), mouseHandler, actorHandler, 
+				drawer, keyHandler));
+		addArea("elementmenu", new SettingUsingArea(
+				phaseBank.getPhase("elementmenu"), mouseHandler, actorHandler, 
+				drawer, keyHandler));
+		addArea("optionsmenu", new SettingUsingArea(
+				phaseBank.getPhase("optionsmenu"), mouseHandler, actorHandler, 
+				drawer, keyHandler));
+		
+		// Adds the object creators
+		new MainMenuObjectCreator((SettingUsingArea) getArea("mainmenu"), this);
+		new FieldObjectCreator((SettingUsingArea) getArea("field"), this);
+		new VictoryScreenObjectCreator((SettingUsingArea) getArea("victoryscreen"), this);
+		new BattleScreenObjectCreator((SettingUsingArea) getArea("battlesettingmenu"), this);
+		new ElementScreenObjectCreator((SettingUsingArea) getArea("elementmenu"), this);
+		new OptionScreenObjectCreator((SettingUsingArea) getArea("optionsmenu"), this);
 	}
 	
 	
 	// OTHER METHODS	------------------------------------------------
 	
 	/**
-	 * Stops the current phase and starts a new one.
+	 * Stops the current area and starts a new one.
 	 * 
-	 * @param phase The new gamephase that will start
-	 * @param setting The setting(s) used in the new phase
+	 * @param newAreaName the name of the new area that will start
+	 * @param setting The setting(s) used in the new area (optional)
 	 */
-	public void startPhase(GamePhase phase, AreaSetting setting)
+	public void startPhase(String newAreaName, AreaSetting setting)
 	{
-		// Ends the currently active room
-		if (this.activephase != null)
-			this.rooms.get(this.activephase).end();
+		// Ends the current area
+		endAllAreas();
+		// Starts the new one with specific settings
+		Area newArea = getArea(newAreaName);
 		
-		// Updates the loaded resources
-		updateResourceBanks(phase, ResourceType.MIDI);
-		updateResourceBanks(phase, ResourceType.MIDISOUNDTRACK);
-		updateResourceBanks(phase, ResourceType.SPRITE);
-		updateResourceBanks(phase, ResourceType.WAV);
-		
-		// Remembers the new active phase
-		this.activephase = phase;
-		
-		// Updates the settings
-		this.rooms.get(phase).setSettings(setting);
-		
-		// Starts the room of the given phase
-		this.rooms.get(phase).start();
-	}
-	
-	private void initializeField(DrawableHandler drawer, 
-			ActorHandler actorhandler, KeyListenerHandler keyhandler)
-	{	
-		// Creates the object creator
-		FieldObjectCreator creator = new FieldObjectCreator(drawer, actorhandler, 
-				keyhandler, this);
-		
-		SettingUsingRoom field = new SettingUsingRoom(creator, 
-				getSimpleBackgroundList("mountains", drawer));
-		
-		this.rooms.put(GamePhase.FIELD, field);
-	}
-	
-	private void initializeMainMenu(DrawableHandler drawer, 
-			ActorHandler actorhandler, MouseListenerHandler mousehandler)
-	{
-		// Creates the object creator
-		MainMenuObjectCreator creator = 
-				new MainMenuObjectCreator(drawer, actorhandler, mousehandler, 
-				this);
-		
-		SettingUsingRoom mainmenu = new SettingUsingRoom(creator, 
-				getSimpleBackgroundList("space", drawer));
-		
-		this.rooms.put(GamePhase.MAINMENU, mainmenu);
-	}
-	
-	private void initializeVictoryScreen(DrawableHandler drawer,
-			ActorHandler actorhandler, MouseListenerHandler mousehandler)
-	{	
-		// Creates the object creator
-		VictoryScreenObjectCreator creator = new VictoryScreenObjectCreator(drawer,
-				actorhandler, mousehandler, this);
-		
-		SettingUsingRoom victoryscreen = new SettingUsingRoom(creator, 
-				getSimpleBackgroundList("space", drawer));
-		
-		this.rooms.put(GamePhase.VICTORYSCREEN, victoryscreen);
-	}
-	
-	private void initializeBattleScreen(DrawableHandler drawer,
-			ActorHandler actorhandler, MouseListenerHandler mousehandler)
-	{
-		// Creates the object creator
-		BattleScreenObjectCreator creator = new BattleScreenObjectCreator(drawer,
-				actorhandler, mousehandler, this);
-		
-		SettingUsingRoom battlescreen = new SettingUsingRoom(creator, 
-				getSimpleBackgroundList("space", drawer));
-		
-		this.rooms.put(GamePhase.BATTLESETTINGMENU, battlescreen);
-	}
-	
-	private void initializeElementScreen(DrawableHandler drawer, 
-			ActorHandler actorhandler, MouseListenerHandler mousehandler, 
-			KeyListenerHandler keyhandler)
-	{
-		// Creates the object creator
-		ElementScreenObjectCreator creator = new ElementScreenObjectCreator(
-				this, drawer, actorhandler, mousehandler, keyhandler);
-		
-		SettingUsingRoom elementscreen = new SettingUsingRoom(creator, 
-				getSimpleBackgroundList("space", drawer));
-		
-		this.rooms.put(GamePhase.ELEMENTMENU, elementscreen);
-	}
-	
-	private void initializeOptionScreen(DrawableHandler drawer, 
-			ActorHandler actorhandler, MouseListenerHandler mousehandler)
-	{
-		// Creates the object creator
-		OptionScreenObjectCreator creator = new OptionScreenObjectCreator(
-				drawer, mousehandler, actorhandler, this);
-		
-		SettingUsingRoom optionscreen = new SettingUsingRoom(creator, 
-				getSimpleBackgroundList("space", drawer));
-		
-		this.rooms.put(GamePhase.OPTIONSMENU, optionscreen);
-	}
-	
-	private void updateResourceBanks(GamePhase newphase, 
-			ResourceType resourcetype)
-	{
-		String[] newbanknames = newphase.getUsedBankNames(resourcetype);
-		
-		// Skips the removal progres if there was no previous phase
-		if (this.activephase != null)
-		{
-			String[] oldbanknames = this.activephase.getUsedBankNames(resourcetype);
-			
-			// Takes all the new banknames into a list format
-			ArrayList<String> newbanknamelist = new ArrayList<String>();
-			for (int i = 0; i < newbanknames.length; i++)
-			{
-				newbanknamelist.add(newbanknames[i]);
-			}
-			
-			// Removes the old banks that aren't active in the new phase
-			for (int i = 0; i < oldbanknames.length; i++)
-			{
-				String oldbankname = oldbanknames[i];
-				
-				if (!newbanknamelist.contains(oldbankname))
-					MultiMediaHolder.deactivateBank(resourcetype, oldbankname);
-			}
-		}
-		
-		// Adds all the new banks that weren't active already
-		// (Checking done in the addSpritebank method)
-		for (int i = 0; i < newbanknames.length; i++)
-		{
-			MultiMediaHolder.activateBank(resourcetype, newbanknames[i], true);
-		}
-	}
-	
-	private static ArrayList<Background> getSimpleBackgroundList(String backname, 
-			DrawableHandler drawer)
-	{
-		Background back = new Background(0, 0, drawer, null, 
-				MultiMediaHolder.getSpriteBank("background").getSprite(backname));
-		back.setDimensions(GameSettings.SCREENWIDTH, 
-				GameSettings.SCREENHEIGHT);
-		ArrayList<Background> backlist = new ArrayList<Background>();
-		backlist.add(back);
-		
-		return backlist;
+		if (newArea == null)
+			return;
+		else if (newArea instanceof SettingUsingArea)
+			((SettingUsingArea) newArea).start(setting);
+		else
+			newArea.start();
 	}
 }

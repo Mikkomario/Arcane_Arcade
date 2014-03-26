@@ -1,33 +1,25 @@
 package arcane_arcade_menus;
 
-
 import java.awt.geom.Point2D;
 
-import utopia_gameobjects.GameObject;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.MouseListenerHandler;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;
-import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
-import arcane_arcade_worlds.RoomObjectCreator;
+import arcane_arcade_worlds.SettingUsingArea;
+import arcane_arcade_worlds.SettingUsingAreaObjectCreator;
 
 /**
  * BattleScreenObjectCreator creates the objects needed in the battle screen at 
  * the start of the room.
  * 
- * @author Unto Solala
- *			Created 4.9.2013
+ * @author Unto Solala & Mikko Hilpinen
+ * @since 4.9.2013
  */
-public class BattleScreenObjectCreator extends GameObject implements RoomObjectCreator
+public class BattleScreenObjectCreator extends SettingUsingAreaObjectCreator
 {
 	// ATTRIBUTES-----------------------------------------------------------
 	
-	private DrawableHandler drawer;
-	private ActorHandler actorhandler;
-	private MouseListenerHandler mousehandler;
 	private Navigator navigator;
 	private BattleSettingScreenInterface barhandler;
 	
@@ -35,61 +27,45 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 	// CONSTRUCTOR---------------------------------------------------------
 	
 	/**
-	 * Creates a new BattleScreenObjectCreator that will use the given handlers. 
+	 * Creates a new BattleScreenObjectCreator.  
 	 * The creator will create the objects when the room starts.
-	 *
-	 * @param drawer The drawer that will draw the created objects
-	 * @param actorhandler The actorhandler that will inform the objects about 
-	 * act events
-	 * @param mousehandler The mouselistenerhandler that will inform the objects 
-	 * about mouse events
-	 * @param navigator The navigator that handles the transition between the 
-	 * gamephases
+	 * @param battleScreen The battleScreen where the objects will be created at
+	 * @param navigator The navigator that will handle area transitions
 	 */
-	public BattleScreenObjectCreator(DrawableHandler drawer, 
-			ActorHandler actorhandler, MouseListenerHandler mousehandler, 
+	public BattleScreenObjectCreator(SettingUsingArea battleScreen, 
 			Navigator navigator)
 	{
+		super(battleScreen, "space", "background", GameSettings.SCREENWIDTH, 
+				GameSettings.SCREENHEIGHT, null);
+		
 		// Initializes attributes
-		this.drawer = drawer;
-		this.actorhandler = actorhandler;
-		this.mousehandler = mousehandler;
 		this.navigator = navigator;
 		this.barhandler = null;
 	}
 
 	
 	// IMPLMENTED METHODS ---------------------------------------------
-
+	
 	@Override
-	public void onRoomStart(Room room)
-	{	
-		// Creates the objects
-		// Starts the music
-		new MenuThemePlayer(room, 1);
-		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
-		new MenuCornerCreator(this.drawer, this.mousehandler, room,
-				true);
-		this.barhandler = new BattleSettingScreenInterface(this.drawer, 
-				this.mousehandler, room);
-		new ToElementScreenButton(room);
-		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT - 100, 
-				GamePhase.MAINMENU, this.navigator, this.drawer, 
-				this.actorhandler, this.mousehandler, room).setXScale(-1);
+	protected void onSettingsChange(AreaSetting newSettings)
+	{
+		// TODO Auto-generated method stub
 		
-		//System.out.println("battlescreen object creator completed");
 	}
 
 	@Override
-	public void onRoomEnd(Room room)
+	protected void createObjects(Area area)
 	{
-		// Does nothing
-	}
-
-	@Override
-	public void setSettings(AreaSetting setting)
-	{
-		// Does nothing
+		new MenuThemePlayer(area, 1);
+		new MenuBackgroundEffectCreator(area.getDrawer(), area.getActorHandler(), area);
+		new MenuCornerCreator(area.getDrawer(), area.getMouseHandler(), area,
+				true);
+		this.barhandler = new BattleSettingScreenInterface(area.getDrawer(), 
+				area.getMouseHandler(), area);
+		new ToElementScreenButton(area);
+		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT - 100, 
+				"mainmenu", this.navigator, area.getDrawer(), 
+				area.getActorHandler(), area.getMouseHandler(), area).setXScale(-1);
 	}
 	
 	
@@ -110,16 +86,14 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 		 * Creates a new button that will take the user to element screen upon 
 		 * click.
 		 * 
-		 * @param room The room to which the object is created
+		 * @param area The room to which the object is created
 		 */
-		public ToElementScreenButton(Room room)
+		public ToElementScreenButton(Area area)
 		{
 			super(GameSettings.SCREENWIDTH - 100, 
-					GameSettings.SCREENHEIGHT - 100, 
-					BattleScreenObjectCreator.this.drawer, 
-					BattleScreenObjectCreator.this.actorhandler, 
-					BattleScreenObjectCreator.this.mousehandler,
-					room, "To " + GamePhase.ELEMENTMENU.toString());
+					GameSettings.SCREENHEIGHT - 100, area.getDrawer(), 
+					area.getActorHandler(), area.getMouseHandler(),
+					area, "To element selection");
 		}
 		
 		
@@ -134,7 +108,7 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 			if (button == MouseButton.LEFT && 
 					eventType == MouseButtonEventType.PRESSED)
 				BattleScreenObjectCreator.this.navigator.startPhase(
-						GamePhase.ELEMENTMENU, 
+						"elementmenu", 
 						BattleScreenObjectCreator.this.barhandler.createFieldSetting());
 		}
 	}

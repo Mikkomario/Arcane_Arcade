@@ -15,7 +15,6 @@ import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 
 /**
@@ -23,7 +22,7 @@ import arcane_arcade_worlds.Navigator;
  * of the MainMenu.
  * 
  * @author Unto Solala
- * 			Created 3.9.2013
+ * @since 3.9.2013
  */
 public class MainMenuMenuCreator extends GameObject implements RoomListener
 {
@@ -56,11 +55,14 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 		if(room != null)
 			room.addObject(this);
 	}
+	
+	
 	//IMPLEMENTED METHODS-------------------------------------------------
+	
 	@Override
-	public void onRoomStart(Room room) {
-		//Does nothing
-		
+	public void onRoomStart(Room room)
+	{
+		//Does nothing	
 	}
 
 	@Override
@@ -77,14 +79,15 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 		this.centerpiece.kill();
 		super.kill();
 	}
-
 	
+	
+	// SUBCLASSES	-----------------------------------------------------
 	
 	/**MainMenuElements are the four main buttons in the MainMenu-screen. The 
 	 * buttons take the user to another phase within the game and a new screen.
 	 * 
 	 * @author Unto Solala & Mikko Hilpinen
-	 * 			Created 3.9.2013
+	 * @since 3.9.2013
 	 */
 	private class MainMenuElement extends AbstractMaskButton
 	{	
@@ -93,10 +96,11 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 		private static final int DOWN = 2;
 		private static final int LEFT = 3;
 		
+		
 		//ATTRIBUTES-----------------------------------------------------
 		
 		private int direction;
-		private GamePhase gamephase;
+		private String phaseName;
 		private Point startposition;
 		private Navigator navigator;
 		
@@ -134,7 +138,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 					spriteName = "play";
 					// Let's move the MenuElement up a bit
 					y = y - 140;
-					this.gamephase = GamePhase.BATTLESETTINGMENU;
+					this.phaseName = "battlesettingmenu";
 					break;
 				}
 				case RIGHT: 
@@ -142,7 +146,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 					spriteName = "options";
 					// Let's move the MenuElement to the right a bit
 					x = x + 146;
-					this.gamephase = GamePhase.OPTIONSMENU;
+					this.phaseName = "optionsmenu";
 					break;
 				}
 				case DOWN: 
@@ -150,7 +154,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 					spriteName = "spellbook";
 					// Let's move the MenuElement down a bit
 					y = y + 145;
-					this.gamephase = GamePhase.SPELLBOOKMENU;
+					this.phaseName = "spellbookmenu";
 					break;
 				}
 				case LEFT: 
@@ -158,7 +162,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 					spriteName = "tutorial";
 					// Let's move the MenuElement to the left a bit
 					x = x - 152;
-					this.gamephase = GamePhase.TUTORIALMENU;
+					this.phaseName = "tutorialmenu";
 					break;
 				}
 			}
@@ -194,7 +198,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 			//Starts the correct gamePhase if the left button was pressed
 			if (button == MouseButton.LEFT && 
 					eventType == MouseButtonEventType.PRESSED)
-				this.navigator.startPhase(this.gamephase, null);
+				this.navigator.startPhase(this.phaseName, null);
 		}
 
 		@Override

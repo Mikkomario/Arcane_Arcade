@@ -6,7 +6,6 @@ import utopia_handlers.ActorHandler;
 import utopia_handlers.DrawableHandler;
 import utopia_handlers.MouseListenerHandler;
 import utopia_worlds.Room;
-import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 /**
  * This button takes the user to a new gamephase though it doesn't support the 
@@ -20,7 +19,7 @@ public class SimplePhaseChangeButton extends MenuButton
 	// ATTRIBUTES	------------------------------------------------------
 	
 	private Navigator navigator;
-	private GamePhase phase;
+	private String phaseName;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -31,26 +30,26 @@ public class SimplePhaseChangeButton extends MenuButton
 	 *
 	 * @param x The x-coordinate of the button (pixels)
 	 * @param y The y-coordinate of the button (pixels)
-	 * @param newphase The phase where the button will take the user
+	 * @param newPhaseName The name of the phase where the button will take the user
 	 * @param navigator The navigator that is used for phase changing
 	 * @param drawer The drawer that will draw the button (optional)
-	 * @param actorhandler The actorhandler that will inform the button about 
+	 * @param actorhandler The actorHandler that will inform the button about 
 	 * steps (optional)
-	 * @param mouselistenerhandler The mouselistenerhandler that will inform 
+	 * @param mouselistenerhandler The mouseListenerHandler that will inform 
 	 * the button about mouse events (optional)
 	 * @param room The room that holds the button (optional)
 	 */
-	public SimplePhaseChangeButton(int x, int y, GamePhase newphase, 
+	public SimplePhaseChangeButton(int x, int y, String newPhaseName, 
 			Navigator navigator, DrawableHandler drawer, 
 			ActorHandler actorhandler, 
 			MouseListenerHandler mouselistenerhandler, Room room)
 	{
 		super(x, y, drawer, actorhandler, mouselistenerhandler, room, 
-				"To " + newphase.toString());
+				"To " + newPhaseName);
 		
 		// Initializes attributes
 		this.navigator = navigator;
-		this.phase = newphase;
+		this.phaseName = newPhaseName;
 	}
 	
 	
@@ -63,6 +62,6 @@ public class SimplePhaseChangeButton extends MenuButton
 	{
 		// Changes the phase when clicked
 		if (button == MouseButton.LEFT && eventType == MouseButtonEventType.PRESSED)
-			this.navigator.startPhase(this.phase, null);
+			this.navigator.startPhase(this.phaseName, null);
 	}
 }

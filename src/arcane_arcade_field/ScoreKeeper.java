@@ -12,16 +12,15 @@ import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
-import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.VictorySetting;
 
 /**
- * Scorekeeper keeps track of the game's score and handlers the continuity 
+ * ScoreKeeper keeps track of the game's score and handlers the continuity 
  * of the match
  *
  * @author Mikko Hilpinen.
- *         Created 1.9.2013.
+ * @since 1.9.2013.
  */
 public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 {
@@ -196,7 +195,7 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 		{
 			VictorySetting setting = new VictorySetting(this.scoreleft, 
 					this.scoreright);
-			this.navigator.startPhase(GamePhase.VICTORYSCREEN, setting);
+			this.navigator.startPhase("victoryscreen", setting);
 		}
 	}
 	

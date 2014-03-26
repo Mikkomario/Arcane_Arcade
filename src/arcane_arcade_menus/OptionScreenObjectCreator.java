@@ -1,30 +1,22 @@
 package arcane_arcade_menus;
 
-import utopia_gameobjects.GameObject;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.MouseListenerHandler;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;
-import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
-import arcane_arcade_worlds.RoomObjectCreator;
+import arcane_arcade_worlds.SettingUsingArea;
+import arcane_arcade_worlds.SettingUsingAreaObjectCreator;
 
 /**
  * OptionScreenObjectCreator creates the objects needed in the options screen.
  * 
- * @author Mikko Hilpinen.
+ * @author Mikko Hilpinen
  * @since 3.3.2014
  */
-public class OptionScreenObjectCreator extends GameObject implements
-		RoomObjectCreator
+public class OptionScreenObjectCreator extends SettingUsingAreaObjectCreator
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
-	private DrawableHandler drawer;
-	private MouseListenerHandler mousehandler;
-	private ActorHandler actorhandler;
 	private Navigator navigator;
 	
 	
@@ -33,22 +25,17 @@ public class OptionScreenObjectCreator extends GameObject implements
 	/**
 	 * Creates a new objectCreator. The creator will create objects when the 
 	 * room starts
-	 * @param drawer The drawableHandler that will draw the contents of the room
-	 * @param mousehandler The MouseListenerHandler that will inform the 
-	 * objects about mouse events
-	 * @param actorhandler The actorhandler that will inform the objects about 
-	 * steps
+	 * @param optionScreen The option screen where the objects will be created at
 	 * @param navigator The navigator that will handle the transitions between 
 	 * rooms
 	 */
-	public OptionScreenObjectCreator(DrawableHandler drawer, 
-			MouseListenerHandler mousehandler, ActorHandler actorhandler, 
+	public OptionScreenObjectCreator(SettingUsingArea optionScreen, 
 			Navigator navigator)
 	{
+		super(optionScreen, "space", "background", GameSettings.SCREENWIDTH, 
+				GameSettings.SCREENHEIGHT, null);
+		
 		// Initializes attributes
-		this.drawer = drawer;
-		this.mousehandler = mousehandler;
-		this.actorhandler = actorhandler;
 		this.navigator = navigator;
 	}
 	
@@ -56,31 +43,28 @@ public class OptionScreenObjectCreator extends GameObject implements
 	// IMPLEMENTED METHODS	---------------------------------------------
 
 	@Override
-	public void onRoomStart(Room room)
+	protected void onSettingsChange(AreaSetting newSettings)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	protected void createObjects(Area area)
 	{
 		// Starts the music
-		new MenuThemePlayer(room, 1);
+		new MenuThemePlayer(area, 1);
 		// Creates menucorners
-		new MenuCornerCreator(this.drawer, this.mousehandler, room, false);
+		new MenuCornerCreator(area.getDrawer(), area.getMouseHandler(), area, false);
 		// Creates background effects
-		new MenuBackgroundEffectCreator(this.drawer, this.actorhandler, room);
+		new MenuBackgroundEffectCreator(area.getDrawer(), 
+				area.getActorHandler(), area);
 		// Creates navigation button
 		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT / 2, 
-				GamePhase.MAINMENU, this.navigator, this.drawer, 
-				this.actorhandler, this.mousehandler, room).setXScale(-1);
+				"mainmenu", this.navigator, area.getDrawer(), 
+				area.getActorHandler(), area.getMouseHandler(), area).setXScale(-1);
 		
 		// TODO create optionbuttons
-	}
-
-	@Override
-	public void onRoomEnd(Room room)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void setSettings(AreaSetting setting)
-	{
-		// Doesn't use settings
 	}
 }
