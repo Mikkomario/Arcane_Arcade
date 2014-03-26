@@ -2,8 +2,9 @@ package arcane_arcade_main;
 
 import java.util.HashMap;
 
-import fileio.AbstractFileWriter;
-import fileio.FileReader;
+import utopia_fileio.AbstractFileWriter;
+import utopia_fileio.FileReader;
+
 
 /**
  * Options class loads the chosen settings at the start of the game, provides 
@@ -187,11 +188,7 @@ public class Options
 		
 		@Override
 		protected void onLine(String line)
-		{
-			// Skips the comments (start with *)
-			if (line.startsWith("*"))
-				return;
-			
+		{	
 			//System.out.println(line);
 			
 			// If the line starts with &, changes the loadphase
@@ -262,7 +259,7 @@ public class Options
 		private void loadSettings()
 		{
 			this.loadphase = 0;
-			readFile(GameSettings.OPTIONSDATALOCATION);
+			readFile(GameSettings.OPTIONSDATALOCATION, "*");
 		}
 		
 		private int readAsInt(String intstring)

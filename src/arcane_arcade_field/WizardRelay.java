@@ -3,10 +3,11 @@ package arcane_arcade_field;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import worlds.Room;
-import listeners.RoomListener;
-import handleds.Handled;
-import handlers.Handler;
+import utopia_handleds.Handled;
+import utopia_handlers.Handler;
+import utopia_listeners.RoomListener;
+import utopia_worlds.Room;
+
 
 /**
  * WizardRelay holds information about the wizards on the field and provides 

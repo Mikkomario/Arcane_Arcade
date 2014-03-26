@@ -1,14 +1,15 @@
 package arcane_arcade_status;
 
-import gameobjects.DrawnObject;
-import graphic.SingleSpriteDrawer;
-import handlers.DrawableHandler;
 
 import java.awt.Graphics2D;
 
-import resourcebanks.MultiMediaHolder;
-import worlds.Room;
-import listeners.RoomListener;
+import utopia_gameobjects.DrawnObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handlers.DrawableHandler;
+import utopia_listeners.RoomListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
+
 
 
 /**

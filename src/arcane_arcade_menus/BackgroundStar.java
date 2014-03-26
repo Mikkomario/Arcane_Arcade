@@ -2,16 +2,16 @@ package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
 
-import resourcebanks.MultiMediaHolder;
-import worlds.Room;
-import gameobjects.DrawnObject;
-import graphic.SingleSpriteDrawer;
-import graphic.SpriteDrawer;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
-import helpAndEnums.DepthConstants;
-import listeners.AnimationListener;
-import listeners.RoomListener;
+import utopia_gameobjects.DrawnObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_graphic.SpriteDrawer;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_listeners.AnimationListener;
+import utopia_listeners.RoomListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 
 /**
  * A backgroundstar is a visual effect shown in the background of the game

@@ -4,22 +4,22 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import resourcebanks.MultiMediaHolder;
-import worlds.Room;
-import listeners.RoomListener;
+import utopia_gameobjects.BasicPhysicDrawnObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handleds.Collidable;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.CollidableHandler;
+import utopia_handlers.CollisionHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_helpAndEnums.CollisionType;
+import utopia_helpAndEnums.HelpMath;
+import utopia_listeners.RoomListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
-import gameobjects.BasicPhysicDrawnObject;
-import graphic.SingleSpriteDrawer;
-import handleds.Collidable;
-import handlers.ActorHandler;
-import handlers.CollidableHandler;
-import handlers.CollisionHandler;
-import handlers.DrawableHandler;
-import helpAndEnums.CollisionType;
-import helpAndEnums.HelpMath;
 
 /**
  * Spelleffects vary quite much but each of them has one or two elements and 
@@ -154,7 +154,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 
 	@Override
 	public void onCollision(ArrayList<Point2D.Double> colpoints,
-			Collidable collided)
+			Collidable collided, double steps)
 	{
 		// If the spell collides with other spells, may react to them
 		if (this.spellcollision && collided instanceof SpellEffect)

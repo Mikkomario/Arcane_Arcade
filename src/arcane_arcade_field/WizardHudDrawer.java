@@ -3,14 +3,14 @@ package arcane_arcade_field;
 import java.awt.Graphics2D;
 import java.util.Iterator;
 
-import resourcebanks.MultiMediaHolder;
+import utopia_gameobjects.DrawnObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handleds.Drawable;
+import utopia_handleds.Handled;
+import utopia_handlers.DrawableHandler;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_resourcebanks.MultiMediaHolder;
 import arcane_arcade_main.GameSettings;
-import gameobjects.DrawnObject;
-import graphic.SingleSpriteDrawer;
-import handleds.Drawable;
-import handleds.Handled;
-import handlers.DrawableHandler;
-import helpAndEnums.DepthConstants;
 
 /**
  * Wizardhud draws some information on screen like the remaining mana, 
@@ -41,7 +41,7 @@ public class WizardHudDrawer extends DrawableHandler
 	 */
 	public WizardHudDrawer(DrawableHandler superhandler, Wizard wizard)
 	{
-		super(true, true, DepthConstants.HUD, superhandler);
+		super(true, true, DepthConstants.HUD, 1, superhandler);
 		
 		// Initializes attributes
 		this.wizard = wizard;
@@ -118,6 +118,7 @@ public class WizardHudDrawer extends DrawableHandler
 	{
 		//System.out.println(getHandledNumber());
 		// Goes through the handleds and updates their status
+		// TODO: UPDATE THIS TO USE HANDLINGOPERATORS
 		Iterator<Handled> iterator = getIterator();
 		while (iterator.hasNext())
 		{

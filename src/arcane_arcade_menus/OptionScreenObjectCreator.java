@@ -1,10 +1,10 @@
 package arcane_arcade_menus;
 
-import worlds.Room;
-import gameobjects.GameObject;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
-import handlers.MouseListenerHandler;
+import utopia_gameobjects.GameObject;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.GamePhase;

@@ -1,19 +1,18 @@
 package arcane_arcade_field;
 
+import utopia_gameobjects.GameObject;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.CollisionHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.KeyListenerHandler;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Options;
 import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.FieldSetting;
 import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.RoomObjectCreator;
-import gameobjects.GameObject;
-import handlers.ActorHandler;
-import handlers.CollisionHandler;
-import handlers.DrawableHandler;
-import handlers.KeyListenerHandler;
-import helpAndEnums.DepthConstants;
-
-import worlds.Room;
 
 /**
  * Objectcreator creates all the objects in the field at the beginning of the 
@@ -53,7 +52,7 @@ public class FieldObjectCreator extends GameObject implements RoomObjectCreator
 			Navigator navigator)
 	{
 		// Initializes attributes
-		this.fielddrawer = new DrawableHandler(false, true, DepthConstants.NORMAL, 
+		this.fielddrawer = new DrawableHandler(false, true, DepthConstants.NORMAL, 5, 
 				superdrawer);
 		this.fieldactorhandler = new ActorHandler(false, superactorhandler);
 		this.fieldkeylistenerhandler = new KeyListenerHandler(false, superkeyhandler);

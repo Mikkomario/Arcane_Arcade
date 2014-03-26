@@ -5,10 +5,22 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import resourcebanks.MultiMediaHolder;
-import worlds.Room;
-import listeners.AdvancedKeyListener;
-import listeners.RoomListener;
+import utopia_gameobjects.BasicPhysicDrawnObject;
+import utopia_graphic.MaskChecker;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handleds.Collidable;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.CollidableHandler;
+import utopia_handlers.CollisionHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.KeyListenerHandler;
+import utopia_helpAndEnums.CollisionType;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_helpAndEnums.HelpMath;
+import utopia_listeners.AdvancedKeyListener;
+import utopia_listeners.RoomListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 import arcane_arcade_field.WizardSoundQueuePlayer.DialogEvent;
 import arcane_arcade_main.Buttons;
 import arcane_arcade_main.GameSettings;
@@ -18,18 +30,6 @@ import arcane_arcade_spelleffects.TeleportEffect;
 import arcane_arcade_spells.Spell;
 import arcane_arcade_status.Element;
 import arcane_arcade_status.WizardStatus;
-import gameobjects.BasicPhysicDrawnObject;
-import graphic.MaskChecker;
-import graphic.SingleSpriteDrawer;
-import handleds.Collidable;
-import handlers.ActorHandler;
-import handlers.CollidableHandler;
-import handlers.CollisionHandler;
-import handlers.DrawableHandler;
-import handlers.KeyListenerHandler;
-import helpAndEnums.CollisionType;
-import helpAndEnums.DepthConstants;
-import helpAndEnums.HelpMath;
 
 /**
  * Mages are the playable characters in the game
@@ -237,7 +237,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 
 	@Override
 	public void onCollision(ArrayList<Point2D.Double> colpoints,
-			Collidable collided)
+			Collidable collided, double steps)
 	{
 		// Collides with the ball (normally causes instant death)
 		if (collided instanceof Ball)

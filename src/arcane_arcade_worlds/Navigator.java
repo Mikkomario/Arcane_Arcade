@@ -3,13 +3,13 @@ package arcane_arcade_worlds;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import resourcebanks.MultiMediaHolder;
-import resourcebanks.ResourceType;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
-import handlers.KeyListenerHandler;
-import handlers.MouseListenerHandler;
-import backgrounds.Background;
+import utopia_backgrounds.Background;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.KeyListenerHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_resourceHandling.ResourceType;
+import utopia_resourcebanks.MultiMediaHolder;
 import arcane_arcade_field.FieldObjectCreator;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_menus.BattleScreenObjectCreator;
@@ -220,7 +220,7 @@ public class Navigator
 			DrawableHandler drawer)
 	{
 		Background back = new Background(0, 0, drawer, null, 
-				MultiMediaHolder.getSpriteBank("background"), backname);
+				MultiMediaHolder.getSpriteBank("background").getSprite(backname));
 		back.setDimensions(GameSettings.SCREENWIDTH, 
 				GameSettings.SCREENHEIGHT);
 		ArrayList<Background> backlist = new ArrayList<Background>();

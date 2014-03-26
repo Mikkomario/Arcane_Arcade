@@ -3,22 +3,20 @@ package arcane_arcade_menus;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import java.awt.geom.Point2D.Double;
 
-
-import java.awt.geom.Point2D;
-
-import resourcebanks.MultiMediaHolder;
-import worlds.Room;
-import listeners.RoomListener;
+import utopia_gameobjects.DrawnObject;
+import utopia_gameobjects.GameObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_listeners.RoomListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
-import gameobjects.DrawnObject;
-import gameobjects.GameObject;
-import graphic.SingleSpriteDrawer;
-import handlers.DrawableHandler;
-import handlers.MouseListenerHandler;
-import helpAndEnums.DepthConstants;
 
 /**
  * MainMenuMenuCreator creates the main buttons and the emblem in the center
@@ -190,7 +188,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 
 		@Override
 		public void onMouseButtonEvent(MouseButton button,
-				MouseButtonEventType eventType, Point2D mousePosition,
+				MouseButtonEventType eventType, Double mousePosition,
 				double eventStepTime)
 		{
 			//Starts the correct gamePhase if the left button was pressed
@@ -201,7 +199,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 
 		@Override
 		public void onMousePositionEvent(MousePositionEventType eventType,
-				Point2D mousePosition, double eventStepTime)
+				Double mousePosition, double eventStepTime)
 		{
 			// Resets the position of the MenuElement on mouse exit
 			if (eventType == MousePositionEventType.EXIT)

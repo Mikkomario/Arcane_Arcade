@@ -2,19 +2,19 @@ package arcane_arcade_field;
 
 import java.awt.Graphics2D;
 
-import resourcebanks.MultiMediaHolder;
-import worlds.Room;
-import listeners.RoomListener;
+import utopia_gameobjects.DrawnObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handleds.Actor;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_listeners.RoomListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
 import arcane_arcade_worlds.VictorySetting;
-import gameobjects.DrawnObject;
-import graphic.SingleSpriteDrawer;
-import handleds.Actor;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
-import helpAndEnums.DepthConstants;
 
 /**
  * Scorekeeper keeps track of the game's score and handlers the continuity 

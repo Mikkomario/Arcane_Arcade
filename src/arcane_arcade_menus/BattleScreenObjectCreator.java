@@ -3,11 +3,11 @@ package arcane_arcade_menus;
 
 import java.awt.geom.Point2D;
 
-import gameobjects.GameObject;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
-import handlers.MouseListenerHandler;
-import worlds.Room;
+import utopia_gameobjects.GameObject;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.GamePhase;
@@ -127,7 +127,7 @@ public class BattleScreenObjectCreator extends GameObject implements RoomObjectC
 
 		@Override
 		public void onMouseButtonEvent(MouseButton button,
-				MouseButtonEventType eventType, Point2D mousePosition,
+				MouseButtonEventType eventType, Point2D.Double mousePosition,
 				double eventStepTime)
 		{
 			// On left pressed goes to the element selection screen

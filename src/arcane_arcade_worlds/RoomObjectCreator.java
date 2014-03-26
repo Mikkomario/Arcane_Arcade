@@ -1,6 +1,7 @@
 package arcane_arcade_worlds;
 
-import listeners.RoomListener;
+import utopia_listeners.RoomListener;
+
 
 /**
  * RoomObjectCreator creates a bunch of objects at the start of the room 

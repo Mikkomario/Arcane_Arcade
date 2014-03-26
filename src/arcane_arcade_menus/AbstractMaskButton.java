@@ -2,11 +2,13 @@ package arcane_arcade_menus;
 
 import java.awt.geom.Point2D;
 
-import graphic.MaskChecker;
-import graphic.Sprite;
-import handlers.DrawableHandler;
-import handlers.MouseListenerHandler;
-import worlds.Room;
+import utopia_graphic.MaskChecker;
+import utopia_graphic.Sprite;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_interfaceElements.AbstractButton;
+import utopia_worlds.Room;
+
 
 /**
  * AbstractMaskButton is an abstract button that in addition to normal button 

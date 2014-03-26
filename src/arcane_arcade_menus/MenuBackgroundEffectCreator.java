@@ -2,17 +2,15 @@ package arcane_arcade_menus;
 
 import java.util.Random;
 
+import utopia_gameobjects.GameObject;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_listeners.RoomListener;
+import utopia_listeners.TimerEventListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_timers.RandomTimer;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
-import listeners.RoomListener;
-import listeners.TimerEventListener;
-import resourcebanks.MultiMediaHolder;
-import timers.RandomTimer;
-import worlds.Room;
-
-
-import gameobjects.GameObject;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
 
 /**
  * MenuBackGroundCreator creates the menus' background effects: 

@@ -2,13 +2,12 @@ package arcane_arcade_menus;
 
 import java.awt.geom.Point2D;
 
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_worlds.Room;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
-import handlers.MouseListenerHandler;
-import worlds.Room;
-
 /**
  * This button takes the user to a new gamephase though it doesn't support the 
  * use of areasettings upon change. For that one has to create its own class.
@@ -59,7 +58,7 @@ public class SimplePhaseChangeButton extends MenuButton
 
 	@Override
 	public void onMouseButtonEvent(MouseButton button,
-			MouseButtonEventType eventType, Point2D mousePosition,
+			MouseButtonEventType eventType, Point2D.Double mousePosition,
 			double eventStepTime)
 	{
 		// Changes the phase when clicked

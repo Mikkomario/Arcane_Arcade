@@ -5,20 +5,21 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Random;
 
-import resourcebanks.MultiMediaHolder;
-import timers.SingularTimer;
-import worlds.Room;
-import listeners.RoomListener;
-import listeners.TimerEventListener;
-import gameobjects.BasicPhysicDrawnObject;
-import graphic.SingleSpriteDrawer;
-import handleds.Collidable;
-import handlers.ActorHandler;
-import handlers.CollidableHandler;
-import handlers.CollisionHandler;
-import handlers.DrawableHandler;
-import helpAndEnums.CollisionType;
-import helpAndEnums.DepthConstants;
+import utopia_gameobjects.BasicPhysicDrawnObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handleds.Collidable;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.CollidableHandler;
+import utopia_handlers.CollisionHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_helpAndEnums.CollisionType;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_listeners.RoomListener;
+import utopia_listeners.TimerEventListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_timers.SingularTimer;
+import utopia_worlds.Room;
+
 
 /**
  * Server spins, shoots the ball and then vanishes until it is needed again
@@ -107,7 +108,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener,
 
 	@Override
 	public void onCollision(ArrayList<Point2D.Double> colpoints,
-			Collidable collided)
+			Collidable collided, double steps)
 	{
 		// Servers don't collide with anything
 	}

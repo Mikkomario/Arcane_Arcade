@@ -2,25 +2,26 @@ package arcane_arcade_field;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 
-import resourcebanks.MultiMediaHolder;
-import worlds.Room;
-import listeners.RoomListener;
+import utopia_gameobjects.BouncingBasicPhysicDrawnObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handleds.Collidable;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.CollidableHandler;
+import utopia_handlers.CollisionHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_helpAndEnums.CollisionType;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_helpAndEnums.HelpMath;
+import utopia_listeners.RoomListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_spelleffects.SpellEffect;
 import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.WizardStatus;
-import gameobjects.BouncingBasicPhysicDrawnObject;
-import graphic.SingleSpriteDrawer;
-import handleds.Collidable;
-import handlers.ActorHandler;
-import handlers.CollidableHandler;
-import handlers.CollisionHandler;
-import handlers.DrawableHandler;
-import helpAndEnums.CollisionType;
-import helpAndEnums.DepthConstants;
-import helpAndEnums.HelpMath;
 
 /**
  * Ball is one of the main objects of the game. It mainly flies around the 
@@ -101,10 +102,10 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	
 	
 	// IMPLEMENTED METHODS	--------------------------------------------
-
+	
 	@Override
-	public void onCollision(ArrayList<Point2D.Double> colpoints,
-			Collidable collided)
+	public void onCollision(ArrayList<Double> colpoints, Collidable collided,
+			double steps)
 	{
 		// The ball collides with spells that need to collide with it
 		if (collided instanceof SpellEffect)
@@ -127,7 +128,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 			Wizard wizard = (Wizard) collided;
 			
 			if (wizard.getStatusStrength(WizardStatus.IRONFLESH) > 0)
-				bounceWithoutRotationFrom(wizard, colpoints.get(0), 1, 0);
+				bounceWithoutRotationFrom(wizard, colpoints.get(0), 1, 0, steps);
 		}
 	}
 

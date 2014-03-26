@@ -2,16 +2,16 @@ package arcane_arcade_spelleffects;
 
 import java.util.Random;
 
+import utopia_gameobjects.BasicPhysicDrawnObject;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.CollidableHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_helpAndEnums.HelpMath;
+import utopia_helpAndEnums.Movement;
+import utopia_worlds.Room;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_main.SoundEffectPlayer;
-import gameobjects.BasicPhysicDrawnObject;
-import handlers.ActorHandler;
-import handlers.CollidableHandler;
-import handlers.DrawableHandler;
-import helpAndEnums.HelpMath;
-import helpAndEnums.Movement;
-import worlds.Room;
 
 /**
  * WaveEffect creator follows a wizard and creates three waves of waveeffects

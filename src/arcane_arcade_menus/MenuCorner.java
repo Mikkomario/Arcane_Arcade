@@ -2,14 +2,14 @@ package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
 
-import resourcebanks.MultiMediaHolder;
+import utopia_gameobjects.DrawnObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handlers.DrawableHandler;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_listeners.RoomListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
-import gameobjects.DrawnObject;
-import graphic.SingleSpriteDrawer;
-import handlers.DrawableHandler;
-import helpAndEnums.DepthConstants;
-import worlds.Room;
-import listeners.RoomListener;
 
 /**
  * MenuCorner is a simple visual element that is placed in a corner of a menu 

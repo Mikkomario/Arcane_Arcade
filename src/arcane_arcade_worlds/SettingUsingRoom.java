@@ -1,13 +1,11 @@
 package arcane_arcade_worlds;
 
-import gameobjects.GameObject;
 
 import java.util.ArrayList;
 
-
-import backgrounds.Background;
-
-import worlds.Room;
+import utopia_backgrounds.Background;
+import utopia_gameobjects.GameObject;
+import utopia_worlds.Room;
 
 /**
  * SettingUsingRoom allows the use of settings and objectcreators and can 

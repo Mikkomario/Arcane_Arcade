@@ -1,13 +1,13 @@
 package arcane_arcade_spelleffects;
 
-import timers.ContinuousTimer;
-import worlds.Room;
-import listeners.RoomListener;
-import listeners.TimerEventListener;
+import utopia_gameobjects.GameObject;
+import utopia_handleds.Actor;
+import utopia_handlers.ActorHandler;
+import utopia_listeners.RoomListener;
+import utopia_listeners.TimerEventListener;
+import utopia_timers.ContinuousTimer;
+import utopia_worlds.Room;
 
-import gameobjects.GameObject;
-import handleds.Actor;
-import handlers.ActorHandler;
 
 /**
  * SpellEffectCreator creates spells with certain intervals. Creators aren't 

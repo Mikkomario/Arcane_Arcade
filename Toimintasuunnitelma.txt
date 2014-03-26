@@ -388,6 +388,14 @@ Eteneminen:														Status
 			* Arcane Arcade näyttäisi olevan erään 
 			kahvipöytälaitteen tuotemerkki
 			* Wizard Pong on tietysti yks vaihtoehto
+		- Parantelu
+			* Törmäyksen keston mukaan ottaminen kaikkiin tarvittaviin 
+			törmäysjuttuihin
+			* Osan navigaattorin toimintojen muuttaminen moottrille
+			* WizardHudDrawerin (ja vastaavien) updateeminen
+			* Refaktoroi Main
+			* Vaihda AbstractButton moottorin vastaavaan
+			* Implementoi areoiden käyttö huoneiden sijaan
 	* Gold	---------------------------------------------------------------
 		- Erilaiset kentät
 			* Erilaiset haasteet ja objektit

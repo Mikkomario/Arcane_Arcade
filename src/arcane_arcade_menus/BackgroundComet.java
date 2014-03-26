@@ -4,17 +4,17 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import resourcebanks.MultiMediaHolder;
+import utopia_gameobjects.BasicPhysicDrawnObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handleds.Collidable;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_helpAndEnums.CollisionType;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_listeners.RoomListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
-import worlds.Room;
-import listeners.RoomListener;
-import gameobjects.BasicPhysicDrawnObject;
-import graphic.SingleSpriteDrawer;
-import handleds.Collidable;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
-import helpAndEnums.CollisionType;
-import helpAndEnums.DepthConstants;
 
 /**
  * BackgroundComet is a comet that travels through the screen and then dies
@@ -66,7 +66,7 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 
 	@Override
 	public void onCollision(ArrayList<Point2D.Double> colpoints,
-			Collidable collided)
+			Collidable collided, double steps)
 	{
 		// Doesn't collide with things
 	}

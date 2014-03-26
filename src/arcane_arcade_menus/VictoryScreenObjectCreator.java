@@ -2,16 +2,16 @@ package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
 
-import resourcebanks.MultiMediaHolder;
-import listeners.RoomListener;
-import gameobjects.DrawnObject;
-import gameobjects.GameObject;
-import graphic.SingleSpriteDrawer;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
-import handlers.MouseListenerHandler;
-import helpAndEnums.DepthConstants;
-import worlds.Room;
+import utopia_gameobjects.DrawnObject;
+import utopia_gameobjects.GameObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_listeners.RoomListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.GamePhase;

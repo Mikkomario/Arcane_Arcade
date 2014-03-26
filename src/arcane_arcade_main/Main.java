@@ -1,20 +1,19 @@
 package arcane_arcade_main;
 
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
-import handlers.KeyListenerHandler;
-import handlers.MouseListenerHandler;
-import helpAndEnums.DepthConstants;
 
 import java.awt.BorderLayout;
 
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.KeyListenerHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_resourceHandling.ResourceType;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_video.GamePanel;
+import utopia_video.GameWindow;
 import arcane_arcade_worlds.GamePhase;
 import arcane_arcade_worlds.Navigator;
-import resourcebanks.MultiMediaHolder;
-import resourcebanks.ResourceType;
-import tests.FpsApsTest;
-import video.GamePanel;
-import video.GameWindow;
 
 /**
  * Main class starts the game
@@ -74,7 +73,7 @@ public class Main
 		this.mainactorhandler = new ActorHandler(false, null);
 		this.window.addActor(this.mainactorhandler);
 		this.maindrawer = new DrawableHandler(false, true, 
-				DepthConstants.NORMAL, null);
+				DepthConstants.NORMAL, 5, null);
 		this.mainpanel.getDrawer().addDrawable(this.maindrawer);
 		this.mainkeyhandler = new KeyListenerHandler(false, null);
 		this.window.addKeyListener(this.mainkeyhandler);
@@ -139,11 +138,11 @@ public class Main
 	public static void main(String[] args)
 	{
 		// Starts the game
-		Main main = 
+		//Main main = 
 				new Main();
 		
 		// Runs some tests
-		new FpsApsTest(main.getActorHandler(), main.getDrawableHandler());
+		//new FpsApsTest(main.getActorHandler(), main.getDrawableHandler());
 		//new GraphicalMousePositionTest(main.getDrawableHandler(), 
 		//		main.getMouseListenerHandler());
 	}

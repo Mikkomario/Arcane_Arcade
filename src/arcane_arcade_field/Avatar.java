@@ -1,7 +1,7 @@
 package arcane_arcade_field;
 
-import resourcebanks.OpenWavSoundBankHolder;
-import resourcebanks.WavSoundBank;
+import utopia_resourcebanks.OpenWavSoundBankHolder;
+import utopia_resourcebanks.WavSoundBank;
 import arcane_arcade_main.GameSettings;
 
 /**

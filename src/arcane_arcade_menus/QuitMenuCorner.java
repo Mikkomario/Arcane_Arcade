@@ -3,13 +3,12 @@ package arcane_arcade_menus;
 
 import java.awt.geom.Point2D;
 
-import resourcebanks.MultiMediaHolder;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
-import worlds.Room;
-import handlers.DrawableHandler;
-import handlers.MouseListenerHandler;
-import helpAndEnums.DepthConstants;
-
 /**
  * By clicking the quitmenucorner the user quits the game
  *
@@ -47,8 +46,8 @@ public class QuitMenuCorner extends AbstractMaskButton
 	}
 
 	@Override
-	public void onMousePositionEvent(MousePositionEventType eventType,
-			Point2D mousePosition, double eventStepTime)
+	public void onMousePositionEvent(MousePositionEventType eventType, 
+			Point2D.Double mousePosition, double eventStepTime)
 	{
 		// Changes sprite index when mouse enters or exits the button
 		if (eventType == MousePositionEventType.ENTER)
@@ -58,8 +57,8 @@ public class QuitMenuCorner extends AbstractMaskButton
 	}
 
 	@Override
-	public void onMouseButtonEvent(MouseButton button,
-			MouseButtonEventType eventType, Point2D mousePosition,
+	public void onMouseButtonEvent(MouseButton button, 
+			MouseButtonEventType eventType, Point2D.Double mousePosition, 
 			double eventStepTime)
 	{
 		if (button == MouseButton.LEFT && 

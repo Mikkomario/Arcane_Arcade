@@ -1,9 +1,10 @@
 package arcane_arcade_spelleffects;
 
-import handlers.ActorHandler;
-import handlers.CollidableHandler;
-import handlers.DrawableHandler;
-import worlds.Room;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.CollidableHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_worlds.Room;
+
 
 /**
  * This creator creates two earthquake effects with different sizes with a 

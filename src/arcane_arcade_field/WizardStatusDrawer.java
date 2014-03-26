@@ -1,13 +1,12 @@
 package arcane_arcade_field;
 
-import gameobjects.DrawnObject;
-import graphic.SingleSpriteDrawer;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
-
 import java.awt.Graphics2D;
 
-import resourcebanks.MultiMediaHolder;
+import utopia_gameobjects.DrawnObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_resourcebanks.MultiMediaHolder;
 import arcane_arcade_status.WizardStatus;
 
 /**
@@ -36,7 +35,7 @@ public class WizardStatusDrawer extends DrawableHandler
 	public WizardStatusDrawer(DrawableHandler superhandler, ActorHandler animator, 
 			Wizard wizard)
 	{
-		super(true, false, wizard.getDepth() - 1, superhandler);
+		super(true, false, wizard.getDepth() - 1, 0, superhandler);
 		
 		// Initializes attributes
 		this.wizard = wizard;

@@ -4,13 +4,13 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import gameobjects.BasicPhysicDrawnObject;
-import handleds.Collidable;
-import handlers.ActorHandler;
-import helpAndEnums.CollisionType;
-import helpAndEnums.DepthConstants;
-import helpAndEnums.Movement;
-import worlds.Room;
+import utopia_gameobjects.BasicPhysicDrawnObject;
+import utopia_handleds.Collidable;
+import utopia_handlers.ActorHandler;
+import utopia_helpAndEnums.CollisionType;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_helpAndEnums.Movement;
+import utopia_worlds.Room;
 
 /**
  * Movingspelleffectcreator moves to a certain direction with a certain speed 
@@ -81,7 +81,7 @@ public abstract class MovingSpellEffectCreator extends FollowerSpellEffectCreato
 
 		@Override
 		public void onCollision(ArrayList<Point2D.Double> colpoints,
-				Collidable collided)
+				Collidable collided, double steps)
 		{
 			// Doesn't react to collisions
 		}

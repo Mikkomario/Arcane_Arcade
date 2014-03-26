@@ -2,11 +2,12 @@ package arcane_arcade_spelleffects;
 
 import java.util.Random;
 
-import handlers.ActorHandler;
-import handlers.CollidableHandler;
-import handlers.DrawableHandler;
-import helpAndEnums.Movement;
-import worlds.Room;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.CollidableHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_helpAndEnums.Movement;
+import utopia_worlds.Room;
+
 
 /**SmokeEffectCreator creates SmokeEffects.
  * 

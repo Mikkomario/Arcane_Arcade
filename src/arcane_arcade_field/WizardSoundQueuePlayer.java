@@ -3,10 +3,10 @@ package arcane_arcade_field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import utopia_sound.WavSoundQueue;
 import arcane_arcade_main.Options;
 import arcane_arcade_main.SoundEffectPlayer;
 import arcane_arcade_status.Element;
-import sound.WavSoundQueue;
 
 /**
  * WizardSoundQueuePlayer plays soundqueues made from wizard sounds. The player 

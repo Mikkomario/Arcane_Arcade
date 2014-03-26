@@ -3,16 +3,17 @@ package arcane_arcade_menus;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import resourcebanks.MultiMediaHolder;
+import utopia_gameobjects.DrawnObject;
+import utopia_handleds.Actor;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_helpAndEnums.CollisionType;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_interfaceElements.AbstractButton;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
-import worlds.Room;
-import gameobjects.DrawnObject;
-import handleds.Actor;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
-import handlers.MouseListenerHandler;
-import helpAndEnums.CollisionType;
-import helpAndEnums.DepthConstants;
 
 /**
  * Menubuttons have different functions and can be clicked. MenuButtons also 
@@ -77,8 +78,8 @@ public abstract class MenuButton extends AbstractButton
 	}
 
 	@Override
-	public void onMousePositionEvent(MousePositionEventType eventType,
-			Point2D mousePosition, double eventStepTime)
+	public void onMousePositionEvent(MousePositionEventType eventType, 
+			Point2D.Double mousePosition, double eventStepTime)
 	{
 		// Changes sprite index when mouse enters or exits the button
 		if (eventType == MousePositionEventType.ENTER)

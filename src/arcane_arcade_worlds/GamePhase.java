@@ -1,6 +1,7 @@
 package arcane_arcade_worlds;
 
-import resourcebanks.ResourceType;
+import utopia_resourceHandling.ResourceType;
+
 
 /**
  * Gamephases represent the phases in a game like the menu screen or the 

@@ -1,8 +1,9 @@
 package arcane_arcade_menus;
 
-import worlds.Room;
-import handlers.DrawableHandler;
-import handlers.MouseListenerHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_worlds.Room;
+
 
 /**
  * MenuCornerCreator creates the corners used in the menus

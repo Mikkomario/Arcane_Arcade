@@ -1,8 +1,9 @@
 package arcane_arcade_spelleffects;
 
-import gameobjects.DrawnObject;
-import handlers.ActorHandler;
-import worlds.Room;
+import utopia_gameobjects.DrawnObject;
+import utopia_handlers.ActorHandler;
+import utopia_worlds.Room;
+
 
 /**
  * This class works like a spelleffectcreator except that it follows a specified 

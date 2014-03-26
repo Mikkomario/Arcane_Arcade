@@ -2,12 +2,12 @@ package arcane_arcade_field;
 
 import java.awt.Graphics2D;
 
-import resourcebanks.MultiMediaHolder;
+import utopia_gameobjects.DrawnObject;
+import utopia_graphic.SingleSpriteDrawer;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_resourcebanks.MultiMediaHolder;
 import arcane_arcade_status.BallStatus;
-import gameobjects.DrawnObject;
-import graphic.SingleSpriteDrawer;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
 
 /**
  * BallStatusDrawer draws all ballstatusses that need drawing
@@ -35,7 +35,7 @@ public class BallStatusDrawer extends DrawableHandler
 	public BallStatusDrawer(DrawableHandler superhandler, ActorHandler animator, 
 			Ball ball)
 	{
-		super(true, false, ball.getDepth() - 1, superhandler);
+		super(true, false, ball.getDepth(), 0, superhandler);
 		
 		// Initializes attributes
 		this.ball = ball;

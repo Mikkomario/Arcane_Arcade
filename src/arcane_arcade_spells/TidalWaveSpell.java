@@ -1,10 +1,10 @@
 package arcane_arcade_spells;
 
-import handlers.ActorHandler;
-import handlers.CollidableHandler;
-import handlers.CollisionHandler;
-import handlers.DrawableHandler;
-import worlds.Room;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.CollidableHandler;
+import utopia_handlers.CollisionHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_worlds.Room;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_spelleffects.WaveEffectCreator;

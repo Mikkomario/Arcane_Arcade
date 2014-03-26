@@ -2,13 +2,13 @@ package arcane_arcade_menus;
 
 import java.awt.geom.Point2D;
 
-import resourcebanks.MultiMediaHolder;
-import gameobjects.GameObject;
-import handlers.ActorHandler;
-import handlers.DrawableHandler;
-import handlers.KeyListenerHandler;
-import handlers.MouseListenerHandler;
-import worlds.Room;
+import utopia_gameobjects.GameObject;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.KeyListenerHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.AreaSetting;
 import arcane_arcade_worlds.FieldSetting;
@@ -135,7 +135,7 @@ public class ElementScreenObjectCreator extends GameObject implements
 
 		@Override
 		public void onMouseButtonEvent(MouseButton button,
-				MouseButtonEventType eventType, Point2D mousePosition,
+				MouseButtonEventType eventType, Point2D.Double mousePosition,
 				double eventStepTime)
 		{
 			// On left pressed goes to the element selection screen

@@ -1,11 +1,11 @@
 package arcane_arcade_spelleffects;
 
-import handlers.ActorHandler;
-import handlers.CollidableHandler;
-import handlers.DrawableHandler;
-import helpAndEnums.CollisionType;
-import helpAndEnums.DepthConstants;
-import worlds.Room;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.CollidableHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_helpAndEnums.CollisionType;
+import utopia_helpAndEnums.DepthConstants;
+import utopia_worlds.Room;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.Element;

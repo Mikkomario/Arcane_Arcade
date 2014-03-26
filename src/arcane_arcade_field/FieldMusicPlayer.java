@@ -1,10 +1,11 @@
 package arcane_arcade_field;
 
-import resourcebanks.MultiMediaHolder;
-import sound.MidiMusic;
-import gameobjects.GameObject;
-import worlds.Room;
-import listeners.RoomListener;
+import utopia_gameobjects.GameObject;
+import utopia_listeners.RoomListener;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_sound.MidiMusic;
+import utopia_worlds.Room;
+
 
 /**
  * FieldMusicPlayer plays the music in the basic field. The music starts 

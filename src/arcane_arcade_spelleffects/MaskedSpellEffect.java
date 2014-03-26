@@ -2,14 +2,14 @@ package arcane_arcade_spelleffects;
 
 import java.awt.geom.Point2D;
 
-import resourcebanks.MultiMediaHolder;
-import worlds.Room;
-import graphic.MaskChecker;
-import handlers.ActorHandler;
-import handlers.CollidableHandler;
-import handlers.CollisionHandler;
-import handlers.DrawableHandler;
-import helpAndEnums.CollisionType;
+import utopia_graphic.MaskChecker;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.CollidableHandler;
+import utopia_handlers.CollisionHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_helpAndEnums.CollisionType;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Room;
 import arcane_arcade_status.Element;
 
 /**

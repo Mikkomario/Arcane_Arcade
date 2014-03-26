@@ -1,9 +1,10 @@
 package arcane_arcade_menus;
 
-import resourcebanks.MultiMediaHolder;
-import sound.SoundTrack;
-import worlds.Room;
-import gameobjects.GameObject;
+import utopia_gameobjects.GameObject;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_sound.SoundTrack;
+import utopia_worlds.Room;
+
 
 /**
  * MenuThemePlayer plays the music theme in the menus or changes the phase 
