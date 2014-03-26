@@ -1,7 +1,7 @@
-Arcane_Arcade
+Arcane Arts (previously Arcane Arcade)
 =============
 
-Arcane Arcade is a game where two wizards play pong with each other by casting various spells at a mystical crystal ball.
+Arcane Arts is a multiplayer game where two wizards play pong with each other by casting various spells at a mystical crystal ball.
 
 Programming / design:
   - Lead: Mikko Hilpinen
