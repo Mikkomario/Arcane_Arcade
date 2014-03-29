@@ -56,14 +56,12 @@ public class OptionScreenObjectCreator extends SettingUsingAreaObjectCreator
 		// Starts the music
 		new MenuThemePlayer(area, 1);
 		// Creates menucorners
-		new MenuCornerCreator(area.getDrawer(), area.getMouseHandler(), area, false);
+		new MenuCornerCreator(area, false);
 		// Creates background effects
-		new MenuBackgroundEffectCreator(area.getDrawer(), 
-				area.getActorHandler(), area);
+		new MenuBackgroundEffectCreator(area);
 		// Creates navigation button
 		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT / 2, 
-				"mainmenu", this.navigator, area.getDrawer(), 
-				area.getActorHandler(), area.getMouseHandler(), area).setXScale(-1);
+				"mainmenu", this.navigator, area).setXScale(-1);
 		
 		// TODO create optionbuttons
 	}

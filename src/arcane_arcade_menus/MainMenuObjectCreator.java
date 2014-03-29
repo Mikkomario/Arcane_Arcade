@@ -55,13 +55,10 @@ public class MainMenuObjectCreator extends SettingUsingAreaObjectCreator
 		// Creates the musicplayer
 		new MenuThemePlayer(area, 0);
 		// Creates the bakcgroundeffectcreator
-		new MenuBackgroundEffectCreator(area.getDrawer(), 
-				area.getActorHandler(), area);
+		new MenuBackgroundEffectCreator(area);
 		// Creates the menucorners
-		new MenuCornerCreator(area.getDrawer(), area.getMouseHandler(), area, 
-				false);
+		new MenuCornerCreator(area, false);
 		// Creates the MainMenuElements
-		new MainMenuMenuCreator(area.getDrawer(), area.getMouseHandler(), area, 
-				this.navigator);
+		new MainMenuMenuCreator(this.navigator);
 	}
 }

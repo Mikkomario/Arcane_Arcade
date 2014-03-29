@@ -4,11 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import utopia_gameobjects.DrawnObject;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.MouseListenerHandler;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 
@@ -16,7 +15,7 @@ import arcane_arcade_main.GameSettings;
  * Creates an OptionBar for one of the game's options.
  * 
  * @author Unto Solala & Mikko Hilpinen
- * 			Created 8.9.2013
+ * @since 8.9.2013
  */
 public class OptionBar extends DrawnObject implements RoomListener
 {
@@ -26,7 +25,6 @@ public class OptionBar extends DrawnObject implements RoomListener
 	private int minValue;
 	private int maxValue;
 	private String description;
-	private DrawableHandler drawer;
 	private OptionBarButton leftbutton, rightbutton;
 
 	
@@ -37,37 +35,26 @@ public class OptionBar extends DrawnObject implements RoomListener
 	 * 
 	 * @param x The x-coordinate of the bar's left side (in pixels)
 	 * @param y The y-coordinate of the bar's top (in pixels)
-	 * @param drawer The drawablehandler that will draw the bar (optional)
 	 * @param defaultValue The value the bar will have as default
 	 * @param minValue The minimum value the bar can have
 	 * @param maxValue The maximum value the bar can have
 	 * @param description The description shown in the bar
-	 * @param mousehandler The mouseHandler that will inform the bar about 
-	 * mouse events
-	 * @param room The room that holds the option bar (optional)
+	 * @param area The area where the object is placed to
 	 */
-	public OptionBar(int x, int y, DrawableHandler drawer, int defaultValue,
-			int minValue, int maxValue, String description, 
-			MouseListenerHandler mousehandler, Room room)
+	public OptionBar(int x, int y, int defaultValue,
+			int minValue, int maxValue, String description, Area area)
 	{
-		super(x, y, DepthConstants.NORMAL, drawer);
+		super(x, y, DepthConstants.NORMAL, area);
 
 		this.value = defaultValue;
 		this.minValue = minValue;
 		this.maxValue = maxValue;
 		this.description = description;
-		this.drawer = drawer;
 		
 		this.leftbutton = new OptionBarButton((int)this.getX(),
-				(int)this.getY(), this.drawer, mousehandler,
-				OptionBarButton.LEFT);
+				(int)this.getY(), OptionBarButton.LEFT, area);
 		this.rightbutton = new OptionBarButton((int)this.getX()+100,
-				(int)this.getY(), this.drawer, mousehandler,
-				OptionBarButton.RIGHT);
-		
-		// Adds the object to the handler(s)
-		if (room != null)
-			room.addObject(this);
+				(int)this.getY(), OptionBarButton.RIGHT, area);
 	}
 	
 	
@@ -131,7 +118,7 @@ public class OptionBar extends DrawnObject implements RoomListener
 	 * values.
 	 * 
 	 * @author Unto Solala & Mikko Hilpinen
-	 * 			Created 8.9.2013
+	 * @since 8.9.2013
 	 */
 	private class OptionBarButton extends AbstractMaskButton
 	{
@@ -152,20 +139,18 @@ public class OptionBar extends DrawnObject implements RoomListener
 		 * 
 		 * @param x	The x-coordinate of the button
 		 * @param y The y-coordinate of the button
-		 * @param drawer	The drawer that will draw the button
-		 * @param mousehandler	The mouselistenerhandler that will inform the 
 		 * button about mouse events
 		 * @param direction	The direction the button is pointing, if it points
 		 * to the LEFT, the button will lower the value. If it points to the 
 		 * RIGHT, the button will increase the value.
+		 * @param area The area where the object is placed to
 		 */
-		public OptionBarButton(int x, int y, DrawableHandler drawer,
-				MouseListenerHandler mousehandler, int direction)
+		public OptionBarButton(int x, int y, int direction, Area area)
 		{
 			super(x, y, DepthConstants.NORMAL, 
 					MultiMediaHolder.getSpriteBank("menu").getSprite("arrow"), 
 					MultiMediaHolder.getSpriteBank("menu").getSprite("arrowmask"), 
-					drawer, mousehandler, null);
+					area);
 			
 			this.direction = direction;
 			

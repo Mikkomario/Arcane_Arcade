@@ -1,11 +1,8 @@
 package arcane_arcade_spelleffects;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.Element;
@@ -15,7 +12,7 @@ import arcane_arcade_status.Element;
  * enemy
  *
  * @author Mikko Hilpinen.
- *         Created 29.8.2013.
+ * @since 29.8.2013.
  */
 public class SmokeEffect extends MaskedSpellEffect
 {
@@ -27,22 +24,14 @@ public class SmokeEffect extends MaskedSpellEffect
 	 *
 	 * @param x The x-coordinate of the smoke
 	 * @param y The y-coordinate of the smoke
-	 * @param drawer The drawer that will draw the smoke
-	 * @param collidablehandler The collidablehandler that will handle the 
-	 * smoke's collision checking
-	 * @param actorhandler The actorhandler that will inform the object about 
-	 * steps
-	 * @param room The room where the object is created at
-	 * @param duration How long will the smoke last
+	 * @param duration How long will the smoke last (steps)
+	 * @param area The area where the object is placed to
 	 */
-	public SmokeEffect(int x, int y, DrawableHandler drawer, 
-			CollidableHandler collidablehandler, ActorHandler actorhandler,
-			Room room, int duration)
+	public SmokeEffect(int x, int y, int duration, Area area)
 	{
-		super(x, y, DepthConstants.FOREGROUND - 30, CollisionType.BOX, drawer, 
-				collidablehandler, null, actorhandler, room, 
+		super(x, y, DepthConstants.FOREGROUND - 30, CollisionType.BOX, 
 				"smoke", "cloudmask", false, false, false, Element.NOELEMENT, 
-				Element.NOELEMENT, duration, false);
+				Element.NOELEMENT, duration, false, area);
 		setBoxCollisionPrecision(2, 2);
 		addFadeEffect((int) (duration * 0.1), (int) (duration * 0.8));
 		addScaleEffect(duration, -1, 0.7);

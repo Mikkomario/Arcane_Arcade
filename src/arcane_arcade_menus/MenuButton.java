@@ -5,14 +5,11 @@ import java.awt.geom.Point2D;
 
 import utopia_gameobjects.DrawnObject;
 import utopia_handleds.Actor;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.MouseListenerHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_interfaceElements.AbstractButton;
 import utopia_resourcebanks.MultiMediaHolder;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_main.GameSettings;
 
 /**
@@ -21,7 +18,7 @@ import arcane_arcade_main.GameSettings;
  * over them.
  *
  * @author Mikko Hilpinen.
- *         Created 4.9.2013.
+ * @since 4.9.2013.
  */
 public abstract class MenuButton extends AbstractButton
 {
@@ -38,23 +35,15 @@ public abstract class MenuButton extends AbstractButton
 	 *
 	 * @param x The x-coordinate of the button
 	 * @param y The y-coordinate of the button
-	 * @param drawer The drawablehandler that will draw the button
-	 * @param actorhandler The actorhandler that will inform the button about 
-	 * step events
-	 * @param mouselistenerhandler The mouselistenerhandler that will inform 
-	 * the button about mouse events
-	 * @param room The room where the button is created at
 	 * @param message The message the button will show when the mouse hovers 
 	 * over it
+	 * @param area The area where the object is placed to
 	 */
-	public MenuButton(int x, int y, DrawableHandler drawer, 
-			ActorHandler actorhandler, 
-			MouseListenerHandler mouselistenerhandler, Room room, 
-			String message)
+	public MenuButton(int x, int y, String message, Area area)
 	{
 		super(x, y, DepthConstants.FOREGROUND, 
 				MultiMediaHolder.getSpriteBank("menu").getSprite("button"), 
-				drawer, mouselistenerhandler, room);
+				area);
 		
 		// Initializes attributes
 		this.mouseon = false;
@@ -64,8 +53,7 @@ public abstract class MenuButton extends AbstractButton
 		setRadius(getSpriteDrawer().getSprite().getOriginX());
 		
 		// Creates the textdrawer
-		new ButtonTextDrawer((int) getX(), (int) getY(), drawer, actorhandler, 
-				message);
+		new ButtonTextDrawer((int) getX(), (int) getY(), message, area);
 	}
 	
 	
@@ -114,22 +102,20 @@ public abstract class MenuButton extends AbstractButton
 		 *
 		 * @param x The x-coordinate of the text
 		 * @param y The y-coordinate of the text
-		 * @param drawer The drawer that will draw the text
-		 * @param actorhandler The actorhandler that will inform the object 
 		 * about step events
 		 * @param text The text the drawer will draw
+		 * @param area The area where the object is placed to
 		 */
-		public ButtonTextDrawer(int x, int y, DrawableHandler drawer, 
-				ActorHandler actorhandler, String text)
+		public ButtonTextDrawer(int x, int y, String text, Area area)
 		{
-			super(x, y, DepthConstants.FOREGROUND, drawer);
+			super(x, y, DepthConstants.FOREGROUND, area);
 			
 			// Initializes attributes
 			this.message = text.toCharArray();
 			
 			// Adds the object to the handler
-			if (actorhandler != null)
-				actorhandler.addActor(this);
+			if (area.getActorHandler() != null)
+				area.getActorHandler().addActor(this);
 		}
 
 		@Override

@@ -1,11 +1,8 @@
 package arcane_arcade_spelleffects;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.Element;
@@ -15,16 +12,13 @@ import arcane_arcade_status.Element;
  * ball.
  * 
  * @author Mikko Hilpinen. 
- * Created 17.1.2014
+ * @since 17.1.2014
  */
 public class IceMineEffect extends MaskedSpellEffect
 {	
 	// ATTRIBUTES	-----------------------------------------------------
 	
-	private DrawableHandler drawer;
-	private ActorHandler actorhandler;
-	private CollidableHandler collidablehandler;
-	private Room room;
+	private Area area;
 	
 	// TODO: Add interactive collisions with wave effects
 	private static final Class<?>[] COLLIDEDCLASSES = new Class<?>[]{Ball.class};
@@ -37,28 +31,17 @@ public class IceMineEffect extends MaskedSpellEffect
 	 * 
 	 * @param x The new x-coordinate of the mine
 	 * @param y The new y-coordinate of the mine
-	 * @param drawer The drawableHandler that will draw the mine
-	 * @param collidablehandler The collidableHandler that will handle the 
-	 * object's collision checking
-	 * @param actorhandler The actorHandler that will inform the object about 
-	 * steps
-	 * @param room The room where the mine is located at
 	 * @param lifetime The duration the mine stays on the field
+	 * @param area The area where the object is placed to
 	 */
-	public IceMineEffect(int x, int y, DrawableHandler drawer, 
-			CollidableHandler collidablehandler, ActorHandler actorhandler,
-			Room room, int lifetime)
+	public IceMineEffect(int x, int y, int lifetime, Area area)
 	{
-		super(x, y, DepthConstants.NORMAL, CollisionType.BOX, drawer, 
-				collidablehandler, null, actorhandler, room, "icemine", 
+		super(x, y, DepthConstants.NORMAL, CollisionType.BOX, "icemine", 
 				"iceminemask", false, true, false, Element.BLAZE, Element.FROST, 
-				lifetime, false);
+				lifetime, false, area);
 		
 		// Initializes attributes
-		this.drawer = drawer;
-		this.actorhandler = actorhandler;
-		this.collidablehandler = collidablehandler;
-		this.room = room;
+		this.area = area;
 
 		// Sets additional events
 		addFadeEffect(10, lifetime - 10);
@@ -72,8 +55,7 @@ public class IceMineEffect extends MaskedSpellEffect
 	public void onBallCollision(Ball ball, double x, double y)
 	{
 		// Creates a new ice explosion effect and then disappears
-		new IceExplosionEffect((int) getX(), (int) getY(), this.drawer, 
-				this.collidablehandler, this.actorhandler, this.room);
+		new IceExplosionEffect((int) getX(), (int) getY(), this.area);
 		kill();
 	}
 

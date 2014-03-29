@@ -71,28 +71,18 @@ public class FieldObjectCreator extends SettingUsingAreaObjectCreator
 		
 		// Creates the server
 		Server server = new Server(GameSettings.SCREENWIDTH / 2, 
-				GameSettings.SCREENHEIGHT / 2, area.getDrawer(), 
-				area.getActorHandler(), 
-				area.getCollisionHandler().getCollidableHandler(), 
-				area.getCollisionHandler(), area, ballrelay, wizardrelay);
+				GameSettings.SCREENHEIGHT / 2, ballrelay, wizardrelay, area);
 		// Creates the scorekeeper
-		ScoreKeeper scorekeeper = new ScoreKeeper(area.getDrawer(), 
-				area.getActorHandler(), area, server, wizardrelay, this.navigator, 
-				this.currentsetting.getVictoryPoints());
+		ScoreKeeper scorekeeper = new ScoreKeeper(area, server, wizardrelay, 
+				this.navigator, this.currentsetting.getVictoryPoints());
 		// Creates wizard(s)
-		wizardrelay.addWizard(new Wizard(area.getDrawer(), 
-				area.getCollisionHandler().getCollidableHandler(), 
-				area.getCollisionHandler(), area.getActorHandler(), 
-				area.getKeyHandler(), area, scorekeeper, ballrelay, 
+		wizardrelay.addWizard(new Wizard(area, scorekeeper, ballrelay, 
 				ScreenSide.LEFT, Options.leftwizardbuttons, 
 				this.currentsetting.getElementsOnSide(ScreenSide.LEFT), 
 				this.currentsetting.getManaRegenerationModifier(), 
 				this.currentsetting.getSpellDelayModifier(), Avatar.GANDALF, 
 				wizardvoiceplayer));
-		wizardrelay.addWizard(new Wizard(area.getDrawer(), 
-				area.getCollisionHandler().getCollidableHandler(), 
-				area.getCollisionHandler(), area.getActorHandler(), 
-				area.getKeyHandler(), area, scorekeeper, ballrelay, 
+		wizardrelay.addWizard(new Wizard(area, scorekeeper, ballrelay, 
 				ScreenSide.RIGHT, Options.rightwizardbuttons, 
 				this.currentsetting.getElementsOnSide(ScreenSide.RIGHT), 
 				this.currentsetting.getManaRegenerationModifier(), 

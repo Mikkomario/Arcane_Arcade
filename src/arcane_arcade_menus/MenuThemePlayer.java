@@ -3,7 +3,7 @@ package arcane_arcade_menus;
 import utopia_gameobjects.GameObject;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_sound.SoundTrack;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 
 
 /**
@@ -11,7 +11,7 @@ import utopia_worlds.Room;
  * of the theme.
  * 
  * @author Mikko Hilpinen. 
- * Created 14.2.2014
+ * @since 14.2.2014
  */
 public class MenuThemePlayer extends GameObject
 {
@@ -22,13 +22,12 @@ public class MenuThemePlayer extends GameObject
 	 * or simply changes its phase. The player dies soon after it has 
 	 * started the music
 	 * 
-	 * @param room The room where the player is located at
+	 * @param area The area where the object is placed to
 	 * @param phase The phase the music should go to next
 	 */
-	public MenuThemePlayer(Room room, int phase)
+	public MenuThemePlayer(Area area, int phase)
 	{
-		// Adds the object to the room
-		room.addObject(this);
+		super(area);
 		
 		// If the music is not yet playing, starts it
 		SoundTrack theme = MultiMediaHolder.getMidiTrackBank("menu").getTrack("maintheme");

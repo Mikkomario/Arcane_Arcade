@@ -7,14 +7,11 @@ import java.util.ArrayList;
 import utopia_gameobjects.BasicPhysicDrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_handleds.Collidable;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.HelpMath;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
@@ -30,7 +27,7 @@ import arcane_arcade_status.Element;
  * or rotate.
  *
  * @author Mikko Hilpinen.
- *         Created 28.8.2013.
+ * @since 28.8.2013.
  */
 public abstract class SpellEffect extends BasicPhysicDrawnObject implements 
 		RoomListener
@@ -55,14 +52,6 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * @param y The effects's y-coordinate
 	 * @param depth The effect's drawing depth
 	 * @param collisiontype The effect's collision type (= shape)
-	 * @param drawer The drawer that will draw the effect
-	 * @param collidablehandler The collidablehandler that will handle the 
-	 * effect's collision checking (null if not colliding)
-	 * @param collisionhandler The collisionhandler that will inform the object 
-	 * about collisions (null if the spell doesn't collide with other spells)
-	 * @param actorhandler The actorhandler that will call the spell's act 
-	 * event
-	 * @param room The room in which the spelleffect was created
 	 * @param spritename The name of the sprite in the spritebank 'spells'
 	 * @param collidesWithSpells Does the spell collide with other spells. If 
 	 * this is on, the spell must call setBoxCollisionPrecision or 
@@ -76,19 +65,18 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * spell doesn't have two elements)
 	 * @param lifetime How long will the spelleffect live (steps) (negative 
 	 * value means that the spell will remain alive until killed)
+	 * @param area The area where the object is placed to
 	 */
 	public SpellEffect(int x, int y, int depth,
-			CollisionType collisiontype, DrawableHandler drawer,
-			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, ActorHandler actorhandler,
-			Room room, String spritename, boolean collidesWithSpells, 
+			CollisionType collisiontype, String spritename, boolean collidesWithSpells, 
 			boolean collidesWithBalls, boolean collidesWithWizards, 
-			Element element1, Element element2, int lifetime)
+			Element element1, Element element2, int lifetime, Area area)
 	{
+		// TODO: Sort out this collides with ... stuff
+		
 		super(x, y, depth, 
 				collidesWithBalls || collidesWithSpells || collidesWithWizards, 
-				collisiontype, drawer, collidablehandler, collisionhandler, 
-				actorhandler);
+				collisiontype, area);
 		
 		// Initializes attributes
 		this.spellcollision = collidesWithSpells;
@@ -99,7 +87,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.lifeleft = lifetime;
 		this.lifetime = lifetime;
 		this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
-				"spells").getSprite(spritename), actorhandler, this);
+				"spells").getSprite(spritename), area.getActorHandler(), this);
 		this.fadesin = false;
 		this.fadesout = false;
 		this.sizeeffect = false;
@@ -108,10 +96,6 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.scaleout = 0;
 		this.scalesout = false;
 		this.minscale = 1;
-		
-		// Adds the effect to the room
-		if (room != null)
-			room.addObject(this);
 	}
 	
 	

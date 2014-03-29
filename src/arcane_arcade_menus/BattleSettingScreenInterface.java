@@ -1,8 +1,6 @@
 package arcane_arcade_menus;
 
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.MouseListenerHandler;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_worlds.FieldSetting;
 
 /**
@@ -24,27 +22,23 @@ public class BattleSettingScreenInterface
 	/**
 	 * Creates the battleSettingScreenInterface and all option bars in it.
 	 *
-	 * @param drawer The drawer that will draw the option bars
-	 * @param mousehandler The mouseListenerHandler that will inform the 
-	 * option bars about mouse events
-	 * @param room The room that holds the option bars
+	 * @param area The area where the objects will be placed to
 	 */
-	public BattleSettingScreenInterface(DrawableHandler drawer, 
-			MouseListenerHandler mousehandler, Room room)
+	public BattleSettingScreenInterface(Area area)
 	{
 		int columnx = 200;
 		int columny = 150;
 		int ydifference = 50;
 		
 		// Initializes attributes
-		this.maxpointbar = new OptionBar(columnx, columny, drawer, 15, 1, 99, 
-				"Points for Victory", mousehandler, room);
+		this.maxpointbar = new OptionBar(columnx, columny, 15, 1, 99, 
+				"Points for Victory", area);
 		this.manaregenbar = new OptionBar(columnx, columny + ydifference, 
-				drawer, 5, 1, 10, "Colour regen rate", mousehandler, room);
+				5, 1, 10, "Colour regen rate", area);
 		this.castdelaybar = new OptionBar(columnx, columny + ydifference * 2, 
-				drawer, 5, 1, 10, "Cast time rate", mousehandler, room);
+				5, 1, 10, "Cast time rate", area);
 		this.elementnumberbar = new OptionBar(columnx, columny + ydifference * 3, 
-				drawer, 3, 1, 3, "Number of Elements", mousehandler, room);
+				3, 1, 3, "Number of Elements", area);
 	}
 	
 	

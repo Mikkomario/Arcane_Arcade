@@ -3,12 +3,11 @@ package arcane_arcade_menus;
 import java.util.Random;
 
 import utopia_gameobjects.GameObject;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_listeners.RoomListener;
 import utopia_listeners.TimerEventListener;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_timers.RandomTimer;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 
@@ -17,7 +16,7 @@ import arcane_arcade_main.GameSettings;
  * the stars and the comets
  *
  * @author Mikko Hilpinen.
- *         Created 1.9.2013.
+ * @since 1.9.2013.
  */
 public class MenuBackgroundEffectCreator extends GameObject implements 
 		RoomListener, TimerEventListener
@@ -28,9 +27,7 @@ public class MenuBackgroundEffectCreator extends GameObject implements
 	private static final int COMETTIMERID = 2;
 	
 	private boolean active;
-	private DrawableHandler drawer;
-	private ActorHandler actorhandler;
-	private Room room;
+	private Area area;
 	private int cometoriginx;
 	private int cometoriginy;
 	private Random random;
@@ -42,18 +39,14 @@ public class MenuBackgroundEffectCreator extends GameObject implements
 	 * Creates an effect generator that immediately starts to create stars and 
 	 * comets to the background
 	 *
-	 * @param drawer The drawer that will draw the created effects
-	 * @param actorhandler The actorhandler that will animate the effects and 
-	 * inform them about steps
-	 * @param room The room to which the effects are created
+	 * @param area The area where the objects will be placed to
 	 */
-	public MenuBackgroundEffectCreator(DrawableHandler drawer, 
-			ActorHandler actorhandler, Room room)
+	public MenuBackgroundEffectCreator(Area area)
 	{
+		super(area);
+		
 		// Initializes attributes
-		this.drawer = drawer;
-		this.actorhandler = actorhandler;
-		this.room = room;
+		this.area = area;
 		this.random = new Random();
 		this.cometoriginx = MultiMediaHolder.getSpriteBank("menu").getSprite(
 				"comet").getOriginX();
@@ -62,12 +55,8 @@ public class MenuBackgroundEffectCreator extends GameObject implements
 		this.active = true;
 		
 		// Setups timers
-		new RandomTimer(this, 1, 100, STARTIMERID, actorhandler);
-		new RandomTimer(this, 1, 70, COMETTIMERID, actorhandler);
-		
-		// Adds the creator the room and actorhandler
-		if (room != null)
-			room.addObject(this);
+		new RandomTimer(this, 1, 100, STARTIMERID, area.getActorHandler());
+		new RandomTimer(this, 1, 70, COMETTIMERID, area.getActorHandler());
 	}
 	
 	
@@ -128,8 +117,7 @@ public class MenuBackgroundEffectCreator extends GameObject implements
 						this.cometoriginy * scale);
 			}
 			
-			new BackgroundComet(x, y, this.drawer, this.actorhandler, 
-					this.room, scale);
+			new BackgroundComet(x, y, scale, this.area);
 		}
 		else if (timerid == STARTIMERID)
 		{
@@ -144,8 +132,7 @@ public class MenuBackgroundEffectCreator extends GameObject implements
 				double scale = 0.1 + this.random.nextDouble() * 0.9;
 				int duration = 60 + this.random.nextInt(40);
 				
-				new BackgroundStar(x, y, this.drawer, this.actorhandler, 
-						this.room, scale, duration);
+				new BackgroundStar(x, y, scale, duration, this.area);
 			}
 		}
 	}

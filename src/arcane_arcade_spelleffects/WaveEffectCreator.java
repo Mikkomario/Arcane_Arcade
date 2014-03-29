@@ -3,12 +3,9 @@ package arcane_arcade_spelleffects;
 import java.util.Random;
 
 import utopia_gameobjects.BasicPhysicDrawnObject;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.HelpMath;
 import utopia_helpAndEnums.Movement;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_main.SoundEffectPlayer;
@@ -17,42 +14,20 @@ import arcane_arcade_main.SoundEffectPlayer;
  * WaveEffect creator follows a wizard and creates three waves of waveeffects
  *
  * @author Mikko Hilpinen.
- *         Created 29.8.2013.
+ * @since 29.8.2013.
  */
 public class WaveEffectCreator extends FollowerSpellEffectCreator
-{
-	// ATTRIBUTES	-----------------------------------------------------
-	
-	private DrawableHandler drawer;
-	private ActorHandler actorhandler;
-	private CollidableHandler collidablehandler;
-	private Room room;
-	private Random rand;
-	
-	
+{	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
 	 * Creates a new waveeffectcreator that will create the new waves
-	 * @param drawer The drawablehandler that will draw the spells
-	 * @param actorhandler The actorhandler that will call the creator's and 
-	 * waves' act event
-	 * @param collidablehandler The collidable that will check the spells' 
-	 * collisions
-	 * @param room The room where the spells are created at
+	 * @param area The area where the objects will be placed to
 	 * @param caster The wizard who casted the spell
 	 */
-	public WaveEffectCreator(DrawableHandler drawer, ActorHandler actorhandler, 
-			CollidableHandler collidablehandler, Room room, Wizard caster)
+	public WaveEffectCreator(Area area, Wizard caster)
 	{
-		super(40, 19, 5, actorhandler, room, caster);
-		
-		// Initializes attributes
-		this.drawer = drawer;
-		this.actorhandler = actorhandler;
-		this.collidablehandler = collidablehandler;
-		this.room = room;
-		this.rand = new Random();
+		super(40, 19, 5, caster, area);
 		
 		// Also plays a wave sound
 		SoundEffectPlayer.playSoundEffect("strongwave");
@@ -62,7 +37,7 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 	// IMPLEMENTED METHODS	----------------------------------------------
 
 	@Override
-	protected void createEffect()
+	protected void createEffect(Area area)
 	{
 		// Only works if there's an object to follow
 		if (getFollowedObject() == null)
@@ -73,12 +48,11 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 		
 		// Creates a wave effect
 		WaveEffect wave = new WaveEffect((int) getFollowedObject().getX(), 
-				(int) getFollowedObject().getY(), this.drawer, 
-				this.collidablehandler, this.actorhandler, this.room);
+				(int) getFollowedObject().getY(), area);
 		
 		// Changes the effects direction and speed
 		double randomdir = HelpMath.checkDirection(-25 + 
-				this.rand.nextDouble() * 50);
+				new Random().nextDouble() * 50);
 		double speed = 4.5;
 		
 		wave.setMovement(Movement.createMovement(randomdir, speed));
@@ -99,9 +73,7 @@ public class WaveEffectCreator extends FollowerSpellEffectCreator
 	@Override
 	protected void onBurstEnd()
 	{
-		// TODO: This is never called
-		
 		// Adjusts the burst size after each burst
-			this.adjustBurstSize(-2);
+		this.adjustBurstSize(-2);
 	}
 }

@@ -1,11 +1,8 @@
 package arcane_arcade_spelleffects;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.BallStatus;
@@ -15,7 +12,7 @@ import arcane_arcade_status.Element;
  * Freeze spell is a burst with a short duration but high power
  * 
  * @author Mikko Hilpinen. 
- * Created 18.1.2014
+ * @since 18.1.2014
  */
 public class FreezeSpellEffect extends MaskedSpellEffect
 {
@@ -32,22 +29,13 @@ public class FreezeSpellEffect extends MaskedSpellEffect
 	 * 
 	 * @param x The x-coordinate of the burst
 	 * @param y The y-coordinate of the burst
-	 * @param drawer The DrawableHandler that will draw the effect
-	 * @param collidablehandler The collidableHandler that will handle the 
-	 * object's collision checking
-	 * @param actorhandler The actorhandler that will inform the object about 
-	 * steps
-	 * @param room The room where the object is located at
+	 * @param area The area where the object is placed to
 	 */
-	public FreezeSpellEffect(int x, int y, DrawableHandler drawer,
-			CollidableHandler collidablehandler,
-			ActorHandler actorhandler,
-			Room room)
+	public FreezeSpellEffect(int x, int y, Area area)
 	{
-		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, drawer, 
-				collidablehandler, null, actorhandler, room, "freezespell", 
+		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, "freezespell", 
 				"freezemask", false, true, false, Element.FROST, 
-				Element.NOELEMENT, 100, true);
+				Element.NOELEMENT, 100, true, area);
 		
 		// Adds additional effects
 		setRadius(75);

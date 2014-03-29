@@ -1,11 +1,8 @@
 package arcane_arcade_spelleffects;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.BallStatus;
@@ -32,21 +29,13 @@ public class EarthquakeEffect extends MaskedSpellEffect
 	 * 
 	 * @param x The x-coordinate of the quake's origin
 	 * @param y The y-coordinate of the quake's origin
-	 * @param drawer The DrawableHandler that will draw the effect
-	 * @param collidablehandler The collidablehandler that will handle the 
-	 * object's collision checking
-	 * @param actorhandler the ActorHandler that will inform the object about 
-	 * steps
-	 * @param room The room where the quake is located at
+	 * @param area The area where the object is placed to
 	 */
-	public EarthquakeEffect(int x, int y, DrawableHandler drawer,
-			CollidableHandler collidablehandler, ActorHandler actorhandler,
-			Room room)
+	public EarthquakeEffect(int x, int y, Area area)
 	{
-		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, drawer, 
-				collidablehandler, null, actorhandler, room, "earthquake", 
+		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, "earthquake", 
 				"earthquakemask", false, true, false, Element.EARTH, 
-				Element.NOELEMENT, 70, true);
+				Element.NOELEMENT, 70, true, area);
 		
 		// Adds other effects
 		addAnimationEffect();

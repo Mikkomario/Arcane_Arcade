@@ -9,17 +9,13 @@ import utopia_gameobjects.BasicPhysicDrawnObject;
 import utopia_graphic.MaskChecker;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_handleds.Collidable;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.KeyListenerHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_helpAndEnums.HelpMath;
 import utopia_listeners.AdvancedKeyListener;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_field.WizardSoundQueuePlayer.DialogEvent;
 import arcane_arcade_main.Buttons;
@@ -35,7 +31,7 @@ import arcane_arcade_status.WizardStatus;
  * Mages are the playable characters in the game
  *
  * @author Mikko Hilpinen.
- *         Created 27.8.2013.
+ * @since 27.8.2013.
  */
 public class Wizard extends BasicPhysicDrawnObject implements 
 		AdvancedKeyListener, RoomListener
@@ -59,12 +55,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private double manaregeneration;
 	private double castdelaymodifier;
 	
-	private Room room;
-	private DrawableHandler drawer;
-	private ActorHandler actorhandler;
-	private CollidableHandler collidablehandler;
+	private Area area;
 	private BallRelay ballrelay;
-	private CollisionHandler collisionhandler;
 	private ScoreKeeper scorekeeper;
 	private WizardSoundQueuePlayer voiceplayer;
 	
@@ -87,11 +79,10 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private double elementsoundtime;
 	private boolean elementsoundactivated;
 	
-	private WizardStatusDrawer statusdrawer;
 	private HashMap<WizardStatus, Double> statusses;
 	private double statusdepletionrate;
 	
-	private WizardHudDrawer huddrawer;
+	private WizardHud huddrawer;
 	
 	private ScreenSide screenside;
 	private HashMap<Buttons, Character> buttonmaps;
@@ -102,16 +93,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	/**
 	 * Creates a new mage to the default position
 	 *
-	 * @param drawer The drawablehandler that will draw the mage
-	 * @param collidablehandler The collidablehandler that will handle the mage's 
-	 * collision checking
-	 * @param collisionhandler The collisionhandler that will inform the mage 
-	 * about collisions
-	 * @param actorhandler The actorhandler that will inform the mage about 
-	 * act events
-	 * @param keylistenerhandler The keylistenerhandler that will inform 
-	 * the object about keypresses
-	 * @param room The room that will hold the wizard
+	 * @param area The area where the object is placed to
 	 * @param scorekeeper The scorekeeper that will keep track of the 
 	 * game's score and respawn the wizard after they die
 	 * @param ballrelay The ballrelay that holds information about the balls 
@@ -128,17 +110,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 * @param voiceplayer The soundqueueplayer that will play the wizard's 
 	 * punchlines
 	 */
-	public Wizard(DrawableHandler drawer, CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, ActorHandler actorhandler, 
-			KeyListenerHandler keylistenerhandler, Room room, 
+	public Wizard(Area area, 
 			ScoreKeeper scorekeeper, BallRelay ballrelay, ScreenSide screenside, 
 			HashMap<Buttons, Character> leftwizardbuttons, Element[] usedelements, 
 			double manaregenerationmodifier, double castdelaymodifier, 
 			Avatar avatar, WizardSoundQueuePlayer voiceplayer)
 	{
 		super(70, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
-				true, CollisionType.CIRCLE, drawer, collidablehandler,
-				collisionhandler, actorhandler);
+				true, CollisionType.CIRCLE, area);
 		
 		// Initializes attributes
 		this.screenside = screenside;
@@ -150,12 +129,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.teleportdelay = 20;
 		this.teleportdistance = 130;
 		this.doubletaptime = 0;
-		this.room = room;
-		this.drawer = drawer;
-		this.actorhandler = actorhandler;
-		this.collidablehandler = collidablehandler;
+		this.area = area;
 		this.ballrelay = ballrelay;
-		this.collisionhandler = collisionhandler;
 		this.scorekeeper = scorekeeper;
 		this.elementindex1 = 0;
 		this.elementindex2 = 0;
@@ -171,12 +146,12 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.invincibilitytime = 0;
 		this.invincibilitydelay = 60;
 		this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
-				"creatures").getSprite("redwizard"), actorhandler, this);
+				"creatures").getSprite("redwizard"), area.getActorHandler(), this);
 		this.maskchecker = new MaskChecker(MultiMediaHolder.getSpriteBank(
 				"creatures").getSprite("wizardmask"));
 		this.castdelaymeterdrawer = new SingleSpriteDrawer(
 				MultiMediaHolder.getSpriteBank("field").getSprite(
-				"regeneration"), actorhandler, this);
+				"regeneration"), area.getActorHandler(), this);
 		this.buttonmaps = leftwizardbuttons;
 		this.elements = usedelements;
 		this.elementsoundactivated = false;
@@ -196,10 +171,11 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			this.statusses.put(status, 0.0);
 		}
 		this.statusdepletionrate = 0.1;
-		this.statusdrawer = new WizardStatusDrawer(drawer, actorhandler, this);
+		// Creates the status drawer
+		new WizardStatusDrawer(area, this);
 		
 		// Initializes HUD
-		this.huddrawer = new WizardHudDrawer(drawer, this);
+		this.huddrawer = new WizardHud(area, this);
 		
 		// Stops the animation(s)
 		this.spritedrawer.inactivate();
@@ -225,11 +201,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		}
 		
 		// Adds the object to the handler(s) if possible
-		if (keylistenerhandler != null)
-			keylistenerhandler.addKeyListener(this);
-		// Adds the object to the room (if possible)
-		if (room != null)
-			room.addObject(this);
+		if (area.getKeyHandler() != null)
+			area.getKeyHandler().addKeyListener(this);
 	}
 	
 	
@@ -320,10 +293,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	@Override
 	public void kill()
 	{
-		// Kills the statusdrawer too
-		this.statusdrawer.kill();
-		this.statusdrawer = null;
-		// And the huddrawer
+		// kills the huddrawer
 		this.huddrawer.kill();
 		this.huddrawer = null;
 		
@@ -746,8 +716,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		if (this.doubletaptime > 0)
 		{
 			// Adds teleport effect
-			new TeleportEffect((int) getX(), (int) getY(), this.drawer, 
-					this.collidablehandler, this.actorhandler, this.room);
+			new TeleportEffect((int) getX(), (int) getY(), this.area);
 			// Teleports
 			addPosition(0, movementsign * this.teleportdistance);
 		}
@@ -761,9 +730,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		{
 			// Remembers the amount of mana before casting
 			this.manabeforecasting = (int) getMana();
-			getCurrentSpell().execute(this, this.ballrelay, this.drawer, 
-					this.actorhandler, this.collidablehandler, 
-					this.collisionhandler, this.room);
+			getCurrentSpell().execute(this, this.ballrelay, this.area);
 		}
 	}
 	
@@ -790,8 +757,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		}
 		
 		// The wizard disappears for a moment with an explosion
-		new ExplosionEffect((int) getX(), (int) getY(), this.drawer, 
-				this.collidablehandler, this.actorhandler, this.room);
+		new ExplosionEffect((int) getX(), (int) getY(), this.area);
 		// Also kills the ball(s)
 		Ball[] balls = this.ballrelay.getBalls();
 		for (int i = 0; i < balls.length; i++)

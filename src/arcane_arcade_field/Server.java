@@ -8,16 +8,13 @@ import java.util.Random;
 import utopia_gameobjects.BasicPhysicDrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_handleds.Collidable;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_listeners.RoomListener;
 import utopia_listeners.TimerEventListener;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_timers.SingularTimer;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 
 
@@ -33,11 +30,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener,
 	// ATTRIBUTES	----------------------------------------------------
 	
 	private SingleSpriteDrawer spritedrawer;
-	private ActorHandler actorhandler;
-	private DrawableHandler drawer;
-	private CollidableHandler collidablehandler;
-	private CollisionHandler collisionhandler;
-	private Room room;
+	private Area area;
 	private BallRelay ballrelay;
 	private WizardRelay wizardrelay;
 	
@@ -56,25 +49,16 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener,
 	 *
 	 * @param x The server's x-coordinate
 	 * @param y The server's y-coordinate
-	 * @param drawer The drawer that will draw the server and the balls
-	 * @param actorhandler The actorhandler that will call the act-events of 
-	 * the server and the balls
-	 * @param collidablehandler The collidablehandler that will handle the 
-	 * collision detection of the ball
-	 * @param collisionhandler The collisionhandler that will inform the 
-	 * ball about collisions
-	 * @param room where the server and the balls are created at
 	 * @param ballrelay The ballrelay where the created balls will be created
 	 * @param wizardrelay The wizardrelay that has information about the wizards 
 	 * in the field
+	 * @param area The area where the object is placed to
 	 */
-	public Server(int x, int y, DrawableHandler drawer, 
-			ActorHandler actorhandler, CollidableHandler collidablehandler, 
-			CollisionHandler collisionhandler, Room room, BallRelay ballrelay, 
-			WizardRelay wizardrelay)
+	public Server(int x, int y, BallRelay ballrelay, 
+			WizardRelay wizardrelay, Area area)
 	{
 		super(x, y, DepthConstants.BOTTOM - 10, false, CollisionType.BOX, 
-				drawer, null, null, actorhandler);
+				area);
 		
 		// Initializes attributes
 		this.serving = false;
@@ -85,22 +69,14 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener,
 		this.maxshootforce = 15;
 		this.spritedrawer = new SingleSpriteDrawer(
 				MultiMediaHolder.getSpriteBank("field").getSprite("server"), 
-				actorhandler, this);
-		this.actorhandler = actorhandler;
-		this.collidablehandler = collidablehandler;
-		this.collisionhandler = collisionhandler;
-		this.drawer = drawer;
-		this.room = room;
+				area.getActorHandler(), this);
+		this.area = area;
 		this.ballrelay = ballrelay;
 		this.wizardrelay = wizardrelay;
 		this.rand = new Random();
 		
 		// Serves the ball
 		serve();
-		
-		// Adds the server to the room where it was created (if possible)
-		if (this.room != null)
-			this.room.addObject(this);
 	}
 	
 	
@@ -235,7 +211,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener,
 		if (getRotation() <= 0)
 		{
 		    setRotation(0);
-		    new SingularTimer(this, 45, 0, this.actorhandler);
+		    new SingularTimer(this, 45, 0, this.area.getActorHandler());
 		}
 	}
 	
@@ -243,9 +219,7 @@ public class Server extends BasicPhysicDrawnObject implements RoomListener,
 	{
 		this.serving = false;
 		// Creates the ball
-		Ball newball = new Ball((int) getX(), (int) getY(), this.drawer, 
-				this.collidablehandler, this.collisionhandler, 
-				this.actorhandler, this.room, this.wizardrelay);
+		Ball newball = new Ball(this.area, (int) getX(), (int) getY(), this.wizardrelay);
 		// Adds the ball to the relay
 		if (this.ballrelay != null)
 			this.ballrelay.addBall(newball);

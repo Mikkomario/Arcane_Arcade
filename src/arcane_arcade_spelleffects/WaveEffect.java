@@ -1,11 +1,8 @@
 package arcane_arcade_spelleffects;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.BallStatus;
@@ -14,8 +11,8 @@ import arcane_arcade_status.Element;
 /**
  * WaveEffect is a simple wave which will last for a while.
  * 
- * @author Unto Solala
- * 			Created 29.8.2013
+ * @author Unto Solala & Mikko Hilpinen
+ * @since 29.8.2013
  */
 public class WaveEffect extends MaskedSpellEffect
 {
@@ -33,21 +30,13 @@ public class WaveEffect extends MaskedSpellEffect
 	 *
 	 * @param x The wave's x-coordinate
 	 * @param y Theewave's y-coordinate
-	 * @param drawer The drawer that will draw the wave
-	 * @param collidablehandler The collidablehandler that will handle the 
-	 * wave's collision checking
-	 * @param actorhandler The actorhandler that will inform the wave
-	 * about act events
-	 * @param room The room where the wave was created at
+	 * @param area The area where the object is placed to
 	 */
-	public WaveEffect(int x, int y, DrawableHandler drawer,
-			CollidableHandler collidablehandler, ActorHandler actorhandler,
-			Room room)
+	public WaveEffect(int x, int y, Area area)
 	{
-		super(x, y, DepthConstants.NORMAL, CollisionType.BOX, drawer, 
-				collidablehandler, null, actorhandler, room, "wave", 
+		super(x, y, DepthConstants.NORMAL, CollisionType.BOX, "wave", 
 				"wavemask", false, true, false, Element.TIDE, 
-				Element.NOELEMENT, 35, true);
+				Element.NOELEMENT, 35, true, area);
 		addAnimationEffect();
 		addScaleEffect(25, -1, 0.5);
 	}

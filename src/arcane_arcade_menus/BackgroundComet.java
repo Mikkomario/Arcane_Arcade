@@ -7,12 +7,11 @@ import java.util.ArrayList;
 import utopia_gameobjects.BasicPhysicDrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_handleds.Collidable;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 
@@ -20,7 +19,7 @@ import arcane_arcade_main.GameSettings;
  * BackgroundComet is a comet that travels through the screen and then dies
  *
  * @author Mikko Hilpinen.
- *         Created 1.9.2013.
+ * @since 1.9.2013.
  */
 public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListener
 {
@@ -36,29 +35,21 @@ public class BackgroundComet extends BasicPhysicDrawnObject implements RoomListe
 	 *
 	 * @param x The x-coordinate of the comet's starting position
 	 * @param y The y-coordinate of the comet's starting position
-	 * @param drawer The DrawableHandler that will draw the comet
-	 * @param actorhandler The actorhandler that will inform the comet about 
-	 * the act events
-	 * @param room The room where the comet was created at
 	 * @param scale How large the comet is (also determines speed and depth)
+	 * @param area The area where the object is placed to
 	 */
-	public BackgroundComet(int x, int y, DrawableHandler drawer, 
-			ActorHandler actorhandler, Room room, double scale)
+	public BackgroundComet(int x, int y, double scale, Area area)
 	{
 		super(x, y, DepthConstants.BOTTOM - 15 - (int) (scale * 10), false, 
-				CollisionType.CIRCLE, drawer, null, null, actorhandler);
+				CollisionType.CIRCLE, area);
 		
 		// Initializes attributes
 		this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
-				"menu").getSprite("comet"), actorhandler, this);
+				"menu").getSprite("comet"), area.getActorHandler(), this);
 		
 		// Changes the scaling and speed
 		setScale(scale, scale);
 		setMotion(240, scale * 15);
-		
-		// Adds the comet to the room
-		if (room != null)
-			room.addObject(this);
 	}
 	
 	

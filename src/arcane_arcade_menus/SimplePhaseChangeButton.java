@@ -2,17 +2,15 @@ package arcane_arcade_menus;
 
 import java.awt.geom.Point2D;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.MouseListenerHandler;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_worlds.Navigator;
+
 /**
  * This button takes the user to a new gamephase though it doesn't support the 
  * use of areasettings upon change. For that one has to create its own class.
  *
  * @author Mikko Hilpinen.
- *         Created 1.12.2013.
+ * @since 1.12.2013.
  */
 public class SimplePhaseChangeButton extends MenuButton
 {
@@ -32,20 +30,12 @@ public class SimplePhaseChangeButton extends MenuButton
 	 * @param y The y-coordinate of the button (pixels)
 	 * @param newPhaseName The name of the phase where the button will take the user
 	 * @param navigator The navigator that is used for phase changing
-	 * @param drawer The drawer that will draw the button (optional)
-	 * @param actorhandler The actorHandler that will inform the button about 
-	 * steps (optional)
-	 * @param mouselistenerhandler The mouseListenerHandler that will inform 
-	 * the button about mouse events (optional)
-	 * @param room The room that holds the button (optional)
+	 * @param area The area where the object is placed to
 	 */
 	public SimplePhaseChangeButton(int x, int y, String newPhaseName, 
-			Navigator navigator, DrawableHandler drawer, 
-			ActorHandler actorhandler, 
-			MouseListenerHandler mouselistenerhandler, Room room)
+			Navigator navigator, Area area)
 	{
-		super(x, y, drawer, actorhandler, mouselistenerhandler, room, 
-				"To " + newPhaseName);
+		super(x, y, "To " + newPhaseName, area);
 		
 		// Initializes attributes
 		this.navigator = navigator;

@@ -4,10 +4,10 @@ import java.awt.Graphics2D;
 
 import utopia_gameobjects.DrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 
@@ -16,7 +16,7 @@ import arcane_arcade_main.GameSettings;
  * screen
  *
  * @author Mikko Hilpinen.
- *         Created 2.9.2013.
+ * @since 2.9.2013.
  */
 public class MenuCorner extends DrawnObject implements RoomListener
 {
@@ -43,17 +43,16 @@ public class MenuCorner extends DrawnObject implements RoomListener
 	/**
 	 * Creates a new menucorner to the given corner added to the given handlers
 	 *
-	 * @param drawer The drawer that will draw the corner
-	 * @param room The room where the corner is
+	 * @param area The area where the object is placed to
 	 * @param position The corner's position (left top, left bottom or 
 	 * right bottom)
 	 * @see #LEFT_BOTTOM
 	 * @see #LEFT_TOP
 	 * @see #RIGHT_BOTTOM
 	 */
-	public MenuCorner(DrawableHandler drawer, Room room, int position)
+	public MenuCorner(Area area, int position)
 	{
-		super(0, 0, DepthConstants.BACK, drawer);
+		super(0, 0, DepthConstants.BACK, area);
 		
 		// Initializes attributes
 		this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
@@ -71,10 +70,6 @@ public class MenuCorner extends DrawnObject implements RoomListener
 			setY(GameSettings.SCREENHEIGHT);
 			setAngle(180);
 		}
-		
-		// Adds the object to the room
-		if (room != null)
-			room.addObject(this);
 	}
 	
 	

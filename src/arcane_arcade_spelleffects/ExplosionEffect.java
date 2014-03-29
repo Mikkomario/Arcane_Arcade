@@ -1,11 +1,8 @@
 package arcane_arcade_spelleffects;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.BallStatus;
@@ -34,21 +31,13 @@ public class ExplosionEffect extends MaskedSpellEffect
 	 *
 	 * @param x The explosion's x-coordinate
 	 * @param y The explosion's y-coordinate
-	 * @param drawer The drawer that will draw the explosion
-	 * @param collidablehandler The collidablehandler that will handle the 
-	 * explosion's collision checking
-	 * @param actorhandler The actorhandler that will inform the explosion 
-	 * about act events
-	 * @param room The room where the explosion was created at
+	 * @param area The area where the object is placed to
 	 */
-	public ExplosionEffect(int x, int y, DrawableHandler drawer,
-			CollidableHandler collidablehandler, ActorHandler actorhandler,
-			Room room)
+	public ExplosionEffect(int x, int y, Area area)
 	{
-		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, drawer, 
-				collidablehandler, null, actorhandler, room, "explosion", 
+		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, "explosion", 
 				"explosionmask", false, true, false, Element.BLAZE, 
-				Element.NOELEMENT, 30, true);
+				Element.NOELEMENT, 30, true, area);
 		setRadius(100);
 		addAnimationEffect();
 	}

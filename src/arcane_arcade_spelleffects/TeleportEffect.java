@@ -1,11 +1,8 @@
 package arcane_arcade_spelleffects;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.Element;
@@ -14,7 +11,7 @@ import arcane_arcade_status.Element;
  * TeleportEffect is a very simple effect that simply appears and disappears
  *
  * @author Mikko Hilpinen.
- *         Created 28.8.2013.
+ * @since 28.8.2013.
  */
 public class TeleportEffect extends SpellEffect
 {
@@ -26,20 +23,12 @@ public class TeleportEffect extends SpellEffect
 	 *
 	 * @param x The effect's x-coordinate
 	 * @param y The effect's y-coordinate
-	 * @param drawer The drawablehandler that will draw the effect
-	 * @param collidablehandler The collidablehandler that will handle the 
-	 * effect's collision checking
-	 * @param actorhandler The actorhandler that will call the objec't act 
-	 * event
-	 * @param room The room in which the effect was created
+	 * @param area The area where the object is placed to
 	 */
-	public TeleportEffect(int x, int y,
-			DrawableHandler drawer, CollidableHandler collidablehandler, 
-			ActorHandler actorhandler, Room room)
+	public TeleportEffect(int x, int y, Area area)
 	{
-		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, 
-				drawer, collidablehandler, null, actorhandler, room, "freeze", 
-				false, false, false, Element.NOELEMENT, Element.NOELEMENT, 20);
+		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, "freeze", 
+				false, false, false, Element.NOELEMENT, Element.NOELEMENT, 20, area);
 		addAnimationEffect();
 	}
 	

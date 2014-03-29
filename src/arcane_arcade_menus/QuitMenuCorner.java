@@ -3,17 +3,15 @@ package arcane_arcade_menus;
 
 import java.awt.geom.Point2D;
 
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.MouseListenerHandler;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_resourcebanks.MultiMediaHolder;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_main.GameSettings;
 /**
  * By clicking the quitmenucorner the user quits the game
  *
  * @author Mikko Hilpinen.
- *         Created 2.9.2013.
+ * @since 2.9.2013.
  */
 public class QuitMenuCorner extends AbstractMaskButton
 {	
@@ -22,18 +20,14 @@ public class QuitMenuCorner extends AbstractMaskButton
 	/**
 	 * Creates a new quitmenucorner to the top right corner of the screen.
 	 *
-	 * @param drawer The drawer that will draw the menu corner
-	 * @param mousehandler The mouselistenerhandler that will inform the 
-	 * corner about mouse events
-	 * @param room The room where the corner is created at
+	 * @param area The area where the object is placed to
 	 */
-	public QuitMenuCorner(DrawableHandler drawer, 
-			MouseListenerHandler mousehandler, Room room)
+	public QuitMenuCorner(Area area)
 	{
 		super(GameSettings.SCREENWIDTH, 0, DepthConstants.BACK, 
 				MultiMediaHolder.getSpriteBank("menu").getSprite("quit"), 
 				MultiMediaHolder.getSpriteBank("menu").getSprite("quitmask"), 
-				drawer, mousehandler, room);
+				area);
 	}
 	
 	

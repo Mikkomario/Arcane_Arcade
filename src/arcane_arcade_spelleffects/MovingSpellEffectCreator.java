@@ -6,18 +6,17 @@ import java.util.ArrayList;
 
 import utopia_gameobjects.BasicPhysicDrawnObject;
 import utopia_handleds.Collidable;
-import utopia_handlers.ActorHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_helpAndEnums.Movement;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 
 /**
  * Movingspelleffectcreator moves to a certain direction with a certain speed 
  * and friction while creating spell effects
  *
  * @author Mikko Hilpinen.
- *         Created 29.8.2013.
+ * @since 29.8.2013.
  */
 public abstract class MovingSpellEffectCreator extends FollowerSpellEffectCreator
 {
@@ -30,20 +29,19 @@ public abstract class MovingSpellEffectCreator extends FollowerSpellEffectCreato
 	 * @param duration How long will the creator live (steps)
 	 * @param creationdelay How many steps there will be between each creation
 	 * @param burstsize How many spelleffects are created at once
-	 * @param actorhandler The actorhandler that informs the object about steps
-	 * @param room The room in which the creator is created
 	 * @param x The creator's x-coordinate
 	 * @param y The creator's y-coordinate
 	 * @param initialmovement The movement the creator has when its created
 	 * @param friction The friction the creator has (speed / step)
+	 * @param area The area where the object is placed to
 	 */
 	public MovingSpellEffectCreator(int duration, int creationdelay,
-			int burstsize, ActorHandler actorhandler, Room room, 
-			int x, int y, Movement initialmovement, double friction)
+			int burstsize, int x, int y, Movement initialmovement, 
+			double friction, Area area)
 	{
-		super(duration, creationdelay, burstsize, actorhandler, room, null);
+		super(duration, creationdelay, burstsize, null, area);
 		setFollowedObject(new FollowedPhysicObject(x, y, initialmovement, 
-				friction, actorhandler));
+				friction, area));
 	}
 	
 	
@@ -62,14 +60,12 @@ public abstract class MovingSpellEffectCreator extends FollowerSpellEffectCreato
 		 * @param initialmovement What kind of movement the object has at 
 		 * the beginning
 		 * @param friction How much friction the object has 
-		 * @param actorhandler The actorhandler that will call the object's 
-		 * act event
+		 * @param area The area where the object is placed to
 		 */
 		public FollowedPhysicObject(int x, int y, Movement initialmovement, 
-				double friction, ActorHandler actorhandler)
+				double friction, Area area)
 		{
-			super(x, y, DepthConstants.NORMAL, false, CollisionType.BOX, null, 
-					null, null, actorhandler);
+			super(x, y, DepthConstants.NORMAL, false, CollisionType.BOX, area);
 			
 			// Sets movement & friction
 			setMovement(initialmovement);

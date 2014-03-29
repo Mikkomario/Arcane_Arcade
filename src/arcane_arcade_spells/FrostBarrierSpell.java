@@ -1,10 +1,6 @@
 package arcane_arcade_spells;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
@@ -33,19 +29,15 @@ public class FrostBarrierSpell extends Spell
 	// IMPLEMENTED METHODS	--------------------------------------------
 
 	@Override
-	protected void createEffects(Wizard caster, BallRelay ballrelay,
-			DrawableHandler drawer, ActorHandler actorhandler,
-			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, Room room)
+	protected void createEffects(Wizard caster, BallRelay ballrelay, Area area)
 	{
 		// Creates a frost barrier in front of the caster
 		int x = (int) caster.getX() + 120;
 		if (caster.getScreenSide() == ScreenSide.RIGHT)
 			x -= 240;
 		
-		new FrostBarrierEffect(x, (int) caster.getY(), drawer, 
-				collidablehandler, actorhandler, room, 
-				(int) (getCastDelay() * 0.9), caster.getScreenSide());
+		new FrostBarrierEffect(x, (int) caster.getY(), 
+				(int) (getCastDelay() * 0.9), caster.getScreenSide(), area);
 	}
 
 	@Override

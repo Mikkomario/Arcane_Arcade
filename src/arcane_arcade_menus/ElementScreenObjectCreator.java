@@ -61,15 +61,12 @@ public class ElementScreenObjectCreator extends SettingUsingAreaObjectCreator
 		// Starts the music
 		new MenuThemePlayer(area, 2);
 		
-		new MenuBackgroundEffectCreator(area.getDrawer(), 
-				area.getActorHandler(), area);
-		new MenuCornerCreator(area.getDrawer(), area.getMouseHandler(), area,
-				true);
+		new MenuBackgroundEffectCreator(area);
+		new MenuCornerCreator(area, true);
 		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT - 100, 
-				"battlesettingmenu", this.navigator, area.getDrawer(), 
-				area.getActorHandler(), area.getMouseHandler(), area).setXScale(-1);
+				"battlesettingmenu", this.navigator, area).setXScale(-1);
 		new ToFieldButton(area);
-		new ElementSelectionInterface(this, area.getDrawer(), area.getKeyHandler(), area);
+		new ElementSelectionInterface(this, area);
 	}
 	
 	
@@ -97,12 +94,8 @@ public class ElementScreenObjectCreator extends SettingUsingAreaObjectCreator
 		 */
 		public ToFieldButton(Area area)
 		{
-			super(GameSettings.SCREENWIDTH - 100, 
-					GameSettings.SCREENHEIGHT - 100, 
-					area.getDrawer(), 
-					area.getActorHandler(),
-					area.getMouseHandler(), area, 
-					"To field");
+			super(GameSettings.SCREENWIDTH - 100, GameSettings.SCREENHEIGHT - 100, 
+					"To field", area);
 		}
 		
 		

@@ -1,10 +1,6 @@
 package arcane_arcade_spells;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_main.GameSettings;
@@ -13,7 +9,7 @@ import arcane_arcade_main.GameSettings;
  * Spells can be cast by giving them certain information.
  *
  * @author Mikko Hilpinen.
- *         Created 28.8.2013.
+ * @since 28.8.2013.
  */
 public abstract class Spell
 {
@@ -114,19 +110,10 @@ public abstract class Spell
 	 * @param caster The wizard who casts the spell
 	 * @param ballrelay The ballrelay that provides information about the ball(s) 
 	 * for the spelleffects
-	 * @param drawer The drawer that will draw the spelleffects
-	 * @param actorhandler The actorhandler that will call the spelleffects' 
-	 * act event and animate them
-	 * @param collidablehandler The collidablehandler that will handle the 
-	 * spelleffects' collision checking 
-	 * @param collisionhandler The collisionhandler that will inform the 
-	 * spelleffects' about collisions
-	 * @param room The room to where the spelleffects will be created
+	 * @param area the area where the objects will be placed to
 	 */
 	protected abstract void createEffects(Wizard caster, BallRelay ballrelay, 
-			DrawableHandler drawer, ActorHandler actorhandler, 
-			CollidableHandler collidablehandler, 
-			CollisionHandler collisionhandler, Room room);
+			Area area);
 	
 	/**
 	 * @return The name of the spell
@@ -168,19 +155,9 @@ public abstract class Spell
 	 * @param caster The wizard who casts the spell
 	 * @param ballrelay The ballrelay that provide information about the ball 
 	 * for the spelleffects
-	 * @param drawer The drawer that will draw the spelleffects
-	 * @param actorhandler The actorhandler that will call the spelleffects' 
-	 * act event
-	 * @param collidablehandler The collidablehandler that will handle the 
-	 * spelleffects' collision checking 
-	 * @param collisionhandler The collisionhandler that will inform the 
-	 * spelleffects' about collisions
-	 * @param room The room to which the spelleffects will be created
+	 * @param area the area where the objects will be placed to
 	 */
-	public void execute(Wizard caster, BallRelay ballrelay, 
-			DrawableHandler drawer, ActorHandler actorhandler, 
-			CollidableHandler collidablehandler, 
-			CollisionHandler collisionhandler, Room room)
+	public void execute(Wizard caster, BallRelay ballrelay, Area area)
 	{
 		// Checks cast delay
 		if (caster.isCasting())
@@ -195,8 +172,7 @@ public abstract class Spell
 		caster.adjustMana(-this.manausage);
 		
 		// Creates an effect
-		createEffects(caster, ballrelay, drawer, actorhandler, 
-				collidablehandler, collisionhandler, room);
+		createEffects(caster, ballrelay, area);
 	}
 	
 	/**

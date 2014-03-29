@@ -1,10 +1,6 @@
 package arcane_arcade_spells;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
@@ -14,7 +10,7 @@ import arcane_arcade_spelleffects.FreezeSpellEffect;
  * Freeze spell creates a powerful burst in front of the caster.
  * 
  * @author Mikko Hilpinen. 
- * Created 18.1.2014
+ * @since 18.1.2014
  */
 public class FreezeSpell extends Spell
 {
@@ -32,18 +28,14 @@ public class FreezeSpell extends Spell
 	// IMPLEMENTED METHODS	---------------------------------------------
 	
 	@Override
-	protected void createEffects(Wizard caster, BallRelay ballrelay,
-			DrawableHandler drawer, ActorHandler actorhandler,
-			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, Room room)
+	protected void createEffects(Wizard caster, BallRelay ballrelay, Area area)
 	{
 		// Creates a freeze burst
 		int x = (int) caster.getX() + 120;
 		 if (caster.getScreenSide() == ScreenSide.RIGHT)
 			 x -= 240;
 		
-		new FreezeSpellEffect(x, (int) caster.getY(), 
-				drawer, collidablehandler, actorhandler, room); 
+		new FreezeSpellEffect(x, (int) caster.getY(), area); 
 	}
 
 	@Override

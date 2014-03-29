@@ -2,10 +2,10 @@ package arcane_arcade_spelleffects;
 
 import utopia_gameobjects.GameObject;
 import utopia_handleds.Actor;
-import utopia_handlers.ActorHandler;
 import utopia_listeners.RoomListener;
 import utopia_listeners.TimerEventListener;
 import utopia_timers.ContinuousTimer;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 
 
@@ -14,7 +14,7 @@ import utopia_worlds.Room;
  * drawn and they die after a certain amount of steps have passed
  *
  * @author Mikko Hilpinen.
- *         Created 28.8.2013.
+ * @since 28.8.2013.
  */
 public abstract class SpellEffectCreator extends GameObject implements Actor, 
 		RoomListener, TimerEventListener
@@ -24,6 +24,7 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 	private boolean active;
 	private double lifeleft;
 	private int burstsize;
+	private Area area;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -35,25 +36,25 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 	 * @param duration How long will the creator live (steps)
 	 * @param creationdelay How many steps there will be between each creation
 	 * @param burstsize How many spelleffects are created at once
-	 * @param actorhandler The actorhandler that informs the object about steps
-	 * @param room The room in which the creator is created
+	 * @param area The area where the objects will be placed to
 	 */
 	public SpellEffectCreator(int duration, int creationdelay, int burstsize, 
-			ActorHandler actorhandler, Room room)
+			Area area)
 	{
+		super(area);
+		
 		// Initializes attributes
 		this.active = true;
 		this.lifeleft = duration;
 		this.burstsize = burstsize;
+		this.area = area;
 		
 		// Sets up the creation timer
-		new ContinuousTimer(this, creationdelay, 0, actorhandler).setDelay(1);
+		new ContinuousTimer(this, creationdelay, 0, area.getActorHandler()).setDelay(1);
 		
 		// Adds the object to the handler(s)
-		if (actorhandler != null)
-			actorhandler.addActor(this);
-		if (room != null)
-			room.addObject(this);
+		if (area.getActorHandler() != null)
+			area.getActorHandler().addActor(this);
 	}
 	
 	
@@ -62,8 +63,9 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 	/**
 	 * Here a creator should create a single instance of the effect it 
 	 * creates
+	 * @param area The area where the effects will be placed to
 	 */
-	protected abstract void createEffect();
+	protected abstract void createEffect(Area area);
 	
 	/**
 	 * This method is called at the end of each burst since some creators 
@@ -148,7 +150,7 @@ public abstract class SpellEffectCreator extends GameObject implements Actor,
 	{
 		for (int i = 0; i < this.burstsize; i++)
 		{
-			createEffect();
+			createEffect(this.area);
 		}
 		// Also informs the subclass that the burst just ended
 		onBurstEnd();

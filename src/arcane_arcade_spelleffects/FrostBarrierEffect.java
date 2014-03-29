@@ -1,11 +1,8 @@
 package arcane_arcade_spelleffects;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
@@ -34,21 +31,14 @@ public class FrostBarrierEffect extends SpellEffect
 	 * 
 	 * @param x The x-coordinate of the barrier
 	 * @param y The y-coordinate of the barrier
-	 * @param drawer The DrawableHandler that will draw the barrier
-	 * @param collidablehandler The collidableHandler that will handle the 
-	 * barrier's collision checking
-	 * @param actorhandler The actorHandler that informs the object about steps
-	 * @param room The room where the barrier resides
 	 * @param duration How long the frost barrier will remain on the field
 	 * @param side The side the barrier protects
+	 * @param area The area where the object is placed to
 	 */
-	public FrostBarrierEffect(int x, int y, DrawableHandler drawer,
-			CollidableHandler collidablehandler, ActorHandler actorhandler,
-			Room room, int duration, ScreenSide side)
+	public FrostBarrierEffect(int x, int y, int duration, ScreenSide side, Area area)
 	{
-		super(x, y, DepthConstants.NORMAL, CollisionType.BOX, drawer, 
-				collidablehandler, null, actorhandler, room, "frostbarrier", 
-				false, true, false, Element.FROST, Element.TIDE, duration);
+		super(x, y, DepthConstants.NORMAL, CollisionType.BOX, "frostbarrier", 
+				false, true, false, Element.FROST, Element.TIDE, duration, area);
 		
 		// Initializes attributes
 		this.side = side;

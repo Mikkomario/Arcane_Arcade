@@ -3,24 +3,23 @@ package arcane_arcade_field;
 import java.awt.Graphics2D;
 
 import utopia_gameobjects.DrawnObject;
+import utopia_gameobjects.GameObject;
 import utopia_graphic.SingleSpriteDrawer;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import arcane_arcade_status.BallStatus;
 
 /**
  * BallStatusDrawer draws all ballstatusses that need drawing
  *
  * @author Mikko Hilpinen.
- *         Created 30.8.2013.
+ * @since 30.8.2013.
  */
-public class BallStatusDrawer extends DrawableHandler
+public class BallStatusDrawer extends GameObject
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private Ball ball;
-	private ActorHandler animator;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -28,35 +27,22 @@ public class BallStatusDrawer extends DrawableHandler
 	/**
 	 * Creates a new ballstatusdrawer added to the given superhandler
 	 *
-	 * @param superhandler Which drawablehandler will draw the drawer
-	 * @param animator Which actorhandler will animate the status sprites
+	 * @param area The area where the object is placed to
 	 * @param ball The ball who's statuseffects are drawn
 	 */
-	public BallStatusDrawer(DrawableHandler superhandler, ActorHandler animator, 
-			Ball ball)
+	public BallStatusDrawer(Area area, Ball ball)
 	{
-		super(true, false, ball.getDepth(), 0, superhandler);
+		super(area);
 		
 		// Initializes attributes
 		this.ball = ball;
-		this.animator = animator;
 		
 		// Creates the drawers and adds them to the handleds
-		new FlamingDrawer(this);
-		new WetDrawer(this);
-		new FrozenDrawer(this);
-		new MuddyDrawer(this);
-		new ChargedDrawer(this);
-	}
-	
-	
-	// IMPLEMENTED METHODS	----------------------------------------------
-	
-	@Override
-	protected Class<?> getSupportedClass()
-	{
-		// Only handles statusdrawers
-		return StatusDrawer.class;
+		new FlamingDrawer(area);
+		new WetDrawer(area);
+		new FrozenDrawer(area);
+		new MuddyDrawer(area);
+		new ChargedDrawer(area);
 	}
 	
 	
@@ -75,20 +61,20 @@ public class BallStatusDrawer extends DrawableHandler
 		/**
 		 * Creates a new statusdrawer
 		 *
-		 * @param drawer The drawablehandler that will draw the drawer
 		 * @param statusspritename what sprite in the bank "status" represents 
 		 * the status effect
 		 * @param status The status effect the drawer represents
+		 * @param area The area where the object is placed to
 		 */
-		public StatusDrawer(BallStatusDrawer drawer, String statusspritename, 
-				BallStatus status)
+		public StatusDrawer(String statusspritename, 
+				BallStatus status, Area area)
 		{
-			super(0, 0, 0, drawer);
+			super(0, 0, 0, area);
 			
 			// Initializes attributes
 			this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 					"status").getSprite(statusspritename), 
-					BallStatusDrawer.this.animator, this);
+					area.getActorHandler(), this);
 			this.status = status;
 		}
 		
@@ -155,6 +141,12 @@ public class BallStatusDrawer extends DrawableHandler
 			// The drawer uses ball's angle
 			return BallStatusDrawer.this.ball.getMovement().getDirection();
 		}
+		
+		@Override
+		public boolean isDead()
+		{
+			return BallStatusDrawer.this.ball.isDead();
+		}
 	}
 
 	private class FlamingDrawer extends StatusDrawer
@@ -162,11 +154,11 @@ public class BallStatusDrawer extends DrawableHandler
 		/**
 		 * Creates a new flamingdrawer
 		 *
-		 * @param drawer The drawer that will draw the drawer
+		 * @param area The area where the object is placed to
 		 */
-		public FlamingDrawer(BallStatusDrawer drawer)
+		public FlamingDrawer(Area area)
 		{
-			super(drawer, "flame", BallStatus.FLAMING);
+			super("flame", BallStatus.FLAMING, area);
 		}
 		
 		@Override
@@ -180,13 +172,13 @@ public class BallStatusDrawer extends DrawableHandler
 	private class WetDrawer extends StatusDrawer
 	{
 		/**
-		 * Creates a new flamingdrawer
+		 * Creates a new wetdrawer
 		 *
-		 * @param drawer The drawer that will draw the drawer
+		 * @param area The area where the object is placed to
 		 */
-		public WetDrawer(BallStatusDrawer drawer)
+		public WetDrawer(Area area)
 		{
-			super(drawer, "wet", BallStatus.WET);
+			super("wet", BallStatus.WET, area);
 			setScale(1.5, 1.5);
 		}
 	}
@@ -194,39 +186,39 @@ public class BallStatusDrawer extends DrawableHandler
 	private class FrozenDrawer extends StatusDrawer
 	{
 		/**
-		 * Creates a new flamingdrawer
+		 * Creates a new frozendrawer
 		 *
-		 * @param drawer The drawer that will draw the drawer
+		 * @param area The area where the object is placed to
 		 */
-		public FrozenDrawer(BallStatusDrawer drawer)
+		public FrozenDrawer(Area area)
 		{
-			super(drawer, "freeze", BallStatus.FROZEN);
+			super("freeze", BallStatus.FROZEN, area);
 		}
 	}
 	
 	private class MuddyDrawer extends StatusDrawer
 	{
 		/**
-		 * Creates a new flamingdrawer
+		 * Creates a new muddydrawer
 		 *
-		 * @param drawer The drawer that will draw the drawer
+		 * @param area The area where the object is placed to
 		 */
-		public MuddyDrawer(BallStatusDrawer drawer)
+		public MuddyDrawer(Area area)
 		{
-			super(drawer, "muddy", BallStatus.MUDDY);
+			super("muddy", BallStatus.MUDDY, area);
 		}
 	}
 	
 	private class ChargedDrawer extends StatusDrawer
 	{
 		/**
-		 * Creates a new flamingdrawer
+		 * Creates a new chargeddrawer
 		 *
-		 * @param drawer The drawer that will draw the drawer
+		 * @param area The area where the object is placed to
 		 */
-		public ChargedDrawer(BallStatusDrawer drawer)
+		public ChargedDrawer(Area area)
 		{
-			super(drawer, "charge", BallStatus.CHARGED);
+			super("charge", BallStatus.CHARGED, area);
 			
 			setScale(1.5, 1.5);
 		}

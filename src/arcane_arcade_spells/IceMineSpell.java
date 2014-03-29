@@ -2,12 +2,8 @@ package arcane_arcade_spells;
 
 import java.util.Random;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.Movement;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
@@ -17,7 +13,7 @@ import arcane_arcade_spelleffects.IceMineEffect;
  * Ice mine spell scatters multiple ice mines to the field when cast
  * 
  * @author Mikko Hilpinen. 
- * Created 17.12014
+ * @since 17.12.2014
  */
 public class IceMineSpell extends Spell
 {
@@ -35,10 +31,7 @@ public class IceMineSpell extends Spell
 	// IMPLEMENTED METHODS	---------------------------------------------
 	
 	@Override
-	protected void createEffects(Wizard caster, BallRelay ballrelay,
-			DrawableHandler drawer, ActorHandler actorhandler,
-			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, Room room)
+	protected void createEffects(Wizard caster, BallRelay ballrelay, Area area)
 	{
 		// Creates 4 ice mines and sets them moving as well
 		Random rand = new Random();
@@ -47,8 +40,7 @@ public class IceMineSpell extends Spell
 		{
 			int lifetime = 80 + rand.nextInt(50);
 			IceMineEffect neweffect = new IceMineEffect((int) caster.getX(), 
-					(int) caster.getY(), drawer, collidablehandler, actorhandler, 
-					room, lifetime);
+					(int) caster.getY(), lifetime, area);
 			
 			double dir = -33 + rand.nextDouble() * 66;
 			if (caster.getScreenSide() == ScreenSide.RIGHT)

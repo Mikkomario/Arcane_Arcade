@@ -396,6 +396,7 @@ Eteneminen:														Status
 			* Refaktoroi Main
 			* Vaihda AbstractButton moottorin vastaavaan
 			* Implementoi areoiden käyttö huoneiden sijaan
+			* Tee testisysteemit utopiaan
 	* Gold	---------------------------------------------------------------
 		- Erilaiset kentät
 			* Erilaiset haasteet ja objektit

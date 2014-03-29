@@ -5,8 +5,8 @@ import java.awt.Graphics2D;
 import utopia_gameobjects.DrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import arcane_arcade_status.WizardStatus;
 
 /**
@@ -15,7 +15,7 @@ import arcane_arcade_status.WizardStatus;
  * @author Mikko Hilpinen.
  *         Created 30.8.2013.
  */
-public class WizardStatusDrawer extends DrawableHandler
+public class WizardStatusDrawer
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
@@ -28,36 +28,21 @@ public class WizardStatusDrawer extends DrawableHandler
 	/**
 	 * Creates a new wizardstatusdrawer added to the given superhandler
 	 *
-	 * @param superhandler Which drawablehandler will draw the drawer
-	 * @param animator Which actorhandler will animate the status sprites
+	 * @param area The area where the object is placed to
 	 * @param wizard the wizard who's status effects are drawn
 	 */
-	public WizardStatusDrawer(DrawableHandler superhandler, ActorHandler animator, 
-			Wizard wizard)
-	{
-		super(true, false, wizard.getDepth() - 1, 0, superhandler);
-		
+	public WizardStatusDrawer(Area area, Wizard wizard)
+	{	
 		// Initializes attributes
 		this.wizard = wizard;
-		this.animator = animator;
 		
 		// Creates the drawers and adds them to the handleds
-		new StatusDrawer(this, "curse", WizardStatus.PANIC);
-		new StatusDrawer(this, "ironflesh", WizardStatus.IRONFLESH);
-		new StatusDrawer(this, "haste", WizardStatus.HASTE);
-		new StatusDrawer(this, "paralyze", WizardStatus.PARALYZED);
-		new StatusDrawer(this, "amnesia", WizardStatus.AMNESIA);
-		new StatusDrawer(this, "rebirth", WizardStatus.REBIRTH);
-	}
-	
-	
-	// IMPLEMENTED METHODS	----------------------------------------------
-	
-	@Override
-	protected Class<?> getSupportedClass()
-	{
-		// Only handles statusdrawers
-		return StatusDrawer.class;
+		new StatusDrawer(area, "curse", WizardStatus.PANIC);
+		new StatusDrawer(area, "ironflesh", WizardStatus.IRONFLESH);
+		new StatusDrawer(area, "haste", WizardStatus.HASTE);
+		new StatusDrawer(area, "paralyze", WizardStatus.PARALYZED);
+		new StatusDrawer(area, "amnesia", WizardStatus.AMNESIA);
+		new StatusDrawer(area, "rebirth", WizardStatus.REBIRTH);
 	}
 	
 	
@@ -76,15 +61,15 @@ public class WizardStatusDrawer extends DrawableHandler
 		/**
 		 * Creates a new statusdrawer
 		 *
-		 * @param drawer The drawablehandler that will draw the drawer
+		 * @param area The area where the object is placed to
 		 * @param statusspritename what sprite in the bank "status" represents 
 		 * the status effect
 		 * @param status The status effect the drawer represents
 		 */
-		public StatusDrawer(WizardStatusDrawer drawer, String statusspritename, 
+		public StatusDrawer(Area area, String statusspritename, 
 				WizardStatus status)
 		{
-			super(0, 0, 0, drawer);
+			super(0, 0, WizardStatusDrawer.this.wizard.getDepth() - 1, area);
 			
 			// Initializes attributes
 			this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
@@ -149,6 +134,12 @@ public class WizardStatusDrawer extends DrawableHandler
 			return super.isVisible() && this.status != null && 
 					WizardStatusDrawer.this.wizard.getStatusStrength(
 					this.status) > 0;
+		}
+		
+		@Override
+		public boolean isDead()
+		{
+			return WizardStatusDrawer.this.wizard.isDead();
 		}
 	}
 }

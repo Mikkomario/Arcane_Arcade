@@ -4,10 +4,8 @@ import java.awt.geom.Point2D;
 
 import utopia_graphic.MaskChecker;
 import utopia_graphic.Sprite;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.MouseListenerHandler;
 import utopia_interfaceElements.AbstractButton;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 
 
 /**
@@ -15,7 +13,7 @@ import utopia_worlds.Room;
  * functions, also handles collision detection with a mask.
  *
  * @author Mikko Hilpinen.
- *         Created 30.11.2013.
+ * @since 30.11.2013.
  */
 public abstract class AbstractMaskButton extends AbstractButton
 {
@@ -34,16 +32,12 @@ public abstract class AbstractMaskButton extends AbstractButton
 	 * @param depth The drawing depth of the button
 	 * @param sprite The sprite used to draw the button with
 	 * @param mask The mask used to check the collisions
-	 * @param drawer The drawer that will draw the button (optional)
-	 * @param mousehandler The mouselistenerhandler that will inform the button 
-	 * about mouse events
-	 * @param room The room that will hold the button (optional)
+	 * @param area The area where the object is placed to
 	 */
 	public AbstractMaskButton(int x, int y, int depth, Sprite sprite, 
-			Sprite mask, DrawableHandler drawer, 
-			MouseListenerHandler mousehandler, Room room)
+			Sprite mask, Area area)
 	{
-		super(x, y, depth, sprite, drawer, mousehandler, room);
+		super(x, y, depth, sprite, area);
 		
 		// Initializes attributes
 		this.maskchecker = new MaskChecker(mask);

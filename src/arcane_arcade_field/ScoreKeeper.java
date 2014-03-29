@@ -5,11 +5,10 @@ import java.awt.Graphics2D;
 import utopia_gameobjects.DrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_handleds.Actor;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.Navigator;
@@ -45,10 +44,7 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 	/**
 	 * Creates a new scorekeeper with 0 scores
 	 *
-	 * @param drawer The drawablehandler that will draw the scorekeeper
-	 * @param actorhandler The actorhandler that will keep the scorehandler 
-	 * updated about the steps
-	 * @param room The room where the scorekeeper is placed at
+	 * @param area The area where the object is placed to
 	 * @param server The server that serves the ball after each score
 	 * @param wizardrelay The wizards who need to be respawned after each 
 	 * score
@@ -56,11 +52,10 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 	 * victory screen
 	 * @param maxscore How many points are needed to win the game
 	 */
-	public ScoreKeeper(DrawableHandler drawer, ActorHandler actorhandler, 
-			Room room, Server server, WizardRelay wizardrelay, 
+	public ScoreKeeper(Area area, Server server, WizardRelay wizardrelay, 
 			Navigator navigator, int maxscore)
 	{
-		super(GameSettings.SCREENWIDTH / 2, 20, DepthConstants.HUD, drawer);
+		super(GameSettings.SCREENWIDTH / 2, 20, DepthConstants.HUD, area);
 		
 		// Initializes attributes
 		this.spritedrawer = new SingleSpriteDrawer(
@@ -75,12 +70,9 @@ public class ScoreKeeper extends DrawnObject implements RoomListener, Actor
 		this.respawntimeleft = 0;
 		this.active = false;
 		
-		// Adds the object to the room (if possible)
-		if (room != null)
-			room.addObject(this);
 		// And to the actorhandler
-		if (actorhandler != null)
-			actorhandler.addActor(this);
+		if (area.getActorHandler() != null)
+			area.getActorHandler().addActor(this);
 	}
 	
 	

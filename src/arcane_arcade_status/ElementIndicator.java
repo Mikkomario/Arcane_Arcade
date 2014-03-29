@@ -1,13 +1,12 @@
 package arcane_arcade_status;
 
-
 import java.awt.Graphics2D;
 
 import utopia_gameobjects.DrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
-import utopia_handlers.DrawableHandler;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 
 
@@ -17,7 +16,7 @@ import utopia_worlds.Room;
  * from
  *
  * @author Mikko Hilpinen.
- *         Created 1.12.2013.
+ * @since 1.12.2013.
  */
 public class ElementIndicator extends DrawnObject implements RoomListener
 {
@@ -37,23 +36,17 @@ public class ElementIndicator extends DrawnObject implements RoomListener
 	 * @param y The y-coordinate of the indicator
 	 * @param depth The drawing depth of the indicator
 	 * @param element The element the indicator shows
-	 * @param drawer The drawer that will draw the object (optional)
-	 * @param room The room that holds the object
+	 * @param area the area where the object will be placed to
 	 */
-	public ElementIndicator(int x, int y, int depth, Element element, 
-			DrawableHandler drawer, Room room)
+	public ElementIndicator(int x, int y, int depth, Element element, Area area)
 	{
-		super(x, y, depth, drawer);
+		super(x, y, depth, area);
 		
 		// Initializes attributes
 		this.element = element;
 		this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 				"hud").getSprite("elements"), null, this);
 		this.spritedrawer.setImageIndex(this.element.getElementIconIndex());
-		
-		// Adds the object to the handler(s)
-		if (room != null)
-			room.addObject(this);
 	}
 	
 	

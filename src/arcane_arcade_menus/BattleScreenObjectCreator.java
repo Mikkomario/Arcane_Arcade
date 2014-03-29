@@ -57,15 +57,12 @@ public class BattleScreenObjectCreator extends SettingUsingAreaObjectCreator
 	protected void createObjects(Area area)
 	{
 		new MenuThemePlayer(area, 1);
-		new MenuBackgroundEffectCreator(area.getDrawer(), area.getActorHandler(), area);
-		new MenuCornerCreator(area.getDrawer(), area.getMouseHandler(), area,
-				true);
-		this.barhandler = new BattleSettingScreenInterface(area.getDrawer(), 
-				area.getMouseHandler(), area);
+		new MenuBackgroundEffectCreator(area);
+		new MenuCornerCreator(area, true);
+		this.barhandler = new BattleSettingScreenInterface(area);
 		new ToElementScreenButton(area);
 		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT - 100, 
-				"mainmenu", this.navigator, area.getDrawer(), 
-				area.getActorHandler(), area.getMouseHandler(), area).setXScale(-1);
+				"mainmenu", this.navigator, area).setXScale(-1);
 	}
 	
 	
@@ -91,9 +88,7 @@ public class BattleScreenObjectCreator extends SettingUsingAreaObjectCreator
 		public ToElementScreenButton(Area area)
 		{
 			super(GameSettings.SCREENWIDTH - 100, 
-					GameSettings.SCREENHEIGHT - 100, area.getDrawer(), 
-					area.getActorHandler(), area.getMouseHandler(),
-					area, "To element selection");
+					GameSettings.SCREENHEIGHT - 100, "To element selection", area);
 		}
 		
 		

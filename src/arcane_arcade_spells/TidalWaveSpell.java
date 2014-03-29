@@ -1,10 +1,6 @@
 package arcane_arcade_spells;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_spelleffects.WaveEffectCreator;
@@ -31,13 +27,9 @@ public class TidalWaveSpell extends Spell
 	// IMPLEMENTED METHODS	---------------------------------------------
 
 	@Override
-	protected void createEffects(Wizard caster, BallRelay ballrelay,
-			DrawableHandler drawer, ActorHandler actorhandler,
-			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, Room room)
+	protected void createEffects(Wizard caster, BallRelay ballrelay, Area area)
 	{
-		new WaveEffectCreator(drawer, actorhandler, collidablehandler, room, 
-				caster);
+		new WaveEffectCreator(area, caster);
 	}
 
 	@Override

@@ -8,15 +8,12 @@ import java.util.ArrayList;
 import utopia_gameobjects.BouncingBasicPhysicDrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_handleds.Collidable;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_helpAndEnums.HelpMath;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_spelleffects.SpellEffect;
@@ -52,25 +49,15 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	/**
 	 * Creates a new ball to the given position
 	 *
+	 * @param area The area where the object is placed to
 	 * @param x The ball's x-coordinate
 	 * @param y The ball's y-coordinate
-	 * @param drawer THe drawablehandler that will draw the ball
-	 * @param collidablehandler The collidablehandler that will handle the ball's 
-	 * collision checking
-	 * @param collisionhandler The collisionhandler that will inform the ball 
-	 * about collisions
-	 * @param actorhandler The actorhandler that will call the ball's act-event
-	 * @param room The room where the ball is created
 	 * @param wizardrelay The WizardRelay that contains information about the 
 	 * wizards of the field
 	 */
-	public Ball(int x, int y, DrawableHandler drawer,
-			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, ActorHandler actorhandler, 
-			Room room, WizardRelay wizardrelay)
+	public Ball(Area area, int x, int y, WizardRelay wizardrelay)
 	{
-		super(x, y, DepthConstants.NORMAL, true, CollisionType.CIRCLE, drawer, 
-				collidablehandler, collisionhandler, actorhandler);
+		super(x, y, DepthConstants.NORMAL, true, CollisionType.CIRCLE, area);
 		
 		// Initializes attributes
 		this.airfriction = 0.005;
@@ -83,8 +70,8 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 		this.charged = 0;
 		this.spritedrawer = new SingleSpriteDrawer(
 				MultiMediaHolder.getSpriteBank("field").getSprite("ball"), 
-				actorhandler, this);
-		this.statusdrawer = new BallStatusDrawer(drawer, actorhandler, this);
+				area.getActorHandler(), this);
+		this.statusdrawer = new BallStatusDrawer(area, this);
 		this.statusdepletionrate = 0.1;
 		this.wizardrelay = wizardrelay;
 		
@@ -94,10 +81,6 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 		// Sets the collision precision
 		setCircleCollisionPrecision(33, 5, 2);
 		setRadius(33);
-		
-		// Adds the ball to the room (if possible)
-		if (room != null)
-			room.addObject(this);
 	}
 	
 	

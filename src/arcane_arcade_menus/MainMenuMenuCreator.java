@@ -2,17 +2,15 @@ package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
-
 import java.awt.geom.Point2D.Double;
 
 import utopia_gameobjects.DrawnObject;
 import utopia_gameobjects.GameObject;
 import utopia_graphic.SingleSpriteDrawer;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.MouseListenerHandler;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_worlds.Navigator;
@@ -35,25 +33,21 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 	
 	/**Constructs and places the buttons to the center of the MainMenu.
 	 * 
-	 * @param drawer	The drawer that will draw the menu corner
-	 * @param mousehandler	The mouselistenerhandler that will inform the 
-	 * corner about mouse events
-	 * @param room	The room where the corner is created at
 	 * @param navigator	Navigator is needed for moving between the gamePhases
 	 */
-	public MainMenuMenuCreator(DrawableHandler drawer, 
-			MouseListenerHandler mousehandler, Room room, Navigator navigator)
+	public MainMenuMenuCreator(Navigator navigator)
 	{
+		super(navigator.getArea("mainmenu"));
+		
+		Area area = navigator.getArea("mainmenu");
+		
 		//Let's create the four menuElements
-		new MainMenuElement(MainMenuElement.UP, drawer, mousehandler, room, navigator);
-		new MainMenuElement(MainMenuElement.RIGHT, drawer, mousehandler, room, navigator);
-		new MainMenuElement(MainMenuElement.DOWN, drawer, mousehandler, room, navigator);
-		new MainMenuElement(MainMenuElement.LEFT, drawer, mousehandler, room, navigator);
+		new MainMenuElement(MainMenuElement.UP, navigator, area);
+		new MainMenuElement(MainMenuElement.RIGHT, navigator, area);
+		new MainMenuElement(MainMenuElement.DOWN, navigator, area);
+		new MainMenuElement(MainMenuElement.LEFT, navigator, area);
 		
-		this.centerpiece = new MainMenuCenterPiece(drawer);
-		
-		if(room != null)
-			room.addObject(this);
+		this.centerpiece = new MainMenuCenterPiece(area);
 	}
 	
 	
@@ -112,18 +106,12 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 		 * 
 		 * @param direction	Direction determines where the button is located.
 		 * There are four possible locations: UP, RIGHT, DOWN and LEFT.
-		 * @param drawer The drawer that will draw the menuElement (optional)
-		 * @param mousehandler	The mouselistenerhandler that will inform the 
-		 * element about mouse events (optional)
-		 * @param room	The room where the corner is created at (optional)
 		 * @param navigator	Navigator is needed for moving between the gamePhases
+		 * @param area The area where the object is placed to
 		 */
-		public MainMenuElement(int direction, DrawableHandler drawer, 
-				MouseListenerHandler mousehandler, Room room, 
-				Navigator navigator)
+		public MainMenuElement(int direction, Navigator navigator, Area area)
 		{
-			super(0, 0, DepthConstants.NORMAL, null, null, drawer, 
-					mousehandler, room);
+			super(0, 0, DepthConstants.NORMAL, null, null, area);
 			
 			//We need a couple of new variables for construction
 			String spriteName = new String();
@@ -248,7 +236,7 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 	 * MainMenuCenterPiece is the emblem in the center of the main menu.
 	 * 
 	 * @author Unto Solala
-	 *			Created 4.9.2013
+	 * @since 4.9.2013
 	 */
 	private class MainMenuCenterPiece extends DrawnObject
 	{	
@@ -259,19 +247,22 @@ public class MainMenuMenuCreator extends GameObject implements RoomListener
 		
 		//CONSTRUCTOR------------------------------------------------------
 		
-		/**Draws the center emblem to the MainMenu.
+		/**
+		 * Creates the center emblem to the MainMenu.
 		 * 
-		 * @param drawer	The drawer that will draw the menu corner
+		 * @param area The area where the object is placed to
 		 */
-		public MainMenuCenterPiece(DrawableHandler drawer) {
+		public MainMenuCenterPiece(Area area)
+		{
 			super(GameSettings.SCREENWIDTH/2, GameSettings.SCREENHEIGHT/2, 
-					DepthConstants.FOREGROUND, drawer);
+					DepthConstants.FOREGROUND, area);
 			
 			this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
 					"menu").getSprite("center"), null, this);
 			this.spritedrawer.inactivate();
 		}
 
+		
 		// IMPLEMENTENTED METHODS ------------------------------------------
 
 		@Override

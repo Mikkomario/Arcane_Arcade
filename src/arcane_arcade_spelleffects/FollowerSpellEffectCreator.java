@@ -1,8 +1,7 @@
 package arcane_arcade_spelleffects;
 
 import utopia_gameobjects.DrawnObject;
-import utopia_handlers.ActorHandler;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 
 
 /**
@@ -10,7 +9,7 @@ import utopia_worlds.Room;
  * object around, keeping track of its position and speed
  *
  * @author Mikko Hilpinen.
- *         Created 29.8.2013.
+ * @since 29.8.2013.
  */
 public abstract class FollowerSpellEffectCreator extends SpellEffectCreator
 {
@@ -28,16 +27,13 @@ public abstract class FollowerSpellEffectCreator extends SpellEffectCreator
 	 * @param creationdelay How long interval is kept between object creations 
 	 * (in steps)
 	 * @param burstsize How many objects are created at once
-	 * @param actorhandler The actorhandler that will inform the creator about 
-	 * steps
-	 * @param room The room the creator is created into
 	 * @param followedobject The object the creator keeps track of
+	 * @param area The area where the objects will be placed to
 	 */
 	public FollowerSpellEffectCreator(int duration, int creationdelay,
-			int burstsize, ActorHandler actorhandler, Room room, 
-			DrawnObject followedobject)
+			int burstsize, DrawnObject followedobject, Area area)
 	{
-		super(duration, creationdelay, burstsize, actorhandler, room);
+		super(duration, creationdelay, burstsize, area);
 		
 		this.followedobject = followedobject;
 		//System.out.println("Created a creator that follows " + followedobject);

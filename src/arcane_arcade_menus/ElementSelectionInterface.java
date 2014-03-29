@@ -3,28 +3,15 @@ package arcane_arcade_menus;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-
-
-
-
-
-
-
-
-
-
-
-
 import utopia_gameobjects.DrawnObject;
 import utopia_gameobjects.GameObject;
 import utopia_graphic.SingleSpriteDrawer;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.KeyListenerHandler;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_helpAndEnums.HelpMath;
 import utopia_listeners.AdvancedKeyListener;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_main.Buttons;
@@ -38,7 +25,7 @@ import arcane_arcade_status.ElementIndicator;
  * The class showsthe possible and the chosen elements on the screen.
  *
  * @author Mikko Hilpinen.
- *         Created 1.12.2013.
+ * @since 1.12.2013.
  */
 public class ElementSelectionInterface
 {
@@ -60,14 +47,10 @@ public class ElementSelectionInterface
 	 * Creates the element selection interface
 	 * 
 	 * @param creator The objectcreator that handles moving of areasettings
-	 * @param drawer The drawablehandler that draws all the objects in the 
-	 * interface
-	 * @param keyhandler The keylistenerhandler that informs the objects about 
-	 * key events
-	 * @param room The room where the objects are created at
+	 * @param area The area where the objects will be placed to
 	 */
 	public ElementSelectionInterface(ElementScreenObjectCreator creator, 
-			DrawableHandler drawer, KeyListenerHandler keyhandler, Room room)
+			Area area)
 	{
 		// Initializes attributes
 		this.creator = creator;
@@ -84,7 +67,7 @@ public class ElementSelectionInterface
 					GameSettings.SCREENWIDTH / 2 + (int) HelpMath.lendirX(120, 
 					angle), GameSettings.SCREENHEIGHT / 2 + 
 					(int) HelpMath.lendirY(120, angle), DepthConstants.NORMAL, 
-					element, drawer, room);
+					element, area);
 			newelement.scale(1.25, 1.25);
 			this.elements.add(newelement);
 			
@@ -92,13 +75,13 @@ public class ElementSelectionInterface
 		}
 		
 		// Initializes indicators
-		this.chosenindicator1 = new ChosenElementIndicator(1, drawer, room);
-		this.chosenindicator2 = new ChosenElementIndicator(2, drawer, room);
+		this.chosenindicator1 = new ChosenElementIndicator(1, area);
+		this.chosenindicator2 = new ChosenElementIndicator(2, area);
 		
-		new KeyInputHandler(keyhandler, room);
+		new KeyInputHandler(area);
 		
-		new ElementListDrawer(ScreenSide.LEFT, drawer, room);
-		new ElementListDrawer(ScreenSide.RIGHT, drawer, room);
+		new ElementListDrawer(ScreenSide.LEFT, area);
+		new ElementListDrawer(ScreenSide.RIGHT, area);
 	}
 	
 	
@@ -152,7 +135,7 @@ public class ElementSelectionInterface
 	 * This class shows the user which element is currently chosen
 	 *
 	 * @author Mikko Hilpinen.
-	 *         Created 1.12.2013.
+	 * @since 1.12.2013.
 	 */
 	private class ChosenElementIndicator extends DrawnObject implements 
 			RoomListener
@@ -169,13 +152,11 @@ public class ElementSelectionInterface
 		 * Creates a new chosenElementIndicator
 		 * 
 		 * @param playernumber Which player's place the indicator will show [1,2]?
-		 * @param drawer The drawer that will draw the indicator
-		 * @param room The room where the indicator is located at
+		 * @param area The area where the object is placed to
 		 */
-		private ChosenElementIndicator(int playernumber, DrawableHandler drawer, 
-				Room room)
+		private ChosenElementIndicator(int playernumber, Area area)
 		{
-			super(0, 0, DepthConstants.FOREGROUND, drawer);
+			super(0, 0, DepthConstants.FOREGROUND, area);
 			
 			// Initializes attributes
 			this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
@@ -184,10 +165,6 @@ public class ElementSelectionInterface
 			
 			setAlpha(0.65f);
 			updatePosition();
-			
-			// Adds the object to the handler(s)
-			if (room != null)
-				room.addObject(this);
 		}
 		
 		
@@ -257,7 +234,7 @@ public class ElementSelectionInterface
 	 * interface's methods when needed
 	 *
 	 * @author Mikko Hilpinen.
-	 *         Created 1.12.2013.
+	 * @since 1.12.2013.
 	 */
 	private class KeyInputHandler extends GameObject implements 
 			AdvancedKeyListener, RoomListener
@@ -269,16 +246,16 @@ public class ElementSelectionInterface
 		
 		// CONSTRUCTOR	---------------------------------------------------
 		
-		private KeyInputHandler(KeyListenerHandler keylistenerhandler, Room room)
+		private KeyInputHandler(Area area)
 		{
+			super(area);
+			
 			// Initializes attributes
 			this.active = true;
 			
 			// Adds the object to the handler(s)
-			if (keylistenerhandler != null)
-				keylistenerhandler.addKeyListener(this);
-			if (room != null)
-				room.addObject(this);
+			if (area.getKeyHandler() != null)
+				area.getKeyHandler().addKeyListener(this);
 		}
 		
 		
@@ -367,7 +344,7 @@ public class ElementSelectionInterface
 	 * ElementList handles and draws a list of chosen elements.
 	 *
 	 * @author Mikko Hilpinen.
-	 *         Created 1.12.2013.
+	 * @since 1.12.2013.
 	 */
 	private class ElementListDrawer extends DrawnObject implements RoomListener
 	{
@@ -383,13 +360,11 @@ public class ElementSelectionInterface
 		 * Creates a new elementlistdrawer to the given screen side
 		 * 
 		 * @param side The side the list represents and is drawn on
-		 * @param drawer The drawer that draws the object (optional)
-		 * @param room The room that holds the object (optional)
+		 * @param area The area where the object is placed to
 		 */
-		public ElementListDrawer(ScreenSide side, DrawableHandler drawer, 
-				Room room)
+		public ElementListDrawer(ScreenSide side, Area area)
 		{
-			super(0, 200, DepthConstants.NORMAL, drawer);
+			super(0, 200, DepthConstants.NORMAL, area);
 			
 			// Initializes attributes
 			this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
@@ -402,10 +377,6 @@ public class ElementSelectionInterface
 				case LEFT: setX(100); break;
 				case RIGHT: setX(GameSettings.SCREENWIDTH - 100); break;
 			}
-			
-			// Adds the object to the handler(s)
-			if (room != null)
-				room.addObject(this);
 		}
 		
 		

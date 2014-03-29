@@ -1,9 +1,6 @@
 package arcane_arcade_spelleffects;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 
 
 /**
@@ -11,17 +8,13 @@ import utopia_worlds.Room;
  * moderate delay.
  * 
  * @author Mikko Hilpinen. 
- * Created 18.1.2014
+ * @since 18.1.2014
  */
 public class EarthquakeEffectCreator extends SpellEffectCreator
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private int x, y;
-	private DrawableHandler drawer;
-	private ActorHandler actorhandler;
-	private CollidableHandler collidablehandler;
-	private Room room;
 	private double currentscaling;
 	
 	
@@ -32,35 +25,23 @@ public class EarthquakeEffectCreator extends SpellEffectCreator
 	 * 
 	 * @param x The x-coordinate of the origin of the bursts
 	 * @param y The y-coordinate of the origin of the bursts
-	 * @param drawer The drawableHandler that will draw the effects
-	 * @param actorhandler The actorHandler that will inform the objects 
-	 * about steps
-	 * @param collidableHandler The collidableHandler that will handle the 
-	 * effects' collision checking
-	 * @param room The room where the creator is located at
+	 * @param area The area where the objects will be placed to
 	 */
-	public EarthquakeEffectCreator(int x, int y, DrawableHandler drawer, 
-			ActorHandler actorhandler, CollidableHandler collidableHandler, 
-			Room room)
+	public EarthquakeEffectCreator(int x, int y, Area area)
 	{
-		super(80, 39, 1, actorhandler, room);
+		super(80, 39, 1, area);
 
 		// Initializes attributes
 		this.x = x;
 		this.y = y;
 		this.currentscaling = 1;
-		this.drawer = drawer;
-		this.actorhandler = actorhandler;
-		this.collidablehandler = collidableHandler;
-		this.room = room;
 	}
 
 	@Override
-	protected void createEffect()
+	protected void createEffect(Area area)
 	{
 		// Creates a new earthquake effect with a certain amount of scaling
-		new EarthquakeEffect(this.x, this.y, this.drawer, 
-				this.collidablehandler, this.actorhandler, this.room).setScale(
+		new EarthquakeEffect(this.x, this.y, area).setScale(
 				this.currentscaling, this.currentscaling);
 		
 		// Adjusts the scaling

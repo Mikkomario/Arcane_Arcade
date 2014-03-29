@@ -1,15 +1,15 @@
 package arcane_arcade_field;
 
 import java.awt.Graphics2D;
-import java.util.Iterator;
 
 import utopia_gameobjects.DrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_handleds.Drawable;
 import utopia_handleds.Handled;
-import utopia_handlers.DrawableHandler;
+import utopia_handlers.Handler;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_resourcebanks.MultiMediaHolder;
+import utopia_worlds.Area;
 import arcane_arcade_main.GameSettings;
 
 /**
@@ -17,9 +17,9 @@ import arcane_arcade_main.GameSettings;
  * mana usage, HP and active elements.
  *
  * @author Mikko Hilpinen.
- *         Created 30.8.2013.
+ * @since 30.8.2013.
  */
-public class WizardHudDrawer extends DrawableHandler
+public class WizardHud extends Handler
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
@@ -36,12 +36,12 @@ public class WizardHudDrawer extends DrawableHandler
 	/**
 	 * Creates a new wizardstatusdrawer added to the given superhandler
 	 *
-	 * @param superhandler Which drawablehandler will draw the drawer
+	 * @param area The area where the object is placed to
 	 * @param wizard the wizard who's status effects are drawn
 	 */
-	public WizardHudDrawer(DrawableHandler superhandler, Wizard wizard)
+	public WizardHud(Area area, Wizard wizard)
 	{
-		super(true, true, DepthConstants.HUD, 1, superhandler);
+		super(true, null);
 		
 		// Initializes attributes
 		this.wizard = wizard;
@@ -53,29 +53,30 @@ public class WizardHudDrawer extends DrawableHandler
 		// Positions are different if the screenside is different
 		if (side == ScreenSide.RIGHT)
 			element1x = GameSettings.SCREENWIDTH - 93;
+		int depth = DepthConstants.HUD;
 		
 		// Current 1
 		ElementDrawer current1 = new ElementDrawer(element1x, elementy, 
-				-1, this, ElementDrawer.ELEMENTINDEX_CURRENT);
+				depth - 1, this, ElementDrawer.ELEMENTINDEX_CURRENT, area);
 		int elementiconwidth = current1.getWidth();
 		int elementiconheight = current1.getHeight();
 		// Current 2
 		new ElementDrawer(element1x + elementiconwidth, 
-				elementy, -1, this, ElementDrawer.ELEMENTINDEX_CURRENT_SECOND);
+				elementy, depth - 1, this, ElementDrawer.ELEMENTINDEX_CURRENT_SECOND, area);
 		// Next 1
-		new ElementDrawer(element1x, elementy - elementiconheight / 2, 0, this, 
-				ElementDrawer.ELEMENTINDEX_NEXT);
+		new ElementDrawer(element1x, elementy - elementiconheight / 2, depth, this, 
+				ElementDrawer.ELEMENTINDEX_NEXT, area);
 		// Next 2
 		new ElementDrawer(element1x + elementiconwidth, 
-				elementy - elementiconheight / 2, 0, this, 
-				ElementDrawer.ELEMENTINDEX_NEXT_SECOND);
+				elementy - elementiconheight / 2, depth, this, 
+				ElementDrawer.ELEMENTINDEX_NEXT_SECOND, area);
 		// Last 1
-		new ElementDrawer(element1x, elementy + elementiconheight / 2, 0, 
-				this, ElementDrawer.ELEMENTINDEX_LAST);
+		new ElementDrawer(element1x, elementy + elementiconheight / 2, depth, 
+				this, ElementDrawer.ELEMENTINDEX_LAST, area);
 		// Last 2
 		new ElementDrawer(element1x + elementiconwidth, 
-				elementy + elementiconheight / 2, 0, 
-				this, ElementDrawer.ELEMENTINDEX_LAST_SECOND);
+				elementy + elementiconheight / 2, depth, 
+				this, ElementDrawer.ELEMENTINDEX_LAST_SECOND, area);
 		
 		// Creates the MP-meters and adds them to the drawer
 		int meterx = element1x + (int) (elementiconwidth * 1.5 + 10);
@@ -85,17 +86,17 @@ public class WizardHudDrawer extends DrawableHandler
 			meterx = element1x - (int) (elementiconwidth * 0.5 + 10);
 		
 		// The bottom meter
-		new MPMeterDrawer(meterx, metery, 4, this, 0);
+		new MPMeterDrawer(meterx, metery, depth + 4, this, 0, area);
 		// Lost mp meter
-		new LostMPDrawer(meterx, metery, 3, this);
+		new LostMPDrawer(meterx, metery, depth + 3, this, area);
 		// Current mp meter
-		new CurrentMPDrawer(meterx, metery, 2, this);
+		new CurrentMPDrawer(meterx, metery, depth + 2, this, area);
 		// MP use meter
-		new MPUseMeter(meterx, metery - 10, 1, this, side);
+		new MPUseMeter(meterx, metery - 10, depth + 1, this, side, area);
 		
 		// Creates the HP-meter and adds it to the drawer
 		metery -= hpblockheight + 10;
-		new HealthMeter(meterx, metery, 2, this);
+		new HealthMeter(meterx, metery, depth + 2, this, area);
 	}
 	
 	
@@ -108,6 +109,13 @@ public class WizardHudDrawer extends DrawableHandler
 		return WizardHudElement.class;
 	}
 	
+	@Override
+	protected boolean handleObject(Handled h)
+	{
+		((WizardHudElement) h).onSpellChange(); 
+		return true;
+	}
+	
 	
 	// OTHER METHODS	--------------------------------------------------
 	
@@ -116,14 +124,8 @@ public class WizardHudDrawer extends DrawableHandler
 	 */
 	protected void callSpellUpdate()
 	{
-		//System.out.println(getHandledNumber());
 		// Goes through the handleds and updates their status
-		// TODO: UPDATE THIS TO USE HANDLINGOPERATORS
-		Iterator<Handled> iterator = getIterator();
-		while (iterator.hasNext())
-		{
-			((WizardHudElement) iterator.next()).onSpellChange(); 
-		}
+		handleObjects();
 	}
 	
 	
@@ -164,11 +166,12 @@ public class WizardHudDrawer extends DrawableHandler
 		 * @param drawer The HudElementDrawer that will draw the element
 		 * @param elementindex Which element index the drawer will draw (use 
 		 * the static values the class provides)
+		 * @param area The area where the object is placed to
 		 */
-		public ElementDrawer(int x, int y, int depth, WizardHudDrawer drawer, 
-				int elementindex)
+		public ElementDrawer(int x, int y, int depth, WizardHud drawer, 
+				int elementindex, Area area)
 		{
-			super(x, y, depth, drawer);
+			super(x, y, depth, area);
 			
 			// Initializes attributes
 			this.spritedrawer = new SingleSpriteDrawer(
@@ -187,8 +190,10 @@ public class WizardHudDrawer extends DrawableHandler
 				setAlpha(0.4f);
 			
 			// If the element resides on the right side it is mirrored
-			if (WizardHudDrawer.this.wizard.getScreenSide() == ScreenSide.RIGHT)
+			if (WizardHud.this.wizard.getScreenSide() == ScreenSide.RIGHT)
 				scale(-1, 1);
+			
+			drawer.addHandled(this);
 		}
 		
 		
@@ -225,7 +230,7 @@ public class WizardHudDrawer extends DrawableHandler
 		public void onSpellChange()
 		{
 			// Gets the element index
-			Wizard wizard = WizardHudDrawer.this.wizard;
+			Wizard wizard = WizardHud.this.wizard;
 			int elemindex = 0;
 			switch(this.elementindex)
 			{
@@ -285,11 +290,12 @@ public class WizardHudDrawer extends DrawableHandler
 		 * @param drawer The drawer that will draw the meter
 		 * @param meterimageindex Which subimage from the MP-meter sprite is 
 		 * used to represent the meter's blocks
+		 * @param area The area where the object is placed to
 		 */
-		public MPMeterDrawer(int x, int y, int depth, WizardHudDrawer drawer, 
-				int meterimageindex)
+		public MPMeterDrawer(int x, int y, int depth, WizardHud drawer, 
+				int meterimageindex, Area area)
 		{
-			super(x, y, depth, drawer);
+			super(x, y, depth, area);
 			
 			// Initializes attributes
 			this.spritedrawer = new SingleSpriteDrawer(
@@ -299,8 +305,10 @@ public class WizardHudDrawer extends DrawableHandler
 			this.length = 10;
 			
 			// Right side elements are flipped
-			if (WizardHudDrawer.this.wizard.getScreenSide() == ScreenSide.RIGHT)
+			if (WizardHud.this.wizard.getScreenSide() == ScreenSide.RIGHT)
 				scale(-1, 1);
+			
+			drawer.addHandled(this);
 		}
 		
 		
@@ -325,7 +333,7 @@ public class WizardHudDrawer extends DrawableHandler
 			for (int i = 0; i < this.length; i++)
 			{
 				this.spritedrawer.drawSprite(g2d, 
-						i * WizardHudDrawer.mpblockwidth, 0);
+						i * WizardHud.mpblockwidth, 0);
 			}
 		}
 		
@@ -369,10 +377,11 @@ public class WizardHudDrawer extends DrawableHandler
 		 * @param y The meter's top left corner's x-coordinate
 		 * @param depth The drawing depth of the meter
 		 * @param drawer The drawer that will draw the meter
+		 * @param area The area where the object is placed to
 		 */
-		public CurrentMPDrawer(int x, int y, int depth, WizardHudDrawer drawer)
+		public CurrentMPDrawer(int x, int y, int depth, WizardHud drawer, Area area)
 		{
-			super(x, y, depth, drawer, 1);
+			super(x, y, depth, drawer, 1, area);
 		}
 		
 		
@@ -382,7 +391,7 @@ public class WizardHudDrawer extends DrawableHandler
 		public void drawSelfBasic(Graphics2D g2d)
 		{
 			// Adjusts length before drawing the meter
-			setLength((int) WizardHudDrawer.this.wizard.getMana() / 10);
+			setLength((int) WizardHud.this.wizard.getMana() / 10);
 			
 			super.drawSelfBasic(g2d);
 		}
@@ -402,10 +411,11 @@ public class WizardHudDrawer extends DrawableHandler
 		 * @param y The meter's top left corner's x-coordinate
 		 * @param depth The drawing depth of the meter
 		 * @param drawer The drawer that will draw the meter
+		 * @param area The area where the object is placed to
 		 */
-		public LostMPDrawer(int x, int y, int depth, WizardHudDrawer drawer)
+		public LostMPDrawer(int x, int y, int depth, WizardHud drawer, Area area)
 		{
-			super(x, y, depth, drawer, 2);
+			super(x, y, depth, drawer, 2, area);
 		}
 		
 		
@@ -415,10 +425,10 @@ public class WizardHudDrawer extends DrawableHandler
 		public void drawSelf(Graphics2D g2d)
 		{
 			// Adjusts length before drawing the meter
-			setLength(WizardHudDrawer.this.wizard.getManaBeforeCasting() / 10);
+			setLength(WizardHud.this.wizard.getManaBeforeCasting() / 10);
 			// Also adjusts the alpha value
 			setAlpha(1 - 
-					(float) WizardHudDrawer.this.wizard.getCastingProgress());
+					(float) WizardHud.this.wizard.getCastingProgress());
 			
 			super.drawSelf(g2d);
 		}
@@ -427,7 +437,7 @@ public class WizardHudDrawer extends DrawableHandler
 		public boolean isVisible()
 		{
 			// The meter is only visible while the wizard is casting
-			return super.isVisible() && WizardHudDrawer.this.wizard.isCasting();
+			return super.isVisible() && WizardHud.this.wizard.isCasting();
 		}
 	}
 	
@@ -454,12 +464,13 @@ public class WizardHudDrawer extends DrawableHandler
 		 * @param y The y-coordinate of the meter's left top corner
 		 * @param depth How deep the meter will be drawn
 		 * @param drawer Which wizardHudDrawer draws the meter
-		 * @param side On which sidde of the screen the meter is drawn
+		 * @param side On which side of the screen the meter is drawn
+		 * @param area The area where the object is placed to
 		 */
-		public MPUseMeter(int x, int y, int depth, WizardHudDrawer drawer, 
-				ScreenSide side)
+		public MPUseMeter(int x, int y, int depth, WizardHud drawer, 
+				ScreenSide side, Area area)
 		{
-			super(x, y, depth, drawer);
+			super(x, y, depth, area);
 			
 			// Initializes attributes
 			this.spritedrawer = new SingleSpriteDrawer(
@@ -474,6 +485,8 @@ public class WizardHudDrawer extends DrawableHandler
 				this.xscalemodifier = -1;
 			
 			onSpellChange();
+			
+			drawer.addHandled(this);
 		}
 		
 		
@@ -484,8 +497,8 @@ public class WizardHudDrawer extends DrawableHandler
 		{
 			// Updates the MP-use and the scaling of the meter
 			this.mpuse = 
-					WizardHudDrawer.this.wizard.getCurrentSpell().getManaUsage();
-			setXScale((this.mpuse / 10.0) * WizardHudDrawer.mpblockwidth / 
+					WizardHud.this.wizard.getCurrentSpell().getManaUsage();
+			setXScale((this.mpuse / 10.0) * WizardHud.mpblockwidth / 
 					this.meterwidth * this.xscalemodifier);
 		}
 
@@ -505,12 +518,12 @@ public class WizardHudDrawer extends DrawableHandler
 		public void drawSelfBasic(Graphics2D g2d)
 		{
 			// Sets the meter to the right position
-			double x = (WizardHudDrawer.this.wizard.getMana() - this.mpuse) / 
-					10.0 * WizardHudDrawer.mpblockwidth * (1 / Math.abs(getXScale()));
+			double x = (WizardHud.this.wizard.getMana() - this.mpuse) / 
+					10.0 * WizardHud.mpblockwidth * (1 / Math.abs(getXScale()));
 			// Checks if the wizard has enough mana and changes the image index 
 			// if not
 			int imgindex = 0;
-			if (!WizardHudDrawer.this.wizard.hasEnoughMana(this.mpuse))
+			if (!WizardHud.this.wizard.hasEnoughMana(this.mpuse))
 				imgindex = 1;
 			
 			this.spritedrawer.drawSprite(g2d,(int) x, 0, imgindex);
@@ -536,10 +549,12 @@ public class WizardHudDrawer extends DrawableHandler
 		 * @param y The y-coordinate of the meter's left top corner
 		 * @param depth The drawing depth of the meter
 		 * @param drawer The huddrawer that will draw the meter
+		 * @param area The area where the object is placed to
 		 */
-		public HealthMeter(int x, int y, int depth, WizardHudDrawer drawer)
+		public HealthMeter(int x, int y, int depth, WizardHud drawer, 
+				Area area)
 		{
-			super(x, y, depth, drawer);
+			super(x, y, depth, area);
 			
 			// Initializes attributes
 			this.spritedrawer = new SingleSpriteDrawer(
@@ -547,8 +562,10 @@ public class WizardHudDrawer extends DrawableHandler
 					"hp"), null, this);
 			
 			// Flips the meter if on the right side
-			if (WizardHudDrawer.this.wizard.getScreenSide() == ScreenSide.RIGHT)
+			if (WizardHud.this.wizard.getScreenSide() == ScreenSide.RIGHT)
 				scale(-1, 1);
+			
+			drawer.addHandled(this);
 		}
 		
 		
@@ -570,18 +587,18 @@ public class WizardHudDrawer extends DrawableHandler
 		public void drawSelfBasic(Graphics2D g2d)
 		{
 			// draws full or empty hearts
-			int hp = WizardHudDrawer.this.wizard.getHP();
-			int maxhp = WizardHudDrawer.this.wizard.getMaxHP();
+			int hp = WizardHud.this.wizard.getHP();
+			int maxhp = WizardHud.this.wizard.getMaxHP();
 			
 			for (int full = 0; full < hp; full ++)
 			{
 				this.spritedrawer.drawSprite(g2d, 
-						full * WizardHudDrawer.hpblockwidth, 0, 1);
+						full * WizardHud.hpblockwidth, 0, 1);
 			}
 			for (int empty = hp; empty < maxhp; empty ++)
 			{
 				this.spritedrawer.drawSprite(g2d, 
-						empty * WizardHudDrawer.hpblockwidth, 0, 0);
+						empty * WizardHud.hpblockwidth, 0, 0);
 			}
 		}
 

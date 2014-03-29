@@ -4,6 +4,7 @@ import utopia_gameobjects.GameObject;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_sound.MidiMusic;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 
 
@@ -27,15 +28,14 @@ public class FieldMusicPlayer extends GameObject implements RoomListener
 	/**
 	 * Creates a fieldMusicPlayer that starts to play the music
 	 * 
-	 * @param room
+	 * @param area The area where the object is placed to
 	 */
-	public FieldMusicPlayer(Room room)
+	public FieldMusicPlayer(Area area)
 	{
+		super(area);
+		
 		// Initializes attributes
 		this.music = MultiMediaHolder.getMidiBank("field").getSound("battle");
-		
-		// Adds the object to the room
-		room.addObject(this);
 		
 		// Starts to play the field music
 		this.music.loop(null);

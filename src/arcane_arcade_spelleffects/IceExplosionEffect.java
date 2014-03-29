@@ -1,11 +1,8 @@
 package arcane_arcade_spelleffects;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.BallStatus;
@@ -16,7 +13,7 @@ import arcane_arcade_status.Element;
  * work pretty much like normal explosions except for their dual typing.
  * 
  * @author Mikko Hilpinen. 
- * Created 17.1.2014
+ * @since 17.1.2014
  */
 public class IceExplosionEffect extends MaskedSpellEffect
 {
@@ -32,21 +29,13 @@ public class IceExplosionEffect extends MaskedSpellEffect
 	 * 
 	 * @param x The new x-coordinate of the explosion
 	 * @param y The new y-coordinate of the explosion
-	 * @param drawer The DrawableHandler that will draw the explosion
-	 * @param collidablehandler The collidableHandler that will handle the object's 
-	 * collision checking
-	 * @param actorhandler The actorHandler that will inform the object about 
-	 * steps
-	 * @param room The room where the explosion happens
+	 * @param area The area where the object is placed to
 	 */
-	public IceExplosionEffect(int x, int y, DrawableHandler drawer,
-			CollidableHandler collidablehandler, ActorHandler actorhandler,
-			Room room)
+	public IceExplosionEffect(int x, int y, Area area)
 	{
-		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, drawer, 
-				collidablehandler, null, actorhandler, room, "iceexplosion", 
+		super(x, y, DepthConstants.NORMAL, CollisionType.CIRCLE, "iceexplosion", 
 				"iceexplosionmask", false, true, false, Element.BLAZE, 
-				Element.FROST, 40, true);
+				Element.FROST, 40, true, area);
 		
 		// Setups effects
 		setRadius(100);

@@ -3,13 +3,9 @@ package arcane_arcade_spelleffects;
 import java.awt.geom.Point2D;
 
 import utopia_graphic.MaskChecker;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_resourcebanks.MultiMediaHolder;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_status.Element;
 
 /**
@@ -18,7 +14,7 @@ import arcane_arcade_status.Element;
  * class.
  *
  * @author Mikko Hilpinen.
- *         Created 28.8.2013.
+ * @since 28.8.2013.
  */
 public abstract class MaskedSpellEffect extends SpellEffect
 {
@@ -38,13 +34,6 @@ public abstract class MaskedSpellEffect extends SpellEffect
 	 * @param y The effect's y-coordinate
 	 * @param depth The effect's drawing depth
 	 * @param collisiontype The effect's collision type (= spell's shape)
-	 * @param drawer The drawablehandler that will draw the effect
-	 * @param collidablehandler The collidablehandler that will handle the 
-	 * effect's collision checking
-	 * @param collisionhandler The collisionhandler that will inform the effect 
-	 * about collisions (if the spell collides with other spells, otherwise null)
-	 * @param actorhandler The actorhandler that will call the effect's act-event
-	 * @param room The room where the spelleffect was created
 	 * @param spritename The effect's sprite's name in the spritebank "spells"
 	 * @param maskname The effect's mask's name in the spritebank "spells"
 	 * @param collidesWithSpells Does the effect react to collisions with other 
@@ -60,19 +49,16 @@ public abstract class MaskedSpellEffect extends SpellEffect
 	 * makes the effect live until killed)
 	 * @param isMaskAnimated Is collision checking done with an animated mask 
 	 * (true) or a mask with no animation (false)
+	 * @param area The area where the object is placed to
 	 */
 	public MaskedSpellEffect(int x, int y, int depth,
-			CollisionType collisiontype, DrawableHandler drawer,
-			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, ActorHandler actorhandler, 
-			Room room, String spritename, String maskname, 
+			CollisionType collisiontype, String spritename, String maskname, 
 			boolean collidesWithSpells, boolean collidesWithBalls, 
 			boolean collidesWithWizards, Element element1, Element element2, 
-			int lifetime, boolean isMaskAnimated)
+			int lifetime, boolean isMaskAnimated, Area area)
 	{
-		super(x, y, depth, collisiontype, drawer, collidablehandler, collisionhandler,
-				actorhandler, room, spritename, collidesWithSpells, collidesWithBalls,
-				collidesWithWizards, element1, element2, lifetime);
+		super(x, y, depth, collisiontype, spritename, collidesWithSpells, collidesWithBalls,
+				collidesWithWizards, element1, element2, lifetime, area);
 		// Initializes attributes
 		this.maskanimated = isMaskAnimated;
 		this.maskchecker = new MaskChecker(

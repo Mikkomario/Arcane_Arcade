@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 
 import utopia_gameobjects.DrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
@@ -67,15 +66,12 @@ public class VictoryScreenObjectCreator extends SettingUsingAreaObjectCreator
 	protected void createObjects(Area area)
 	{
 		// Creates the objects
-		new MenuBackgroundEffectCreator(area.getDrawer(), 
-				area.getActorHandler(), area);
-		new MenuCornerCreator(area.getDrawer(), area.getMouseHandler(), area, 
-				true);
+		new MenuBackgroundEffectCreator(area);
+		new MenuCornerCreator(area, true);
 		
 		new SimplePhaseChangeButton(GameSettings.SCREENWIDTH - 100, 
 				GameSettings.SCREENHEIGHT / 2, "mainmenu", 
-				this.navigator, area.getDrawer(), area.getActorHandler(), 
-				area.getMouseHandler(), area);
+				this.navigator, area);
 		
 		//Let's try to solve our victor and create the WinnerText
 		if (this.victorysetting != null)
@@ -88,7 +84,7 @@ public class VictoryScreenObjectCreator extends SettingUsingAreaObjectCreator
 				winner = WinnerText.WINNERRIGHT;
 			
 			// Let's place the WinnerText
-			new WinnerText(winner, area.getDrawer(), area);
+			new WinnerText(winner, area);
 		}
 	}
 	
@@ -105,14 +101,16 @@ public class VictoryScreenObjectCreator extends SettingUsingAreaObjectCreator
 		private static final int WINNERLEFT = 1;
 		private static final int WINNERRIGHT = 2;
 		
+		// TODO: Change this to screenside
+		
 		//ATTRIBUTES------------------------------------------------------
 		
 		private SingleSpriteDrawer spritedrawer;
 		private int winner;
 		
-		public WinnerText(int winner, DrawableHandler drawer, Room room)
+		public WinnerText(int winner, Area area)
 		{
-			super(0, 0, DepthConstants.NORMAL, drawer);
+			super(0, 0, DepthConstants.NORMAL, area);
 			this.winner = winner;
 			int x = GameSettings.SCREENWIDTH/2;
 			int y = 5*(GameSettings.SCREENHEIGHT/6);
@@ -137,10 +135,6 @@ public class VictoryScreenObjectCreator extends SettingUsingAreaObjectCreator
 					"menu").getSprite("winner"), null, this);
 			this.spritedrawer.inactivate();
 			this.setScale(0.5, 0.5);
-			
-			// Adds the object to a handler
-			if (room != null)
-				room.addObject(this);
 		}
 
 		// IMPLEMENTENTED METHODS ------------------------------------------

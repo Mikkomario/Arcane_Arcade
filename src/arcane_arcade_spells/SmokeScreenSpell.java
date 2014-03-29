@@ -1,10 +1,6 @@
 package arcane_arcade_spells;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
@@ -29,17 +25,13 @@ public class SmokeScreenSpell extends Spell{
 	}
 
 	@Override
-	protected void createEffects(Wizard caster, BallRelay ballrelay,
-			DrawableHandler drawer, ActorHandler actorhandler,
-			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, Room room) 
+	protected void createEffects(Wizard caster, BallRelay ballrelay, Area area) 
 	{
 		int x = (int)(GameSettings.SCREENWIDTH * 0.8);
 		if (caster.getScreenSide() == ScreenSide.RIGHT)
 			x = (int)(GameSettings.SCREENWIDTH * 0.2);
 		
-		new SmokeEffectCreator(350, actorhandler, room, x, (int)caster.getY(), 
-				drawer, collidablehandler);
+		new SmokeEffectCreator(350, x, (int)caster.getY(), area);
 		
 		// Also plays an smokescreen sound effect
 		SoundEffectPlayer.playSoundEffect("smoke");
