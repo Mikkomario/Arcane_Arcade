@@ -206,6 +206,8 @@ Eteneminen:														Status
 				- Ongelman paikannus							DONE
 				- Ongelman korjaus								DONE
 			* Quit -menucorner ei aina spawnaa alussa
+			* Wizardit liikkuvat hitaammin korkeammilla APS:illä
+			* Sliderit ei toimi
 					
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE

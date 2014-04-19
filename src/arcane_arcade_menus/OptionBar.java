@@ -5,6 +5,7 @@ import java.awt.geom.Point2D;
 
 import utopia_gameobjects.DrawnObject;
 import utopia_helpAndEnums.DepthConstants;
+import utopia_interfaceElements.AbstractMaskButton;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_worlds.Area;
@@ -16,6 +17,8 @@ import arcane_arcade_main.GameSettings;
  * 
  * @author Unto Solala & Mikko Hilpinen
  * @since 8.9.2013
+ * @deprecated Optionbars were moved to the Utopia Game Engine and the future 
+ * patches will be in those files only
  */
 public class OptionBar extends DrawnObject implements RoomListener
 {
