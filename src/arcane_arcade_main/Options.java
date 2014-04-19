@@ -11,7 +11,7 @@ import utopia_fileio.FileReader;
  * them to the other elements and may also write new settings as a new save
  *
  * @author Mikko Hilpinen.
- *         Created 5.9.2013.
+ * @since 5.9.2013.
  */
 public class Options
 {

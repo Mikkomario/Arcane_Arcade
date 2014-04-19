@@ -205,6 +205,7 @@ Eteneminen:														Status
 			* Hud-elementit on ihan sekaisin, myös elem.select	DONE
 				- Ongelman paikannus							DONE
 				- Ongelman korjaus								DONE
+			* Quit -menucorner ei aina spawnaa alussa
 					
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE

@@ -36,3 +36,6 @@ yhtä ostosta kohden)
 	* 55 Kokemuksella 10 Materiaalia
 	* (1 + (n - 1)*0.5) * n Kokemuksella n Materiaalia
 Näin käyttäjä pystyy itse päättämään, kuinka arvokasta aika hänelle on
+
+Vois tehdä niin kuin Nintendo ja laittaa että kun ostaa jotain niin kaikki muutkin tulee 
+halvemmaksi.
