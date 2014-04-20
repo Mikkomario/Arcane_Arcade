@@ -207,7 +207,10 @@ Eteneminen:														Status
 				- Ongelman korjaus								DONE
 			* Quit -menucorner ei aina spawnaa alussa
 			* Wizardit liikkuvat hitaammin korkeammilla APS:ill‰
-			* Sliderit ei toimi
+			* Sliderit ei toimi									...
+				- Aloituskohta on virheellinen 
+				(kun arvoja myˆs negatiivisella puolella?)
+				- Arvo myˆs heilahtaa oudosti kun p‰‰st‰‰ irti
 					
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
@@ -307,8 +310,8 @@ Eteneminen:														Status
 					* Audion ‰‰nenvoimakkuus					...
 					* Musiikin ‰‰nenvoimakkuus					...
 					* Wizardien ‰‰nenvoimakkuus					...
-					* Fullscreen p‰‰ll‰							...
-						- On/Off -nappi
+					* Fullscreen p‰‰ll‰							DONE
+						- On/Off -nappi							Hyl‰tty
 				- Asetusten tallentaminen						DONE
 					* Filewriter								DONE
 				- Asetusten lukeminen pelin alussa				DONE

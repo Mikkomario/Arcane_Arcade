@@ -45,10 +45,8 @@ public class OptionScreenObjectCreator extends SettingUsingAreaObjectCreator
 	@Override
 	protected void onSettingsChange(AreaSetting newSettings)
 	{
-		// TODO Auto-generated method stub
-		
+		// Does nothing
 	}
-
 
 	@Override
 	protected void createObjects(Area area)
@@ -63,6 +61,6 @@ public class OptionScreenObjectCreator extends SettingUsingAreaObjectCreator
 		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT / 2, 
 				"mainmenu", this.navigator, area).setXScale(-1);
 		
-		// TODO create optionbuttons
+		new OptionsInterface(area);
 	}
 }
