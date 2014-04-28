@@ -1,13 +1,10 @@
 package arcane_arcade_status;
 
-import java.awt.Graphics2D;
+import java.awt.geom.Point2D.Double;
 
-import utopia_gameobjects.DrawnObject;
-import utopia_graphic.SingleSpriteDrawer;
-import utopia_listeners.RoomListener;
+import utopia_interfaceElements.AbstractButton;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_worlds.Area;
-import utopia_worlds.Room;
 
 
 
@@ -18,12 +15,20 @@ import utopia_worlds.Room;
  * @author Mikko Hilpinen.
  * @since 1.12.2013.
  */
-public class ElementIndicator extends DrawnObject implements RoomListener
+public class ElementIndicator extends AbstractButton
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private Element element;
-	private SingleSpriteDrawer spritedrawer;
+	private ElementIndicatorListener listener;
+	
+	// TODO: Add mouse listening features or create a new class that works with 
+	// mouse
+	/*
+	 * - IndicatorListener interface
+	 * - Mouse enter / exit scaling
+	 * - Mouse left pressed listening
+	 */
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -36,59 +41,53 @@ public class ElementIndicator extends DrawnObject implements RoomListener
 	 * @param y The y-coordinate of the indicator
 	 * @param depth The drawing depth of the indicator
 	 * @param element The element the indicator shows
+	 * @param listener The elementIndicatorListener that reacts when the 
+	 * indicator is clicked
 	 * @param area the area where the object will be placed to
 	 */
-	public ElementIndicator(int x, int y, int depth, Element element, Area area)
+	public ElementIndicator(int x, int y, int depth, Element element, 
+			ElementIndicatorListener listener, Area area)
 	{
-		super(x, y, depth, area);
+		super(x, y, depth, MultiMediaHolder.getSpriteBank(
+				"hud").getSprite("elements"), area);
 		
 		// Initializes attributes
+		this.listener = listener;
 		this.element = element;
-		this.spritedrawer = new SingleSpriteDrawer(MultiMediaHolder.getSpriteBank(
-				"hud").getSprite("elements"), null, this);
-		this.spritedrawer.setImageIndex(this.element.getElementIconIndex());
+		getSpriteDrawer().setImageSpeed(0);
+		getSpriteDrawer().setImageIndex(this.element.getElementIconIndex());
+		
+		setScale(1.25, 1.25);
 	}
 	
 	
 	// IMPLEMENTED METHODS	---------------------------------------------
 
 	@Override
-	public int getOriginX()
+	public void onMouseButtonEvent(MouseButton button,
+			MouseButtonEventType eventType, Double mousePosition,
+			double eventStepTime)
 	{
-		if (this.spritedrawer == null)
-			return 0;
-		
-		return this.spritedrawer.getSprite().getOriginX();
+		// On left / right mouse pressed, informs the listener
+		if (eventType == MouseButtonEventType.PRESSED)
+			this.listener.onElementIndicatorPressed(button, this);
 	}
 
 	@Override
-	public int getOriginY()
+	public boolean listensMouseEnterExit()
 	{
-		if (this.spritedrawer == null)
-			return 0;
-		
-		return this.spritedrawer.getSprite().getOriginY();
+		return true;
 	}
 
 	@Override
-	public void drawSelfBasic(Graphics2D g2d)
+	public void onMousePositionEvent(MousePositionEventType eventType,
+			Double mousePosition, double eventStepTime)
 	{
-		// Draws the sprite
-		if (this.spritedrawer != null)
-			this.spritedrawer.drawSprite(g2d, 0, 0);
-	}
-	
-	@Override
-	public void onRoomStart(Room room)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onRoomEnd(Room room)
-	{
-		// Dies
-		kill();
+		// Adds a scaling effect
+		if (eventType == MousePositionEventType.ENTER)
+			setScale(1.4, 1.4);
+		else if (eventType == MousePositionEventType.EXIT)
+			setScale(1.25, 1.25);
 	}
 	
 	
@@ -111,7 +110,6 @@ public class ElementIndicator extends DrawnObject implements RoomListener
 	{
 		this.element = element;
 		
-		if (this.spritedrawer != null)
-			this.spritedrawer.setImageIndex(this.element.getElementIconIndex());
+		getSpriteDrawer().setImageIndex(this.element.getElementIconIndex());
 	}
 }

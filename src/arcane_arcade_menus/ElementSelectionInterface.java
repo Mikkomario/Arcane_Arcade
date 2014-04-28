@@ -9,6 +9,7 @@ import utopia_graphic.SingleSpriteDrawer;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_helpAndEnums.HelpMath;
 import utopia_listeners.AdvancedKeyListener;
+import utopia_listeners.AdvancedMouseListener.MouseButton;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_worlds.Area;
@@ -19,6 +20,7 @@ import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Options;
 import arcane_arcade_status.Element;
 import arcane_arcade_status.ElementIndicator;
+import arcane_arcade_status.ElementIndicatorListener;
 
 /**
  * This interface lets the users choose the elements they will be using. 
@@ -27,7 +29,7 @@ import arcane_arcade_status.ElementIndicator;
  * @author Mikko Hilpinen.
  * @since 1.12.2013.
  */
-public class ElementSelectionInterface
+public class ElementSelectionInterface implements ElementIndicatorListener
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
@@ -67,8 +69,7 @@ public class ElementSelectionInterface
 					GameSettings.SCREENWIDTH / 2 + (int) HelpMath.lendirX(120, 
 					angle), GameSettings.SCREENHEIGHT / 2 + 
 					(int) HelpMath.lendirY(120, angle), DepthConstants.NORMAL, 
-					element, area);
-			newelement.scale(1.25, 1.25);
+					element, this, area);
 			this.elements.add(newelement);
 			
 			angle += 360.0 / UNLOCKEDELEMETS.length;
@@ -82,6 +83,22 @@ public class ElementSelectionInterface
 		
 		new ElementListDrawer(ScreenSide.LEFT, area);
 		new ElementListDrawer(ScreenSide.RIGHT, area);
+	}
+	
+	
+	// IMPLEMENTED METHODS	----------------------------------------------
+	
+	@Override
+	public void onElementIndicatorPressed(MouseButton button,
+			ElementIndicator source)
+	{
+		// Adds the newly clicked element to either left or right side 
+		// depending on the button
+		ScreenSide side = ScreenSide.LEFT;
+		if (button == MouseButton.RIGHT)
+			side = ScreenSide.RIGHT;
+		
+		this.creator.getSettings().addElementOnSide(source.getElement(), side);
 	}
 	
 	

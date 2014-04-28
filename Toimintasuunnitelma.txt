@@ -207,10 +207,13 @@ Eteneminen:														Status
 				- Ongelman korjaus								DONE
 			* Quit -menucorner ei aina spawnaa alussa
 			* Wizardit liikkuvat hitaammin korkeammilla APS:ill‰
-			* Sliderit ei toimi									...
-				- Aloituskohta on virheellinen 
+			* Sliderit ei toimi									DONE
+				- Aloituskohta on virheellinen 					DONE
 				(kun arvoja myˆs negatiivisella puolella?)
-				- Arvo myˆs heilahtaa oudosti kun p‰‰st‰‰ irti
+				- Arvo myˆs heilahtaa oudosti kun p‰‰st‰‰ irti	DONE
+					* Vain fullscreenill‰
+					* Ongelma moottorissa. 
+					Eri koordinaatit eri eventeill‰?
 					
 	* Beta	----------------------------------------------------------------
 		- Pallon statusefektit									DONE
@@ -307,9 +310,9 @@ Eteneminen:														Status
 				- Asetukset										...
 					* Pelaajan 1 n‰pp‰imet						...
 					* Pelaajan 2 n‰pp‰imet						...
-					* Audion ‰‰nenvoimakkuus					...
+					* Audion ‰‰nenvoimakkuus					Testaamatta
 					* Musiikin ‰‰nenvoimakkuus					...
-					* Wizardien ‰‰nenvoimakkuus					...
+					* Wizardien ‰‰nenvoimakkuus					Testaamatta
 					* Fullscreen p‰‰ll‰							DONE
 						- On/Off -nappi							Hyl‰tty
 				- Asetusten tallentaminen						DONE
@@ -322,7 +325,7 @@ Eteneminen:														Status
 					* KeyBindaus -box
 			* SpellBook											...
 				- Ohjeresurssien rakenteen m‰‰ritt‰minen		...
-				- Ohjeresurssien valmistaminen
+				- Ohjeresurssien valmistaminen					...
 				- Oikean ohjeresurssin lukeminen
 				- Elementtien valinta graafisten tsydeemien 	...
 				avulla
@@ -368,6 +371,12 @@ Eteneminen:														Status
 			* Useamman statusefektin laittaminen kerralla
 			* Movementspeedin v‰hentyminen castaamisessa?		Hyl‰tty
 			* Loitsujen interaktiiviset vaikutukset
+			* Mielenkiintoisemmat vaikutukset joillekin 
+			pallon statusefekteille
+				- Vesi
+				- Tuli
+				- J‰‰
+				- Maa
 		- Tutorial
 			* Tarvittavat valikot
 			* Tarvittavan interaktion luonti
