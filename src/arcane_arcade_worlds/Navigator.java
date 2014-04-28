@@ -5,6 +5,7 @@ import arcane_arcade_menus.BattleScreenObjectCreator;
 import arcane_arcade_menus.ElementScreenObjectCreator;
 import arcane_arcade_menus.MainMenuObjectCreator;
 import arcane_arcade_menus.OptionScreenObjectCreator;
+import arcane_arcade_menus.SpellBookObjectCreator;
 import arcane_arcade_menus.VictoryScreenObjectCreator;
 import utopia_handlers.ActorHandler;
 import utopia_handlers.DrawableHandler;
@@ -21,7 +22,7 @@ import utopia_worlds.AreaRelay;
  * and / or phases of the game.
  *
  * @author Mikko Hilpinen & Unto Solala
- *         Created 27.8.2013.
+ * @since 27.8.2013.
  */
 public class Navigator extends AreaRelay
 {
@@ -69,6 +70,9 @@ public class Navigator extends AreaRelay
 		addArea("optionsmenu", new SettingUsingArea(
 				phaseBank.getPhase("optionsmenu"), mouseHandler, actorHandler, 
 				drawer, keyHandler));
+		addArea("spellbookmenu", new SettingUsingArea(
+				phaseBank.getPhase("spellbookmenu"), mouseHandler, actorHandler, 
+				drawer, keyHandler));
 		
 		// Adds the object creators
 		new MainMenuObjectCreator((SettingUsingArea) getArea("mainmenu"), this);
@@ -77,6 +81,7 @@ public class Navigator extends AreaRelay
 		new BattleScreenObjectCreator((SettingUsingArea) getArea("battlesettingmenu"), this);
 		new ElementScreenObjectCreator((SettingUsingArea) getArea("elementmenu"), this);
 		new OptionScreenObjectCreator((SettingUsingArea) getArea("optionsmenu"), this);
+		new SpellBookObjectCreator((SettingUsingArea) getArea("spellbookmenu"), this);
 	}
 	
 	

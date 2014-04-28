@@ -23,7 +23,7 @@ public class MenuThemePlayer extends GameObject
 	 * started the music
 	 * 
 	 * @param area The area where the object is placed to
-	 * @param phase The phase the music should go to next
+	 * @param phase The phase the music should go to next (indexing starts from 0)
 	 */
 	public MenuThemePlayer(Area area, int phase)
 	{

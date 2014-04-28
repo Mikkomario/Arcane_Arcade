@@ -22,14 +22,6 @@ public class ElementIndicator extends AbstractButton
 	private Element element;
 	private ElementIndicatorListener listener;
 	
-	// TODO: Add mouse listening features or create a new class that works with 
-	// mouse
-	/*
-	 * - IndicatorListener interface
-	 * - Mouse enter / exit scaling
-	 * - Mouse left pressed listening
-	 */
-	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
 	

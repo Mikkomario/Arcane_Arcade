@@ -203,7 +203,7 @@ public class Options
 					case "musicvolume": this.loadphase = 4; break;
 					case "fullscreen": this.loadphase = 7; break;
 					case "voicevolume": this.loadphase = 5; break;
-					case "maxpan": this.loadphase = 6;
+					case "maxpan": this.loadphase = 6; break;
 					default: System.err.println("An unknown command: '" + 
 							phaseline + "' in the " + "usersettings file!"); break;
 				}
