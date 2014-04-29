@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import utopia_gameobjects.BouncingBasicPhysicDrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
@@ -38,7 +39,9 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	
 	private double airfriction, forcedelay;
 	private int minspeed;
-	private double flaming, wet, frozen, muddy, charged, statusdepletionrate;
+	private double statusdepletionrate;
+	
+	private HashMap<BallStatus, java.lang.Double> status;
 	
 	private static final Class<?>[] COLLIDINGCLASSES = new Class<?>[] {
 		Wizard.class, SpellEffect.class};
@@ -63,17 +66,18 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 		this.airfriction = 0.005;
 		this.forcedelay = 0;
 		this.minspeed = 6;
-		this.flaming = 0;
-		this.wet = 0;
-		this.frozen = 0;
-		this.muddy = 0;
-		this.charged = 0;
 		this.spritedrawer = new SingleSpriteDrawer(
 				MultiMediaHolder.getSpriteBank("field").getSprite("ball"), 
 				area.getActorHandler(), this);
 		this.statusdrawer = new BallStatusDrawer(area, this);
 		this.statusdepletionrate = 0.1;
 		this.wizardrelay = wizardrelay;
+		this.status = new HashMap<BallStatus, java.lang.Double>();
+		
+		for (BallStatus ballStatus: BallStatus.values())
+		{
+			this.status.put(ballStatus, 0.0);
+		}
 		
 		// Sets up movement stats
 		setMaxSpeed(20);
@@ -248,15 +252,7 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 	 */
 	public double getStatusStrength(BallStatus status)
 	{
-		switch(status)
-		{
-		case FLAMING: return this.flaming;
-		case WET: return this.wet;
-		case FROZEN: return this.frozen;
-		case MUDDY: return this.muddy;
-		case CHARGED: return this.charged;
-		default: return 0;
-		}
+		return this.status.get(status);
 	}
 	
 	private void bounceFromScreenBorders()
@@ -293,111 +289,41 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 		}
 	}
 	
-	private void addStatus(BallStatus status, int strength)
+	private void addStatus(BallStatus status, double strength)
 	{
-		switch(status)
-		{
-			case FLAMING:
-			{
-				this.flaming += strength;
-				if (this.flaming > 100)
-					this.flaming = 100;
-				break;
-			}
-			case FROZEN:
-			{
-				this.frozen += strength;
-				if (this.frozen > 100)
-					this.frozen = 100;
-				break;
-			}
-			case WET:
-			{
-				this.wet += strength;
-				if (this.wet > 100)
-					this.wet = 100;
-				break;
-			}
-			case MUDDY:
-			{
-				this.muddy += strength;
-				if (this.muddy > 100)
-					this.muddy = 100;
-				break;
-			}
-			case CHARGED:
-			{
-				this.charged += strength;
-				if (this.charged > 100)
-					this.charged = 100;
-				break;
-			}
-			default: break;
-		}
+		double value = this.status.get(status) + strength;
+		
+		if (value > 100)
+			value = 100;
+		else if (value < 0)
+			value = 0;
+		
+		this.status.put(status, value);
 	}
 	
 	private void adjustStatusses(double steps)
 	{
 		// Makes changes according to each status
-		if (this.flaming > 0)
+		for (BallStatus ballStatus : this.status.keySet())
 		{
-		    this.flaming -= this.statusdepletionrate * steps;
-		    if (this.frozen > 0)
-		        this.frozen -= this.statusdepletionrate * steps;
-		    if (this.wet > 0)
-		        this.wet -= this.statusdepletionrate * 2 * steps;
+			if (getStatusStrength(ballStatus) > 0)
+			{
+				// Depletes the status normally
+				addStatus(ballStatus, -this.statusdepletionrate * steps);
+			    
+				// Increases some statuses if they are present
+			    for (BallStatus buffedStatus : ballStatus.getBuffedStatuses())
+			    {
+			    	if (getStatusStrength(buffedStatus) > 0)
+			    		addStatus(buffedStatus, this.statusdepletionrate * 2 * steps);
+			    }
+			    // Decreases others
+			    for (BallStatus debuffedStatus : ballStatus.getDebuffedStatuses())
+			    {
+			    	if (getStatusStrength(debuffedStatus) > 0)
+			    		addStatus(debuffedStatus, -this.statusdepletionrate * 2 * steps);
+			    }
+			}
 		}
-		if (this.frozen > 0)
-		{
-		    this.frozen -= this.statusdepletionrate * steps;
-		    if (this.flaming > 0)
-		    	this.flaming -= this.statusdepletionrate * 1.5 * steps;
-		    if (getMovement().getSpeed() > this.minspeed * 0.75)
-		        getMovement().multiplySPeed(Math.pow(1 - 0.01 * (this.frozen / 
-		        		100), steps));
-		}
-		if (this.wet > 0)
-		{
-		    this.wet -= this.statusdepletionrate * steps;
-		    if (this.flaming > 0)
-		        this.flaming -= this.statusdepletionrate * steps;
-		    if (this.muddy > 0)
-		        this.muddy -= this.statusdepletionrate * 2 * steps;
-		    if (this.charged > 0)
-		        this.charged += this.statusdepletionrate * 2 * steps;
-		}
-		if (this.muddy > 0)
-		{
-		    this.muddy -= this.statusdepletionrate * steps;
-		    if (this.flaming > 0)
-		        this.flaming -= this.statusdepletionrate * 1.5 * steps;
-		    if (this.charged > 0)
-		        this.charged -= this.statusdepletionrate * 2 * steps;
-		    if (getMovement().getSpeed() > this.minspeed * 0.75)
-		    	getMovement().multiplySPeed(Math.pow(1 - 0.01 * (this.muddy / 
-		    			100), steps));
-		}
-		if (this.charged > 0)
-		{
-		    this.charged -= this.statusdepletionrate * steps;
-		    if (this.wet > 0)
-		        this.wet -= this.statusdepletionrate * steps;
-		    if (getMovement().getSpeed() < getMaxSpeed())
-		        getMovement().multiplySPeed(Math.pow(1 + 0.005 * (this.charged 
-		        		/ 100), steps));
-		}
-		// takes the effects back to the limits
-		if (this.flaming < 0)
-			this.flaming = 0;
-		if (this.wet < 0)
-			this.wet = 0;
-		if (this.frozen < 0)
-			this.frozen = 0;
-		if (this.muddy < 0)
-			this.muddy = 0;
-		if (this.charged < 0)
-			this.charged = 0;
-		else if (this.charged > 100)
-			this.charged = 100;
 	}
 }

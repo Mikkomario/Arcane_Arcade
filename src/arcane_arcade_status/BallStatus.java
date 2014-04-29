@@ -11,37 +11,86 @@ package arcane_arcade_status;
 public enum BallStatus
 {
 	/**
-	 * A flaming ball is not as easliy affected by water or ice type spells, 
-	 * a strong flame also dries wet and melts ice
+	 * Tide, Frost, Gale and Lush spells become less effective against flaming 
+	 * balls while the power of toxic spells increases. Flaming balls explode 
+	 * when they collide with walls. A flame dries wet and burns lush as well.
 	 */
 	FLAMING, 
 	/**
-	 * A wet ball is not so easily affected by fire type spells but ice 
-	 * and lightningn attacks become more effective against it. A very wet 
-	 * ball might cause a flaming condition to go away. Wet condition also 
-	 * washes off mud.
+	 * Blaze, Frost and Toxic spells are less effective against wet balls while 
+	 * Volt becomes stronger. Wet balls shift vertically. Wet melts frozen and 
+	 * removes blight. Wet increases Growth and Charge.
 	 */
 	WET, 
 	/**
-	 * A frozen ball moves slower than normally and fire attacks are not as 
-	 * effective against it. However, earth type spells are very effective. 
-	 * If the ball is deeply frozen, it will cause a flaming condition to 
-	 * disappear.
+	 * Blaze, Earth and Lush spells are less effective against frozen balls while 
+	 * Tide spells become stronger. Frozen balls are not affected by air friction. 
+	 * Frozen puts out flames but boosts wet
 	 */
 	FROZEN, 
 	/**
-	 * A muddy ball moves slower than normally and fire and lightning attacks 
-	 * are not as effective against it. Wind attack however are super effective. 
-	 * Mud makes fire go away more easily than other conditions.
+	 * Blaze, Tide, Gale and Volt are less effective against petrified balls. 
+	 * Frost and Lush spells become stronger. Petrification decreases the changes 
+	 * in the ball's status. Petrification removes charge as well
 	 */
-	MUDDY, 
+	PETRIFIED, 
 	/**
-	 * A charged ball moves faster and makes lightning attacks more effective. 
-	 * Also dries wet.
+	 * A Volt and Gale spells are more effective against charged balls. Charge 
+	 * makes the ball gain speed from air friction. Charge also removes wet.
 	 */
 	CHARGED, 
+	/**
+	 * Tide and Volt spells are less effective against grown balls while Blaze, 
+	 * Gale and Toxic become stronger. Growth makes the ball grow in size and 
+	 * removes charge and inreases flaming condition.
+	 */
+	GROWTH, 
+	/**
+	 * Lush spells are less effective against blighted balls while Blaze and 
+	 * Tide become stronger. Blighted balls leave toxic puddles when they collide 
+	 * with walls.
+	 */
+	BLIGHT,
 	/**
 	 * An empty status that does absolutely nothing
 	 */
 	NOSTATUS;
+	
+	
+	// OTHER METHODS	-------------------------------------------------
+	
+	/**
+	 * @return A table containing the statuses that should get boosted by this 
+	 * particular status effect
+	 */
+	public BallStatus[] getBuffedStatuses()
+	{
+		switch (this)
+		{
+			case WET: BallStatus[] wetbuffs = {GROWTH, CHARGED}; return wetbuffs;
+			case FROZEN: BallStatus[] frozenbuffs = {WET}; return frozenbuffs;
+			case GROWTH: BallStatus[] growthbuffs = {FLAMING}; return growthbuffs;
+			
+			default: return new BallStatus[0];
+		}
+	}
+	
+	/**
+	 * @return A table containing the statuses that should get decreased by this 
+	 * particular status effect
+	 */
+	public BallStatus[] getDebuffedStatuses()
+	{
+		switch (this)
+		{
+			case FLAMING: BallStatus[] flamingdebuffs = {GROWTH, WET}; return flamingdebuffs;
+			case WET: BallStatus[] wetdebuffs = {FROZEN, BLIGHT}; return wetdebuffs;
+			case FROZEN: BallStatus[] frozendebuffs = {FLAMING}; return frozendebuffs;
+			case PETRIFIED: BallStatus[] petrifieddebuffs = {CHARGED}; return petrifieddebuffs;
+			case CHARGED: BallStatus[] chargeddebuffs = {WET}; return chargeddebuffs;
+			case GROWTH: BallStatus[] growthdebuffs = {CHARGED}; return growthdebuffs;
+			
+			default: return new BallStatus[0];
+		}
+	}
 }

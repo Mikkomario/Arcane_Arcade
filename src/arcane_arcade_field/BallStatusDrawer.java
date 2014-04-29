@@ -205,7 +205,7 @@ public class BallStatusDrawer extends GameObject
 		 */
 		public MuddyDrawer(Area area)
 		{
-			super("muddy", BallStatus.MUDDY, area);
+			super("muddy", BallStatus.PETRIFIED, area);
 		}
 	}
 	

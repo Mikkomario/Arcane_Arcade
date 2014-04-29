@@ -49,7 +49,7 @@ public class EarthquakeEffect extends MaskedSpellEffect
 	{
 		// Causes impact to the ball
 		ball.impact(10 * getForceModifier(ball), 5, 
-				getDirectionTowardsObject(ball), BallStatus.MUDDY, 25);
+				getDirectionTowardsObject(ball), BallStatus.PETRIFIED, 25);
 	}
 
 	@Override

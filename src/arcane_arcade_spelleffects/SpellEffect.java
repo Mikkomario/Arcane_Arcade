@@ -15,7 +15,6 @@ import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;
-import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 
 /**
@@ -359,17 +358,6 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 */
 	protected double getForceModifier(Ball ball)
 	{
-		double modifier = 1;
-		// Goes through all status effects the ball might have and calculates 
-		// them to the modifier
-		for (BallStatus status: BallStatus.values())
-		{
-			double strength = ball.getStatusStrength(status);
-			if (strength > 0)
-				modifier *= this.element1.getForceModifier(status, strength) * 
-						this.element2.getForceModifier(status, strength);
-		}
-		// Returns the final modifier
-		return modifier;
+		return Element.getForceModifier(this.element1, this.element2, ball);
 	}
 }

@@ -2,6 +2,7 @@ package arcane_arcade_status;
 
 import java.util.ArrayList;
 
+import arcane_arcade_field.Ball;
 import arcane_arcade_spells.ExplosionSpell;
 import arcane_arcade_spells.FreezeSpell;
 import arcane_arcade_spells.FrostBarrierSpell;
@@ -16,7 +17,7 @@ import arcane_arcade_spells.TidalWaveSpell;
  * also be combined to form a spell.
  *
  * @author Mikko Hilpinen.
- *         Created 28.8.2013.
+ * @since 28.8.2013.
  */
 public enum Element
 {
@@ -37,6 +38,10 @@ public enum Element
 	SOMBER, 
 	@SuppressWarnings("javadoc")
 	LIGHT,
+	@SuppressWarnings("javadoc")
+	LUSH, 
+	@SuppressWarnings("javadoc")
+	TOXIC, 
 	@SuppressWarnings("javadoc")
 	NOELEMENT;
 	
@@ -70,6 +75,8 @@ public enum Element
 		spells.add(new ExplosionSpell());	// Fire Lightning
 		spells.add(new ExplosionSpell());	// Fire Dark
 		spells.add(new ExplosionSpell());	// Fire Light
+		spells.add(new ExplosionSpell());	// Fire Lush
+		spells.add(new ExplosionSpell());	// Fire Toxic
 		
 		spells.add(new TidalWaveSpell());	// Water Water
 		spells.add(new FrostBarrierSpell());// Water frost
@@ -78,6 +85,8 @@ public enum Element
 		spells.add(new TidalWaveSpell());	// Tide Volt
 		spells.add(new TidalWaveSpell());	// Tide Somber
 		spells.add(new TidalWaveSpell());	// Tide Light
+		spells.add(new TidalWaveSpell());	// Tide Lush
+		spells.add(new TidalWaveSpell());	// Tide Toxic
 		
 		spells.add(new FreezeSpell());		// Frost Frost
 		
@@ -118,87 +127,172 @@ public enum Element
 			case SOMBER: return 7;
 			case LIGHT: return 8;
 			
+			// TODO: Add sprite index 9 and 10 once an animation allows it
+			
 			default: return 0;
 		}
+	}
+	
+	private BallStatus[] getCounteringStatuses()
+	{
+		switch (this)
+		{
+			case BLAZE: 
+				BallStatus[] blazeWeak = {BallStatus.WET, BallStatus.FROZEN, BallStatus.PETRIFIED}; 
+				return blazeWeak;
+			case TIDE: 
+				BallStatus[] tideWeak = {BallStatus.FLAMING, BallStatus.PETRIFIED, BallStatus.GROWTH}; 
+				return tideWeak;
+			case FROST: 
+				BallStatus[] frostWeak = {BallStatus.WET, BallStatus.FLAMING}; 
+				return frostWeak;
+			case EARTH: 
+				BallStatus[] earthWeak = {BallStatus.FROZEN}; 
+				return earthWeak;
+			case GALE: 
+				BallStatus[] galeWeak = {BallStatus.FLAMING, BallStatus.PETRIFIED}; 
+				return galeWeak;
+			case VOLT: 
+				BallStatus[] voltWeak = {BallStatus.GROWTH, BallStatus.PETRIFIED}; 
+				return voltWeak;
+			case LUSH: 
+				BallStatus[] lushWeak = {BallStatus.FLAMING, BallStatus.FROZEN, BallStatus.BLIGHT}; 
+				return lushWeak;
+			case TOXIC: 
+				BallStatus[] toxicWeak = {BallStatus.WET}; 
+				return toxicWeak;
+				
+			default: return new BallStatus[0];
+		}
+	}
+	
+	private BallStatus[] getBoostingStatuses()
+	{
+		switch (this)
+		{
+			case BLAZE: 
+				BallStatus[] blaze = {BallStatus.GROWTH, BallStatus.BLIGHT}; 
+				return blaze;
+			case TIDE: 
+				BallStatus[] tide = {BallStatus.FROZEN, BallStatus.BLIGHT}; 
+				return tide;
+			case FROST: 
+				BallStatus[] frost = {BallStatus.PETRIFIED}; 
+				return frost;
+			case GALE: 
+				BallStatus[] gale = {BallStatus.CHARGED, BallStatus.GROWTH}; 
+				return gale;
+			case VOLT: 
+				BallStatus[] volt = {BallStatus.WET, BallStatus.CHARGED}; 
+				return volt;
+			case LUSH: 
+				BallStatus[] lush = {BallStatus.PETRIFIED}; 
+				return lush;
+			case TOXIC: 
+				BallStatus[] toxic = {BallStatus.FLAMING, BallStatus.GROWTH}; 
+				return toxic;
+				
+			default: return new BallStatus[0];
+		}
+	}
+	
+	// A status that can only have a positive effect
+	private BallStatus getMustPositiveStatus()
+	{
+		switch (this)
+		{
+			case BLAZE: return BallStatus.FLAMING;
+			case TIDE: return BallStatus.WET;
+			case FROST: return BallStatus.FROZEN;
+			case EARTH: return BallStatus.PETRIFIED;
+			case VOLT: return BallStatus.CHARGED;
+			case LUSH: return BallStatus.GROWTH;
+			case TOXIC: return BallStatus.BLIGHT;
+			
+			default: return BallStatus.NOSTATUS;
+		}
+	}
+	
+	private static boolean tableContainsStatus(BallStatus[] table, BallStatus testedStatus)
+	{
+		for (BallStatus status : table)
+		{
+			if (status == testedStatus)
+				return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Calculates an element combo's force modifier against the given ball's 
+	 * current status
+	 * 
+	 * @param element1 An effect's first element
+	 * @param element2 An effect's second element or NOELEMENT if the effect 
+	 * only uses a single element
+	 * @param ball The ball that will be affected by the effect
+	 * @return How much the effect should be adjusted to take the ball's status 
+	 * into account
+	 */
+	public static double getForceModifier(Element element1, Element element2, 
+			Ball ball)
+	{
+		double modifier = 1;
+		
+		// Tests all active status effects the ball has and returns a summary 
+		// of the final modifier
+		for (BallStatus status : BallStatus.values())
+		{
+			if (status == BallStatus.NOSTATUS)
+				continue;
+			
+			double strength = ball.getStatusStrength(status);
+			
+			if (strength > 0)
+				modifier *= getForceModifier(element1, element2, status, strength);
+		}
+		
+		return modifier;
 	}
 	
 	/**
 	 * Some elements are weak or strong against certain status effects. This 
 	 * method returns a modifier that tells, how much the force should be 
 	 * affected by the status.
-	 *
-	 * @param status The statuseffect the ball currently has
-	 * @param strength How strong the status effect on the ball is [0, 100]
-	 * @return A modifier about how much the force should be affected (1 means 
-	 * that the status doesn't affect the force, 2 means that the force will 
-	 * increase 100% and 0.5 means that the force will be halved and so on)
+	 * 
+	 * @param element1 The first element of a spell effect
+	 * @param element2 The second element of a spell effect or NOELEMENT if 
+	 * the effect only has one element
+	 * @param status The status effect that is tested
+	 * @param strength How strong the tested status currently is
+	 * @return What modifier should be added to the force against this 
+	 * specific status
 	 */
-	public double getForceModifier(BallStatus status, double strength)
+	public static double getForceModifier(Element element1, Element element2, 
+			BallStatus status, double strength)
 	{
-		// TODO: Update these
+		if (status == BallStatus.NOSTATUS)
+			return 1;
 		
-		switch(this)
-		{
-			// Fire is weak against water, ice and muddy
-			case BLAZE:
-			{
-				if (status == BallStatus.WET || status == BallStatus.FROZEN 
-						|| status == BallStatus.MUDDY)
-					return getWeakModifier(strength);
-				else
-					return 1;
-			}
-			// Water is weak against fire
-			case TIDE:
-			{
-				if (status == BallStatus.FLAMING)
-					return getWeakModifier(strength);
-				else
-					return 1;
-			}
-			// Ice is weak against fire, but strong against water
-			case FROST:
-			{
-				if (status == BallStatus.FLAMING)
-					return getWeakModifier(strength);
-				else if (status == BallStatus.WET)
-					return getStrongModifier(strength);
-				else
-					return 1;
-			}
-			// Earth is weak against water but strong against ice
-			case EARTH:
-			{
-				if (status == BallStatus.WET)
-					return getWeakModifier(strength);
-				else if (status == BallStatus.FROZEN)
-					return getStrongModifier(strength);
-				else
-					return 1;
-			}
-			// Wind is strong against earth but weak against fire
-			case GALE:
-			{
-				if (status ==  BallStatus.FLAMING)
-					return getWeakModifier(strength);
-				else if (status == BallStatus.MUDDY)
-					return getStrongModifier(strength);
-				else
-					return 1;
-			}
-			// Lightning is strong against lightning and water but weak 
-			// against earth
-			case VOLT:
-			{
-				if (status == BallStatus.MUDDY)
-					return getWeakModifier(strength);
-				else if (status == BallStatus.WET || status == BallStatus.CHARGED)
-					return getStrongModifier(strength);
-				else
-					return 1;
-			}
-			default: return 1;
+		double modifier = 1;
+		
+		// Checks if the status affects the force positively
+		if (tableContainsStatus(element1.getBoostingStatuses(), status))
+			modifier *= getStrongModifier(strength);
+		if (element2 != NOELEMENT && tableContainsStatus(element2.getBoostingStatuses(), status))
+			modifier *= getStrongModifier(strength);
+			
+		// Checks if the status affects the force negatively (only if not ignored)
+		if (status != element1.getMustPositiveStatus() && status !=  element2.getMustPositiveStatus())
+		{	
+			if (tableContainsStatus(element1.getCounteringStatuses(), status))
+				modifier *= getWeakModifier(strength);
+			if (element2 != NOELEMENT && tableContainsStatus(element2.getCounteringStatuses(), status))
+				modifier *= getWeakModifier(strength);
 		}
+		
+		return modifier;
 	}
 	
 	/**
@@ -253,6 +347,6 @@ public enum Element
 	
 	private static double getStrongModifier(double strength)
 	{
-		return 1 + strength / 100;
+		return 1 + strength / 50;
 	}
 }

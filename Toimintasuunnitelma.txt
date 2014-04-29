@@ -510,3 +510,6 @@ Eteneminen:														Status
 			* Ohjauksen toiminta
 		- Neljän maagin taistelumoodi
 			* Yksi maagi kullakin sivulla
+			
+			
+Tee moottoriin area relay relay
