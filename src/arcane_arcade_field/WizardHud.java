@@ -7,7 +7,7 @@ import utopia_graphic.SingleSpriteDrawer;
 import utopia_handleds.Drawable;
 import utopia_handleds.Handled;
 import utopia_handlers.Handler;
-import utopia_helpAndEnums.DepthConstants;
+import utopia_utility.DepthConstants;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_worlds.Area;
 import arcane_arcade_main.GameSettings;

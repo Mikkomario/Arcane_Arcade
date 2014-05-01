@@ -201,7 +201,7 @@ public abstract class Spell
 		if (this.manausage <= MPUSE_LOW)
 			return " and uses only little colour";
 		if (this.manausage <= MPUSE_SEMI_HIGH)
-			return " and uses moderate amount of colour";
+			return " and uses a moderate amount of colour";
 		if (this.manausage <= MPUSE_VERY_HIGH)
 			return " and uses a lot colour";
 		

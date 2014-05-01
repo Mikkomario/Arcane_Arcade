@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import utopia_gameobjects.DrawnObject;
 import utopia_gameobjects.GameObject;
 import utopia_graphic.SingleSpriteDrawer;
-import utopia_helpAndEnums.DepthConstants;
-import utopia_helpAndEnums.HelpMath;
+import utopia_utility.DepthConstants;
 import utopia_listeners.AdvancedKeyListener;
 import utopia_listeners.AdvancedMouseListener.MouseButton;
 import utopia_listeners.RoomListener;
@@ -39,9 +38,6 @@ public class ElementSelectionInterface implements ElementIndicatorListener
 	
 	private ElementScreenObjectCreator creator;
 	
-	private static final Element[] UNLOCKEDELEMETS = {Element.BLAZE, 
-			Element.TIDE, Element.FROST};
-	
 	
 	// CONSTRUCTOR	------------------------------------------------------
 	
@@ -58,22 +54,10 @@ public class ElementSelectionInterface implements ElementIndicatorListener
 		this.creator = creator;
 		this.elements = new ArrayList<ElementIndicator>();
 		this.chosenindex1 = 0;
-		this.chosenindex2 = UNLOCKEDELEMETS.length - 1;
-		
-		double angle = 90;
+		this.chosenindex2 = 0;
 		
 		// Initializes the elements
-		for (Element element : UNLOCKEDELEMETS)
-		{
-			ElementIndicator newelement = new ElementIndicator(
-					GameSettings.SCREENWIDTH / 2 + (int) HelpMath.lendirX(120, 
-					angle), GameSettings.SCREENHEIGHT / 2 + 
-					(int) HelpMath.lendirY(120, angle), DepthConstants.NORMAL, 
-					element, this, area);
-			this.elements.add(newelement);
-			
-			angle += 360.0 / UNLOCKEDELEMETS.length;
-		}
+		ElementIndicator.createIndicators(area, this);
 		
 		// Initializes indicators
 		this.chosenindicator1 = new ChosenElementIndicator(1, area);
@@ -99,6 +83,12 @@ public class ElementSelectionInterface implements ElementIndicatorListener
 			side = ScreenSide.RIGHT;
 		
 		this.creator.getSettings().addElementOnSide(source.getElement(), side);
+	}
+	
+	@Override
+	public void onElementIndicatorCreated(ElementIndicator newIndicator)
+	{
+		this.elements.add(newIndicator);
 	}
 	
 	

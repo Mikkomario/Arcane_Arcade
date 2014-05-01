@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import utopia_gameobjects.BasicPhysicDrawnObject;
 import utopia_handleds.Collidable;
-import utopia_helpAndEnums.CollisionType;
-import utopia_helpAndEnums.DepthConstants;
-import utopia_helpAndEnums.Movement;
+import utopia_utility.CollisionType;
+import utopia_utility.DepthConstants;
+import utopia_utility.Movement;
 import utopia_worlds.Area;
 
 /**

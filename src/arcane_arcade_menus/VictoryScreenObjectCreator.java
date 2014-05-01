@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 import utopia_gameobjects.DrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
-import utopia_helpAndEnums.DepthConstants;
+import utopia_utility.DepthConstants;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_worlds.Area;

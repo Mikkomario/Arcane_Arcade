@@ -7,7 +7,7 @@ import java.awt.geom.Point2D.Double;
 import utopia_gameobjects.DrawnObject;
 import utopia_gameobjects.GameObject;
 import utopia_graphic.SingleSpriteDrawer;
-import utopia_helpAndEnums.DepthConstants;
+import utopia_utility.DepthConstants;
 import utopia_interfaceElements.AbstractMaskButton;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;

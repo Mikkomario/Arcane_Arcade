@@ -3,8 +3,8 @@ package arcane_arcade_spelleffects;
 import java.util.Random;
 
 import utopia_gameobjects.BasicPhysicDrawnObject;
-import utopia_helpAndEnums.HelpMath;
-import utopia_helpAndEnums.Movement;
+import utopia_utility.HelpMath;
+import utopia_utility.Movement;
 import utopia_worlds.Area;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;

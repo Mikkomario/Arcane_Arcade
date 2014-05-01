@@ -5,8 +5,8 @@ import java.awt.geom.Point2D;
 
 import utopia_gameobjects.DrawnObject;
 import utopia_handleds.Actor;
-import utopia_helpAndEnums.CollisionType;
-import utopia_helpAndEnums.DepthConstants;
+import utopia_utility.CollisionType;
+import utopia_utility.DepthConstants;
 import utopia_interfaceElements.AbstractButton;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_worlds.Area;

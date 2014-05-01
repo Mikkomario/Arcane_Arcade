@@ -19,4 +19,10 @@ public interface ElementIndicatorListener
 	 * @param source The elementIndicator that was clicked
 	 */
 	public void onElementIndicatorPressed(MouseButton button, ElementIndicator source);
+	
+	/**
+	 * This method is called when an element indicator is created
+	 * @param newIndicator The indicator that was just created
+	 */
+	public void onElementIndicatorCreated(ElementIndicator newIndicator);
 }

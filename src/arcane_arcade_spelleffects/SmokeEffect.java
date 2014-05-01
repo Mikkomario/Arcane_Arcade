@@ -1,7 +1,7 @@
 package arcane_arcade_spelleffects;
 
-import utopia_helpAndEnums.CollisionType;
-import utopia_helpAndEnums.DepthConstants;
+import utopia_utility.CollisionType;
+import utopia_utility.DepthConstants;
 import utopia_worlds.Area;
 import arcane_arcade_field.Ball;
 import arcane_arcade_field.Wizard;

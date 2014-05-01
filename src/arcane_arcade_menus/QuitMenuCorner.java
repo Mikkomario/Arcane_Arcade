@@ -3,7 +3,7 @@ package arcane_arcade_menus;
 
 import java.awt.geom.Point2D;
 
-import utopia_helpAndEnums.DepthConstants;
+import utopia_utility.DepthConstants;
 import utopia_interfaceElements.AbstractMaskButton;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_worlds.Area;

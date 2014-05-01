@@ -2,7 +2,7 @@ package arcane_arcade_spelleffects;
 
 import java.util.Random;
 
-import utopia_helpAndEnums.Movement;
+import utopia_utility.Movement;
 import utopia_worlds.Area;
 
 
