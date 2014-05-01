@@ -128,9 +128,9 @@ public class ElementIndicator extends AbstractButton
 		for (Element element : UNLOCKEDELEMETS)
 		{
 			ElementIndicator newelement = new ElementIndicator(
-					GameSettings.SCREENWIDTH / 2 + (int) HelpMath.lendirX(120, 
+					GameSettings.SCREENWIDTH / 2 + (int) HelpMath.lendirX(280, 
 					angle), GameSettings.SCREENHEIGHT / 2 + 
-					(int) HelpMath.lendirY(120, angle), DepthConstants.NORMAL, 
+					(int) HelpMath.lendirY(200, angle), DepthConstants.NORMAL, 
 					element, listener, area);
 			listener.onElementIndicatorCreated(newelement);
 			

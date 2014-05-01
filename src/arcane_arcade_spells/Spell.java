@@ -4,6 +4,7 @@ import utopia_worlds.Area;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_status.Element;
 
 /**
  * Spells can be cast by giving them certain information.
@@ -125,6 +126,18 @@ public abstract class Spell
 	 */
 	protected abstract String getSimpleDescription();
 	
+	/**
+	 * @return The first element used in the spell's effect(s). 
+	 * Use NOELEMENT if the spell doesn't use elements
+	 */
+	public abstract Element getFirstEffectElement();
+	
+	/**
+	 * @return The second element used in the spell's effect(s). 
+	 * Use NOELEMENT if the spell doesn't use elements or has only single element
+	 */
+	public abstract Element getSecondEffectElement();
+	
 	
 	// GETTERS & SETTERS	---------------------------------------------
 	
@@ -180,7 +193,7 @@ public abstract class Spell
 	 */
 	public String getDescription()
 	{
-		return getSimpleDescription() + getDelayDescription() + 
+		return getSimpleDescription() + " " + getDelayDescription() + 
 				getColourUsageDescription();
 	}
 	
@@ -199,12 +212,12 @@ public abstract class Spell
 	private String getColourUsageDescription()
 	{
 		if (this.manausage <= MPUSE_LOW)
-			return " and uses only little colour";
+			return " and uses only little colour.";
 		if (this.manausage <= MPUSE_SEMI_HIGH)
-			return " and uses a moderate amount of colour";
+			return " and uses a moderate amount of colour.";
 		if (this.manausage <= MPUSE_VERY_HIGH)
-			return " and uses a lot colour";
+			return " and uses a lot colour.";
 		
-		return " and uses insane amounts of colour";
+		return " and uses insane amounts of colour.";
 	}
 }

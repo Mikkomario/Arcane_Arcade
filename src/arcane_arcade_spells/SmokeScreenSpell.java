@@ -7,6 +7,7 @@ import arcane_arcade_field.Wizard;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.SoundEffectPlayer;
 import arcane_arcade_spelleffects.SmokeEffectCreator;
+import arcane_arcade_status.Element;
 
 /**
  * SmokeScreenSpell creates a cloud of smoke, which will last for a while.
@@ -48,5 +49,17 @@ public class SmokeScreenSpell extends Spell{
 	{
 		return "Creates a burst of distracting smoke on the other player's "
 				+ "side for a moderate duration.";
+	}
+	
+	@Override
+	public Element getFirstEffectElement()
+	{
+		return Element.NOELEMENT;
+	}
+
+	@Override
+	public Element getSecondEffectElement()
+	{
+		return Element.NOELEMENT;
 	}
 }

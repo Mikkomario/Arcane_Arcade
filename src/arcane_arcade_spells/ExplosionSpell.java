@@ -6,6 +6,7 @@ import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_main.SoundEffectPlayer;
 import arcane_arcade_spelleffects.ExplosionEffect;
+import arcane_arcade_status.Element;
 
 /**
  * Explosionspell creates an explosion that will last a while and then 
@@ -42,18 +43,28 @@ public class ExplosionSpell extends Spell
 		SoundEffectPlayer.playSoundEffect("explosion");
 	}
 
-
 	@Override
 	public String getName()
 	{
 		return "Blaze Burst";
 	}
 
-
 	@Override
 	protected String getSimpleDescription()
 	{
 		return "Creates a strong burst of blaze just in front of you. Causes "
 				+ "heavy impact and burn.";
+	}
+
+	@Override
+	public Element getFirstEffectElement()
+	{
+		return Element.BLAZE;
+	}
+
+	@Override
+	public Element getSecondEffectElement()
+	{
+		return Element.NOELEMENT;
 	}
 }

@@ -5,6 +5,7 @@ import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_spelleffects.FreezeSpellEffect;
+import arcane_arcade_status.Element;
 
 /**
  * Freeze spell creates a powerful burst in front of the caster.
@@ -49,6 +50,18 @@ public class FreezeSpell extends Spell
 	{
 		return "Creates a lenghty but less powerful burst in front of the caster. "
 				+ "The burst impacts the ball and causes freezing.";
+	}
+
+	@Override
+	public Element getFirstEffectElement()
+	{
+		return Element.FROST;
+	}
+
+	@Override
+	public Element getSecondEffectElement()
+	{
+		return Element.NOELEMENT;
 	}
 
 }

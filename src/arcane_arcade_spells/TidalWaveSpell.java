@@ -4,6 +4,7 @@ import utopia_worlds.Area;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_spelleffects.WaveEffectCreator;
+import arcane_arcade_status.Element;
 
 /**
  * Tidalwavespell creates three waves of waves from the caster
@@ -38,12 +39,23 @@ public class TidalWaveSpell extends Spell
 		return "Tide Wave";
 	}
 
-
 	@Override
 	protected String getSimpleDescription()
 	{
 		return "Shoots three waves of tide with a short range. You can affect "
 				+ "the projectile direction by moving. Causes moderate "
 				+ "impact and wet.";
+	}
+	
+	@Override
+	public Element getFirstEffectElement()
+	{
+		return Element.TIDE;
+	}
+
+	@Override
+	public Element getSecondEffectElement()
+	{
+		return Element.NOELEMENT;
 	}
 }

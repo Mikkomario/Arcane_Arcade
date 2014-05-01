@@ -24,6 +24,7 @@ winner#images/menu/winner.png#1#284#111
 arrow#images/menu/arrow_button.png#2#22#22
 arrowmask#images/menu/arrow_button_mask.png#1#22#22
 chosen#images/menu/chosen_strip2.png#2#50#50
+chosen2#images/menu/chosen2.png#1#48#48
 sliderback#images/menu/sliderBack.png#1#50#16
 sliderhandle#images/menu/sliderHandle_strip3.png#3#16#16
 

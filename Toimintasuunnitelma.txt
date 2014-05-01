@@ -324,12 +324,14 @@ Eteneminen:														Status
 					* Yes / No -box								Hylätty
 					* KeyBindaus -box
 			* SpellBook											...
-				- Ohjeresurssien rakenteen määrittäminen		...
-				- Ohjeresurssien valmistaminen					...
-				- Oikean ohjeresurssin lukeminen
-				- Elementtien valinta graafisten tsydeemien 	...
+				- Ohjeresurssien rakenteen määrittäminen		DONE
+				- Ohjeresurssien valmistaminen					DONE
+				- Oikean ohjeresurssin lukeminen				DONE
+				- Elementtien valinta graafisten tsydeemien 	DONE
 				avulla
-				- Ohjeen piirtäminen
+				- Ohjeen piirtäminen							DONE
+				- Käytetyn värin ja ajan näyttäminen 
+				graafisesti
 		- Äänet													...
 			* WavSoundien äänenvoimakkuuden säädön stackkaus	Testaamatta
 			* Tarvittavat resurssit								...

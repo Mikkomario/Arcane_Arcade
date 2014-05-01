@@ -5,6 +5,7 @@ import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_spelleffects.FrostBarrierEffect;
+import arcane_arcade_status.Element;
 
 /**
  * Frost barrier spell conjures a frozen wall in front of the caster. The wall 
@@ -52,5 +53,17 @@ public class FrostBarrierSpell extends Spell
 		return "Creates a solid wall of frost in front of the caster. The wall "
 				+ "deflects the ball if it collides with it though if the ball "
 				+ "is on fire it will simply melt through.";
+	}
+
+	@Override
+	public Element getFirstEffectElement()
+	{
+		return Element.FROST;
+	}
+
+	@Override
+	public Element getSecondEffectElement()
+	{
+		return Element.TIDE;
 	}
 }

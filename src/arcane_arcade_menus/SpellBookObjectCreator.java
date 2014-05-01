@@ -59,5 +59,8 @@ public class SpellBookObjectCreator extends SettingUsingAreaObjectCreator
 		// Creates navigation button
 		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT / 2, 
 				"mainmenu", this.navigator, area).setXScale(-1);
+		
+		// Creates the spellBookInterface
+		new SpellBookInterface(area);
 	}
 }

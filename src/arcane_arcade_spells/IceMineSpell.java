@@ -8,6 +8,7 @@ import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_spelleffects.IceMineEffect;
+import arcane_arcade_status.Element;
 
 /**
  * Ice mine spell scatters multiple ice mines to the field when cast
@@ -65,5 +66,17 @@ public class IceMineSpell extends Spell
 				+ "while. The crystals explodee upon contact with the ball, "
 				+ "causing impact. One can affect the projectile trajectory by "
 				+ "moving while casting.";
+	}
+	
+	@Override
+	public Element getFirstEffectElement()
+	{
+		return Element.BLAZE;
+	}
+
+	@Override
+	public Element getSecondEffectElement()
+	{
+		return Element.FROST;
 	}
 }
