@@ -1,11 +1,12 @@
 package arcane_arcade_menus;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import utopia_gameobjects.DrawnObject;
+import utopia_gameobjects.SpriteDrawerObject;
 import utopia_graphic.ParagraphDrawer;
-import utopia_graphic.SingleSpriteDrawer;
 import utopia_listeners.AdvancedMouseListener.MouseButton;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
@@ -26,14 +27,17 @@ import arcane_arcade_status.ElementIndicatorListener;
  * @author Mikko Hilpinen
  * @since 30.4.2014
  */
-public class SpellBookInterface implements ElementIndicatorListener
-{
+public class SpellBookInterface implements ElementIndicatorListener, RoomListener
+{	
 	// ATTRIBUTES	------------------------------------------------------
 	
 	private ArrayList<ElementIndicator> indicators;
+	private ArrayList<SpriteDrawerObject> buffIndicators;
 	private ElementIndicator lastChosenIndicator;
-	private ChosenMarker firstChosenMarker, secondChosenMarker;
+	private SpriteDrawerObject firstChosenMarker, secondChosenMarker;
 	private SpellInformationDrawer informationDrawer;
+	private boolean dead;
+	private Area area;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -46,13 +50,20 @@ public class SpellBookInterface implements ElementIndicatorListener
 	{
 		// Initializes attributes
 		this.lastChosenIndicator = null;
-		this.firstChosenMarker = new ChosenMarker(area, false);
-		this.secondChosenMarker = new ChosenMarker(area, true);
 		this.indicators = new ArrayList<ElementIndicator>();
 		this.informationDrawer = new SpellInformationDrawer(area);
+		this.buffIndicators = new ArrayList<SpriteDrawerObject>();
+		this.dead = false;
+		this.area = area;
+		
+		createChosenMarker(area, false);
+		createChosenMarker(area, true);
 		
 		// Creates the Indicators
 		ElementIndicator.createIndicators(area, this);
+		
+		// Adds the interface into the area
+		area.addRoomListener(this);
 	}
 	
 	
@@ -72,6 +83,9 @@ public class SpellBookInterface implements ElementIndicatorListener
 			// Also updates the shown data
 			this.informationDrawer.setElements(this.lastChosenIndicator.getElement(), 
 					source.getElement());
+			
+			// And the buffs / debuffs
+			createBuffIndicators(this.lastChosenIndicator.getElement(), source.getElement());
 		}
 		
 		// Updates the last chosen indicator
@@ -85,72 +99,130 @@ public class SpellBookInterface implements ElementIndicatorListener
 		this.indicators.add(newIndicator);
 	}
 	
-	
-	// SUBCLASSES	------------------------------------------------------
-	
-	private class ChosenMarker extends DrawnObject implements RoomListener
+	@Override
+	public boolean isDead()
 	{
-		// ATTRIBUTES	--------------------------------------------------
-		
-		private SingleSpriteDrawer spriteDrawer;
-		
-		
-		// CONSTRUCTOR	--------------------------------------------------
-		
-		public ChosenMarker(Area area, boolean isSecondary)
-		{
-			super(-400, -400, DepthConstants.FOREGROUND, area);
-			
-			// Initializes attributes
-			this.spriteDrawer = new SingleSpriteDrawer(
-					MultiMediaHolder.getSpriteBank("menu").getSprite("chosen2"), 
-					area.getActorHandler(), this);
-			
-			if (isSecondary)
-				setScale(-1, -1);
-		}
-		
-		
-		// IMPLEMENTED METHODS	-----------------------------------------
+		return this.dead;
+	}
 
-		@Override
-		public int getOriginX()
-		{
-			if (this.spriteDrawer == null)
-				return 0;
-			return this.spriteDrawer.getSprite().getOriginX();
-		}
+	@Override
+	public void kill()
+	{
+		// Kills the objects in the interface
+		killInterfaceElements();
+		this.dead = true;
+	}
 
-		@Override
-		public int getOriginY()
-		{
-			if (this.spriteDrawer == null)
-				return 0;
-			return this.spriteDrawer.getSprite().getOriginY();
-		}
+	@Override
+	public void onRoomStart(Room room)
+	{
+		// Does nothing
+	}
 
-		@Override
-		public void drawSelfBasic(Graphics2D g2d)
+	@Override
+	public void onRoomEnd(Room room)
+	{
+		// Dies
+		kill();
+	}
+	
+	
+	// OTHER METHODS	--------------------------------------------------
+	
+	private void createChosenMarker(Area area, boolean isSecondary)
+	{
+		SpriteDrawerObject marker = new SpriteDrawerObject(area, 
+				DepthConstants.FOREGROUND, null, 
+				MultiMediaHolder.getSpriteBank("menu").getSprite("chosen2"));
+		
+		marker.setPosition(-400, -400);
+		
+		if (isSecondary)
 		{
-			if (this.spriteDrawer != null)
-				this.spriteDrawer.drawSprite(g2d, 0, 0);
+			marker.setScale(-1, -1);
+			this.secondChosenMarker = marker;
 		}
-
-		@Override
-		public void onRoomStart(Room room)
+		else
+			this.firstChosenMarker = marker;
+	}
+	
+	private void createBuffIndicators(Element element1, Element element2)
+	{
+		// First destroys the previous indicators
+		killBuffIndicators();
+		
+		Spell spell = element1.getSpell(element2);
+		
+		for (ElementIndicator indicator : this.indicators)
 		{
-			// Does nothing
-		}
-
-		@Override
-		public void onRoomEnd(Room room)
-		{
-			// Dies
-			kill();
+			createBuffIndicator(spell, indicator);
 		}
 	}
 	
-	private class SpellInformationDrawer extends DrawnObject implements RoomListener
+	private void createBuffIndicator(Spell currentSpell, 
+			ElementIndicator elementIndicator)
+	{
+		// Checks what kind of buff is needed or if one isn't needed at all
+		double forceModifier = Element.getForceModifier(
+				currentSpell.getFirstEffectElement(), 
+				currentSpell.getSecondEffectElement(), 
+				elementIndicator.getElement().getCausedStatus(), 100);
+		
+		if (forceModifier > 0.9 && forceModifier < 1.1)
+			return;
+		
+		// Creates the buffIndicator
+		SpriteDrawerObject buffIndicator = new SpriteDrawerObject(this.area, 
+				DepthConstants.FOREGROUND, null, 
+				MultiMediaHolder.getSpriteBank("hud").getSprite("buffarrow"));
+		buffIndicator.getSpriteDrawer().setImageSpeed(0);
+		buffIndicator.goToRelativePosition(new Point2D.Double(50, 50), 
+				elementIndicator);
+		
+		// Sets the correct buff
+		if (forceModifier < 0.9)
+			buffIndicator.getSpriteDrawer().setImageIndex(1);
+		else
+			buffIndicator.getSpriteDrawer().setImageIndex(0);
+		
+		// Remembers the new indicator
+		this.buffIndicators.add(buffIndicator);
+	}
+	
+	private void killInterfaceElements()
+	{
+		// Kills the indicators
+		for (int i = 0; i < this.indicators.size(); i++)
+		{
+			this.indicators.get(i).kill();
+		}
+		this.indicators.clear();
+		
+		// Kills the markers
+		this.firstChosenMarker.kill();
+		this.secondChosenMarker.kill();
+		
+		// Kills the information drawer
+		this.informationDrawer.kill();
+		
+		// Also kills the buffindicators
+		killBuffIndicators();
+	}
+	
+	private void killBuffIndicators()
+	{
+		// Kills all the remaining buffindicators
+		for (int i = 0; i < this.buffIndicators.size(); i++)
+		{
+			this.buffIndicators.get(i).kill();
+		}
+		this.buffIndicators.clear();
+	}
+	
+	
+	// SUBCLASSES	------------------------------------------------------
+	
+	private class SpellInformationDrawer extends DrawnObject
 	{
 		// ATTRIBUTES	-------------------------------------------------
 		
@@ -165,6 +237,7 @@ public class SpellBookInterface implements ElementIndicatorListener
 			super(GameSettings.SCREENWIDTH / 2, GameSettings.SCREENHEIGHT / 2, 
 					DepthConstants.HUD, area);
 			
+			// TODO: Use a smaller font here
 			// Initializes attributes
 			this.spellName = "Help:";
 			this.infoDrawer = new ParagraphDrawer("Click two elements to for spell information.", 
@@ -198,19 +271,6 @@ public class SpellBookInterface implements ElementIndicatorListener
 			
 			// Draws the spell name
 			g2d.drawString(this.spellName, -100, -100);
-		}
-		
-		@Override
-		public void onRoomStart(Room room)
-		{
-			// Does nothing
-		}
-
-		@Override
-		public void onRoomEnd(Room room)
-		{
-			// Dies
-			kill();
 		}
 		
 		

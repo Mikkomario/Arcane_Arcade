@@ -197,7 +197,10 @@ public enum Element
 	}
 	
 	// A status that can only have a positive effect
-	private BallStatus getMustPositiveStatus()
+	/**
+	 * @return The status effect this element causes / may cause. 
+	 */
+	public BallStatus getCausedStatus()
 	{
 		switch (this)
 		{
@@ -284,7 +287,7 @@ public enum Element
 			modifier *= getStrongModifier(strength);
 			
 		// Checks if the status affects the force negatively (only if not ignored)
-		if (status != element1.getMustPositiveStatus() && status !=  element2.getMustPositiveStatus())
+		if (status != element1.getCausedStatus() && status !=  element2.getCausedStatus())
 		{	
 			if (tableContainsStatus(element1.getCounteringStatuses(), status))
 				modifier *= getWeakModifier(strength);
