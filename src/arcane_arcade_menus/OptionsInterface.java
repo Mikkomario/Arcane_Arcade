@@ -9,6 +9,7 @@ import utopia_graphic.Sprite;
 import utopia_utility.CollisionType;
 import utopia_utility.DepthConstants;
 import utopia_interfaceElements.AbstractButton;
+import utopia_interfaceElements.OptionMessageBox;
 import utopia_interfaceElements.SliderIntegerOptionBar;
 import utopia_interfaceElements.StringOptionBar;
 import utopia_resourcebanks.MultiMediaHolder;
@@ -37,7 +38,7 @@ public class OptionsInterface
 	 */
 	public OptionsInterface(Area area)
 	{
-		int columnx = 100;
+		int columnx = 200;
 		int columny = 100;
 		int ydifference = 50;
 		
@@ -56,8 +57,8 @@ public class OptionsInterface
 		Sprite sliderBackSprite = MultiMediaHolder.getSpriteBank("menu").getSprite("sliderback");
 		Sprite sliderHandleSprite = MultiMediaHolder.getSpriteBank("menu").getSprite("sliderhandle");
 		
-		System.out.println("Wizard Voice: " + Options.voicevolumeadjustment);
-		System.out.println("Effects: " + Options.soundvolumeadjustment);
+		//System.out.println("Wizard Voice: " + Options.voicevolumeadjustment);
+		//System.out.println("Effects: " + Options.soundvolumeadjustment);
 		
 		this.wizardVolumeSlider = new SliderIntegerOptionBar(columnx, 
 				columny + ydifference, Options.voicevolumeadjustment, -20, 20, 
@@ -72,7 +73,7 @@ public class OptionsInterface
 				area);
 		
 		new ApplyChangesButton(GameSettings.SCREENWIDTH / 2, 
-				GameSettings.SCREENHEIGHT - 150, area);
+				GameSettings.SCREENHEIGHT - 100, area);
 	}
 
 	// TODO: Add key rebind buttons and messageboxes
@@ -142,17 +143,25 @@ public class OptionsInterface
 			super.drawSelfBasic(g2d);
 			
 			// Also draws the description
-			g2d.drawString(this.description, 150, 0);
+			g2d.drawString(this.description, 100, 40);
 		}
 	}
 	
 	private class ApplyChangesButton extends OptionButton
 	{
+		// ATTRIBUTES	-------------------------------------------------
+		
+		private Area area;
+		
+		
 		// CONSTRUCTOR	-------------------------------------------------
 		
 		public ApplyChangesButton(int x, int y, Area area)
 		{
 			super(x, y, "Apply Changes", area);
+			
+			// Initializes attributes
+			this.area = area;
 		}
 		
 		
@@ -173,6 +182,16 @@ public class OptionsInterface
 					OptionsInterface.this.effectVolumeSlider.getValue();
 			
 			Options.saveSettings();
+			
+			// Informs the user about the change
+			new OptionMessageBox(GameSettings.SCREENWIDTH / 2, 
+					GameSettings.SCREENHEIGHT / 2, DepthConstants.TOP, 
+					"Changes successfully saved!", GameSettings.BASICFONT, 
+					GameSettings.WHITETEXTCOLOR, 
+					MultiMediaHolder.getSpriteBank("menu").getSprite("messageback"), 
+					OptionMessageBox.OKOPTIONS, 
+					MultiMediaHolder.getSpriteBank("menu").getSprite("button"), 
+					true, true, null, this.area);
 		}
 	}
 }

@@ -332,6 +332,10 @@ Eteneminen:														Status
 				- Ohjeen piirtäminen							DONE
 				- Käytetyn värin ja ajan näyttäminen 
 				graafisesti
+				- Loitsun heikkouksien ja vahvuuksien 			DONE
+				piirtäminen
+				- Aiheutetun statusefektin näyttäminen 
+				graafisesti
 		- Äänet													...
 			* WavSoundien äänenvoimakkuuden säädön stackkaus	Testaamatta
 			* Tarvittavat resurssit								...

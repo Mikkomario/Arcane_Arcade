@@ -3,24 +3,24 @@
 
 * These are the button mappings for the left side player.
 &buttons1
-RIGHT_ELEMENT_DOWN#d
-LEFT_ELEMENT_DOWN#a
 DOWN#s
 LEFT_ELEMENT_UP#q
-UP#w
-RIGHT_ELEMENT_UP#e
+LEFT_ELEMENT_DOWN#a
+RIGHT_ELEMENT_DOWN#d
 CAST#c
+RIGHT_ELEMENT_UP#e
+UP#w
 
 
 * These are the button mappings for the right side playe.
 &buttons2
-RIGHT_ELEMENT_DOWN#l
-LEFT_ELEMENT_DOWN#j
 DOWN#k
 LEFT_ELEMENT_UP#u
-UP#i
-RIGHT_ELEMENT_UP#o
+LEFT_ELEMENT_DOWN#j
+RIGHT_ELEMENT_DOWN#l
 CAST#b
+RIGHT_ELEMENT_UP#o
+UP#i
 
 
 * Here are the volume settings for sound, voice and music.
