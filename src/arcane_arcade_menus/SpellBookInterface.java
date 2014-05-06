@@ -17,6 +17,7 @@ import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_spells.Spell;
+import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 import arcane_arcade_status.ElementIndicator;
 import arcane_arcade_status.ElementIndicatorListener;
@@ -36,7 +37,8 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 	private ArrayList<ElementIndicator> indicators;
 	private ArrayList<SpriteDrawerObject> buffIndicators;
 	private ElementIndicator lastChosenIndicator;
-	private SpriteDrawerObject firstChosenMarker, secondChosenMarker;
+	private SpriteDrawerObject firstChosenMarker, secondChosenMarker, 
+			statusBoostIndicator;
 	private SpellInformationDrawer informationDrawer;
 	private MeterDrawer colourDrawer, timeDrawer;
 	private boolean dead;
@@ -68,6 +70,12 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 		// Creates the Indicators
 		ElementIndicator.createIndicators(area, this);
 		
+		// Creates the status boost indicator
+		this.statusBoostIndicator = new SpriteDrawerObject(area, 
+				DepthConstants.FOREGROUND, null, 
+				MultiMediaHolder.getSprite("hud", "statusbuff"));
+		this.statusBoostIndicator.setPosition(-400, -400);
+		
 		// Adds the interface into the area
 		area.addRoomListener(this);
 	}
@@ -86,21 +94,20 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 		{	
 			this.secondChosenMarker.setPosition(this.lastChosenIndicator.getPosition());
 			
+			Spell spell = this.lastChosenIndicator.getElement().getSpell(source.getElement());
+			
 			// Also updates the shown data
-			this.informationDrawer.setElements(this.lastChosenIndicator.getElement(), 
-					source.getElement());
+			this.informationDrawer.setSpell(spell);
 			
 			// And the buffs / debuffs
-			createBuffIndicators(this.lastChosenIndicator.getElement(), 
-					source.getElement());
+			createBuffIndicators(spell);
 			
 			// And the colour & time usages
-			this.colourDrawer.setElements(this.lastChosenIndicator.getElement(), 
-					source.getElement());
-			this.timeDrawer.setElements(this.lastChosenIndicator.getElement(), 
-					source.getElement());
+			this.colourDrawer.setSpell(spell);
+			this.timeDrawer.setSpell(spell);
 			
-			// TODO: Update these to setSpell instead of setElements
+			// And the buffed status
+			updateStatusBoostPosition(spell);
 		}
 		
 		// Updates the last chosen indicator
@@ -161,13 +168,11 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 			this.firstChosenMarker = marker;
 	}
 	
-	private void createBuffIndicators(Element element1, Element element2)
+	private void createBuffIndicators(Spell spell)
 	{
 		// First destroys the previous indicators
 		killBuffIndicators();
-		
-		Spell spell = element1.getSpell(element2);
-		
+
 		for (ElementIndicator indicator : this.indicators)
 		{
 			createBuffIndicator(spell, indicator);
@@ -223,6 +228,9 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 		// Also kills the buffindicators
 		killBuffIndicators();
 		
+		// And the statusbuffindicator
+		this.statusBoostIndicator.kill();
+		
 		// And the meters
 		this.colourDrawer.killBlocks();
 		this.timeDrawer.killBlocks();
@@ -236,6 +244,31 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 			this.buffIndicators.get(i).kill();
 		}
 		this.buffIndicators.clear();
+	}
+	
+	private void updateStatusBoostPosition(Spell spell)
+	{
+		// Gets the buffed status
+		BallStatus status = spell.getCausedStatus();
+		
+		// If the status is NOSTATUS, hides the icon
+		if (status == BallStatus.NOSTATUS)
+		{
+			this.statusBoostIndicator.setPosition(-400, -400);
+			return;
+		}
+		
+		// Otherwise finds the elementIndicator representing the buff and 
+		// positions the indicator to it
+		for (ElementIndicator elementIndicator : this.indicators)
+		{
+			if (elementIndicator.getElement().getCausedStatus().equals(status))
+			{
+				this.statusBoostIndicator.goToRelativePosition(
+						new Point2D.Double(0, 0), elementIndicator);
+				return;
+			}
+		}
 	}
 	
 	
@@ -295,9 +328,8 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 		
 		// OTHER METHODS	--------------------------------------------
 		
-		public void setElements(Element element1, Element element2)
+		public void setSpell(Spell spell)
 		{
-			Spell spell = element1.getSpell(element2);
 			this.spellName = spell.getName();
 			this.infoDrawer.setText(spell.getDescription());
 		}
@@ -335,13 +367,12 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 			this.meterBlocks.clear();
 		}
 		
-		public void setElements(Element element1, Element element2)
+		public void setSpell(Spell spell)
 		{
 			// Kills the previous blocks
 			killBlocks();
 			
 			// Collects data
-			Spell spell = element1.getSpell(element2);
 			int amount = 0;
 			int angle = 0;
 			Sprite blockSprite;

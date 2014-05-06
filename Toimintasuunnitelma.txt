@@ -323,18 +323,18 @@ Eteneminen:														Status
 					* Ok messagebox								Hylätty
 					* Yes / No -box								Hylätty
 					* KeyBindaus -box							Hylätty
-			* SpellBook											...
+			* SpellBook											DONE
 				- Ohjeresurssien rakenteen määrittäminen		DONE
 				- Ohjeresurssien valmistaminen					DONE
 				- Oikean ohjeresurssin lukeminen				DONE
 				- Elementtien valinta graafisten tsydeemien 	DONE
 				avulla
 				- Ohjeen piirtäminen							DONE
-				- Käytetyn värin ja ajan näyttäminen 
+				- Käytetyn värin ja ajan näyttäminen 			DONE
 				graafisesti
 				- Loitsun heikkouksien ja vahvuuksien 			DONE
 				piirtäminen
-				- Aiheutetun statusefektin näyttäminen 
+				- Aiheutetun statusefektin näyttäminen 			DONE
 				graafisesti
 		- Äänet													...
 			* WavSoundien äänenvoimakkuuden säädön stackkaus	Testaamatta
@@ -405,7 +405,7 @@ Eteneminen:														Status
 			* Hudin jättäminen kameran ulkopuolelle
 			* Kentän koon muuntelu / sen tukeminen
 			* Kameran oikeaoppinen zoomaus
-		- Uuden nimen kehittäminen
+		- Uuden nimen kehittäminen								...
 			* Arcane Arcade näyttäisi olevan erään 
 			kahvipöytälaitteen tuotemerkki
 			* Wizard Pong on tietysti yks vaihtoehto

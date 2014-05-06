@@ -7,6 +7,7 @@ import arcane_arcade_field.Wizard;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.SoundEffectPlayer;
 import arcane_arcade_spelleffects.SmokeEffectCreator;
+import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 
 /**
@@ -61,5 +62,11 @@ public class SmokeScreenSpell extends Spell{
 	public Element getSecondEffectElement()
 	{
 		return Element.NOELEMENT;
+	}
+	
+	@Override
+	public BallStatus getCausedStatus()
+	{
+		return BallStatus.NOSTATUS;
 	}
 }

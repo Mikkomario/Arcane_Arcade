@@ -5,6 +5,7 @@ import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_spelleffects.FrostBarrierEffect;
+import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 
 /**
@@ -65,5 +66,11 @@ public class FrostBarrierSpell extends Spell
 	public Element getSecondEffectElement()
 	{
 		return Element.TIDE;
+	}
+	
+	@Override
+	public BallStatus getCausedStatus()
+	{
+		return BallStatus.NOSTATUS;
 	}
 }

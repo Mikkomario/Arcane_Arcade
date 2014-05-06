@@ -4,6 +4,7 @@ import utopia_worlds.Area;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_spelleffects.EarthquakeEffectCreator;
+import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 
 /**
@@ -43,8 +44,8 @@ public class EarthquakeSpell extends Spell
 	@Override
 	protected String getSimpleDescription()
 	{
-		return "Creates a series of quakes that impact the ball and cause "
-				+ "muddy status. The area of effect gets larger with each quake.";
+		return "Creates a series of quakes that impact the ball. The area "
+				+ "of effect gets larger with each quake.";
 	}
 
 	@Override
@@ -57,5 +58,11 @@ public class EarthquakeSpell extends Spell
 	public Element getSecondEffectElement()
 	{
 		return Element.NOELEMENT;
+	}
+
+	@Override
+	public BallStatus getCausedStatus()
+	{
+		return BallStatus.PETRIFIED;
 	}
 }

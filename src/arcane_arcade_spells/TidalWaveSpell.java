@@ -4,6 +4,7 @@ import utopia_worlds.Area;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_spelleffects.WaveEffectCreator;
+import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 
 /**
@@ -44,7 +45,7 @@ public class TidalWaveSpell extends Spell
 	{
 		return "Shoots three waves of tide with a short range. You can affect "
 				+ "the projectile direction by moving. Causes moderate "
-				+ "impact and wet.";
+				+ "impact.";
 	}
 	
 	@Override
@@ -57,5 +58,11 @@ public class TidalWaveSpell extends Spell
 	public Element getSecondEffectElement()
 	{
 		return Element.NOELEMENT;
+	}
+	
+	@Override
+	public BallStatus getCausedStatus()
+	{
+		return BallStatus.WET;
 	}
 }

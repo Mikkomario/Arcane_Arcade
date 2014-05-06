@@ -6,6 +6,7 @@ import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_main.SoundEffectPlayer;
 import arcane_arcade_spelleffects.ExplosionEffect;
+import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 
 /**
@@ -53,7 +54,7 @@ public class ExplosionSpell extends Spell
 	protected String getSimpleDescription()
 	{
 		return "Creates a strong burst of blaze just in front of you. Causes "
-				+ "heavy impact and burn.";
+				+ "heavy impact.";
 	}
 
 	@Override
@@ -66,5 +67,11 @@ public class ExplosionSpell extends Spell
 	public Element getSecondEffectElement()
 	{
 		return Element.NOELEMENT;
+	}
+	
+	@Override
+	public BallStatus getCausedStatus()
+	{
+		return BallStatus.FLAMING;
 	}
 }

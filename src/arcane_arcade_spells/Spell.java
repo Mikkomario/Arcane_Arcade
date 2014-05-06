@@ -4,6 +4,7 @@ import utopia_worlds.Area;
 import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 
 /**
@@ -137,6 +138,12 @@ public abstract class Spell
 	 * Use NOELEMENT if the spell doesn't use elements or has only single element
 	 */
 	public abstract Element getSecondEffectElement();
+	
+	/**
+	 * @return a status effect that is caused when the spell affects the ball. 
+	 * Return NOSTATUS if no status effect is caused
+	 */
+	public abstract BallStatus getCausedStatus();
 	
 	
 	// GETTERS & SETTERS	---------------------------------------------

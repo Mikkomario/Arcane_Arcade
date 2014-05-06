@@ -5,6 +5,7 @@ import arcane_arcade_field.BallRelay;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_spelleffects.FreezeSpellEffect;
+import arcane_arcade_status.BallStatus;
 import arcane_arcade_status.Element;
 
 /**
@@ -49,7 +50,7 @@ public class FreezeSpell extends Spell
 	protected String getSimpleDescription()
 	{
 		return "Creates a lenghty but less powerful burst in front of the caster. "
-				+ "The burst impacts the ball and causes freezing.";
+				+ "The burst impacts the ball.";
 	}
 
 	@Override
@@ -63,5 +64,10 @@ public class FreezeSpell extends Spell
 	{
 		return Element.NOELEMENT;
 	}
-
+	
+	@Override
+	public BallStatus getCausedStatus()
+	{
+		return BallStatus.FROZEN;
+	}
 }
