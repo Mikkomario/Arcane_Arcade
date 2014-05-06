@@ -193,10 +193,11 @@ public abstract class Spell
 	 */
 	public String getDescription()
 	{
-		return getSimpleDescription() + " " + getDelayDescription() + 
-				getColourUsageDescription();
+		// TODO: Change the visibility of the abstract method(s) when you can
+		return getSimpleDescription();// + " " + getDelayDescription() + 
+				//getColourUsageDescription();
 	}
-	
+	/*
 	private String getDelayDescription()
 	{
 		if (this.castdelay <= CASTDELAY_SHORT)
@@ -220,4 +221,5 @@ public abstract class Spell
 		
 		return " and uses insane amounts of colour.";
 	}
+	*/
 }

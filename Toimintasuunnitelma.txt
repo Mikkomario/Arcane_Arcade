@@ -308,8 +308,8 @@ Eteneminen:														Status
 				- Valittujen elementtien näyttäminen
 			* Optionssit										...
 				- Asetukset										...
-					* Pelaajan 1 näppäimet						...
-					* Pelaajan 2 näppäimet						...
+					* Pelaajan 1 näppäimet						DONE
+					* Pelaajan 2 näppäimet						DONE
 					* Audion äänenvoimakkuus					Testaamatta
 					* Musiikin äänenvoimakkuus					...
 					* Wizardien äänenvoimakkuus					Testaamatta
@@ -318,11 +318,11 @@ Eteneminen:														Status
 				- Asetusten tallentaminen						DONE
 					* Filewriter								DONE
 				- Asetusten lukeminen pelin alussa				DONE
-				- MessageBoxit interaktiota varten				...
-					* Yleinen yläluokka							Testaamatta
+				- MessageBoxit interaktiota varten				DONE
+					* Yleinen yläluokka							DONE
 					* Ok messagebox								Hylätty
 					* Yes / No -box								Hylätty
-					* KeyBindaus -box
+					* KeyBindaus -box							Hylätty
 			* SpellBook											...
 				- Ohjeresurssien rakenteen määrittäminen		DONE
 				- Ohjeresurssien valmistaminen					DONE
@@ -409,14 +409,16 @@ Eteneminen:														Status
 			* Arcane Arcade näyttäisi olevan erään 
 			kahvipöytälaitteen tuotemerkki
 			* Wizard Pong on tietysti yks vaihtoehto
-		- Parantelu
-			* Törmäyksen keston mukaan ottaminen kaikkiin tarvittaviin 
-			törmäysjuttuihin
-			* Osan navigaattorin toimintojen muuttaminen moottrille
-			* WizardHudDrawerin (ja vastaavien) updateeminen
-			* Refaktoroi Main
-			* Vaihda AbstractButton moottorin vastaavaan
-			* Implementoi areoiden käyttö huoneiden sijaan
+			* Arcane Arts!
+		- Parantelu												...
+			* Törmäyksen keston mukaan ottaminen kaikkiin 
+			tarvittaviin törmäysjuttuihin
+			* Osan navigaattorin toimintojen muuttaminen 		DONE
+			moottorille
+			* WizardHudDrawerin (ja vastaavien) updateeminen	...
+			* Refaktoroi Main									DONE
+			* Vaihda AbstractButton moottorin vastaavaan		DONE
+			* Implementoi areoiden käyttö huoneiden sijaan		DONE
 			* Tee testisysteemit utopiaan
 	* Gold	---------------------------------------------------------------
 		- Erilaiset kentät
@@ -433,10 +435,10 @@ Eteneminen:														Status
 			* Serverrelay usean serverin ylläpitämiseen
 			* Vai yhden serverin käyttäminen useaan kertaan?
 				- Moniosainen server (ampuu moneen suuntaan kerralla)
-		- Näppäinten remappaaminen optionsseissa				...
+		- Näppäinten remappaaminen optionsseissa				DONE
 			* Remappauksen mahdollistaminen tietorakenteen		DONE 
 			puolesta
-			* Käyttäjän syötteen lukeminen ja sen pohjalta 
+			* Käyttäjän syötteen lukeminen ja sen pohjalta 		DONE
 			kartan tekeminen
 			* Näppäinten tallentaminen							DONE
 		- Erilaiset maagit										...

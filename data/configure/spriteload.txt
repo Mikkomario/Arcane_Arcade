@@ -46,7 +46,7 @@ mpuse#images/hud/mp_usage_strip2.png#2#8#12
 score#images/hud/scoreboard.png#1#100#11
 buffarrow#images/hud/buff_arrow_strip2.png#2#16#16
 timeuse#images/hud/spellbook_cast_time_block.png#1#12#12
-mpuse2#images/hud/spellbook_mp_meter_block.png#1#32#16
+mpuse2#images/hud/spellbook_mp_meter_block.png#1#0#16
 
 &status
 amnesia#images/spells/amnesia.png#1#87#89

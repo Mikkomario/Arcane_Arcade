@@ -5,12 +5,14 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import utopia_gameobjects.DrawnObject;
+import utopia_graphic.Sprite;
 import utopia_graphic.SpriteDrawerObject;
 import utopia_graphic.ParagraphDrawer;
 import utopia_listeners.AdvancedMouseListener.MouseButton;
 import utopia_listeners.RoomListener;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_utility.DepthConstants;
+import utopia_utility.HelpMath;
 import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_main.GameSettings;
@@ -36,6 +38,7 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 	private ElementIndicator lastChosenIndicator;
 	private SpriteDrawerObject firstChosenMarker, secondChosenMarker;
 	private SpellInformationDrawer informationDrawer;
+	private MeterDrawer colourDrawer, timeDrawer;
 	private boolean dead;
 	private Area area;
 	
@@ -53,6 +56,9 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 		this.indicators = new ArrayList<ElementIndicator>();
 		this.informationDrawer = new SpellInformationDrawer(area);
 		this.buffIndicators = new ArrayList<SpriteDrawerObject>();
+		this.colourDrawer = new MeterDrawer(MeterDrawer.COLOUR);
+		this.timeDrawer = new MeterDrawer(MeterDrawer.TIME);
+		
 		this.dead = false;
 		this.area = area;
 		
@@ -85,7 +91,16 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 					source.getElement());
 			
 			// And the buffs / debuffs
-			createBuffIndicators(this.lastChosenIndicator.getElement(), source.getElement());
+			createBuffIndicators(this.lastChosenIndicator.getElement(), 
+					source.getElement());
+			
+			// And the colour & time usages
+			this.colourDrawer.setElements(this.lastChosenIndicator.getElement(), 
+					source.getElement());
+			this.timeDrawer.setElements(this.lastChosenIndicator.getElement(), 
+					source.getElement());
+			
+			// TODO: Update these to setSpell instead of setElements
 		}
 		
 		// Updates the last chosen indicator
@@ -207,6 +222,10 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 		
 		// Also kills the buffindicators
 		killBuffIndicators();
+		
+		// And the meters
+		this.colourDrawer.killBlocks();
+		this.timeDrawer.killBlocks();
 	}
 	
 	private void killBuffIndicators()
@@ -281,6 +300,90 @@ public class SpellBookInterface implements ElementIndicatorListener, RoomListene
 			Spell spell = element1.getSpell(element2);
 			this.spellName = spell.getName();
 			this.infoDrawer.setText(spell.getDescription());
+		}
+	}
+	
+	private class MeterDrawer
+	{
+		// ATTRIBUTES	------------------------------------------------
+		
+		private ArrayList<SpriteDrawerObject> meterBlocks;
+		private int type;
+		
+		public static final int COLOUR = 1, TIME = 2;
+		
+		
+		// CONSTRUCTOR	------------------------------------------------
+		
+		public MeterDrawer(int type)
+		{
+			// Initializes attributes
+			this.type = type;
+			this.meterBlocks = new ArrayList<SpriteDrawerObject>();
+		}
+		
+		
+		// OTHER METHODS	--------------------------------------------
+		
+		public void killBlocks()
+		{
+			for (SpriteDrawerObject block : this.meterBlocks)
+			{
+				block.kill();
+			}
+			
+			this.meterBlocks.clear();
+		}
+		
+		public void setElements(Element element1, Element element2)
+		{
+			// Kills the previous blocks
+			killBlocks();
+			
+			// Collects data
+			Spell spell = element1.getSpell(element2);
+			int amount = 0;
+			int angle = 0;
+			Sprite blockSprite;
+			
+			if (this.type == COLOUR)
+			{
+				amount = spell.getManaUsage();
+				angle = 180;
+				blockSprite = MultiMediaHolder.getSprite("hud", "mpuse2");
+			}
+			else
+			{
+				amount = spell.getCastDelay() / 3;
+				blockSprite = MultiMediaHolder.getSprite("hud", "timeuse");
+			}
+			
+			// Creates the blocks
+			int blocksLeft = amount / 10 + 1;
+			SpriteDrawerObject latestBlock = null;
+			
+			while (blocksLeft > 0)
+			{
+				//System.out.println("Creates a block");
+				
+				double x = GameSettings.SCREENWIDTH / 2 + HelpMath.lendirX(330, angle);
+				double y = GameSettings.SCREENHEIGHT / 2 + HelpMath.lendirY(260, angle);
+				
+				latestBlock = new SpriteDrawerObject(SpellBookInterface.this.area, 
+						DepthConstants.NORMAL, null, blockSprite);
+				
+				latestBlock.setPosition(x, y);
+				if (this.type == COLOUR)
+					latestBlock.setAngle(angle);
+				this.meterBlocks.add(latestBlock);
+				
+				angle += 10;
+				blocksLeft --;
+			}
+			
+			// Shrinks the latest block a bit since it's not supposed to be full
+			double scaling = (amount % 10) / 10.0;
+			latestBlock.setScale(scaling, scaling);
 		}
 	}
 }
