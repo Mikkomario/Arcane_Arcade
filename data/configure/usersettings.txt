@@ -3,24 +3,24 @@
 
 * These are the button mappings for the left side player.
 &buttons1
-DOWN#s
-LEFT_ELEMENT_UP#q
 LEFT_ELEMENT_DOWN#a
 RIGHT_ELEMENT_DOWN#d
-CAST#c
+LEFT_ELEMENT_UP#q
+DOWN#s
 RIGHT_ELEMENT_UP#e
 UP#w
+CAST#c
 
 
 * These are the button mappings for the right side playe.
 &buttons2
-DOWN#k
-LEFT_ELEMENT_UP#u
 LEFT_ELEMENT_DOWN#j
 RIGHT_ELEMENT_DOWN#l
-CAST#b
-RIGHT_ELEMENT_UP#o
+LEFT_ELEMENT_UP#u
+DOWN#k
 UP#i
+RIGHT_ELEMENT_UP#o
+CAST#b
 
 
 * Here are the volume settings for sound, voice and music.
@@ -33,7 +33,7 @@ UP#i
 
 * Here is the maximum pan the sound effects and voices can have [0,1]
 &maxpan
-1.0
+0.5
 
 * This determines if the game will start in full screen mode or not.
 &fullscreen

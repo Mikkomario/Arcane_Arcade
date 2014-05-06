@@ -18,7 +18,7 @@ import utopia_resourcebanks.MultiMediaHolder;
 import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_field.WizardSoundQueuePlayer.DialogEvent;
-import arcane_arcade_main.Buttons;
+import arcane_arcade_main.Button;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_spelleffects.ExplosionEffect;
 import arcane_arcade_spelleffects.SpellEffect;
@@ -85,7 +85,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private WizardHud huddrawer;
 	
 	private ScreenSide screenside;
-	private HashMap<Buttons, Character> buttonmaps;
+	private HashMap<Button, Character> buttonmaps;
 	
 	
 	// CONSTRUCTOR	----------------------------------------------------
@@ -112,7 +112,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 */
 	public Wizard(Area area, 
 			ScoreKeeper scorekeeper, BallRelay ballrelay, ScreenSide screenside, 
-			HashMap<Buttons, Character> leftwizardbuttons, Element[] usedelements, 
+			HashMap<Button, Character> leftwizardbuttons, Element[] usedelements, 
 			double manaregenerationmodifier, double castdelaymodifier, 
 			Avatar avatar, WizardSoundQueuePlayer voiceplayer)
 	{
@@ -306,12 +306,12 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		// If UP or DOWN buttons were pressed, moves up / down
 		if (!coded)
 		{
-			if (key == this.buttonmaps.get(Buttons.UP))
+			if (key == this.buttonmaps.get(Button.UP))
 				move(-1, steps);
-			else if (key == this.buttonmaps.get(Buttons.DOWN))
+			else if (key == this.buttonmaps.get(Button.DOWN))
 				move(1, steps);
 			// If CAST button was pressed, casts a spell
-			if (key == this.buttonmaps.get(Buttons.CAST))
+			if (key == this.buttonmaps.get(Button.CAST))
 				castSpell();
 		}
 	}
@@ -322,19 +322,19 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		if (!coded)
 		{
 			// If w or s was double tapped, teleports
-			if (key == this.buttonmaps.get(Buttons.UP))
+			if (key == this.buttonmaps.get(Button.UP))
 				tryTeleporting(-1);
-			else if (key == this.buttonmaps.get(Buttons.DOWN))
+			else if (key == this.buttonmaps.get(Button.DOWN))
 				tryTeleporting(1);
 			// If Q or A was pressed, changes the left element
-			else if (key == this.buttonmaps.get(Buttons.LEFT_ELEMENT_UP))
+			else if (key == this.buttonmaps.get(Button.LEFT_ELEMENT_UP))
 				changeElement(LEFT, UP);
-			else if (key == this.buttonmaps.get(Buttons.LEFT_ELEMENT_DOWN))
+			else if (key == this.buttonmaps.get(Button.LEFT_ELEMENT_DOWN))
 				changeElement(LEFT, DOWN);
 			// If E or D was pressed, changes the right element
-			else if (key == this.buttonmaps.get(Buttons.RIGHT_ELEMENT_UP))
+			else if (key == this.buttonmaps.get(Button.RIGHT_ELEMENT_UP))
 				changeElement(RIGHT, UP);
-			else if (key == this.buttonmaps.get(Buttons.RIGHT_ELEMENT_DOWN))
+			else if (key == this.buttonmaps.get(Button.RIGHT_ELEMENT_DOWN))
 				changeElement(RIGHT, DOWN);
 		}
 	}

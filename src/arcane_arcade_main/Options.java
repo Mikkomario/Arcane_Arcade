@@ -17,16 +17,18 @@ public class Options
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
+	// TODO: Change these two to a single hashMap<ScreenSide, HashMap<Button, Character>>
+	
 	/**
 	 * The button mappings the wizard on the left side of the screen uses
 	 */
-	public static HashMap<Buttons, Character> leftwizardbuttons = 
-			new HashMap<Buttons, Character>();
+	public static HashMap<Button, Character> leftwizardbuttons = 
+			new HashMap<Button, Character>();
 	/**
 	 * The button mappings the wizard on the right side of the screen uses
 	 */
-	public static HashMap<Buttons, Character> rightwizardbuttons = 
-			new HashMap<Buttons, Character>();
+	public static HashMap<Button, Character> rightwizardbuttons = 
+			new HashMap<Button, Character>();
 	/**
 	 * How many desibels each sound effect's volume should be adjusted from 
 	 * the default value
@@ -117,7 +119,7 @@ public class Options
 				{
 					// Collects all the left buttons
 					String buttonstring = "";
-					for (Buttons button: leftwizardbuttons.keySet())
+					for (Button button: leftwizardbuttons.keySet())
 					{
 						buttonstring += button.toString() + "#" + 
 								leftwizardbuttons.get(button) + "\n";
@@ -130,7 +132,7 @@ public class Options
 				{
 					// Collects all the left buttons
 					String buttonstring = "";
-					for (Buttons button: rightwizardbuttons.keySet())
+					for (Button button: rightwizardbuttons.keySet())
 					{
 						buttonstring += button.toString() + "#" + 
 								rightwizardbuttons.get(button) + "\n";
@@ -219,7 +221,7 @@ public class Options
 					{
 						String[] parts = line.split("#");
 						// Reads the button part
-						Buttons button = readAsButton(parts[0]);
+						Button button = readAsButton(parts[0]);
 						// Reads the character part
 						char key = parts[1].charAt(0);
 						// Adds the new mapping to the button mappings
@@ -231,7 +233,7 @@ public class Options
 					case 2:
 					{
 						String[] parts = line.split("#");
-						Buttons button = readAsButton(parts[0]);
+						Button button = readAsButton(parts[0]);
 						char key = parts[1].charAt(0);
 						// Adds the new mapping to the button mappings
 						rightwizardbuttons.put(button, key);
@@ -298,10 +300,10 @@ public class Options
 			return value;
 		}
 		
-		private Buttons readAsButton(String buttonstring)
+		private Button readAsButton(String buttonstring)
 		{
-			Buttons button = null;
-			for (Buttons b: Buttons.values())
+			Button button = null;
+			for (Button b: Button.values())
 			{
 				if (b.toString().equals(buttonstring))
 				{

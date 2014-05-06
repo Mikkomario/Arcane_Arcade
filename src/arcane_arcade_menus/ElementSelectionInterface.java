@@ -14,7 +14,7 @@ import utopia_resourcebanks.MultiMediaHolder;
 import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_field.ScreenSide;
-import arcane_arcade_main.Buttons;
+import arcane_arcade_main.Button;
 import arcane_arcade_main.GameSettings;
 import arcane_arcade_main.Options;
 import arcane_arcade_status.Element;
@@ -314,27 +314,27 @@ public class ElementSelectionInterface implements ElementIndicatorListener
 			{
 				// Left & Right changes current position
 				if (key == Options.leftwizardbuttons.get(
-						Buttons.LEFT_ELEMENT_DOWN))
+						Button.LEFT_ELEMENT_DOWN))
 					changeChosenElement(1, 1);
 				else if (key == Options.leftwizardbuttons.get(
-						Buttons.RIGHT_ELEMENT_DOWN))
+						Button.RIGHT_ELEMENT_DOWN))
 					changeChosenElement(1, -1);
 				else if (key == Options.rightwizardbuttons.get(
-						Buttons.LEFT_ELEMENT_DOWN))
+						Button.LEFT_ELEMENT_DOWN))
 					changeChosenElement(2, 1);
 				else if (key == Options.rightwizardbuttons.get(
-						Buttons.RIGHT_ELEMENT_DOWN))
+						Button.RIGHT_ELEMENT_DOWN))
 					changeChosenElement(2, -1);
 				
 				// Up & Down adds / removes elements from the list
-				else if (key == Options.leftwizardbuttons.get(Buttons.UP))
+				else if (key == Options.leftwizardbuttons.get(Button.UP))
 					addNewElementToSide(ScreenSide.LEFT);
-				else if (key == Options.rightwizardbuttons.get(Buttons.UP))
+				else if (key == Options.rightwizardbuttons.get(Button.UP))
 					addNewElementToSide(ScreenSide.RIGHT);
-				else if (key == Options.leftwizardbuttons.get(Buttons.DOWN))
+				else if (key == Options.leftwizardbuttons.get(Button.DOWN))
 					ElementSelectionInterface.this.creator.getSettings().
 							removeLastElementFromSide(ScreenSide.LEFT);
-				else if (key == Options.rightwizardbuttons.get(Buttons.DOWN))
+				else if (key == Options.rightwizardbuttons.get(Button.DOWN))
 					ElementSelectionInterface.this.creator.getSettings().
 							removeLastElementFromSide(ScreenSide.RIGHT);
 			}

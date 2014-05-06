@@ -7,7 +7,7 @@ package arcane_arcade_main;
  * @author Mikko Hilpinen.
  *         Created 1.9.2013.
  */
-public enum Buttons
+public enum Button
 {
 	/**
 	 * The button used to move up

@@ -19,8 +19,8 @@ public class ButtonMapRelay
 	
 	// TODO: Add file reading at some point
 	
-	private HashMap<Buttons, Character> leftwizardbuttons;
-	private HashMap<Buttons, Character> rightwizardbuttons;
+	private HashMap<Button, Character> leftwizardbuttons;
+	private HashMap<Button, Character> rightwizardbuttons;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -31,24 +31,24 @@ public class ButtonMapRelay
 	public ButtonMapRelay()
 	{
 		// Initializes attributes
-		this.leftwizardbuttons = new HashMap<Buttons, Character>();
-		this.rightwizardbuttons = new HashMap<Buttons, Character>();
+		this.leftwizardbuttons = new HashMap<Button, Character>();
+		this.rightwizardbuttons = new HashMap<Button, Character>();
 		
-		this.leftwizardbuttons.put(Buttons.UP, 'w');
-		this.leftwizardbuttons.put(Buttons.DOWN, 's');
-		this.leftwizardbuttons.put(Buttons.LEFT_ELEMENT_UP, 'q');
-		this.leftwizardbuttons.put(Buttons.LEFT_ELEMENT_DOWN, 'a');
-		this.leftwizardbuttons.put(Buttons.RIGHT_ELEMENT_UP, 'e');
-		this.leftwizardbuttons.put(Buttons.RIGHT_ELEMENT_DOWN, 'd');
-		this.leftwizardbuttons.put(Buttons.CAST, 'c');
+		this.leftwizardbuttons.put(Button.UP, 'w');
+		this.leftwizardbuttons.put(Button.DOWN, 's');
+		this.leftwizardbuttons.put(Button.LEFT_ELEMENT_UP, 'q');
+		this.leftwizardbuttons.put(Button.LEFT_ELEMENT_DOWN, 'a');
+		this.leftwizardbuttons.put(Button.RIGHT_ELEMENT_UP, 'e');
+		this.leftwizardbuttons.put(Button.RIGHT_ELEMENT_DOWN, 'd');
+		this.leftwizardbuttons.put(Button.CAST, 'c');
 		
-		this.rightwizardbuttons.put(Buttons.UP, 'i');
-		this.rightwizardbuttons.put(Buttons.DOWN, 'k');
-		this.rightwizardbuttons.put(Buttons.LEFT_ELEMENT_UP, 'u');
-		this.rightwizardbuttons.put(Buttons.LEFT_ELEMENT_DOWN, 'j');
-		this.rightwizardbuttons.put(Buttons.RIGHT_ELEMENT_UP, 'o');
-		this.rightwizardbuttons.put(Buttons.RIGHT_ELEMENT_DOWN, 'l');
-		this.rightwizardbuttons.put(Buttons.CAST, 'b');
+		this.rightwizardbuttons.put(Button.UP, 'i');
+		this.rightwizardbuttons.put(Button.DOWN, 'k');
+		this.rightwizardbuttons.put(Button.LEFT_ELEMENT_UP, 'u');
+		this.rightwizardbuttons.put(Button.LEFT_ELEMENT_DOWN, 'j');
+		this.rightwizardbuttons.put(Button.RIGHT_ELEMENT_UP, 'o');
+		this.rightwizardbuttons.put(Button.RIGHT_ELEMENT_DOWN, 'l');
+		this.rightwizardbuttons.put(Button.CAST, 'b');
 	}
 	
 	
@@ -57,7 +57,7 @@ public class ButtonMapRelay
 	/**
 	 * @return The buttonmap that holds the buttons of the left wizard
 	 */
-	public HashMap<Buttons, Character> getLeftWizardButtons()
+	public HashMap<Button, Character> getLeftWizardButtons()
 	{
 		return this.leftwizardbuttons;
 	}
@@ -65,7 +65,7 @@ public class ButtonMapRelay
 	/**
 	 * @return The buttonmap that holds the buttons of the right wizard
 	 */
-	public HashMap<Buttons, Character> getRightWizardButtons()
+	public HashMap<Button, Character> getRightWizardButtons()
 	{
 		return this.rightwizardbuttons;
 	}
