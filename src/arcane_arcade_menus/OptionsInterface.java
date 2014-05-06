@@ -27,7 +27,8 @@ public class OptionsInterface
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private StringOptionBar fullscreenBar;
-	private SliderIntegerOptionBar wizardVolumeSlider, effectVolumeSlider;
+	private SliderIntegerOptionBar wizardVolumeSlider, effectVolumeSlider, 
+			maxPanSlider;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -71,6 +72,11 @@ public class OptionsInterface
 				20, "Sound effect volume adjustment", GameSettings.BASICFONT, 
 				GameSettings.WHITETEXTCOLOR, sliderBackSprite, sliderHandleSprite, 
 				area);
+		
+		this.maxPanSlider = new SliderIntegerOptionBar(columnx, 
+				columny + ydifference * 3, 50, 0, 100, "Maximum pan %", 
+				GameSettings.BASICFONT, GameSettings.WHITETEXTCOLOR, 
+				sliderBackSprite, sliderHandleSprite, area);
 		
 		new ApplyChangesButton(GameSettings.SCREENWIDTH / 2, 
 				GameSettings.SCREENHEIGHT - 100, area);
@@ -180,6 +186,8 @@ public class OptionsInterface
 					OptionsInterface.this.wizardVolumeSlider.getValue();
 			Options.soundvolumeadjustment = 
 					OptionsInterface.this.effectVolumeSlider.getValue();
+			Options.maxenvironmentalpan = 
+					OptionsInterface.this.maxPanSlider.getValue() / 100.0;
 			
 			Options.saveSettings();
 			

@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import utopia_gameobjects.DrawnObject;
-import utopia_gameobjects.SpriteDrawerObject;
+import utopia_graphic.SpriteDrawerObject;
 import utopia_graphic.ParagraphDrawer;
 import utopia_listeners.AdvancedMouseListener.MouseButton;
 import utopia_listeners.RoomListener;
