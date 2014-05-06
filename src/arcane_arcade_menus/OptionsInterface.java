@@ -185,7 +185,7 @@ public class OptionsInterface
 			
 			// Informs the user about the change
 			new OptionMessageBox(GameSettings.SCREENWIDTH / 2, 
-					GameSettings.SCREENHEIGHT / 2, DepthConstants.TOP, 
+					GameSettings.SCREENHEIGHT / 2, DepthConstants.TOP, 32, 
 					"Changes successfully saved!", GameSettings.BASICFONT, 
 					GameSettings.WHITETEXTCOLOR, 
 					MultiMediaHolder.getSpriteBank("menu").getSprite("messageback"), 
