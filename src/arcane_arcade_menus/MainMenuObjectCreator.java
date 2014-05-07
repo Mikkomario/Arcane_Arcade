@@ -16,11 +16,6 @@ import arcane_arcade_worlds.SettingUsingAreaObjectCreator;
  */
 public class MainMenuObjectCreator extends SettingUsingAreaObjectCreator
 {
-	// ATTRIBUTES	-----------------------------------------------------
-	
-	private Navigator navigator;
-	
-	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
@@ -33,10 +28,7 @@ public class MainMenuObjectCreator extends SettingUsingAreaObjectCreator
 	public MainMenuObjectCreator(SettingUsingArea mainMenu, Navigator navigator)
 	{
 		super(mainMenu, "space", "background", GameSettings.SCREENWIDTH, 
-				GameSettings.SCREENHEIGHT, null);
-		
-		// Initializes attributes
-		this.navigator = navigator;
+				GameSettings.SCREENHEIGHT, null, navigator);
 	}
 	
 	
@@ -59,6 +51,6 @@ public class MainMenuObjectCreator extends SettingUsingAreaObjectCreator
 		// Creates the menucorners
 		new MenuCornerCreator(area, false);
 		// Creates the MainMenuElements
-		new MainMenuMenuCreator(this.navigator);
+		new MainMenuMenuCreator(getNavigator());
 	}
 }

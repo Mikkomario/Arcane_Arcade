@@ -27,7 +27,6 @@ public class VictoryScreenObjectCreator extends SettingUsingAreaObjectCreator
 {	
 	// ATTRIBUTES	-----------------------------------------------------
 	
-	private Navigator navigator;
 	private VictorySetting victorysetting;
 	
 		
@@ -45,10 +44,9 @@ public class VictoryScreenObjectCreator extends SettingUsingAreaObjectCreator
 			Navigator navigator)
 	{
 		super(victoryScreen, "space", "background", GameSettings.SCREENWIDTH, 
-				GameSettings.SCREENHEIGHT, VictorySetting.class);
+				GameSettings.SCREENHEIGHT, VictorySetting.class, navigator);
 		
 		// Initializes attributes
-		this.navigator = navigator;
 		this.victorysetting = null;
 	}
 	
@@ -71,7 +69,7 @@ public class VictoryScreenObjectCreator extends SettingUsingAreaObjectCreator
 		
 		new SimplePhaseChangeButton(GameSettings.SCREENWIDTH - 100, 
 				GameSettings.SCREENHEIGHT / 2, "mainmenu", 
-				this.navigator, area);
+				getNavigator(), area);
 		
 		//Let's try to solve our victor and create the WinnerText
 		if (this.victorysetting != null)
@@ -97,7 +95,6 @@ public class VictoryScreenObjectCreator extends SettingUsingAreaObjectCreator
 	 */
 	private class WinnerText extends DrawnObject implements RoomListener
 	{
-		
 		private static final int WINNERLEFT = 1;
 		private static final int WINNERRIGHT = 2;
 		

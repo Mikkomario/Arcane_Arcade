@@ -6,6 +6,7 @@ import arcane_arcade_menus.ElementScreenObjectCreator;
 import arcane_arcade_menus.MainMenuObjectCreator;
 import arcane_arcade_menus.OptionScreenObjectCreator;
 import arcane_arcade_menus.SpellBookObjectCreator;
+import arcane_arcade_menus.TutorialScreenObjectCreator;
 import arcane_arcade_menus.VictoryScreenObjectCreator;
 import utopia_handlers.ActorHandler;
 import utopia_handlers.DrawableHandler;
@@ -73,6 +74,9 @@ public class Navigator extends AreaRelay
 		addArea("spellbookmenu", new SettingUsingArea(
 				phaseBank.getPhase("spellbookmenu"), mouseHandler, actorHandler, 
 				drawer, keyHandler));
+		addArea("tutorialmenu", new SettingUsingArea(
+				phaseBank.getPhase("tutorialmenu"), mouseHandler, actorHandler, 
+				drawer, keyHandler));
 		
 		// Adds the object creators
 		new MainMenuObjectCreator((SettingUsingArea) getArea("mainmenu"), this);
@@ -82,6 +86,7 @@ public class Navigator extends AreaRelay
 		new ElementScreenObjectCreator((SettingUsingArea) getArea("elementmenu"), this);
 		new OptionScreenObjectCreator((SettingUsingArea) getArea("optionsmenu"), this);
 		new SpellBookObjectCreator((SettingUsingArea) getArea("spellbookmenu"), this);
+		new TutorialScreenObjectCreator((SettingUsingArea) getArea("tutorialmenu"), this);
 	}
 	
 	

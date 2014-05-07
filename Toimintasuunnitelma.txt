@@ -430,6 +430,18 @@ Eteneminen:														Status
 				- Eri koot
 				- Kts. Dokumentti jossain
 				- Lohik‰‰rme, joka blockkii pallon kulun
+			* Tulivuorikent‰
+			* J‰rven ranta, jossa sumua
+			* Vuori
+			* Maailmanloppu
+			* Linna torni
+				- Jossa ukkosta ja salamoi
+			* Munihilaakso
+			* Sienimets‰
+			* Kristalliluola
+			* Karklatuksen kartano
+			* Fujitsu Mountains
+			* Kirjasto (tutorial)
 		- Kentt‰valikko
 		- Useamman pallon asettaminen peliin					...
 			* Serverrelay usean serverin yll‰pit‰miseen

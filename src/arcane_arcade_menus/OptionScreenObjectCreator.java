@@ -15,11 +15,6 @@ import arcane_arcade_worlds.SettingUsingAreaObjectCreator;
  */
 public class OptionScreenObjectCreator extends SettingUsingAreaObjectCreator
 {
-	// ATTRIBUTES	-----------------------------------------------------
-	
-	private Navigator navigator;
-	
-	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
@@ -33,10 +28,7 @@ public class OptionScreenObjectCreator extends SettingUsingAreaObjectCreator
 			Navigator navigator)
 	{
 		super(optionScreen, "space", "background", GameSettings.SCREENWIDTH, 
-				GameSettings.SCREENHEIGHT, null);
-		
-		// Initializes attributes
-		this.navigator = navigator;
+				GameSettings.SCREENHEIGHT, null, navigator);
 	}
 	
 	
@@ -59,7 +51,7 @@ public class OptionScreenObjectCreator extends SettingUsingAreaObjectCreator
 		new MenuBackgroundEffectCreator(area);
 		// Creates navigation button
 		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT / 2, 
-				"mainmenu", this.navigator, area).setXScale(-1);
+				"mainmenu", getNavigator(), area).setXScale(-1);
 		
 		new OptionsInterface(area);
 	}

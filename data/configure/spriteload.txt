@@ -32,6 +32,7 @@ chosen2#images/menu/chosen2.png#1#48#48
 sliderback#images/menu/sliderBack.png#1#50#16
 sliderhandle#images/menu/sliderHandle_strip3.png#3#16#16
 messageback#images/menu/messageback.png#1#300#150
+tutorials#images/menu/tutorials_strip3.png#3#80#64
 
 &field
 ball#images/game/ball_strip8.png#8#65#76

@@ -21,7 +21,6 @@ public class FieldObjectCreator extends SettingUsingAreaObjectCreator
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private FieldSetting currentsetting;
-	private Navigator navigator;
 	
 	
 	// CONSTRCUTOR	-----------------------------------------------------
@@ -35,11 +34,10 @@ public class FieldObjectCreator extends SettingUsingAreaObjectCreator
 	public FieldObjectCreator(SettingUsingArea field, Navigator navigator)
 	{
 		super(field, "mountains", "background", GameSettings.SCREENWIDTH, 
-				GameSettings.SCREENHEIGHT, FieldSetting.class);
+				GameSettings.SCREENHEIGHT, FieldSetting.class, navigator);
 		
 		// Initializes attributes
 		this.currentsetting = null;
-		this.navigator = navigator;
 	}
 	
 	
@@ -74,7 +72,7 @@ public class FieldObjectCreator extends SettingUsingAreaObjectCreator
 				GameSettings.SCREENHEIGHT / 2, ballrelay, wizardrelay, area);
 		// Creates the scorekeeper
 		ScoreKeeper scorekeeper = new ScoreKeeper(area, server, wizardrelay, 
-				this.navigator, this.currentsetting.getVictoryPoints());
+				getNavigator(), this.currentsetting.getVictoryPoints());
 		// Creates wizard(s)
 		wizardrelay.addWizard(new Wizard(area, scorekeeper, ballrelay, 
 				ScreenSide.LEFT, Options.leftwizardbuttons, 

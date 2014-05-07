@@ -8,29 +8,31 @@ import arcane_arcade_worlds.SettingUsingArea;
 import arcane_arcade_worlds.SettingUsingAreaObjectCreator;
 
 /**
- * This objectCreator creates the objects used in the spellBook area
+ * TutorialScreenObjectCreator creates the objects in the tutorial selection 
+ * screen
  * 
  * @author Mikko Hilpinen
- * @since 28.4.2014
+ * @since 7.5.2014
  */
-public class SpellBookObjectCreator extends SettingUsingAreaObjectCreator
+public class TutorialScreenObjectCreator extends SettingUsingAreaObjectCreator
 {
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
-	 * Creates a new spellBookObjectCreator, the objects will be created once 
-	 * the area starts
+	 * Creates a new TutorialScreenObjectCreator. The objects will be created 
+	 * once the room starts
+	 * 
 	 * @param area The area where the objects will be created
-	 * @param navigator The navigator that handles the transition between different areas
+	 * @param navigator The navigator that handles the transitions between the areas
 	 */
-	public SpellBookObjectCreator(SettingUsingArea area, Navigator navigator)
+	public TutorialScreenObjectCreator(SettingUsingArea area, Navigator navigator)
 	{
 		super(area, "space", "background", GameSettings.SCREENWIDTH, 
 				GameSettings.SCREENHEIGHT, null, navigator);
 	}
 	
 	
-	// IMPLEMENTED METHODS	--------------------------------------------
+	// IMPLEMENTED METHODS	----------------------------------------------
 
 	@Override
 	protected void onSettingsChange(AreaSetting newSettings)
@@ -41,18 +43,17 @@ public class SpellBookObjectCreator extends SettingUsingAreaObjectCreator
 	@Override
 	protected void createObjects(Area area)
 	{
-		// Creates the basic menu elements
-		// Starts the music
+		// Playes the music
 		new MenuThemePlayer(area, 1);
+		
+		// Creates the basic objects
 		// Creates menucorners
 		new MenuCornerCreator(area, false);
 		// Creates background effects
 		new MenuBackgroundEffectCreator(area);
 		// Creates navigation button
-		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT / 2, 
-				"mainmenu", getNavigator(), area).setXScale(-1);
-		
-		// Creates the spellBookInterface
-		new SpellBookInterface(area);
+		new SimplePhaseChangeButton(GameSettings.SCREENWIDTH - 100, 
+				GameSettings.SCREENHEIGHT / 2, "mainmenu", getNavigator(), area);
 	}
+
 }

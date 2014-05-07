@@ -20,7 +20,6 @@ public class BattleScreenObjectCreator extends SettingUsingAreaObjectCreator
 {
 	// ATTRIBUTES-----------------------------------------------------------
 	
-	private Navigator navigator;
 	private BattleSettingScreenInterface barhandler;
 	
 	
@@ -36,10 +35,9 @@ public class BattleScreenObjectCreator extends SettingUsingAreaObjectCreator
 			Navigator navigator)
 	{
 		super(battleScreen, "space", "background", GameSettings.SCREENWIDTH, 
-				GameSettings.SCREENHEIGHT, null);
+				GameSettings.SCREENHEIGHT, null, navigator);
 		
 		// Initializes attributes
-		this.navigator = navigator;
 		this.barhandler = null;
 	}
 
@@ -49,8 +47,7 @@ public class BattleScreenObjectCreator extends SettingUsingAreaObjectCreator
 	@Override
 	protected void onSettingsChange(AreaSetting newSettings)
 	{
-		// TODO Auto-generated method stub
-		
+		// Does nothing
 	}
 
 	@Override
@@ -62,7 +59,7 @@ public class BattleScreenObjectCreator extends SettingUsingAreaObjectCreator
 		this.barhandler = new BattleSettingScreenInterface(area);
 		new ToElementScreenButton(area);
 		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT - 100, 
-				"mainmenu", this.navigator, area).setXScale(-1);
+				"mainmenu", getNavigator(), area).setXScale(-1);
 	}
 	
 	
@@ -102,8 +99,7 @@ public class BattleScreenObjectCreator extends SettingUsingAreaObjectCreator
 			// On left pressed goes to the element selection screen
 			if (button == MouseButton.LEFT && 
 					eventType == MouseButtonEventType.PRESSED)
-				BattleScreenObjectCreator.this.navigator.startPhase(
-						"elementmenu", 
+				getNavigator().startPhase("elementmenu", 
 						BattleScreenObjectCreator.this.barhandler.createFieldSetting());
 		}
 	}

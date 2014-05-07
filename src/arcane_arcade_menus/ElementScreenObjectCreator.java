@@ -24,7 +24,6 @@ public class ElementScreenObjectCreator extends SettingUsingAreaObjectCreator
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private FieldSetting settings;
-	private Navigator navigator;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -38,11 +37,10 @@ public class ElementScreenObjectCreator extends SettingUsingAreaObjectCreator
 			Navigator navigator)
 	{
 		super(elementScreen, "space", "background", GameSettings.SCREENWIDTH, 
-				GameSettings.SCREENHEIGHT, FieldSetting.class);
+				GameSettings.SCREENHEIGHT, FieldSetting.class, navigator);
 		
 		// Initializes attributes
 		this.settings = null;
-		this.navigator = navigator;
 	}
 	
 	
@@ -64,7 +62,7 @@ public class ElementScreenObjectCreator extends SettingUsingAreaObjectCreator
 		new MenuBackgroundEffectCreator(area);
 		new MenuCornerCreator(area, true);
 		new SimplePhaseChangeButton(100, GameSettings.SCREENHEIGHT - 100, 
-				"battlesettingmenu", this.navigator, area).setXScale(-1);
+				"battlesettingmenu", getNavigator(), area).setXScale(-1);
 		new ToFieldButton(area);
 		new ElementSelectionInterface(this, area);
 	}
@@ -114,7 +112,7 @@ public class ElementScreenObjectCreator extends SettingUsingAreaObjectCreator
 				MultiMediaHolder.getMidiTrackBank("menu").getTrack(
 						"maintheme").stop();
 				
-				ElementScreenObjectCreator.this.navigator.startPhase(
+				getNavigator().startPhase(
 						"field", ElementScreenObjectCreator.this.settings);
 			}
 		}
