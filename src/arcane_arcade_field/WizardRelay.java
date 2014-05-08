@@ -1,7 +1,6 @@
 package arcane_arcade_field;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import utopia_handleds.Handled;
 import utopia_handlers.Handler;
@@ -60,9 +59,10 @@ public class WizardRelay extends Handler implements RoomListener
 	@Override
 	protected boolean handleObject(Handled h)
 	{
-		// Handles the wizards in separate methods (not affecting the 
-		// data structures
-		return false;
+		// Respawns the wizards
+		((Wizard) h).respawn();
+		
+		return true;
 	}
 	
 	
@@ -79,29 +79,6 @@ public class WizardRelay extends Handler implements RoomListener
 	}
 	
 	/**
-	 * Returns a wizard from the relay
-	 *
-	 * @param index The index of the wizard
-	 * @return The wizard from the given index or null if no such wizard exists
-	 */
-	protected Wizard getWizard(int index)
-	{
-		Handled maybewizard = getHandled(index);
-		if (maybewizard instanceof Wizard)
-			return (Wizard) maybewizard;
-		else
-			return null;
-	}
-	
-	/**
-	 * @return How many wizards are stored into the relay
-	 */
-	protected int getWizardNumber()
-	{
-		return getHandledNumber();
-	}
-	
-	/**
 	 * Returns all wizards from a single side of the screen
 	 *
 	 * @param side The side of the screen where the wizards are looked for
@@ -110,22 +87,12 @@ public class WizardRelay extends Handler implements RoomListener
 	 */
 	public ArrayList<Wizard> getWizardsFromSide(ScreenSide side)
 	{
-		// First handles the wizards normally
-		handleObjects();
+		// Uses an operator for fetching the wizards
+		SideWizardCollectorOperator operator = new SideWizardCollectorOperator(side);
+		handleObjects(operator);
 		
-		// Forms a table containing all wizards that reside on the given side
-		ArrayList<Wizard> wizards = new ArrayList<Wizard>();
-		
-		Iterator<Handled> iterator = getIterator();
-		
-		while (iterator.hasNext())
-		{
-			Wizard w = (Wizard) iterator.next();
-			if (w.getScreenSide() == side)
-				wizards.add(w);
-		}
-		
-		return wizards;
+		// Returns the found wizards
+		return operator.getFoundWizards();
 	}
 	
 	/**
@@ -133,15 +100,50 @@ public class WizardRelay extends Handler implements RoomListener
 	 */
 	public void respawnWizards()
 	{
-		// First handles the wizards normally
+		// Respawn is done in the default handling operation
 		handleObjects();
+	}
+	
+	
+	// SUBCLASSES	------------------------------------------------------
+	
+	private class SideWizardCollectorOperator extends HandlingOperator
+	{
+		// ATTRIBUTES	--------------------------------------------------
 		
-		Iterator<Handled> iterator = getIterator();
+		private ArrayList<Wizard> foundWizards;
+		private ScreenSide searchSide;
 		
-		while (iterator.hasNext())
+		
+		// CONSTRUCTOR	--------------------------------------------------
+		
+		public SideWizardCollectorOperator(ScreenSide searchSide)
 		{
-			Wizard w = (Wizard) iterator.next();
-			w.respawn();
+			// Initializes attributes
+			this.foundWizards = new ArrayList<Wizard>();
+			this.searchSide = searchSide;
+		}
+		
+		
+		// IMPLEMENTED METHODS	-----------------------------------------
+		
+		@Override
+		protected boolean handleObject(Handled h)
+		{
+			// Search for wizards with a certain screenSide
+			Wizard w = (Wizard) h;
+			if (w.getScreenSide() == this.searchSide)
+				this.foundWizards.add(w);
+			
+			return true;
+		}
+		
+		
+		// OTHER METHODS	---------------------------------------------
+		
+		public ArrayList<Wizard> getFoundWizards()
+		{
+			return this.foundWizards;
 		}
 	}
 }

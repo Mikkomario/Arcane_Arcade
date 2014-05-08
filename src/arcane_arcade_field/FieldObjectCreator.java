@@ -79,12 +79,12 @@ public class FieldObjectCreator extends SettingUsingAreaObjectCreator
 				this.currentsetting.getElementsOnSide(ScreenSide.LEFT), 
 				this.currentsetting.getManaRegenerationModifier(), 
 				this.currentsetting.getSpellDelayModifier(), Avatar.GANDALF, 
-				wizardvoiceplayer));
+				wizardvoiceplayer, true));
 		wizardrelay.addWizard(new Wizard(area, scorekeeper, ballrelay, 
 				ScreenSide.RIGHT, Options.rightwizardbuttons, 
 				this.currentsetting.getElementsOnSide(ScreenSide.RIGHT), 
 				this.currentsetting.getManaRegenerationModifier(), 
 				this.currentsetting.getSpellDelayModifier(), Avatar.WHITEWIZARD, 
-				wizardvoiceplayer));
+				wizardvoiceplayer, true));
 	}
 }

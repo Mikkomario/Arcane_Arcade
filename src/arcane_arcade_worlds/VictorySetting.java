@@ -5,7 +5,7 @@ package arcane_arcade_worlds;
  * phase starts
  *
  * @author Mikko Hilpinen.
- *         Created 3.9.2013.
+ * @since 3.9.2013.
  */
 public class VictorySetting implements AreaSetting
 {

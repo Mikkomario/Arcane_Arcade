@@ -47,6 +47,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		Ball.class, SpellEffect.class};
 	
 	private Avatar avatar;
+	
+	// TODO: Move some of these to the avatar
 	private double friction;
 	private double maxspeed;
 	private double accelration;
@@ -95,11 +97,11 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 *
 	 * @param area The area where the object is placed to
 	 * @param scorekeeper The scorekeeper that will keep track of the 
-	 * game's score and respawn the wizard after they die
+	 * game's score and respawn the wizard after they die (Optional)
 	 * @param ballrelay The ballrelay that holds information about the balls 
 	 * in the field. That information will be forwarded to the casted spells.
 	 * @param screenside Which side of the room the wizard is created at
-	 * @param leftwizardbuttons The buttons used to control the wizard
+	 * @param wizardbuttons The buttons used to control the wizard
 	 * @param usedelements Which elements the wizard uses in their spells
 	 * @param manaregenerationmodifier How fast the wizard regenerates mana 
 	 * (default 1)
@@ -109,12 +111,14 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 * and other stats.
 	 * @param voiceplayer The soundqueueplayer that will play the wizard's 
 	 * punchlines
+	 * @param usesHud Should the wizard's statistics be presented in a hud?
 	 */
 	public Wizard(Area area, 
-			ScoreKeeper scorekeeper, BallRelay ballrelay, ScreenSide screenside, 
-			HashMap<Button, Character> leftwizardbuttons, Element[] usedelements, 
+			ScoreKeeper scorekeeper, 
+			BallRelay ballrelay, ScreenSide screenside, 
+			HashMap<Button, Character> wizardbuttons, Element[] usedelements, 
 			double manaregenerationmodifier, double castdelaymodifier, 
-			Avatar avatar, WizardSoundQueuePlayer voiceplayer)
+			Avatar avatar, WizardSoundQueuePlayer voiceplayer, boolean usesHud)
 	{
 		super(70, GameSettings.SCREENHEIGHT / 2, DepthConstants.NORMAL - 10, 
 				true, CollisionType.CIRCLE, area);
@@ -152,7 +156,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.castdelaymeterdrawer = new SingleSpriteDrawer(
 				MultiMediaHolder.getSpriteBank("field").getSprite(
 				"regeneration"), area.getActorHandler(), this);
-		this.buttonmaps = leftwizardbuttons;
+		this.buttonmaps = wizardbuttons;
 		this.elements = usedelements;
 		this.elementsoundactivated = false;
 		this.elementsoundtime = 0;
@@ -174,9 +178,6 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		// Creates the status drawer
 		new WizardStatusDrawer(area, this);
 		
-		// Initializes HUD
-		this.huddrawer = new WizardHud(area, this);
-		
 		// Stops the animation(s)
 		this.spritedrawer.inactivate();
 		this.spritedrawer.setImageIndex(0);
@@ -192,6 +193,11 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				this.maskchecker.getRefinedRelativeCollisionPoints(
 				getRelativeCollisionPoints(), 0));
 		setRadius(27);
+		
+		// Setups the hud (if needed)
+		this.huddrawer = null;
+		if (usesHud)
+			this.huddrawer = new WizardHud(area, this);
 		
 		// Changes some aspects according to the screen side
 		if (this.screenside == ScreenSide.RIGHT)
@@ -589,6 +595,15 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	// OTHER METHODS	-------------------------------------------------
 	
 	/**
+	 * Sets up the hud that is used for drawing the wizard's statistics
+	 */
+	public void setupHud()
+	{
+		if (this.huddrawer == null)
+			this.huddrawer = new WizardHud(this.area, this);
+	}
+	
+	/**
 	 * Changes the strenght of a wizard's status effect
 	 *
 	 * @param status What status effect is adjusted
@@ -766,7 +781,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		}
 		
 		// Informs the scorekeeper
-		this.scorekeeper.score(getScreenSide().getOppositeSide());
+		if (this.scorekeeper != null)
+			this.scorekeeper.score(getScreenSide().getOppositeSide());
 		
 		// Also plays a dialog
 		this.voiceplayer.playDialogEvent(DialogEvent.LOSS, this);
@@ -876,7 +892,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.currentspell = this.elements[this.elementindex1].getSpell(
 				this.elements[this.elementindex2]);
 		// Informs the hud about the change
-		this.huddrawer.callSpellUpdate();
+		if (this.huddrawer != null)
+			this.huddrawer.callSpellUpdate();
 		
 		// Prepares to play a sound combo
 		this.elementsoundtime = 40;

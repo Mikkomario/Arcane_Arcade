@@ -2,6 +2,7 @@
 
 &default
 field#sprite:background,field,hud,status,creatures,spells#wav:effects#midi:field
+tutorial#sprite:background,field,hud,status,creatures,spells,menu,tutorial#wav:effects#midi:field
 mainmenu#sprite:background,menu#midi:menu#midisoundtrack:menu
 tutorialmenu#sprite:background,menu#midi:menu#midisoundtrack:menu
 optionsmenu#sprite:background,menu#midi:menu#midisoundtrack:menu
