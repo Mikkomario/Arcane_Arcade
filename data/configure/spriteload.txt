@@ -71,7 +71,7 @@ wizardmask#images/wizards/wizard_mask.png#1#61#28
 
 &tutorial
 book#images/tutorial/book.png#1#30#30
-fireelemental#images/tutorial/fire_elemental.png#1#30#27
+fireelemental#images/tutorial/flame_elemental.png#1#30#27
 iceelemental#images/tutorial/ice_elemental.png#1#28#30
 waterelemental#images/tutorial/water_elemental.png#1#25#29
 wall#images/tutorial/log.png#1#64#12

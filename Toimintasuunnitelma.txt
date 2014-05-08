@@ -383,12 +383,11 @@ Eteneminen:														Status
 				- Tuli
 				- Jää
 				- Maa
-		- Tutorial
-			* Tarvittavat valikot
-			* Tarvittavan interaktion luonti
-				- Messagen luonti
-			* Tarvittavien ympäristöjen luonti
-			* Tarvittavien ympäristöjen välillä siirtyminen
+		- Tutorial												...
+			* Tarvittavat valikot								DONE
+			* Tarvittavan interaktion luonti					...
+			* Tarvittavien ympäristöjen luonti					DONE
+			* Tarvittavien ympäristöjen välillä siirtyminen		DONE
 		- Loading screenin näyttäminen latauksien yhteydessä
 			* Oma päivitysthread?
 		- Fontit
