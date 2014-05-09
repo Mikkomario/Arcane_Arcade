@@ -26,6 +26,7 @@ import arcane_arcade_spelleffects.TeleportEffect;
 import arcane_arcade_spells.Spell;
 import arcane_arcade_status.Element;
 import arcane_arcade_status.WizardStatus;
+import arcane_arcade_tutorials.MovingTutorial;
 
 /**
  * Mages are the playable characters in the game
@@ -44,7 +45,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	private static final int RIGHT = 2;
 	
 	private static final Class<?>[] COLLIDEDCLASSES = new Class<?>[] {
-		Ball.class, SpellEffect.class};
+		Ball.class, SpellEffect.class, MovingTutorial.Book.class};
 	
 	private Avatar avatar;
 	
@@ -300,7 +301,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	public void kill()
 	{
 		// kills the huddrawer
-		this.huddrawer.kill();
+		if (this.huddrawer != null)
+			this.huddrawer.kill();
 		this.huddrawer = null;
 		
 		super.kill();
@@ -683,7 +685,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 	 */
 	public void respawn()
 	{
-		// The wizard comes back to life
+		// The wizard moves back to the center and comes back to life
+		setY(GameSettings.SCREENHEIGHT / 2);
 		this.hp = this.maxhp;
 		this.mana = 100;
 		this.invincibilitytime = this.invincibilitydelay;

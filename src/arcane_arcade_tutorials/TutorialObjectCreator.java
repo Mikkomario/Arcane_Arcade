@@ -96,10 +96,13 @@ public class TutorialObjectCreator extends SettingUsingAreaObjectCreator
 			usableElements = onlyBlaze;
 		
 		// Creates wizard(s)
-		wizardrelay.addWizard(new Wizard(area, null, ballrelay, 
+		Wizard wizard = new Wizard(area, null, ballrelay, 
 				ScreenSide.LEFT, Options.leftwizardbuttons, usableElements, 
-				1, 1, Avatar.GANDALF, wizardvoiceplayer, (this.tutorial != MOVING)));
+				1, 1, Avatar.GANDALF, wizardvoiceplayer, (this.tutorial != MOVING));
+		wizardrelay.addWizard(wizard);
 		
 		// TODO: Create the tutorial objects
+		if (this.tutorial == MOVING)
+			new MovingTutorial(wizard, getNavigator(), area);
 	}
 }
