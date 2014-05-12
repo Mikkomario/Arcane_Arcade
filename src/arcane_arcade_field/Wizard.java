@@ -242,6 +242,24 @@ public class Wizard extends BasicPhysicDrawnObject implements
 				spell.onWizardCollision(this, averagepoint.x, averagepoint.y);
 			}
 		}
+		// If collided with a wall, bounces off of it
+		else if (collided instanceof Wall)
+		{
+			Wall wall = (Wall) collided;
+			
+			if (HelpMath.getAngleDifference180(
+					wall.getCollisionForceDirection(
+					HelpMath.getAveragePoint(colpoints)), 90) < 90)
+			{
+				getMovement().setVSpeed(-Math.abs(getMovement().getVSpeed()));
+				addPosition(0, -5);
+			}
+			else
+			{
+				getMovement().setVSpeed(Math.abs(getMovement().getVSpeed()));
+				addPosition(0, 5);
+			}
+		}
 	}
 
 	@Override

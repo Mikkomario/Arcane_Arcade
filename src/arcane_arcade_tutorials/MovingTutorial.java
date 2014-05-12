@@ -12,6 +12,7 @@ import utopia_resourcebanks.MultiMediaHolder;
 import utopia_utility.CollisionType;
 import utopia_utility.DepthConstants;
 import utopia_worlds.Area;
+import arcane_arcade_field.Wall;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_main.Button;
 import arcane_arcade_main.GameSettings;
@@ -33,7 +34,6 @@ public class MovingTutorial
 	private Navigator navigator;
 	private Area area;
 	private Wizard wizard;
-	// TODO: Add the walls
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -65,7 +65,7 @@ public class MovingTutorial
 				"#For the second player " + Options.rightwizardbuttons.get(Button.UP) + 
 				" and " + Options.rightwizardbuttons.get(Button.DOWN));
 	}
-
+	
 	
 	// OTHER METHODS	-------------------------------------------------
 	
@@ -84,9 +84,9 @@ public class MovingTutorial
 			if (this.phase == 0)
 			{
 				this.phase ++;
-				createBooks();
-				// TODO: Create walls
 				this.wizard.respawn();
+				createWalls();
+				createBooks();
 				
 				showMessage("Teleport by double tapping either movement key");
 			}
@@ -112,6 +112,14 @@ public class MovingTutorial
 		new Book(50, this.area);
 		new Book(GameSettings.SCREENHEIGHT - 50, this.area);
 		this.booksLeft += 2;
+	}
+	
+	private void createWalls()
+	{
+		new Wall(50, 100, 100, 16, 
+				MultiMediaHolder.getSprite("tutorial", "wall"), this.area);
+		new Wall(50, GameSettings.SCREENHEIGHT - 100, 100, 16, 
+				MultiMediaHolder.getSprite("tutorial", "wall"), this.area);
 	}
 	
 	
@@ -157,7 +165,8 @@ public class MovingTutorial
 		public void onCollision(ArrayList<Double> colpoints,
 				Collidable collided, double steps)
 		{
-			//System.out.println("Collides");
+			if (!(collided instanceof Wizard))
+				return;
 			// When the book collides with a wizard it disappears and informs 
 			// th etutorial
 			kill();
@@ -167,7 +176,8 @@ public class MovingTutorial
 		@Override
 		public Class<?>[] getSupportedListenerClasses()
 		{
-			return null;
+			// No class collides with books
+			return new Class<?>[0];
 		}
 
 		@Override
