@@ -235,12 +235,9 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		else if (collided instanceof SpellEffect)
 		{
 			SpellEffect spell = (SpellEffect) collided;
-			if (spell.collidesWithWizards())
-			{
-				Point2D.Double averagepoint = 
-						HelpMath.getAveragePoint(colpoints);
-				spell.onWizardCollision(this, averagepoint.x, averagepoint.y);
-			}
+			Point2D.Double averagepoint = 
+					HelpMath.getAveragePoint(colpoints);
+			spell.onWizardCollision(this, averagepoint.x, averagepoint.y);
 		}
 		// If collided with a wall, bounces off of it
 		else if (collided instanceof Wall)

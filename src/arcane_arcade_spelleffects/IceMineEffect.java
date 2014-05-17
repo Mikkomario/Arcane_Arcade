@@ -19,10 +19,7 @@ public class IceMineEffect extends MaskedSpellEffect
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private Area area;
-	
-	// TODO: Add interactive collisions with wave effects
-	private static final Class<?>[] COLLIDEDCLASSES = new Class<?>[]{Ball.class};
-	
+
 	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
@@ -69,11 +66,5 @@ public class IceMineEffect extends MaskedSpellEffect
 	public void onWizardCollision(Wizard wizard, double x, double y)
 	{
 		// Doesn't collide with wizards
-	}
-
-	@Override
-	public Class<?>[] getSupportedListenerClasses()
-	{
-		return COLLIDEDCLASSES;
 	}
 }

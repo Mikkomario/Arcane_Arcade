@@ -14,6 +14,7 @@ import utopia_resourcebanks.MultiMediaHolder;
 import utopia_worlds.Area;
 import utopia_worlds.Room;
 import arcane_arcade_field.Ball;
+import arcane_arcade_field.SpellTarget;
 import arcane_arcade_field.Wizard;
 import arcane_arcade_status.Element;
 
@@ -34,12 +35,12 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	// ATTRIBUTES	------------------------------------------------------
 	
 	private SingleSpriteDrawer spritedrawer;
-	private boolean spellcollision, ballcollision, wizardcollision;
 	private Element element1, element2;
 	private int lifetime;
 	private boolean fadesin, fadesout, sizeeffect, scalesin, scalesout;
 	private int fadein, fadeout, scalein, scaleout;
 	private double minscale, lifeleft;
+	private Class<?>[] collidedClasses;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -52,9 +53,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * @param depth The effect's drawing depth
 	 * @param collisiontype The effect's collision type (= shape)
 	 * @param spritename The name of the sprite in the spritebank 'spells'
-	 * @param collidesWithSpells Does the spell collide with other spells. If 
-	 * this is on, the spell must call setBoxCollisionPrecision or 
-	 * setCircleCollision and setRadius methods in its constructor.
+	 * @param spellsCollideWithThis Can other spells collide with this one?
 	 * @param collidesWithBalls Will the spell react to collisions with balls
 	 * @param collidesWithWizards Will the spell react to collisions with 
 	 * wizards
@@ -67,20 +66,17 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * @param area The area where the object is placed to
 	 */
 	public SpellEffect(int x, int y, int depth,
-			CollisionType collisiontype, String spritename, boolean collidesWithSpells, 
+			CollisionType collisiontype, String spritename, boolean spellsCollideWithThis, 
 			boolean collidesWithBalls, boolean collidesWithWizards, 
 			Element element1, Element element2, int lifetime, Area area)
 	{
 		// TODO: Sort out this collides with ... stuff
 		
 		super(x, y, depth, 
-				collidesWithBalls || collidesWithSpells || collidesWithWizards, 
+				collidesWithBalls || spellsCollideWithThis || collidesWithWizards, 
 				collisiontype, area);
 		
 		// Initializes attributes
-		this.spellcollision = collidesWithSpells;
-		this.ballcollision = collidesWithBalls;
-		this.wizardcollision = collidesWithWizards;
 		this.element1 = element1;
 		this.element2 = element2;
 		this.lifeleft = lifetime;
@@ -95,6 +91,9 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.scaleout = 0;
 		this.scalesout = false;
 		this.minscale = 1;
+		
+		initializeCollidedClassArray(collidesWithWizards, collidesWithBalls, 
+				spellsCollideWithThis);
 	}
 	
 	
@@ -107,12 +106,11 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * @param ball The ball the spell collided with
 	 * @param x The average x-coordinate of the collision
 	 * @param y The average y-coordinate of the collision
-	 * @see #collidesWithBalls()
 	 */
 	public abstract void onBallCollision(Ball ball, double x, double y);
 	
 	/**
-	 * This method is called when the spell collides with another spelleffect 
+	 * This method is called when the spell collides with another spellEffect 
 	 * (if it needs to react to it somehow)
 	 *
 	 * @param spell The spelleffect the spell collided with
@@ -128,7 +126,6 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * @param wizard The wizard the spell collided with
 	 * @param x The average x-coordinate of the collision
 	 * @param y The average y-coordinate of the collision
-	 * @see #collidesWithWizards()
 	 */
 	public abstract void onWizardCollision(Wizard wizard, double x, double y);
 	
@@ -136,17 +133,25 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	// IMPLEMENTED METHODS	---------------------------------------------
 
 	@Override
+	public Class<?>[] getSupportedListenerClasses()
+	{
+		return this.collidedClasses;
+	}
+	
+	@Override
 	public void onCollision(ArrayList<Point2D.Double> colpoints,
 			Collidable collided, double steps)
 	{
 		// If the spell collides with other spells, may react to them
-		if (this.spellcollision && collided instanceof SpellEffect)
+		if (collided instanceof SpellEffect)
 		{
 			Point2D.Double averagepoint = 
 					HelpMath.getAveragePoint(colpoints);
 			onSpellCollision((SpellEffect) collided, averagepoint.x, 
 					averagepoint.y);
 		}
+		else if (collided instanceof SpellTarget)
+			((SpellTarget) collided).onSpellCollision(this, steps);
 	}
 
 	@Override
@@ -333,20 +338,24 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	 * with the spellEffect
 	 * @see #onBallCollision(Ball, double, double)
 	 */
+	/*
 	public boolean collidesWithBalls()
 	{
 		return this.ballcollision;
 	}
+	*/
 	
 	/**
 	 * @return Should the wizard call onWizardCollision method when it collides 
 	 * with the spellEffect
 	 * @see #onWizardCollision(Wizard, double, double)
 	 */
+	/*
 	public boolean collidesWithWizards()
 	{
 		return this.wizardcollision;
 	}
+	*/
 	
 	/**
 	 * Calculates the force modifier that affects the size of the impact caused 
@@ -359,5 +368,27 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	protected double getForceModifier(Ball ball)
 	{
 		return Element.getForceModifier(this.element1, this.element2, ball);
+	}
+	
+	private void initializeCollidedClassArray(boolean collidesWithWizards, 
+			boolean collidesWithBalls, boolean collidesWithSpells)
+	{
+		ArrayList<Class<?>> collidedClasses = new ArrayList<Class<?>>();
+		
+		if (collidesWithWizards)
+			collidedClasses.add(Wizard.class);
+		if (collidesWithBalls)
+			collidedClasses.add(Ball.class);
+		if (collidesWithSpells)
+			collidedClasses.add(SpellEffect.class);
+		
+		// Turns the arraylist into an array and adds spellTarget
+		this.collidedClasses = new Class<?>[collidedClasses.size() + 1];
+		this.collidedClasses[0] = SpellTarget.class;
+		
+		for (int i = 0; i < collidedClasses.size(); i++)
+		{
+			this.collidedClasses[i + 1] = collidedClasses.get(i);
+		}
 	}
 }

@@ -16,12 +16,6 @@ import arcane_arcade_status.Element;
  */
 public class WaveEffect extends MaskedSpellEffect
 {
-	// ATTRIBUTES	----------------------------------------------------
-	
-	// TODO: Add interactive collisions with mines?
-	private static final Class<?>[] COLLIDEDCLASSES = new Class<?>[]{Ball.class};
-	
-	
 	//CONSTRUCTOR	--------------------------------------------------
 	
 	/**
@@ -59,11 +53,5 @@ public class WaveEffect extends MaskedSpellEffect
 	@Override
 	public void onWizardCollision(Wizard wizard, double x, double y) {
 		// Doesn't collide with Wizards
-	}
-
-	@Override
-	public Class<?>[] getSupportedListenerClasses()
-	{
-		return COLLIDEDCLASSES;
 	}
 }

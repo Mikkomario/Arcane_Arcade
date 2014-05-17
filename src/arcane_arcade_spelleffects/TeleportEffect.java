@@ -52,11 +52,4 @@ public class TeleportEffect extends SpellEffect
 	{
 		// Doesn't collide with wizards
 	}
-
-	@Override
-	public Class<?>[] getSupportedListenerClasses()
-	{
-		// Nothing collides with teleport effects, they are purely visual
-		return new Class<?>[0];
-	}
 }

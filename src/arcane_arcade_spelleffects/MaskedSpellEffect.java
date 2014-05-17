@@ -36,8 +36,7 @@ public abstract class MaskedSpellEffect extends SpellEffect
 	 * @param collisiontype The effect's collision type (= spell's shape)
 	 * @param spritename The effect's sprite's name in the spritebank "spells"
 	 * @param maskname The effect's mask's name in the spritebank "spells"
-	 * @param collidesWithSpells Does the effect react to collisions with other 
-	 * spells
+	 * @param spellsCollideWithThis Can other spells collide with this one?
 	 * @param collidesWithBalls Does the effect react to collisions with balls
 	 * @param collidesWithWizards Does the effect react to collisions with 
 	 * wizards
@@ -53,11 +52,11 @@ public abstract class MaskedSpellEffect extends SpellEffect
 	 */
 	public MaskedSpellEffect(int x, int y, int depth,
 			CollisionType collisiontype, String spritename, String maskname, 
-			boolean collidesWithSpells, boolean collidesWithBalls, 
+			boolean spellsCollideWithThis, boolean collidesWithBalls, 
 			boolean collidesWithWizards, Element element1, Element element2, 
 			int lifetime, boolean isMaskAnimated, Area area)
 	{
-		super(x, y, depth, collisiontype, spritename, collidesWithSpells, collidesWithBalls,
+		super(x, y, depth, collisiontype, spritename, spellsCollideWithThis, collidesWithBalls,
 				collidesWithWizards, element1, element2, lifetime, area);
 		// Initializes attributes
 		this.maskanimated = isMaskAnimated;

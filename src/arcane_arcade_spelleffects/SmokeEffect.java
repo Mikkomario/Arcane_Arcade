@@ -58,11 +58,4 @@ public class SmokeEffect extends MaskedSpellEffect
 	{
 		// Doesn't collide with wizards
 	}
-
-	@Override
-	public Class<?>[] getSupportedListenerClasses()
-	{
-		// TODO Add collisions with wind spells after they have been made
-		return new Class<?>[0];
-	}
 }

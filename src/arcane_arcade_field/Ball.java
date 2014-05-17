@@ -98,9 +98,6 @@ public class Ball extends BouncingBasicPhysicDrawnObject implements RoomListener
 		if (collided instanceof SpellEffect)
 		{
 			SpellEffect effect = (SpellEffect) collided;
-			// Some spells don't react to ball collisions
-			if (!effect.collidesWithBalls())
-				return;
 			
 			// Calculates the average collision point
 			Point2D.Double averagepoint = 

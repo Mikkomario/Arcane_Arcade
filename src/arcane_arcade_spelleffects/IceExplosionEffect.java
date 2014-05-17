@@ -17,11 +17,6 @@ import arcane_arcade_status.Element;
  */
 public class IceExplosionEffect extends MaskedSpellEffect
 {
-	// ATTRIBUTES	-----------------------------------------------------
-	
-	private static final Class<?>[] COLLIDEDCLASSES = new Class<?>[]{Ball.class};
-	
-	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
@@ -41,6 +36,9 @@ public class IceExplosionEffect extends MaskedSpellEffect
 		setRadius(100);
 		addAnimationEffect();
 	}
+	
+	
+	// IMPLEMENTED METHODS	----------------------------------------------
 
 	@Override
 	public void onBallCollision(Ball ball, double x, double y)
@@ -60,11 +58,5 @@ public class IceExplosionEffect extends MaskedSpellEffect
 	public void onWizardCollision(Wizard wizard, double x, double y)
 	{
 		// Doesn't collide with wizards
-	}
-
-	@Override
-	public Class<?>[] getSupportedListenerClasses()
-	{
-		return COLLIDEDCLASSES;
 	}
 }
