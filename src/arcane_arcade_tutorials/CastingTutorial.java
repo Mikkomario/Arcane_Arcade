@@ -5,7 +5,9 @@ import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 
 import arcane_arcade_field.SpellTarget;
+import arcane_arcade_main.Button;
 import arcane_arcade_main.GameSettings;
+import arcane_arcade_main.Options;
 import arcane_arcade_spelleffects.SpellEffect;
 import arcane_arcade_status.Element;
 import arcane_arcade_worlds.Navigator;
@@ -55,6 +57,10 @@ public class CastingTutorial
 		new Target(0, area, Element.NOELEMENT);
 		new Target(1, area, Element.NOELEMENT);
 		new Target(2, area, Element.NOELEMENT);
+		
+		TutorialObjectCreator.showMessage("You can cast spells by pressing " + 
+				Options.leftwizardbuttons.get(Button.CAST) +
+				".#Destroy the targets with spells!", area);
 	}
 
 	
@@ -64,8 +70,6 @@ public class CastingTutorial
 	{
 		// Counts the targets
 		this.targetsLeft --;
-		
-		System.out.println(this.targetsLeft);
 		
 		// If there are no more targets, moves forward
 		if (this.targetsLeft > 0)
@@ -80,6 +84,12 @@ public class CastingTutorial
 			new Target(1, this.area, Element.TIDE);
 			new Target(2, this.area, Element.FROST);
 			
+			TutorialObjectCreator.showMessage("Change the elements with " + 
+					Options.leftwizardbuttons.get(Button.LEFT_ELEMENT_DOWN) + ", " + 
+					Options.leftwizardbuttons.get(Button.LEFT_ELEMENT_UP) + ", " + 
+					Options.leftwizardbuttons.get(Button.RIGHT_ELEMENT_DOWN) + " and " + 
+					Options.leftwizardbuttons.get(Button.RIGHT_ELEMENT_UP) + 
+					"#Blaze beats Tide, Tide beats Frost and Frost beats Blaze", this.area);
 		}
 		// On phase 1 ends the tutorial
 		else
@@ -169,9 +179,8 @@ public class CastingTutorial
 		{
 			if (this.spriteDrawer != null)
 				this.spriteDrawer.drawSprite(g2d, 0, 0);
-			
-			drawCollisionArea(g2d);
-			drawCollisionPoints(g2d);
+			//drawCollisionArea(g2d);
+			//drawCollisionPoints(g2d);
 		}
 
 		@Override

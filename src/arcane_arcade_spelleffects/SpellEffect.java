@@ -185,7 +185,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 		this.spritedrawer.drawSprite(g2d, 0, 0);
 		
 		// Testing
-		drawCollisionArea(g2d);
+		//drawCollisionArea(g2d);
 	}
 	
 	@Override

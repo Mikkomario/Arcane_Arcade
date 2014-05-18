@@ -244,15 +244,15 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		{
 			Wall wall = (Wall) collided;
 			
-			if (HelpMath.getAngleDifference180(
-					wall.getCollisionForceDirection(
-					HelpMath.getAveragePoint(colpoints)), 90) < 90)
+			if (getY() < wall.getY())
 			{
+				System.out.println("Pushes up");
 				getMovement().setVSpeed(-Math.abs(getMovement().getVSpeed()));
 				addPosition(0, -5);
 			}
 			else
 			{
+				System.out.println("Pushes down");
 				getMovement().setVSpeed(Math.abs(getMovement().getVSpeed()));
 				addPosition(0, 5);
 			}
@@ -308,8 +308,8 @@ public class Wizard extends BasicPhysicDrawnObject implements
 					this.castdelaymeterdrawer.getSprite().getOriginX(), 
 					getSpriteDrawer().getSprite().getOriginY() - 
 					this.castdelaymeterdrawer.getSprite().getOriginY());
-		drawCollisionArea(g2d);
-		drawCollisionPoints(g2d);
+		//drawCollisionArea(g2d);
+		//drawCollisionPoints(g2d);
 	}
 	
 	@Override

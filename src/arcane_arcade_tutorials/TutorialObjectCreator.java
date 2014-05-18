@@ -1,5 +1,8 @@
 package arcane_arcade_tutorials;
 
+import utopia_interfaceElements.OptionMessageBox;
+import utopia_resourcebanks.MultiMediaHolder;
+import utopia_utility.DepthConstants;
 import utopia_worlds.Area;
 import arcane_arcade_field.Avatar;
 import arcane_arcade_field.BallRelay;
@@ -106,5 +109,25 @@ public class TutorialObjectCreator extends SettingUsingAreaObjectCreator
 			new MovingTutorial(wizard, getNavigator(), area);
 		else if (this.tutorial == CASTING)
 			new CastingTutorial(area, getNavigator());
+	}
+	
+	
+	// OTHER METHODS	--------------------------------------------------
+	
+	/**
+	 * Shows a simple message with the given text
+	 * 
+	 * @param text The text shown in the message
+	 * @param area The area where the message will be placed to
+	 */
+	protected static void showMessage(String text, Area area)
+	{
+		new OptionMessageBox(GameSettings.SCREENWIDTH / 2, GameSettings.SCREENHEIGHT / 2, 
+				DepthConstants.TOP, 32, text, GameSettings.BASICFONT, 
+				GameSettings.WHITETEXTCOLOR, 
+				MultiMediaHolder.getSprite("menu", "messageback"), 
+				OptionMessageBox.OKOPTIONS, 
+				MultiMediaHolder.getSprite("menu", "button"), true, false, null, 
+				area);
 	}
 }

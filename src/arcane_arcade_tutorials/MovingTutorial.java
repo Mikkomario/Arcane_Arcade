@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import utopia_gameobjects.CollidingDrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_handleds.Collidable;
-import utopia_interfaceElements.OptionMessageBox;
 import utopia_resourcebanks.MultiMediaHolder;
 import utopia_utility.CollisionType;
 import utopia_utility.DepthConstants;
@@ -59,11 +58,10 @@ public class MovingTutorial
 		
 		// TODO: Remove the wizard's colour and colour regeneration
 		
-		showMessage("Move up and down by pressing " + 
+		TutorialObjectCreator.showMessage("Move up and down by pressing " + 
 				Options.leftwizardbuttons.get(Button.UP) + " and " + 
-				Options.leftwizardbuttons.get(Button.DOWN) + 
-				"#For the second player " + Options.rightwizardbuttons.get(Button.UP) + 
-				" and " + Options.rightwizardbuttons.get(Button.DOWN));
+				Options.leftwizardbuttons.get(Button.DOWN) + ".#Collect the books!", 
+				area);
 	}
 	
 	
@@ -88,23 +86,13 @@ public class MovingTutorial
 				createWalls();
 				createBooks();
 				
-				showMessage("Teleport by double tapping either movement key");
+				TutorialObjectCreator.showMessage(
+						"Teleport by double tapping either movement key", this.area);
 			}
 			// At the end of the second phase, ends the tutorial
 			else
 				this.navigator.startPhase("tutorialmenu", null);
 		}
-	}
-	
-	private void showMessage(String text)
-	{
-		new OptionMessageBox(GameSettings.SCREENWIDTH / 2, GameSettings.SCREENHEIGHT / 2, 
-				DepthConstants.TOP, 32, text, GameSettings.BASICFONT, 
-				GameSettings.WHITETEXTCOLOR, 
-				MultiMediaHolder.getSprite("menu", "messageback"), 
-				OptionMessageBox.OKOPTIONS, 
-				MultiMediaHolder.getSprite("menu", "button"), true, false, null, 
-				this.area);
 	}
 	
 	private void createBooks()
