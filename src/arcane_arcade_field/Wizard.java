@@ -180,7 +180,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		new WizardStatusDrawer(area, this);
 		
 		// Stops the animation(s)
-		this.spritedrawer.inactivate();
+		this.spritedrawer.setImageSpeed(0);
 		this.spritedrawer.setImageIndex(0);
 		this.castdelaymeterdrawer.inactivate();
 		
@@ -413,7 +413,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 			// If the casting ended, stops the sprite
 			if (this.castdelay <= 0)
 			{
-				this.spritedrawer.inactivate();
+				this.spritedrawer.setImageSpeed(0);
 				this.spritedrawer.setImageIndex(0);
 				// Also stops the regen meter
 				this.castdelaymeterdrawer.inactivate();
@@ -509,7 +509,7 @@ public class Wizard extends BasicPhysicDrawnObject implements
 		this.castdelaymeterdrawer.setImageIndex(0);
 		// Sets the animation on
 		getSpriteDrawer().setAnimationDuration(castdelay);
-		getSpriteDrawer().activate();
+		//getSpriteDrawer().activate();
 		this.castdelaymeterdrawer.setAnimationDuration(castdelay);
 		this.castdelaymeterdrawer.activate();
 	}

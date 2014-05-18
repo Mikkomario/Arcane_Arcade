@@ -1,11 +1,11 @@
 * This is a list of GamePhases used in the ArcaneArts project
 
 &default
-field#sprite:background,field,hud,status,creatures,spells#wav:effects#midi:field
-tutorial#sprite:background,field,hud,status,creatures,spells,menu,tutorial#wav:effects#midi:field
+field#sprite:background,field,hud,status,creatures,spells,messages#wav:effects#midi:field
+tutorial#sprite:background,field,hud,status,creatures,spells,messages,tutorial#wav:effects#midi:field
 mainmenu#sprite:background,menu#midi:menu#midisoundtrack:menu
 tutorialmenu#sprite:background,menu#midi:menu#midisoundtrack:menu
-optionsmenu#sprite:background,menu#midi:menu#midisoundtrack:menu
+optionsmenu#sprite:background,menu,messages#midi:menu#midisoundtrack:menu
 spellbookmenu#sprite:background,menu,hud#midi:menu#midisoundtrack:menu
 battlesettingmenu#sprite:background,menu#midi:menu#midisoundtrack:menu
 elementmenu#sprite:background,menu,hud#midi:menu#midisoundtrack:menu

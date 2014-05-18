@@ -58,6 +58,9 @@ public class FieldObjectCreator extends SettingUsingAreaObjectCreator
 		// Creates the music player
 		new FieldMusicPlayer(area);
 		
+		// Creates the escape
+		new EscapeToMenu(getNavigator(), area);
+		
 		// Creates a ballrelay
 		BallRelay ballrelay = new BallRelay(area);
 		// And the wizardrelay

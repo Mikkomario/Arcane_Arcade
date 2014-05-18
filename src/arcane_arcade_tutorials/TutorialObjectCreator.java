@@ -6,6 +6,7 @@ import utopia_utility.DepthConstants;
 import utopia_worlds.Area;
 import arcane_arcade_field.Avatar;
 import arcane_arcade_field.BallRelay;
+import arcane_arcade_field.EscapeToMenu;
 import arcane_arcade_field.FieldMusicPlayer;
 import arcane_arcade_field.ScreenSide;
 import arcane_arcade_field.Wizard;
@@ -83,6 +84,9 @@ public class TutorialObjectCreator extends SettingUsingAreaObjectCreator
 		// Creates the music player
 		new FieldMusicPlayer(area);
 		
+		// Creates the escape
+		new EscapeToMenu(getNavigator(), area);
+		
 		// Creates a ballrelay
 		BallRelay ballrelay = new BallRelay(area);
 		// And the wizardrelay
@@ -95,7 +99,7 @@ public class TutorialObjectCreator extends SettingUsingAreaObjectCreator
 		Element[] onlyBlaze = {Element.BLAZE};
 		Element[] usableElements = {Element.BLAZE, Element.TIDE, Element.FROST};
 		
-		if (this.tutorial == MOVING)
+		if (this.tutorial != CASTING)
 			usableElements = onlyBlaze;
 		
 		// Creates wizard(s)
@@ -125,9 +129,9 @@ public class TutorialObjectCreator extends SettingUsingAreaObjectCreator
 		new OptionMessageBox(GameSettings.SCREENWIDTH / 2, GameSettings.SCREENHEIGHT / 2, 
 				DepthConstants.TOP, 32, text, GameSettings.BASICFONT, 
 				GameSettings.WHITETEXTCOLOR, 
-				MultiMediaHolder.getSprite("menu", "messageback"), 
+				MultiMediaHolder.getSprite("messages", "messageback"), 
 				OptionMessageBox.OKOPTIONS, 
-				MultiMediaHolder.getSprite("menu", "button"), true, false, null, 
+				MultiMediaHolder.getSprite("messages", "button"), true, true, null, 
 				area);
 	}
 }

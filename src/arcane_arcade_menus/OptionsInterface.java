@@ -209,9 +209,9 @@ public class OptionsInterface
 					GameSettings.SCREENHEIGHT / 2, DepthConstants.TOP, 32, 
 					"Changes successfully saved!", GameSettings.BASICFONT, 
 					GameSettings.WHITETEXTCOLOR, 
-					MultiMediaHolder.getSpriteBank("menu").getSprite("messageback"), 
+					MultiMediaHolder.getSpriteBank("messages").getSprite("messageback"), 
 					OptionMessageBox.OKOPTIONS, 
-					MultiMediaHolder.getSpriteBank("menu").getSprite("button"), 
+					MultiMediaHolder.getSpriteBank("messages").getSprite("button"), 
 					true, true, null, this.area);
 		}
 	}
@@ -287,9 +287,9 @@ public class OptionsInterface
 						GameSettings.SCREENHEIGHT / 2, DepthConstants.TOP, 32, 
 						"Unacceptable key, please try again with a different one", 
 						GameSettings.BASICFONT, GameSettings.WHITETEXTCOLOR, 
-						MultiMediaHolder.getSpriteBank("menu").getSprite("messageback"), 
+						MultiMediaHolder.getSpriteBank("messages").getSprite("messageback"), 
 						OptionMessageBox.OKOPTIONS, 
-						MultiMediaHolder.getSpriteBank("menu").getSprite("button"), 
+						MultiMediaHolder.getSpriteBank("messages").getSprite("button"), 
 						true, true, this, this.area);
 				return;
 			}
