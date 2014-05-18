@@ -104,5 +104,7 @@ public class TutorialObjectCreator extends SettingUsingAreaObjectCreator
 		// TODO: Create the tutorial objects
 		if (this.tutorial == MOVING)
 			new MovingTutorial(wizard, getNavigator(), area);
+		else if (this.tutorial == CASTING)
+			new CastingTutorial(area, getNavigator());
 	}
 }

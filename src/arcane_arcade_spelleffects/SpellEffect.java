@@ -70,11 +70,7 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 			boolean collidesWithBalls, boolean collidesWithWizards, 
 			Element element1, Element element2, int lifetime, Area area)
 	{
-		// TODO: Sort out this collides with ... stuff
-		
-		super(x, y, depth, 
-				collidesWithBalls || spellsCollideWithThis || collidesWithWizards, 
-				collisiontype, area);
+		super(x, y, depth, true, collisiontype, area);
 		
 		// Initializes attributes
 		this.element1 = element1;
@@ -142,6 +138,8 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	public void onCollision(ArrayList<Point2D.Double> colpoints,
 			Collidable collided, double steps)
 	{
+		System.out.println(collided.getClass().getName());
+		
 		// If the spell collides with other spells, may react to them
 		if (collided instanceof SpellEffect)
 		{
@@ -150,8 +148,6 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 			onSpellCollision((SpellEffect) collided, averagepoint.x, 
 					averagepoint.y);
 		}
-		else if (collided instanceof SpellTarget)
-			((SpellTarget) collided).onSpellCollision(this, steps);
 	}
 
 	@Override
@@ -254,6 +250,23 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	// GETTERS & SETTTERS	----------------------------------------------
 	
 	/**
+	 * @return The first element affecting the effect
+	 */
+	public Element getFirstElement()
+	{
+		return this.element1;
+	}
+	
+	/**
+	 * @return The second element affecting the effect. If the effect doesn't 
+	 * have two elements, returns NOELEMENT
+	 */
+	public Element getSecondElement()
+	{
+		return this.element2;
+	}
+	
+	/**
 	 * @return The spritedrawer used to draw the object
 	 */
 	protected SingleSpriteDrawer getSpriteDrawer()
@@ -334,30 +347,6 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 	}
 	
 	/**
-	 * @return Should the ball call onBallCollision method when it collides 
-	 * with the spellEffect
-	 * @see #onBallCollision(Ball, double, double)
-	 */
-	/*
-	public boolean collidesWithBalls()
-	{
-		return this.ballcollision;
-	}
-	*/
-	
-	/**
-	 * @return Should the wizard call onWizardCollision method when it collides 
-	 * with the spellEffect
-	 * @see #onWizardCollision(Wizard, double, double)
-	 */
-	/*
-	public boolean collidesWithWizards()
-	{
-		return this.wizardcollision;
-	}
-	*/
-	
-	/**
 	 * Calculates the force modifier that affects the size of the impact caused 
 	 * to the ball.
 	 *
@@ -381,14 +370,14 @@ public abstract class SpellEffect extends BasicPhysicDrawnObject implements
 			collidedClasses.add(Ball.class);
 		if (collidesWithSpells)
 			collidedClasses.add(SpellEffect.class);
+		collidedClasses.add(SpellTarget.class);
 		
 		// Turns the arraylist into an array and adds spellTarget
-		this.collidedClasses = new Class<?>[collidedClasses.size() + 1];
-		this.collidedClasses[0] = SpellTarget.class;
+		this.collidedClasses = new Class<?>[collidedClasses.size()];
 		
 		for (int i = 0; i < collidedClasses.size(); i++)
 		{
-			this.collidedClasses[i + 1] = collidedClasses.get(i);
+			this.collidedClasses[i] = collidedClasses.get(i);
 		}
 	}
 }

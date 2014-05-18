@@ -419,6 +419,8 @@ Eteneminen:														Status
 			* Vaihda AbstractButton moottorin vastaavaan		DONE
 			* Implementoi areoiden käyttö huoneiden sijaan		DONE
 			* Tee testisysteemit utopiaan
+			* Vaihda getSupportedCollisionListeners 
+			getCollidedClasses:iin?
 	* Gold	---------------------------------------------------------------
 		- Erilaiset kentät
 			* Erilaiset haasteet ja objektit

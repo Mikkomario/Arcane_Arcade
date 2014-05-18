@@ -75,6 +75,7 @@ fireelemental#images/tutorial/flame_elemental.png#1#30#27
 iceelemental#images/tutorial/ice_elemental.png#1#28#30
 waterelemental#images/tutorial/water_elemental.png#1#25#29
 wall#images/tutorial/log.png#1#64#12
+target#images/tutorial/target.png#1#40#40
 
 &spells
 amnesia#images/spells/amnesia.png#1#87#89
